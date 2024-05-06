@@ -1,14 +1,21 @@
 'use client';
-import { useSelectiveContextControllerNumber } from '../../selective-context/components/typed/selective-context-manager-number';
+
 import { NodePositionsKey } from '../graph-types/organization/curriculum-delivery-graph';
 import { useGraphName } from './graph-context-creator';
+import {useGlobalController} from "selective-context";
 
+const listenerKey = 'update-counter';
 export default function NodePositionsTracker() {
-  const s = useGraphName();
-  const {} = useSelectiveContextControllerNumber({
-    contextKey: NodePositionsKey,
-    listenerKey: `${s}:position-counter`,
+  let contextKey = useNodePositionsKey();
+  const {} = useGlobalController({
+    contextKey: contextKey,
+    listenerKey: listenerKey,
     initialValue: 0
   });
   return <></>;
+}
+
+export function useNodePositionsKey() {
+  let graphName = useGraphName();
+  return `${graphName}:${NodePositionsKey}`
 }

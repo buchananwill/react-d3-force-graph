@@ -26,3 +26,7 @@ export interface GraphDto<T extends HasNumberId> {
     nodes: DataNode<T>[];
     closureDtos: ClosureDto[];
 }
+
+export interface CachedFunction<T, U> {
+    cachedFunction: (param: T) => U
+}

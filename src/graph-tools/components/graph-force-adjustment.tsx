@@ -14,7 +14,7 @@ import {
   forceAttributesMin
 } from './force-attributes-meta-data';
 
-import { ShowForceAdjustmentsKey } from '../graph/show-force-adjustments';
+import { ShowForceAdjustmentsKey } from '../graph/ShowForceAdjustments';
 import { DisclosureThatGrowsOpen } from '../../generic/components/disclosures/disclosure-that-grows-open';
 
 export default function GraphForceAdjustment() {

@@ -1,11 +1,11 @@
 'use client';
-import ForceSimWrapper from '../force-sim-wrapper';
+import ForceSimWrapper from '../ForceSimWrapper';
 import React, { PropsWithChildren } from 'react';
 import { useGraphElements } from '../aggregate-functions/use-graph-elements';
 
-import { useDraggable } from '@dnd-kit/core';
 
-import { useSelectiveContextListenerNumber } from '../../selective-context/components/typed/selective-context-manager-number';
+
+
 import GraphViewOptions from '../components/graph-view-options';
 import NodeInteractionProvider from '../nodes/node-interaction-context';
 import { useGenericGraphRefs } from '../nodes/generic-node-context-creator';
@@ -14,25 +14,28 @@ import {
   IsDraggingContext,
   MouseDownDispatchContext
 } from '../force-graph-dnd/mouse-event-context-creator';
-import { HasNumberIdDto } from '../../api/dtos/HasNumberIdDtoSchema';
-import { useGraphName } from './graph-context-creator';
+
+import {useGraphListener, useGraphName} from './graph-context-creator';
 import GraphForceAdjuster from '../components/graph-force-adjustment';
 import {
   ListenerKey,
   NodeEditorDisclosure,
   ShowNodeEditingKey
 } from '../nodes/node-editor-disclosure';
-import { useSelectiveContextListenerBoolean } from '../../selective-context/components/typed/selective-context-manager-boolean';
-import { ShowForceAdjustmentsKey } from './show-force-adjustments';
-import { useDragToTranslate } from '../../generic/components/draggable-to-translate/draggable-to-translate';
-import { useMouseMoveSvgDraggable } from '../force-graph-dnd/use-mouse-move-svg-draggable';
 
+import { ShowForceAdjustmentsKey } from './ShowForceAdjustments';
+
+import { useMouseMoveSvgDraggable } from '../force-graph-dnd/use-mouse-move-svg-draggable';
+import {HasNumberId} from "@/graph-tools/types/types";
+
+const listeners = {}
 export const DefaultGraphZoom = 100;
 export const MaxGraphZoom = 200;
 export const ConstantGraphZoomFactor = 2;
 const DefaultGraphWidth = 900;
 const DefaultGraphHeight = 600;
-export default function Graph<T extends HasNumberIdDto>({
+const listenerKey = 'graph';
+export default function Graph<T extends HasNumberId>({
   titleList,
   textList,
   children
@@ -53,24 +56,24 @@ export default function Graph<T extends HasNumberIdDto>({
     titleAccessor
   );
 
-  const { listeners, setNodeRef, transform } = useDraggable({
-    id: 'draggable'
-  });
-  const { currentState } = useSelectiveContextListenerNumber(
-    `zoom-${uniqueGraphName}`,
-    `${uniqueGraphName}`,
+  // const { listeners, setNodeRef, transform } = useDraggable({
+  //   id: 'draggable'
+  // });
+  const { currentState } = useGraphListener(
+    'zoom',
+    listenerKey,
     DefaultGraphZoom
   );
 
-  const { isTrue: showNodeEditing } = useSelectiveContextListenerBoolean(
-    ShowNodeEditingKey,
-    ListenerKey,
+  const { currentState: showNodeEditing } = useGraphListener(
+    'show-node-editing',
+    listenerKey,
     false
   );
 
-  const { isTrue: showForceEditing } = useSelectiveContextListenerBoolean(
+  const { currentState: showForceEditing } = useGraphListener(
     ShowForceAdjustmentsKey,
-    'graph.tsx',
+    listenerKey,
     false
   );
 
@@ -84,10 +87,10 @@ export default function Graph<T extends HasNumberIdDto>({
     svgScale
   } = useMouseMoveSvgDraggable(nodeListRef!, uniqueGraphName);
 
-  const translationContextInterface = useDragToTranslate();
-  const translationElement = translationContextInterface['draggable'];
-  const xTranslate = (transform?.x || 0) + (translationElement?.x || 0);
-  const yTranslate = (transform?.y || 0) + (translationElement?.y || 0);
+  // const translationContextInterface = useDragToTranslate();
+  // const translationElement = translationContextInterface['draggable'];
+  // const xTranslate = (transform?.x || 0) + (translationElement?.x || 0);
+  // const yTranslate = (transform?.y || 0) + (translationElement?.y || 0);
 
   const scale = DefaultGraphZoom / currentState;
 
@@ -105,7 +108,9 @@ export default function Graph<T extends HasNumberIdDto>({
           <IsDraggingContext.Provider value={isDragging}>
             <div className={'flex'}>
               <div className={'relative justify-center m-2 gap-2 h-fit w-fit'}>
-                <div ref={setNodeRef}>
+                <div
+                    // ref={setNodeRef}
+                >
                   <svg
                     className={'border-2 border-slate-600 rounded-lg'}
                     viewBox={`0 0 ${width} ${height}`}
@@ -121,21 +126,21 @@ export default function Graph<T extends HasNumberIdDto>({
                     <rect
                       width={'100%'}
                       height={'100%'}
-                      {...listeners}
                       className={'fill-transparent'}
+                      {...listeners }
                     />
-                    <g
-                      transform={`translate(${
-                        xTranslate * svgScale + centerOffsetX
-                      } ${yTranslate * svgScale + centerOffsetY})`}
-                    >
+                    {/*<g*/}
+                    {/*  transform={`translate(${*/}
+                    {/*    xTranslate * svgScale + centerOffsetX*/}
+                    {/*  } ${yTranslate * svgScale + centerOffsetY})`}*/}
+                    {/*>*/}
                       <ForceSimWrapper
                         textElements={textElements}
                         linkElements={linkElements}
                         nodeElements={nodeElements}
                         uniqueGraphName={uniqueGraphName}
                       />
-                    </g>
+                    {/*</g>*/}
                   </svg>
                 </div>
 

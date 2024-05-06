@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { Simulation, SimulationLinkDatum } from 'd3';
 import { DataLink, DataNode } from '../../api/zod-mods';
 import { ProductComponentStateDto } from '../../api/dtos/ProductComponentStateDtoSchema';
-import { StandardForceKey } from '../useD3ForceSimulation';
+import { StandardForceKey } from '../hooks/useD3ForceSimulation';
 import { HasNumberIdDto } from '../../api/dtos/HasNumberIdDtoSchema';
 
 export function getCosFallOffFunction(numberOfNodes: number) {

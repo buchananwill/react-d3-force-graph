@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { DataNode } from '../../api/zod-mods';
-import { useSvgScale } from '../use-svg-scale';
+import { useSvgScale } from '../hooks/useSvgScale';
 import { findDisplacement } from './find-displacement';
 import { useMouseUpDispatcher } from './use-mouse-up-dispatcher';
 import {

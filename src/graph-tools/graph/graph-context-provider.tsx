@@ -2,7 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 import { GraphContext } from './graph-context-creator';
-import { RootSvgContext } from '../root-svg-context';
+import { RootSvgContext } from '../rootSvgContextCreator';
 
 export default function GraphContextProvider({
   children,

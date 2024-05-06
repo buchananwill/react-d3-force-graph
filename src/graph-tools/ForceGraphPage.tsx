@@ -7,8 +7,8 @@ import { GenericLinkContextProvider } from './links/generic-link-context-provide
 
 import MountedTracker from './graph/mounted-tracker';
 import NodePositionsTracker from './graph/node-positions-tracker';
-import { ShowForceAdjustments } from './graph/show-force-adjustments';
-import { ShowNodeEditing } from './show-node-editing';
+import { ShowForceAdjustments } from './graph/ShowForceAdjustments';
+import { ShowNodeEditing } from './ShowNodeEditing';
 import {DataNode, GraphDto, HasNumberId} from "@/graph-tools/types/types";
 
 export interface NodePayload<T extends HasNumberId> {

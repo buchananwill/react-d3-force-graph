@@ -22,7 +22,7 @@ import {
 } from '../../graph-types/organization/curriculum-delivery-graph';
 import { ActionResponsePromise } from '../../../api/actions/actionResponse';
 import { UnsavedNodeChangesProps } from '../../graph/node-link-ref-wrapper';
-import { useShowNodeEditing } from '../../show-node-editing';
+import { useShowNodeEditing } from '../../ShowNodeEditing';
 import { useModal } from '../../../generic/components/modals/confirm-action-modal';
 import { TransientIdOffset } from '../../../api/main';
 

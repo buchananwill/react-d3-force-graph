@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { NodeDetailWrapper } from './node-detail-wrapper';
-import { NodePayload } from '../force-graph-page';
+import { NodePayload } from '../ForceGraphPage';
 import { HasNumberIdDto } from '../../api/dtos/HasNumberIdDtoSchema';
 import { NodeDetailsUiComponentProps } from '../graph-types/work-task-types/work-task-type-dto-details';
 

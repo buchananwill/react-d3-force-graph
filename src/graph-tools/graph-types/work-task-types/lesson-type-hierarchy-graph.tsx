@@ -3,10 +3,10 @@
 import { WorkTaskTypeDto } from '../../../api/dtos/WorkTaskTypeDtoSchema';
 import { DataNode } from '../../../api/zod-mods';
 import { NodeLinkRefWrapper } from '../../graph/node-link-ref-wrapper';
-import { useNodeAndLinkRefs } from '../../graph/use-node-and-link-refs';
+import { useNodeAndLinkRefs } from '../../graph/useNodeAndLinkRefs';
 import { useNodeEditing } from '../../editing/functions/use-node-editing';
 import { CloneFunctionWrapper } from './clone-work-task-type';
-import { NodePayload } from '../../force-graph-page';
+import { NodePayload } from '../../ForceGraphPage';
 import React from 'react';
 import WorkTaskTypeDtoDetails from './work-task-type-dto-details';
 import NodeDetails from '../../components/node-details';

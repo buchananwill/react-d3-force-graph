@@ -7,21 +7,21 @@ import { Simulation } from 'd3';
 import {
   getHorizontalParentsToChildrenLayout,
   updateForceX
-} from './forces/force-x';
-import { getModulusGridY, updateForceY } from './forces/force-y';
+} from '../forces/force-x';
+import { getModulusGridY, updateForceY } from '../forces/force-y';
 import {
   getForceManyBody,
   updateManyBodyForce
-} from './forces/force-many-body';
+} from '../forces/force-many-body';
 import {
   getLinkForceMinCosFallOffBusiestNode,
   updateLinkForce
-} from './forces/force-link';
-import { getForceCollide } from './forces/force-collide';
+} from '../forces/force-link';
+import { getForceCollide } from '../forces/force-collide';
 
-import { getForceRadial, updateForceRadial } from './forces/force-radial';
+import { getForceRadial, updateForceRadial } from '../forces/force-radial';
 
-import { useGraphListener } from './graph/graph-context-creator';
+import { useGraphListener } from '../graph/graph-context-creator';
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useGlobalListener} from "selective-context";
 import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDtoSchema";

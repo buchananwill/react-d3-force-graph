@@ -6,10 +6,7 @@ import {DataNode, HasNumberId} from "@/graph-tools/types/types";
 export function useBasicNodeElements<T extends HasNumberId>(
     nodes: DataNode<T>[]
 ) {
-
-    // Todo: this useMemo is new.
-    // return useMemo(() => {
-        console.log('render node components');
+    return useMemo(() => {
         return nodes.map((d, index) => (
             <NodeComponent
                 key={`node-${d.id}`}
@@ -18,5 +15,5 @@ export function useBasicNodeElements<T extends HasNumberId>(
                 nodeId={d.id}
             />
         ))
-    // }, [nodes]);
+    }, [nodes]);
 }

@@ -16,17 +16,16 @@ export default function NodeDetails<T extends HasNumberId>({
   detailsUiComponent?: FC<NodeDetailsUiComponentProps<T>>;
 }) {
 
-  // Todo: try without memo.
-  // const noteDetails = useMemo(() =>
-    const nodeDetails = nodeDetailElements.map((detailElement, index) => (
+
+  const nodeDetails = useMemo(() =>
+     nodeDetailElements.map((detailElement, index) => (
         <NodeDetailWrapper
             key={`${index}-${labels[index]}`}
             label={`${labels[index]}`}
             node={detailElement.node}
             detailsUiComponent={detailsUiComponent}
         />
-    ))
-  // , [nodeDetailElements, detailsUiComponent, labels]);
+    )), [nodeDetailElements, detailsUiComponent, labels])
 
   return (
     <div>

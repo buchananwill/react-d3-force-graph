@@ -22,7 +22,6 @@ export default function ForceSimWrapper({
   const nodesRef = useContext(GenericNodeRefContext);
   const linksRef = useContext(GenericLinkRefContext);
 
-  // Todo: this was a dispatch and listen hook before.
   let {dispatchWithoutControl} = useGraphDispatchAndListener<number>(NodePositionsKey, 'wrapper', 0);
 
   const lastRenderTimer = useRef(Date.now());

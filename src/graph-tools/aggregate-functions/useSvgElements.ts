@@ -3,8 +3,6 @@ import {useLinkElements} from "@/graph-tools/aggregate-functions/useLinkElements
 import {useBasicNodeElements} from "@/graph-tools/aggregate-functions/useNodeElements";
 import {useTextElements} from "@/graph-tools/aggregate-functions/useTextElements";
 
-// Todo: this had a redundant middle hook in the previous code.
-
 export function useSvgElements<T extends HasNumberId>(
   nodes: DataNode<T>[],
   links: DataLink<T>[],

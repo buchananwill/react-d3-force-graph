@@ -9,19 +9,12 @@ export function useDirectSimRefEditsController<T extends HasNumberId>() {
     useGenericNodeContext()
     useGenericLinkContext()
 
-    // Todo: does it matter that the current state is used for anything?
-    const {dispatch} =
-        useGraphController<number>(
-            'version',
-            EditController,
-            0
-        );
+    useGraphController<number>(
+        'version',
+        EditController,
+        0
+    );
 
-
-
-    const incrementSimVersion = () => {
-        dispatch(version => version + 1);
-    };
     const {nodeListRef, linkListRef} = useGenericGraphRefs<T>();
-    return {incrementSimVersion, nodeListRef, linkListRef};
+    return {nodeListRef, linkListRef};
 }

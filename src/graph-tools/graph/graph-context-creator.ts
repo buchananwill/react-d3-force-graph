@@ -1,10 +1,5 @@
-import { createContext, useContext, useMemo } from 'react';
-import { useSelectiveContextDispatchNumber } from '../../selective-context/components/typed/selective-context-manager-number';
-import {
-  UseSelectiveContextController,
-  UseSelectiveContextDispatch
-} from '../../selective-context/hooks/generic/use-selective-context-controller';
-import { UseSelectiveContextListener } from '../../selective-context/hooks/generic/use-selective-context-listener';
+import {createContext, useContext} from 'react';
+import {useGlobalController, useGlobalDispatchAndListener, useGlobalListener} from "selective-context";
 
 export type GraphSelectiveContext =
   | 'version'
@@ -31,30 +26,21 @@ export function useGraphName() {
 }
 
 export function useGraphSelectiveContextKey(
-  contextKey: GraphSelectiveContext,
-  listenerKey: string
+    contextKey: GraphSelectiveContext
 ) {
   const { uniqueGraphName } = useContext(GraphContext);
-  return useMemo(() => {
-    const contextKeyConcat = `${uniqueGraphName}:${contextKey}`;
-    const listenerKeyConcat = `${uniqueGraphName}:${listenerKey}`;
-    return { contextKeyConcat, listenerKeyConcat };
-  }, [uniqueGraphName, listenerKey, contextKey]);
+  return `${uniqueGraphName}:${contextKey}`
 }
 
-export function useGraphSelectiveContextDispatch<T>(
-  contextKey: GraphSelectiveContext,
-  listenerKey: string,
-  initialValue: T,
-  useSelectiveContextDispatch: UseSelectiveContextDispatch<T>
+export function useGraphDispatchAndListener<T>(
+    contextKey: GraphSelectiveContext,
+    listenerKey: string,
+    initialValue: T
 ) {
-  const { contextKeyConcat, listenerKeyConcat } = useGraphSelectiveContextKey(
-    contextKey,
-    `${listenerKey}`
-  );
-  const { currentState, dispatchWithoutControl } = useSelectiveContextDispatch({
+  const contextKeyConcat = useGraphSelectiveContextKey(contextKey);
+  const { currentState, dispatchWithoutControl } = useGlobalDispatchAndListener<T>({
     contextKey: contextKeyConcat,
-    listenerKey: listenerKeyConcat,
+    listenerKey,
     initialValue
   });
 
@@ -66,68 +52,47 @@ export function useGraphSelectiveContextDispatch<T>(
   };
 }
 
-export function useGraphSelectiveContextController<T>(
-  contextKey: GraphSelectiveContext,
-  listenerKey: string,
-  initialValue: T,
-  useSelectiveContextController: UseSelectiveContextController<T>
+export function useGraphController<T>(
+    contextKey: GraphSelectiveContext,
+    listenerKey: string,
+    initialValue: T
 ) {
-  const { contextKeyConcat, listenerKeyConcat } = useGraphSelectiveContextKey(
-    contextKey,
-    `${listenerKey}`
-  );
-  const { currentState, dispatchUpdate } = useSelectiveContextController({
+  const contextKeyConcat = useGraphSelectiveContextKey(contextKey);
+  const { currentState, dispatch } = useGlobalController<T>({
     contextKey: contextKeyConcat,
-    listenerKey: listenerKeyConcat,
+    listenerKey: listenerKey,
     initialValue
   });
 
   return {
     currentState,
-    dispatchUpdate,
+    dispatch,
     contextKey,
     listenerKey
   };
 }
 
-export function useGraphSelectiveContextListener<T>(
-  contextKey: GraphSelectiveContext,
-  listenerKey: string,
-  initialValue: T,
-  useSelectiveContextListener: UseSelectiveContextListener<T>
+export function useGraphListener<T>(
+    contextKey: GraphSelectiveContext,
+    listenerKey: string,
+    initialValue: T
 ) {
-  const { contextKeyConcat, listenerKeyConcat } = useGraphSelectiveContextKey(
-    contextKey,
-    `${listenerKey}`
-  );
+  const contextKeyConcat = useGraphSelectiveContextKey(contextKey);
 
-  return useSelectiveContextListener(
-    contextKeyConcat,
-    listenerKeyConcat,
-    initialValue
+  return useGlobalListener<T>(
+      {
+        contextKey: contextKeyConcat,
+        listenerKey,
+        initialValue
+      }
   );
 }
 
-export function useGraphSelectiveContextNumberDispatch(
+export function useGraphNumberDispatch(
   contextKey: GraphSelectiveContext,
   listenerKey: string,
   initialValue: number
 ) {
-  const { contextKeyConcat, listenerKeyConcat } = useGraphSelectiveContextKey(
-    contextKey,
-    `${listenerKey}`
-  );
-  const { currentState, dispatchWithoutControl } =
-    useSelectiveContextDispatchNumber({
-      contextKey: contextKeyConcat,
-      listenerKey: listenerKeyConcat,
-      initialValue
-    });
+  return useGraphDispatchAndListener<number>(contextKey, listenerKey, initialValue)
 
-  return {
-    currentState,
-    dispatchWithoutControl,
-    contextKey,
-    listenerKey
-  };
 }

@@ -1,5 +1,5 @@
 import { useSelectiveContextControllerNumber } from '../../../selective-context/components/typed/selective-context-manager-number';
-import { useGraphSelectiveContextController } from '../../graph/graph-context-creator';
+import { useGraphController } from '../../graph/graph-context-creator';
 import { useSelectiveContextControllerNumberList } from '../../../selective-context/components/typed/selective-context-manager-number-list';
 import { useDirectSimRefEditsController } from './use-graph-edit-button-hooks';
 import { OrganizationDto } from '../../../api/dtos/OrganizationDtoSchema';
@@ -13,48 +13,13 @@ const deletedNodeStaticArray: number[] = [];
 const dimensionsStaticArray: number[] = [1800, 1200];
 
 export function useGraphEditRootContext() {
-  useGraphSelectiveContextController(
-    'nextLinkId',
-    rootListenerKey,
-    TransientIdOffset,
-    useSelectiveContextControllerNumber
-  );
-  useGraphSelectiveContextController(
-    'nextNodeId',
-    rootListenerKey,
-    TransientIdOffset,
-    useSelectiveContextControllerNumber
-  );
-  useGraphSelectiveContextController(
-    'transientLinkIds',
-    rootListenerKey,
-    transientLinkStaticArray,
-    useSelectiveContextControllerNumberList
-  );
-  useGraphSelectiveContextController(
-    'transientNodeIds',
-    rootListenerKey,
-    transientNodeStaticArray,
-    useSelectiveContextControllerNumberList
-  );
-  useGraphSelectiveContextController(
-    'deletedLinkIds',
-    rootListenerKey,
-    deletedLinkStaticArray,
-    useSelectiveContextControllerNumberList
-  );
-  useGraphSelectiveContextController(
-    'deletedNodeIds',
-    rootListenerKey,
-    deletedNodeStaticArray,
-    useSelectiveContextControllerNumberList
-  );
-  useGraphSelectiveContextController(
-    'dimensions',
-    rootListenerKey,
-    dimensionsStaticArray,
-    useSelectiveContextControllerNumberList
-  );
+  useGraphController('nextLinkId', rootListenerKey, TransientIdOffset);
+  useGraphController('nextNodeId', rootListenerKey, TransientIdOffset);
+  useGraphController('transientLinkIds', rootListenerKey, transientLinkStaticArray);
+  useGraphController('transientNodeIds', rootListenerKey, transientNodeStaticArray);
+  useGraphController('deletedLinkIds', rootListenerKey, deletedLinkStaticArray);
+  useGraphController('deletedNodeIds', rootListenerKey, deletedNodeStaticArray);
+  useGraphController('dimensions', rootListenerKey, dimensionsStaticArray);
 
   useDirectSimRefEditsController<OrganizationDto>('root-graph-page');
 }

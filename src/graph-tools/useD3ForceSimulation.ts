@@ -1,9 +1,9 @@
-import { DataLink, DataNode } from '../api/zod-mods';
+
 import { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 import * as d3 from 'd3';
 import { Simulation } from 'd3';
 
-import { useForceAttributeListeners } from '../api/dtos/ForceGraphAttributesDtoSchema';
+
 import {
   getHorizontalParentsToChildrenLayout,
   updateForceX
@@ -18,12 +18,14 @@ import {
   updateLinkForce
 } from './forces/force-link';
 import { getForceCollide } from './forces/force-collide';
-import { useSelectiveContextListenerBoolean } from '../selective-context/components/typed/selective-context-manager-boolean';
+
 import { getForceRadial, updateForceRadial } from './forces/force-radial';
-import { useSelectiveContextListenerNumber } from '../selective-context/components/typed/selective-context-manager-number';
-import { useGraphSelectiveContextListener } from './graph/graph-context-creator';
-import { useSelectiveContextListenerNumberList } from '../selective-context/components/typed/selective-context-manager-number-list';
-import { HasNumberIdDto } from '../api/dtos/HasNumberIdDtoSchema';
+
+import { useGraphListener } from './graph/graph-context-creator';
+import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
+import {useGlobalListener} from "selective-context";
+import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDtoSchema";
+
 
 export type StandardForceKey =
   | 'link'
@@ -34,54 +36,48 @@ export type StandardForceKey =
   | 'forceX'
   | 'forceY';
 
-export function useD3ForceSimulation<T extends HasNumberIdDto>(
+const listenerKey = `force-sim`;
+
+const dimensionArray = [1800, 1200];
+
+export function useD3ForceSimulation<T extends HasNumberId>(
   nodesRef: MutableRefObject<DataNode<T>[]>,
   linksRef: MutableRefObject<DataLink<T>[]>,
   ticked: () => void,
   uniqueGraphName: string
 ) {
-  const forceAttributeListeners = useForceAttributeListeners(uniqueGraphName);
-  const { contextKey, listenerKey, mountedListenerKey, mountedKey } =
+  const forceAttributeListeners = useForceAttributeListeners('sim');
+  const { contextKey, mountedListenerKey, mountedKey } =
     useMemo(() => {
       return {
-        contextKey: `${uniqueGraphName}-ready`,
-        listenerKey: `${uniqueGraphName}-force-sim`,
-        mountedKey: `${uniqueGraphName}-mounted`,
-        mountedListenerKey: `${uniqueGraphName}-mounted-force-sim`
+        contextKey: `${uniqueGraphName}:ready`,
+        listenerKey: listenerKey,
+        mountedKey: `${uniqueGraphName}:mounted`,
+        mountedListenerKey: listenerKey
       };
     }, [uniqueGraphName]);
 
-  const { isTrue: isReady } = useSelectiveContextListenerBoolean(
-    contextKey,
-    listenerKey,
-    false
+  const { currentState: isReady } = useGlobalListener<boolean>(
+      {
+        contextKey,
+        listenerKey,
+        initialValue: false
+      }
   );
 
-  const { currentState: simVersion } = useGraphSelectiveContextListener(
-    'version',
-    listenerKey,
-    0,
-    useSelectiveContextListenerNumber
-  );
+  const { currentState: simVersion } = useGraphListener('version', listenerKey, 0);
 
-  const { isTrue: isMounted } = useSelectiveContextListenerBoolean(
-    mountedKey,
-    mountedListenerKey,
-    true
+  const { currentState: isMounted } = useGlobalListener<boolean>(
+      {
+        contextKey: mountedKey,
+        listenerKey,
+        initialValue: false
+      }
   );
-
-  const dimensionArray = useMemo(() => {
-    return [1800, 1200];
-  }, []);
 
   const {
     currentState: [width, height]
-  } = useGraphSelectiveContextListener(
-    'dimensions',
-    listenerKey,
-    dimensionArray,
-    useSelectiveContextListenerNumberList
-  );
+  } = useGraphListener('dimensions', listenerKey, dimensionArray);
 
   const simVersionRef = useRef(simVersion);
 

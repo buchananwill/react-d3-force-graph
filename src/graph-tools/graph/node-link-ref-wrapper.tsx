@@ -1,12 +1,12 @@
 'use client';
 import React, { PropsWithChildren } from 'react';
-import { DataLink, DataNode } from '../../api/zod-mods';
+
 import { GenericNodeRefContext } from '../nodes/generic-node-context-creator';
 import { GenericLinkRefContext } from '../links/generic-link-context-creator';
 import { GraphViewer } from './graph-viewer';
+import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 
-import { HasNumberIdDto } from '../../api/dtos/HasNumberIdDtoSchema';
-import { UnsavedChangesModal } from '../../generic/components/modals/unsaved-changes-modal';
+
 
 export interface UnsavedNodeChangesProps {
   unsavedChanges: boolean;
@@ -17,7 +17,7 @@ export interface UnsavedNodeChangesProps {
   onCancel: () => void;
 }
 
-export function NodeLinkRefWrapper<T extends HasNumberIdDto>({
+export function NodeLinkRefWrapper<T extends HasNumberId>({
   unsavedNodeChangesProps,
   textList,
   titleList,
@@ -39,11 +39,11 @@ export function NodeLinkRefWrapper<T extends HasNumberIdDto>({
             {children}
           </GraphViewer>
         </div>
-        {unsavedNodeChangesProps && (
-          <UnsavedChangesModal {...unsavedNodeChangesProps}>
-            <p>Save graph changes to database?</p>
-          </UnsavedChangesModal>
-        )}
+        {/*{unsavedNodeChangesProps && (*/}
+        {/*  <UnsavedChangesModal {...unsavedNodeChangesProps}>*/}
+        {/*    <p>Save graph changes to database?</p>*/}
+        {/*  </UnsavedChangesModal>*/}
+        {/*)}*/}
       </GenericLinkRefContext.Provider>
     </GenericNodeRefContext.Provider>
   );

@@ -1,7 +1,7 @@
 'use client';
 import { GraphDto } from '../../api/zod-mods';
 
-import Graph from './graph';
+import Graph from './Graph';
 import React, { PropsWithChildren, useReducer, useState } from 'react';
 import {
   ForceGraphDraggable,

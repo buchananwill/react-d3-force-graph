@@ -1,6 +1,6 @@
 'use client';
 import React, { useContext } from 'react';
-import { GraphContext } from '../../graph/graph-context-creator';
+import { GraphContext } from '../../graph/graphContextCreator';
 import { useSelectiveContextKeyMemo } from '../../../selective-context/hooks/generic/use-selective-context-listener';
 import { useSelectiveContextControllerBoolean } from '../../../selective-context/components/typed/selective-context-manager-boolean';
 import { HasNumberIdDto } from '../../../api/dtos/HasNumberIdDtoSchema';

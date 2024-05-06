@@ -1,6 +1,6 @@
 'use client';
 import React, { useContext } from 'react';
-import { GraphContext } from '../graph/graph-context-creator';
+import { GraphContext } from '../graph/graphContextCreator';
 import {
   Tooltip,
   TooltipTrigger

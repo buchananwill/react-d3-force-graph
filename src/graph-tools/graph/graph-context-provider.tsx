@@ -1,7 +1,7 @@
 'use client';
 
 import { PropsWithChildren } from 'react';
-import { GraphContext } from './graph-context-creator';
+import { GraphContext } from './graphContextCreator';
 import { RootSvgContext } from '../rootSvgContextCreator';
 
 export default function GraphContextProvider({

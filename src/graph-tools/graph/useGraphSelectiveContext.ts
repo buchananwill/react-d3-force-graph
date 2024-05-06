@@ -1,39 +1,27 @@
-import {createContext, useContext} from 'react';
 import {
-  useGlobalController,
-  useGlobalDispatch,
-  useGlobalDispatchAndListener,
-  useGlobalListener
+    useGlobalController,
+    useGlobalDispatch,
+    useGlobalDispatchAndListener,
+    useGlobalListener
 } from "selective-context";
+import {useContext} from "react";
+import {GraphContext} from "@/graph-tools/graph/graphContextCreator";
 
 export type GraphSelectiveContext =
     | 'version'
-    | 'transientNodeIds'
-    | 'transientLinkIds'
-    | 'nextNodeId'
-    | 'nextLinkId'
+    | 'transient-node-ids'
+    | 'transient-link-ids'
+    | 'next-node-id'
+    | 'next-link-id'
     | 'debouncing'
-    | 'noNodeSelected'
-    | 'deletedLinkIds'
-    | 'deletedNodeIds'
+    | 'no-node-selected'
+    | 'deleted-link-ids'
+    | 'deleted-node-ids'
     | 'dimensions'
     | 'show-node-editing'
     | 'node-clone-function'
     | 'show-force-adjustments'
     | 'zoom';
-
-export interface GraphContextInterface {
-    uniqueGraphName: string;
-}
-
-export const GraphContext = createContext<GraphContextInterface>({
-    uniqueGraphName: 'default'
-});
-
-export function useGraphName() {
-    const {uniqueGraphName} = useContext(GraphContext);
-    return uniqueGraphName;
-}
 
 export function useGraphSelectiveContextKey(
     contextKey: GraphSelectiveContext
@@ -45,8 +33,8 @@ export function useGraphSelectiveContextKey(
 export function useGraphDispatch<T>(
     contextKey: GraphSelectiveContext
 ) {
-  let selectiveContextKey = useGraphSelectiveContextKey(contextKey);
-  return useGlobalDispatch<T>(selectiveContextKey)
+    let selectiveContextKey = useGraphSelectiveContextKey(contextKey);
+    return useGlobalDispatch<T>(selectiveContextKey)
 }
 
 export function useGraphDispatchAndListener<T>(

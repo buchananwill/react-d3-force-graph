@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import {useGlobalListener} from "selective-context";
-import {useGraphName} from "@/graph-tools/graph/graph-context-creator";
+import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 import {useNormalizeForceRange} from "@/graph-tools/components/force-attributes-meta-data";
 
 export interface ForceGraphAttributesDto {

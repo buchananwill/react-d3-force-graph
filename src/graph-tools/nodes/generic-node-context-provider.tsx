@@ -7,7 +7,7 @@ import {
 } from './generic-node-context-creator';
 import { DataNode } from '../../api/zod-mods';
 import { HasNumberIdDto } from '../../api/dtos/HasNumberIdDtoSchema';
-import { useGraphName } from '../graph/graph-context-creator';
+import { useGraphName } from '../graph/graphContextCreator';
 
 // Example of a generic Provider component that can be used to wrap parts of your app
 export const GenericNodeContextProvider = <T extends HasNumberIdDto>({

@@ -1,7 +1,7 @@
 'use client';
 
 import { NodePositionsKey } from '../graph-types/organization/curriculum-delivery-graph';
-import { useGraphName } from './graph-context-creator';
+import { useGraphName } from './graphContextCreator';
 import {useGlobalController} from "selective-context";
 
 const listenerKey = 'update-counter';

@@ -1,8 +1,8 @@
 'use client';
 
 import {ControllerKey} from './graph/ShowForceAdjustments';
-import {useGraphController, useGraphDispatch} from './graph/graph-context-creator';
 import {useEffect} from 'react';
+import {useGraphController, useGraphDispatch} from "@/graph-tools/graph/useGraphSelectiveContext";
 
 export function ShowNodeEditing() {
     useGraphController('show-node-editing', ControllerKey, false)

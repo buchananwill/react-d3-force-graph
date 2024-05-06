@@ -7,7 +7,7 @@ import {
   useSelectiveContextControllerBoolean,
   useSelectiveContextListenerBoolean
 } from '../../selective-context/components/typed/selective-context-manager-boolean';
-import { GraphContext } from '../graph/graph-context-creator';
+import { GraphContext } from '../graph/graphContextCreator';
 import {
   forceAttributesInitial,
   forceAttributesMax,

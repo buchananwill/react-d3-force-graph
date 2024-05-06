@@ -21,10 +21,10 @@ import { getForceCollide } from '../forces/force-collide';
 
 import { getForceRadial, updateForceRadial } from '../forces/force-radial';
 
-import { useGraphListener } from '../graph/graph-context-creator';
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useGlobalListener} from "selective-context";
 import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDtoSchema";
+import {useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
 
 
 export type StandardForceKey =

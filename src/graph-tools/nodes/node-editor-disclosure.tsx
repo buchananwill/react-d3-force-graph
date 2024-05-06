@@ -12,7 +12,8 @@ import InvertLinksButton from '../editing/buttons/invert-links-button';
 
 import {CloneFunction} from '../editing/buttons/clone-function';
 import {CachedFunction, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {useGraphListener} from "@/graph-tools/graph/graph-context-creator";
+
+import {useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
 
 export function FallBackCloneFunction<T extends HasNumberId>(
   original: DataNode<T>

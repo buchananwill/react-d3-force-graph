@@ -1,7 +1,7 @@
 'use client';
 import { useSelectiveContextControllerBoolean } from '../../selective-context/components/typed/selective-context-manager-boolean';
 import { useContext, useEffect, useMemo } from 'react';
-import { GraphContext } from './graph-context-creator';
+import { GraphContext } from './graphContextCreator';
 
 export default function MountedTracker({}: {}) {
   const { uniqueGraphName } = useContext(GraphContext);

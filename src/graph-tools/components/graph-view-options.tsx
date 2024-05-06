@@ -6,10 +6,10 @@ import {
 } from '../../generic/components/tooltips/tooltip';
 import { SelectiveContextRangeSlider } from '../../generic/components/range-input/selective-context-range-slider';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { GraphContext } from '../graph/graph-context-creator';
+import { GraphContext } from '../graph/graphContextCreator';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { StandardTooltipContent } from '../../generic/components/tooltips/standard-tooltip-content';
-import { DefaultGraphZoom, MaxGraphZoom } from '../graph/graph';
+import { DefaultGraphZoom, MaxGraphZoom } from '../graph/Graph';
 import { Button } from '@nextui-org/button';
 
 const graphToggles: GraphToggleProps[] = [

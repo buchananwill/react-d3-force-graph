@@ -5,11 +5,8 @@ import {
 import { useNodeInteractionContext } from '../../nodes/node-interaction-context';
 import { useContext, useMemo, useState } from 'react';
 import {
-  GraphContext,
-  useGraphDispatchAndListener,
-  useGraphSelectiveContextKey,
-  useGraphNumberDispatch
-} from '../../graph/graph-context-creator';
+  GraphContext
+} from '../../graph/graphContextCreator';
 import {
   useSelectiveContextControllerNumber,
   useSelectiveContextDispatchNumber
@@ -24,6 +21,11 @@ import { DataLink, DataNode } from '../../../api/zod-mods';
 
 import { resetLinks } from '../buttons/reset-links';
 import { TransientIdOffset } from '../../../api/main';
+import {
+  useGraphDispatchAndListener,
+  useGraphNumberDispatch,
+  useGraphSelectiveContextKey
+} from "@/graph-tools/graph/useGraphSelectiveContext";
 
 export function useGraphVersionKeys<T extends HasNumberIdDto>(
   listenerKey: string

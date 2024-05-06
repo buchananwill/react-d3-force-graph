@@ -1,32 +1,27 @@
 'use client';
 import ForceSimWrapper from '../ForceSimWrapper';
-import React, { PropsWithChildren } from 'react';
-import { useGraphElements } from '../aggregate-functions/use-graph-elements';
-
-
+import React, {PropsWithChildren} from 'react';
+import {useGraphElements} from '../aggregate-functions/use-graph-elements';
 
 
 import GraphViewOptions from '../components/graph-view-options';
 import NodeInteractionProvider from '../nodes/node-interaction-context';
-import { useGenericGraphRefs } from '../nodes/generic-node-context-creator';
+import {useGenericGraphRefs} from '../nodes/generic-node-context-creator';
 import {
   DraggablePositionContext,
   IsDraggingContext,
   MouseDownDispatchContext
 } from '../force-graph-dnd/mouse-event-context-creator';
 
-import {useGraphListener, useGraphName} from './graph-context-creator';
+import {useGraphName} from './graphContextCreator';
 import GraphForceAdjuster from '../components/graph-force-adjustment';
-import {
-  ListenerKey,
-  NodeEditorDisclosure,
-  ShowNodeEditingKey
-} from '../nodes/node-editor-disclosure';
+import {NodeEditorDisclosure} from '../nodes/node-editor-disclosure';
 
-import { ShowForceAdjustmentsKey } from './ShowForceAdjustments';
+import {ShowForceAdjustmentsKey} from './ShowForceAdjustments';
 
-import { useMouseMoveSvgDraggable } from '../force-graph-dnd/use-mouse-move-svg-draggable';
+import {useMouseMoveSvgDraggable} from '../force-graph-dnd/use-mouse-move-svg-draggable';
 import {HasNumberId} from "@/graph-tools/types/types";
+import {useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
 
 const listeners = {}
 export const DefaultGraphZoom = 100;

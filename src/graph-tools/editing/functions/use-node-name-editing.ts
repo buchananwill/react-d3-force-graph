@@ -6,7 +6,7 @@ import { useSelectiveContextKeyMemo } from '../../../selective-context/hooks/gen
 
 import { useSelectiveContextControllerString } from '../../../selective-context/components/typed/selective-context-manager-string';
 import { useContext } from 'react';
-import { GraphContext } from '../../graph/graph-context-creator';
+import { GraphContext } from '../../graph/graphContextCreator';
 import { UnsavedNodeDataContextKey } from '../../graph-types/organization/curriculum-delivery-graph';
 import { useDirectSimRefEditsDispatch } from './use-graph-edit-button-hooks';
 import { OrganizationDto } from '../../../api/dtos/OrganizationDtoSchema';

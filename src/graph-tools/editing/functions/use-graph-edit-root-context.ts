@@ -1,9 +1,9 @@
 import { useSelectiveContextControllerNumber } from '../../../selective-context/components/typed/selective-context-manager-number';
-import { useGraphController } from '../../graph/graph-context-creator';
 import { useSelectiveContextControllerNumberList } from '../../../selective-context/components/typed/selective-context-manager-number-list';
 import { useDirectSimRefEditsController } from './use-graph-edit-button-hooks';
 import { OrganizationDto } from '../../../api/dtos/OrganizationDtoSchema';
 import { TransientIdOffset } from '../../../api/main';
+import {useGraphController} from "@/graph-tools/graph/useGraphSelectiveContext";
 
 const rootListenerKey = 'root-listener-key';
 const transientLinkStaticArray: number[] = [];

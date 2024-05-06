@@ -2,7 +2,7 @@ import { DataNode } from '../../api/zod-mods';
 import NodeText from '../nodes/node-text';
 import React, { useContext } from 'react';
 import { useSelectiveContextListenerNumber } from '../../selective-context/components/typed/selective-context-manager-number';
-import { GraphContext } from '../graph/graph-context-creator';
+import { GraphContext } from '../graph/graphContextCreator';
 import { HasNumberIdDto } from '../../api/dtos/HasNumberIdDtoSchema';
 
 interface TextPosition {

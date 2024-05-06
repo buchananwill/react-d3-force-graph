@@ -11,7 +11,7 @@ import { useSelectiveContextListenerBoolean } from '../../selective-context/comp
 
 import { HasNumberIdDto } from '../../api/dtos/HasNumberIdDtoSchema';
 import { useSelectiveContextListenerNumber } from '../../selective-context/components/typed/selective-context-manager-number';
-import { NodePositionsKey } from '../graph-types/organization/curriculum-delivery-graph';
+import { NodePositionsKey } from '@/app/demo/graphs/organization/curriculum-delivery-graph';
 import { LeftCtrlListener } from '../../generic/components/key-listener-context/key-listener-context-creator';
 import { TransitionWrapper } from '../../generic/components/svg/transition-wrapper';
 

@@ -1,6 +1,6 @@
 
 import { useGenericNodeContext } from '../nodes/generic-node-context-creator';
-import { useGenericLinkContext } from '../links/generic-link-context-creator';
+import { useGenericLinkContext } from '../links/genericLinkContextCreator';
 import { useEffect, useRef } from 'react';
 import {HasNumberId} from "@/graph-tools/types/types";
 

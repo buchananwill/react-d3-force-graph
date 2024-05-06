@@ -6,7 +6,7 @@ import React, {
   useContext
 } from 'react';
 import { DataLink, DataNode } from '../../api/zod-mods';
-import { GenericLinkRefContext } from '../links/generic-link-context-creator';
+import { GenericLinkRefContext } from '../links/genericLinkContextCreator';
 import { HasNumberIdDto } from '../../api/dtos/HasNumberIdDtoSchema';
 
 // Define the interface as generic

@@ -1,27 +1,28 @@
 'use client';
 import ForceSimWrapper from '../ForceSimWrapper';
 import React, {PropsWithChildren} from 'react';
-import {useGraphElements} from '../aggregate-functions/use-graph-elements';
+import {useSvgElements} from '../aggregate-functions/useSvgElements';
 
 
-import GraphViewOptions from '../components/graph-view-options';
+import GraphViewOptions from '../components/GraphViewOptions';
 import NodeInteractionProvider from '../nodes/node-interaction-context';
 import {useGenericGraphRefs} from '../nodes/generic-node-context-creator';
 import {
   DraggablePositionContext,
   IsDraggingContext,
   MouseDownDispatchContext
-} from '../force-graph-dnd/mouse-event-context-creator';
+} from '../force-graph-dnd/mouseEventContextCreator';
 
 import {useGraphName} from './graphContextCreator';
-import GraphForceAdjuster from '../components/graph-force-adjustment';
+import GraphForceAdjuster from '../components/GraphForceAdjustment';
 import {NodeEditorDisclosure} from '../nodes/node-editor-disclosure';
 
 import {ShowForceAdjustmentsKey} from './ShowForceAdjustments';
 
-import {useMouseMoveSvgDraggable} from '../force-graph-dnd/use-mouse-move-svg-draggable';
+import {useMouseMoveSvgDraggable} from '../force-graph-dnd/useMouseMoveSvgDraggable';
 import {HasNumberId} from "@/graph-tools/types/types";
 import {useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {EmptyArray} from "@/graph-tools/constants";
 
 const listeners = {}
 export const DefaultGraphZoom = 100;
@@ -44,9 +45,9 @@ export default function Graph<T extends HasNumberId>({
 
   const uniqueGraphName = useGraphName();
 
-  const { nodeElements, linkElements, textElements } = useGraphElements(
-    nodeListRef?.current || [],
-    linkListRef?.current || [],
+  const { nodeElements, linkElements, textElements } = useSvgElements(
+    nodeListRef?.current || EmptyArray,
+    linkListRef?.current || EmptyArray,
     textAccessor,
     titleAccessor
   );

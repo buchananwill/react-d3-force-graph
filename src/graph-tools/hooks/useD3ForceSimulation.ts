@@ -23,7 +23,7 @@ import { getForceRadial, updateForceRadial } from '../forces/force-radial';
 
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useGlobalListener} from "selective-context";
-import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDtoSchema";
+import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
 import {useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
 
 

@@ -1,12 +1,12 @@
 'use client';
 import React, { PropsWithChildren } from 'react';
 
-import GraphContextProvider from './graph/graph-context-provider';
+import GraphContextProvider from './graph/GraphContextProvider';
 import { GenericNodeContextProvider } from './nodes/generic-node-context-provider';
-import { GenericLinkContextProvider } from './links/generic-link-context-provider';
+import { GenericLinkContextProvider } from './links/GenericLinkContextProvider';
 
-import MountedTracker from './graph/mounted-tracker';
-import NodePositionsTracker from './graph/node-positions-tracker';
+import MountedTracker from './graph/MountedTracker';
+import NodePositionsTracker from './graph/NodePositionsTracker';
 import { ShowForceAdjustments } from './graph/ShowForceAdjustments';
 import { ShowNodeEditing } from './ShowNodeEditing';
 import {DataNode, GraphDto, HasNumberId} from "@/graph-tools/types/types";

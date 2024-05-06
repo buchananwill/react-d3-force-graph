@@ -3,8 +3,8 @@ import React, { ReactNode, useContext } from 'react';
 import { useNodeInteractionContext } from './node-interaction-context';
 import { GenericNodeRefContext } from './generic-node-context-creator';
 import { useSelectiveContextListenerNumber } from '../../selective-context/components/typed/selective-context-manager-number';
-import { NodePositionsKey } from '../graph-types/organization/curriculum-delivery-graph';
-import { useForceGraphDndElement } from '../force-graph-dnd/use-force-graph-dnd-element';
+import { NodePositionsKey } from '@/app/demo/graphs/organization/curriculum-delivery-graph';
+import { useForceGraphDndElement } from '../force-graph-dnd/useForceGraphDndElement';
 
 // Good start - clear name and type generic
 export function NodeComponent({

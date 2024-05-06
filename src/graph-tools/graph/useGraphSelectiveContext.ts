@@ -8,19 +8,29 @@ import {useContext} from "react";
 import {GraphContext} from "@/graph-tools/graph/graphContextCreator";
 
 export type GraphSelectiveContext =
-    | 'version'
+    |'arrows-to-parents'
+    | 'arrows-to-children'
+    |'highlight-from-source'
+    |'highlight-from-target'
+    |'version'
     | 'transient-node-ids'
     | 'transient-link-ids'
     | 'next-node-id'
     | 'next-link-id'
+    |'node-positions-key'
     | 'debouncing'
     | 'no-node-selected'
     | 'deleted-link-ids'
     | 'deleted-node-ids'
     | 'dimensions'
+    | 'mounted'
     | 'show-node-editing'
     | 'node-clone-function'
     | 'show-force-adjustments'
+    | 'unsaved-node-data'
+    |'lock-text-with-select'
+    |'text-size'
+    |'ready'
     | 'zoom';
 
 export function useGraphSelectiveContextKey(

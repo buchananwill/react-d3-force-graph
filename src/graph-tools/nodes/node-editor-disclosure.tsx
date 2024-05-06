@@ -1,17 +1,16 @@
 'use client';
 
-import {AddNodesButton} from '../editing/buttons/add-nodes-button';
+import {AddNodesButton} from '../editing/buttons/AddNodesButton';
 
 
-import AddLinksButton from '../editing/buttons/add-links-button';
-import {DeleteNodesButton} from '../editing/buttons/delete-nodes-button';
-import {DeleteLinksButton} from '../editing/buttons/delete-links-button';
+import AddLinksButton from '../editing/buttons/AddLinksButton';
+import {DeleteNodesButton} from '../editing/buttons/DeleteNodesButton';
+import {DeleteLinksButton} from '../editing/buttons/DeleteLinksButton';
 import React from 'react';
 
-import InvertLinksButton from '../editing/buttons/invert-links-button';
+import InvertLinksButton from '../editing/buttons/InvertLinksButton';
 
-import {CloneFunction} from '../editing/buttons/clone-function';
-import {CachedFunction, DataNode, HasNumberId} from "@/graph-tools/types/types";
+import {CachedFunction, CloneFunction, DataNode, HasNumberId} from "@/graph-tools/types/types";
 
 import {useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
 

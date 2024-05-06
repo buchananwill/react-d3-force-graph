@@ -22,6 +22,10 @@ export interface HasNumberId {
     id: number
 }
 
+export interface HasName {
+    name: string
+}
+
 export interface GraphDto<T extends HasNumberId> {
     nodes: DataNode<T>[];
     closureDtos: ClosureDto[];
@@ -29,4 +33,18 @@ export interface GraphDto<T extends HasNumberId> {
 
 export interface CachedFunction<T, U> {
     cachedFunction: (param: T) => U
+}
+
+export interface Predicate<T> {
+    (arg: T): boolean
+}
+
+export interface CloneFunction<T extends HasNumberId> {
+    (object: T): T;
+}
+
+export interface GraphDtoPutRequestBody<T extends HasNumberId> {
+    graphDto: GraphDto<T>;
+    deletedNodeIdList: number[];
+    deletedClosureIdList: number[];
 }

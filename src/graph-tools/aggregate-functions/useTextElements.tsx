@@ -40,7 +40,9 @@ export function useTextElements<T extends HasNumberId>(
 ) {
   const textPosition = textPositions[position];
 
-  return useMemo(() => nodes.map((n, index) => (
+  // Todo: this useMemo is new.
+  // return useMemo(() =>
+      return nodes.map((n, index) => (
     <TextElement
       key={`${index}-${n.id}`}
       n={n}
@@ -49,6 +51,7 @@ export function useTextElements<T extends HasNumberId>(
       title={titleAccessor(index)}
       textPosition={textPosition}
     />
-  )), [nodes]);
+  ))
+      // , [nodes, textAccessor, textPosition, titleAccessor]);
 }
 

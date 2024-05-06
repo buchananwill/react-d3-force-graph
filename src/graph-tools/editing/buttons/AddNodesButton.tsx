@@ -80,7 +80,7 @@ export function AddNodesButton<T extends HasNumberId>({
     // linkListRef.current = resetLinks(allUpdatedLinks);
     linkListRef.current = [...allUpdatedLinks];
     nodeListRef.current = allNodes;
-
+    console.log('About to increment sim', linkListRef.current, nodeListRef.current)
     incrementSimVersion();
   };
 

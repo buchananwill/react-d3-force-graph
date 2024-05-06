@@ -6,7 +6,7 @@ import {useSvgElements} from '../aggregate-functions/useSvgElements';
 
 import GraphViewOptions from '../components/GraphViewOptions';
 import NodeInteractionProvider from '../nodes/NodeInteractionContext';
-import {useGenericGraphRefs, useGenericNodeContext} from '../nodes/genericNodeContextCreator';
+import {useGenericGraphRefs} from '../nodes/genericNodeContextCreator';
 import {
   DraggablePositionContext,
   IsDraggingContext,
@@ -23,7 +23,6 @@ import {useMouseMoveSvgDraggable} from '../force-graph-dnd/useMouseMoveSvgDragga
 import {HasNumberId} from "@/graph-tools/types/types";
 import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {EmptyArray} from "@/graph-tools/constants";
-import {useGenericLinkContext} from "@/graph-tools/links/genericLinkContextCreator";
 
 const listeners = {}
 export const DefaultGraphZoom = 100;
@@ -43,17 +42,14 @@ export default function Graph<T extends HasNumberId>({
   const textAccessor = (n: number) => textList[n] || '';
   const titleAccessor = (n: number) => titleList[n] || ''; //auxNodes[n.data.entityId].data.product.name;
   const { nodeListRef, linkListRef } = useGenericGraphRefs<T>();
-  let {nodes} = useGenericNodeContext();
-  let {links} = useGenericLinkContext();
+
   const uniqueGraphName = useGraphName();
 
   console.log('rendering Graph')
 
   const { nodeElements, linkElements, textElements } = useSvgElements(
-    // nodeListRef?.current || EmptyArray,
-    // linkListRef?.current || EmptyArray,
-      nodes,
-    links,
+    nodeListRef?.current || EmptyArray,
+    linkListRef?.current || EmptyArray,
     textAccessor,
     titleAccessor
   );

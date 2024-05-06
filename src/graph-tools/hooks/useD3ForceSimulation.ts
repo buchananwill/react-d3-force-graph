@@ -24,7 +24,7 @@ import { getForceRadial, updateForceRadial } from '../forces/forceRadial';
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useGlobalListener} from "selective-context";
 import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
-import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {useGraphDispatch, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 
 export type StandardForceKey =
@@ -66,7 +66,8 @@ export function useD3ForceSimulation<T extends HasNumberId>(
   );
 
   const { currentState: simVersion } = useGraphListener('version', listenerKey, 0);
-  console.log('in the D3 hook:', simVersion)
+
+  const {dispatchWithoutListen} = useGraphDispatch('sim');
 
   const { currentState: isMounted } = useGlobalListener<boolean>(
       {
@@ -88,6 +89,7 @@ export function useD3ForceSimulation<T extends HasNumberId>(
   > | null> = useRef(null);
 
   useEffect(() => {
+    console.log('in the D3 useEffect:', simVersion)
     const numberOfNodes = nodesRef.current?.length || 0;
     const spacingX = numberOfNodes > 0 ? (width - 200) / numberOfNodes : 1;
     const spacingY = numberOfNodes > 0 ? (height / numberOfNodes) * 2 : 1;
@@ -180,6 +182,7 @@ export function useD3ForceSimulation<T extends HasNumberId>(
       simulation.alphaDecay(0.0);
       simulation.alphaTarget(0);
       simulationRef.current = simulation;
+      dispatchWithoutListen(simulationRef)
     }
 
     function updateValues(currentSim: Simulation<DataNode<T>, DataLink<T>>) {
@@ -232,28 +235,32 @@ export function useD3ForceSimulation<T extends HasNumberId>(
         simVersionRef.current = simVersion;
         beginSim();
       }
-    } else if (simulationRef.current) {
+    } else {
       if (simVersionRef.current !== simVersion) {
         console.log('re-connecting links')
+          console.log(linksMutable)
         simulationRef.current?.nodes(nodesMutable);
         const force = simulationRef.current?.force('link');
         if (force) {
           const forceLink = force as d3.ForceLink<DataNode<T>, DataLink<T>>;
-          console.log(linksMutable)
           forceLink.links(linksMutable);
           console.log(linksMutable)
 
         }
         simVersionRef.current = simVersion
         simulationRef.current?.restart()
+        simulationRef.current.on('tick', ticked)
+      } else {
+        simulationRef.current.on('tick', ticked);
       }
-      simulationRef.current.on('tick', ticked);
       updateValues(simulationRef.current!);
     }
+
     return () => {
-      if (!isMounted && simulationRef.current) simulationRef.current?.stop();
+      if (!isMounted && simulationRef.current) simulationRef.current.stop();
     };
   }, [
+      dispatchWithoutListen,
     isMounted,
     simVersion,
     forceAttributeListeners,

@@ -7,7 +7,8 @@ export function useBasicNodeElements<T extends HasNumberId>(
     nodes: DataNode<T>[]
 ) {
 
-    return useMemo(() => {
+    // Todo: this useMemo is new.
+    // return useMemo(() => {
         console.log('render node components');
         return nodes.map((d, index) => (
             <NodeComponent
@@ -17,5 +18,5 @@ export function useBasicNodeElements<T extends HasNumberId>(
                 nodeId={d.id}
             />
         ))
-    }, [nodes]);
+    // }, [nodes]);
 }

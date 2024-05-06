@@ -3,7 +3,7 @@ import React from 'react';
 
 import {useNodeCloneFunctionController} from './useNodeCloneFunctionController';
 import {useGraphEditHooks} from './useGraphEditHooks';
-import {mapLinksBackToIdRefs} from '../links/map-links-back-to-id-refs';
+import {mapLinkBackToIdRefs} from '../links/map-link-back-to-id-refs';
 
 import {UnsavedNodeChangesProps} from '../graph/NodeLinkRefWrapper';
 import {useShowNodeEditing} from '../ShowNodeEditing';
@@ -42,7 +42,7 @@ export function useNodeEditing<T extends HasNumberId>(
     const nodes = nodesRef.current;
     const links = linksRef.current;
     if (links && nodes) {
-      const linksWithNumberIdRefs = links.map(mapLinksBackToIdRefs);
+      const linksWithNumberIdRefs = links.map(mapLinkBackToIdRefs);
       const updatedGraph: GraphDto<T> = {
         nodes: nodes,
         closureDtos: linksWithNumberIdRefs

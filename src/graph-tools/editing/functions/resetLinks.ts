@@ -6,9 +6,13 @@ import {ClosureDto, DataLink, DataNode, HasNumberId} from "@/graph-tools/types/t
 export function resetLinks<T extends HasNumberId>(
   allUpdatedLinks: DataLink<T>[]
 ): (SimulationLinkDatum<DataNode<T>> & ClosureDto)[] {
-  return [...allUpdatedLinks].map((link, index) => {
+  const resetLinks =  [...allUpdatedLinks].map((link, index) => {
     const source = link.source as DataNode<T>;
     const target = link.target as DataNode<T>;
-    return { ...link, source: source.id, target: target.id, index };
+    const resetLink = { ...link, source: source.id, target: target.id, index };
+    console.log('reset link', resetLink)
+    return resetLink
   });
+  console.log('in the reset function:', resetLinks)
+  return resetLinks
 }

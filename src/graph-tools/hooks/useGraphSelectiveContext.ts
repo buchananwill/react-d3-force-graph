@@ -31,6 +31,7 @@ export type GraphSelectiveContext =
     |'lock-text-with-select'
     |'text-size'
     |'ready'
+    | 'sim'
     | 'zoom'
     |'svg-scale';
 

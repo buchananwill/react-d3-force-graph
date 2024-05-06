@@ -21,8 +21,7 @@ export function NodeComponent({
   const { dispatch } = useNodeInteractionContext();
   const nodeDragKey = `node-${nodeId}`;
 
-  useGraphListener('node-positions-key', nodeDragKey, 0);
-
+  const {currentState} = useGraphListener('node-positions-key', nodeDragKey, 0);
 
 
   const { mouseDown, mouseUp, doDrag, draggablePosition } =
@@ -35,6 +34,11 @@ export function NodeComponent({
   if (nodesRef?.current === undefined || nodeIndex > nodesRef.current.length)
     return null;
   const updatedNodeData = nodesRef?.current[nodeIndex];
+
+  if (nodeIndex===0) {
+    console.log(currentState)
+  console.log(updatedNodeData)
+  }
 
   const { x, y, distanceFromRoot } = updatedNodeData; // Only x and y are necessarily relevant
 

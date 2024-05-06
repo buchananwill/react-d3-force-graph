@@ -4,7 +4,7 @@ import {useMemo, useState} from 'react';
 import {useGraphDispatchAndListener, useGraphNumberDispatch} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {useDirectSimRefEditsDispatch} from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
 import {HasNumberId} from "@/graph-tools/types/types";
-import {TransientIdOffset} from "@/graph-tools/constants";
+import {EmptyArray, TransientIdOffset} from "@/graph-tools/constants";
 
 export function useGraphEditHooks<T extends HasNumberId>(
     listenerKey: string
@@ -28,33 +28,24 @@ export function useGraphEditHooks<T extends HasNumberId>(
       NaN
     );
 
-  const { nodesInit, linksInit, deletedLinksInit, deletedNodesInit } =
-    useMemo(() => {
-      const nodesInit = [] as number[];
-      const linksInit = [] as number[];
-      const deletedLinksInit = [] as number[];
-      const deletedNodesInit = [] as number[];
-      return { nodesInit, linksInit, deletedNodesInit, deletedLinksInit };
-    }, []);
-
   const {
     dispatchWithoutControl: setTransientNodeIds,
     currentState: transientNodeIds
-  } = useGraphDispatchAndListener('transient-node-ids', listenerKey, nodesInit);
+  } = useGraphDispatchAndListener('transient-node-ids', listenerKey, EmptyArray);
 
   const {
     dispatchWithoutControl: setTransientLinkIds,
     currentState: transientLinkIds
-  } = useGraphDispatchAndListener('transient-link-ids', listenerKey, linksInit);
+  } = useGraphDispatchAndListener('transient-link-ids', listenerKey, EmptyArray);
 
   const {
     dispatchWithoutControl: setDeletedLinkIds,
     currentState: deletedLinkIds
-  } = useGraphDispatchAndListener('deleted-link-ids', listenerKey, deletedLinksInit);
+  } = useGraphDispatchAndListener('deleted-link-ids', listenerKey, EmptyArray);
   const {
     dispatchWithoutControl: setDeletedNodeIds,
     currentState: deletedNodeIds
-  } = useGraphDispatchAndListener('deleted-node-ids', listenerKey, deletedNodesInit);
+  } = useGraphDispatchAndListener('deleted-node-ids', listenerKey, EmptyArray);
 
   const [noNodeSelected, setNoNodeSelected] = useState(false);
 

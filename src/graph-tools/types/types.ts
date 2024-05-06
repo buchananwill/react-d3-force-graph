@@ -48,3 +48,7 @@ export interface GraphDtoPutRequestBody<T extends HasNumberId> {
     deletedNodeIdList: number[];
     deletedClosureIdList: number[];
 }
+
+export interface NodeDetailsUiComponentProps<T extends HasNumberId> {
+    node: DataNode<T>;
+}

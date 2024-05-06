@@ -2,7 +2,7 @@
 import React, { PropsWithChildren } from 'react';
 
 import GraphContextProvider from './graph/GraphContextProvider';
-import { GenericNodeContextProvider } from './nodes/generic-node-context-provider';
+import { GenericNodeContextProvider } from './nodes/GenericNodeContextProvider';
 import { GenericLinkContextProvider } from './links/GenericLinkContextProvider';
 
 import MountedTracker from './graph/MountedTracker';

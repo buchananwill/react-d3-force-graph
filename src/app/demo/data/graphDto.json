@@ -1,0 +1,430 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": 1446,
+        "name": "All Classes",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1446,
+      "distanceFromRoot": 0
+    },
+    {
+      "data": {
+        "id": 1450,
+        "name": "ClassGroup 1",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1450,
+      "distanceFromRoot": 1
+    },
+    {
+      "data": {
+        "id": 1452,
+        "name": "ClassGroup 2",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1452,
+      "distanceFromRoot": 1
+    },
+    {
+      "data": {
+        "id": 1441,
+        "name": "ClassGroup 3",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1441,
+      "distanceFromRoot": 1
+    },
+    {
+      "data": {
+        "id": 1443,
+        "name": "ClassGroup 4",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1443,
+      "distanceFromRoot": 1
+    },
+    {
+      "data": {
+        "id": 1444,
+        "name": "ClassGroup 5",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1444,
+      "distanceFromRoot": 1
+    },
+    {
+      "data": {
+        "id": 1442,
+        "name": "Class 6",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1442,
+      "distanceFromRoot": 2
+    },
+    {
+      "data": {
+        "id": 1445,
+        "name": "Class 1",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1445,
+      "distanceFromRoot": 2
+    },
+    {
+      "data": {
+        "id": 1447,
+        "name": "Class 3",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1447,
+      "distanceFromRoot": 2
+    },
+    {
+      "data": {
+        "id": 1448,
+        "name": "Class 2",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1448,
+      "distanceFromRoot": 2
+    },
+    {
+      "data": {
+        "id": 1449,
+        "name": "Class 5",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1449,
+      "distanceFromRoot": 2
+    },
+    {
+      "data": {
+        "id": 1451,
+        "name": "Class 4",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        }
+      },
+      "id": 1451,
+      "distanceFromRoot": 2
+    }
+  ],
+  "closureDtos": [
+    {
+      "id": 55,
+      "closureType": "OrganizationRelationship",
+      "target": 1441,
+      "source": 1441,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 57,
+      "closureType": "OrganizationRelationship",
+      "target": 1443,
+      "source": 1443,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 59,
+      "closureType": "OrganizationRelationship",
+      "target": 1445,
+      "source": 1445,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 61,
+      "closureType": "OrganizationRelationship",
+      "target": 1447,
+      "source": 1447,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 63,
+      "closureType": "OrganizationRelationship",
+      "target": 1449,
+      "source": 1449,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 65,
+      "closureType": "OrganizationRelationship",
+      "target": 1451,
+      "source": 1451,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 68,
+      "closureType": "OrganizationRelationship",
+      "target": 1441,
+      "source": 1445,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 74,
+      "closureType": "OrganizationRelationship",
+      "target": 1443,
+      "source": 1447,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 67,
+      "closureType": "OrganizationRelationship",
+      "target": 1441,
+      "source": 1448,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 73,
+      "closureType": "OrganizationRelationship",
+      "target": 1443,
+      "source": 1451,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 70,
+      "closureType": "OrganizationRelationship",
+      "target": 1452,
+      "source": 1442,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 69,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1441,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 78,
+      "closureType": "OrganizationRelationship",
+      "target": 1450,
+      "source": 1445,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 72,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1442,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 75,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1443,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 86,
+      "closureType": "OrganizationRelationship",
+      "target": 1450,
+      "source": 1447,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 88,
+      "closureType": "OrganizationRelationship",
+      "target": 1452,
+      "source": 1449,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 71,
+      "closureType": "OrganizationRelationship",
+      "target": 1444,
+      "source": 1442,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 77,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1444,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 87,
+      "closureType": "OrganizationRelationship",
+      "target": 1450,
+      "source": 1448,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 79,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1445,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 89,
+      "closureType": "OrganizationRelationship",
+      "target": 1452,
+      "source": 1451,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 56,
+      "closureType": "OrganizationRelationship",
+      "target": 1442,
+      "source": 1442,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 58,
+      "closureType": "OrganizationRelationship",
+      "target": 1444,
+      "source": 1444,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 60,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1446,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 62,
+      "closureType": "OrganizationRelationship",
+      "target": 1448,
+      "source": 1448,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 64,
+      "closureType": "OrganizationRelationship",
+      "target": 1450,
+      "source": 1450,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 66,
+      "closureType": "OrganizationRelationship",
+      "target": 1452,
+      "source": 1452,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 83,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1447,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 84,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1448,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 80,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1449,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 85,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1450,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 76,
+      "closureType": "OrganizationRelationship",
+      "target": 1444,
+      "source": 1449,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 81,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1451,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 82,
+      "closureType": "OrganizationRelationship",
+      "target": 1446,
+      "source": 1452,
+      "value": 1,
+      "weighting": 1
+    }
+  ]
+}

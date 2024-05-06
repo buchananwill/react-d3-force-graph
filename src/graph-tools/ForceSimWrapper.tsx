@@ -3,10 +3,10 @@
 import React, {ReactNode, useContext, useRef, useState} from 'react';
 import {useD3ForceSimulation} from './hooks/useD3ForceSimulation';
 import {GenericLinkRefContext} from './links/genericLinkContextCreator';
-import {GenericNodeRefContext} from './nodes/generic-node-context-creator';
+import {GenericNodeRefContext} from './nodes/genericNodeContextCreator';
 
-import {NodePositionsKey} from '@/app/demo/graphs/organization/curriculum-delivery-graph';
-import {useGraphDispatch} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {useGraphDispatch} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {NodePositionsKey} from "@/graph-tools/constants";
 
 export default function ForceSimWrapper({
   linkElements,
@@ -27,6 +27,8 @@ export default function ForceSimWrapper({
   const lastRenderTimer = useRef(Date.now());
 
   const [simDisplaying, setSimDisplaying] = useState(false);
+
+
 
   const ticked = () => {
     const elapsed = Date.now() - lastRenderTimer.current;

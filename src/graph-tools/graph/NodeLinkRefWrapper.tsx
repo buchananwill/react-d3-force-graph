@@ -1,7 +1,7 @@
 'use client';
 import React, { PropsWithChildren } from 'react';
 
-import { GenericNodeRefContext } from '../nodes/generic-node-context-creator';
+import { GenericNodeRefContext } from '../nodes/genericNodeContextCreator';
 import { GenericLinkRefContext } from '../links/genericLinkContextCreator';
 import { GraphViewer } from './GraphViewer';
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";

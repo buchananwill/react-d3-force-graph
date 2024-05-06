@@ -1,4 +1,4 @@
-import { useGraphEditHooks } from '../functions/useGraphEditHooks';
+import { useGraphEditHooks } from '../../hooks/useGraphEditHooks';
 import React, { useMemo } from 'react';
 import { GraphEditButton } from './GraphEditButton';
 

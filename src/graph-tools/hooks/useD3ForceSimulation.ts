@@ -7,24 +7,24 @@ import { Simulation } from 'd3';
 import {
   getHorizontalParentsToChildrenLayout,
   updateForceX
-} from '../forces/force-x';
-import { getModulusGridY, updateForceY } from '../forces/force-y';
+} from '../forces/forceX';
+import { getModulusGridY, updateForceY } from '../forces/forceY';
 import {
   getForceManyBody,
   updateManyBodyForce
-} from '../forces/force-many-body';
+} from '../forces/forceManyBody';
 import {
   getLinkForceMinCosFallOffBusiestNode,
   updateLinkForce
-} from '../forces/force-link';
-import { getForceCollide } from '../forces/force-collide';
+} from '../forces/forceLink';
+import { getForceCollide } from '../forces/forceCollide';
 
-import { getForceRadial, updateForceRadial } from '../forces/force-radial';
+import { getForceRadial, updateForceRadial } from '../forces/forceRadial';
 
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useGlobalListener} from "selective-context";
 import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
-import {useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 
 export type StandardForceKey =
@@ -66,6 +66,7 @@ export function useD3ForceSimulation<T extends HasNumberId>(
   );
 
   const { currentState: simVersion } = useGraphListener('version', listenerKey, 0);
+  console.log('in the D3 hook:', simVersion)
 
   const { currentState: isMounted } = useGlobalListener<boolean>(
       {
@@ -233,12 +234,18 @@ export function useD3ForceSimulation<T extends HasNumberId>(
       }
     } else if (simulationRef.current) {
       if (simVersionRef.current !== simVersion) {
+        console.log('re-connecting links')
         simulationRef.current?.nodes(nodesMutable);
         const force = simulationRef.current?.force('link');
         if (force) {
           const forceLink = force as d3.ForceLink<DataNode<T>, DataLink<T>>;
+          console.log(linksMutable)
           forceLink.links(linksMutable);
+          console.log(linksMutable)
+
         }
+        simVersionRef.current = simVersion
+        simulationRef.current?.restart()
       }
       simulationRef.current.on('tick', ticked);
       updateValues(simulationRef.current!);

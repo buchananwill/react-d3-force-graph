@@ -3,11 +3,11 @@ import React, { FC, Fragment, PropsWithChildren } from 'react';
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
-import SelectionOutline from '../../../graph-tools/components/selection-outline';
+import SelectionOutline from '../../../graph-tools/components/SelectionOutline';
 import {
   useNodeInteractionContext,
   useNodeSelectedListener
-} from '@/graph-tools/nodes/node-interaction-context';
+} from '@/graph-tools/nodes/NodeInteractionContext';
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
 import { StarIcon } from '@heroicons/react/24/solid';
 

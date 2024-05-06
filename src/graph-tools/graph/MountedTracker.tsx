@@ -1,7 +1,7 @@
 'use client';
 
 import {useEffect} from 'react';
-import {useGraphController} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {useGraphController} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {ControllerKey} from "@/graph-tools/graph/ShowForceAdjustments";
 
 export default function MountedTracker({}: {}) {

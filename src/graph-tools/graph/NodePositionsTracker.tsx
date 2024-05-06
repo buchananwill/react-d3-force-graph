@@ -1,7 +1,7 @@
 'use client';
 
-import {NodePositionsKey} from '@/app/demo/graphs/organization/curriculum-delivery-graph';
-import {useGraphController} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {useGraphController} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {NodePositionsKey} from "@/graph-tools/constants";
 
 const listenerKey = 'update-counter';
 export default function NodePositionsTracker() {

@@ -10,7 +10,7 @@ import {
   ForceGraphMouseButtonEventsContext,
   ForceGraphMouseButtonEventsDispatch
 } from '../force-graph-dnd/mouseEventContextCreator';
-import { useGraphEditController } from '../editing/functions/useGraphEditController';
+import { useGraphEditController } from '../hooks/useGraphEditController';
 
 import { ForceGraphMouseActionReducer } from '../force-graph-dnd/forceGraphMouseActionReducer';
 import {GraphDto, HasNumberId} from "@/graph-tools/types/types";

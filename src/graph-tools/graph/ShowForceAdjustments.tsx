@@ -1,7 +1,7 @@
 'use client';
 
 import {useEffect} from 'react';
-import {useGraphController, useGraphDispatch} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {useGraphController, useGraphDispatch} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 export const ShowForceAdjustmentsKey = 'show-force-adjustments';
 

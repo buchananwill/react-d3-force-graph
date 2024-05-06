@@ -2,7 +2,7 @@
 
 import {ControllerKey} from './graph/ShowForceAdjustments';
 import {useEffect} from 'react';
-import {useGraphController, useGraphDispatch} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {useGraphController, useGraphDispatch} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 export function ShowNodeEditing() {
     useGraphController('show-node-editing', ControllerKey, false)

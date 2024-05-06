@@ -5,8 +5,8 @@ import {useSvgElements} from '../aggregate-functions/useSvgElements';
 
 
 import GraphViewOptions from '../components/GraphViewOptions';
-import NodeInteractionProvider from '../nodes/node-interaction-context';
-import {useGenericGraphRefs} from '../nodes/generic-node-context-creator';
+import NodeInteractionProvider from '../nodes/NodeInteractionContext';
+import {useGenericGraphRefs, useGenericNodeContext} from '../nodes/genericNodeContextCreator';
 import {
   DraggablePositionContext,
   IsDraggingContext,
@@ -15,14 +15,15 @@ import {
 
 import {useGraphName} from './graphContextCreator';
 import GraphForceAdjuster from '../components/GraphForceAdjustment';
-import {NodeEditorDisclosure} from '../nodes/node-editor-disclosure';
+import {NodeEditorDisclosure} from '../nodes/NodeEditorDisclosure';
 
 import {ShowForceAdjustmentsKey} from './ShowForceAdjustments';
 
 import {useMouseMoveSvgDraggable} from '../force-graph-dnd/useMouseMoveSvgDraggable';
 import {HasNumberId} from "@/graph-tools/types/types";
-import {useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {EmptyArray} from "@/graph-tools/constants";
+import {useGenericLinkContext} from "@/graph-tools/links/genericLinkContextCreator";
 
 const listeners = {}
 export const DefaultGraphZoom = 100;
@@ -42,12 +43,17 @@ export default function Graph<T extends HasNumberId>({
   const textAccessor = (n: number) => textList[n] || '';
   const titleAccessor = (n: number) => titleList[n] || ''; //auxNodes[n.data.entityId].data.product.name;
   const { nodeListRef, linkListRef } = useGenericGraphRefs<T>();
-
+  let {nodes} = useGenericNodeContext();
+  let {links} = useGenericLinkContext();
   const uniqueGraphName = useGraphName();
 
+  console.log('rendering Graph')
+
   const { nodeElements, linkElements, textElements } = useSvgElements(
-    nodeListRef?.current || EmptyArray,
-    linkListRef?.current || EmptyArray,
+    // nodeListRef?.current || EmptyArray,
+    // linkListRef?.current || EmptyArray,
+      nodes,
+    links,
     textAccessor,
     titleAccessor
   );
@@ -103,7 +109,7 @@ export default function Graph<T extends HasNumberId>({
         <DraggablePositionContext.Provider value={draggablePosition}>
           <IsDraggingContext.Provider value={isDragging}>
             <div className={'flex'}>
-              <div className={'relative justify-center m-2 gap-2 h-fit w-fit'}>
+              <div className={'relative justify-center m-2 gap-2 h-fit w-fit bg-white'}>
                 <div
                     // ref={setNodeRef}
                 >
@@ -125,24 +131,25 @@ export default function Graph<T extends HasNumberId>({
                       className={'fill-transparent'}
                       {...listeners }
                     />
-                    {/*<g*/}
-                    {/*  transform={`translate(${*/}
-                    {/*    xTranslate * svgScale + centerOffsetX*/}
-                    {/*  } ${yTranslate * svgScale + centerOffsetY})`}*/}
-                    {/*>*/}
+                    <g
+                      transform={`translate(${
+                        0 * svgScale + centerOffsetX
+                    } ${0 * svgScale + centerOffsetY})`}
+                    >
                       <ForceSimWrapper
                         textElements={textElements}
                         linkElements={linkElements}
                         nodeElements={nodeElements}
                         uniqueGraphName={uniqueGraphName}
                       />
-                    {/*</g>*/}
+
+                    </g>
                   </svg>
                 </div>
 
                 <div
                   className={
-                    'absolute w-fit h-fit top-4 right-4 Z-10 flex flex-col gap-1 items-center'
+                    'absolute w-fit h-fit top-4 right-4 Z-10 flex flex-col gap-1 items-end'
                   }
                 >
                   <GraphViewOptions />

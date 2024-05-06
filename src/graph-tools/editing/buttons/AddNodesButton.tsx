@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { useGraphEditHooks } from '../functions/useGraphEditHooks';
+import { useGraphEditHooks } from '../../hooks/useGraphEditHooks';
 import { GraphEditButton } from './GraphEditButton';
 
 import { createNodes } from '../functions/createNodes';

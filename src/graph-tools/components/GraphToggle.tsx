@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 
-import {GraphSelectiveContext, useGraphController} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {GraphSelectiveContext, useGraphController} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {Tooltip} from "@nextui-org/tooltip";
 import {Switch} from "@nextui-org/switch";
 
@@ -16,12 +16,13 @@ export function GraphToggle({toggleKey, tooltipContent}: GraphToggleProps) {
     let {currentState, dispatch} = useGraphController(toggleKey, 'toggle', true);
 
     return (
-        <Tooltip content={tooltipContent}>
             <Switch
                 isSelected={currentState}
                 onValueChange={dispatch}
                 aria-label={tooltipContent}
-            ></Switch>
-        </Tooltip>
+                size={'sm'}
+            >{tooltipContent}</Switch>
+        // <Tooltip content={tooltipContent}>
+        // </Tooltip>
     );
 }

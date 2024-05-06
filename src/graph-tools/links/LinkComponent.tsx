@@ -1,17 +1,17 @@
 'use client';
 
 import React from 'react';
-import {useNodeSelectedListener} from '../nodes/node-interaction-context';
+import {useNodeSelectedListener} from '../nodes/NodeInteractionContext';
 
 import * as d3 from 'd3';
 
-import {useGenericGraphRefs} from '../nodes/generic-node-context-creator';
+import {useGenericGraphRefs} from '../nodes/genericNodeContextCreator';
 
-import {NodePositionsKey} from '@/app/demo/graphs/organization/curriculum-delivery-graph';
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {useSineLutContext} from "@/graph-tools/animation-sync-context/animationSyncContextCreator";
 import {calculateRotationAngle} from "@/graph-tools/links/calculateRotationAngle";
+import {NodePositionsKey} from "@/graph-tools/constants";
 
 const Emerald = 'hsla(160, 84%, 39%, 1)'
 
@@ -33,6 +33,7 @@ export function LinkComponent<T extends HasNumberId>({
   const listenerKey = `link-${linkData.closureType}-${linkData.id}`;
 
   useGraphListener(NodePositionsKey, listenerKey, 0);
+
 
   const genericLinks = linkListRef?.current;
 
@@ -77,6 +78,7 @@ export function LinkComponent<T extends HasNumberId>({
     updatedLink.source === undefined ||
     !updatedLink.target === undefined
   ) {
+    console.log('could not find attached nodes.')
     return null;
   }
   const source = updatedLink.source as DataNode<T>;
@@ -86,6 +88,7 @@ export function LinkComponent<T extends HasNumberId>({
   const { x: x2, y: y2 } = target;
 
   if (!(x1 && y1 && x2 && y2)) {
+    // console.log('attached nodes have no location data.', source, target)
     return null;
   }
 

@@ -1,6 +1,6 @@
 import {DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
-import NodeText from "@/graph-tools/nodes/node-text";
+import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import NodeText from "@/graph-tools/nodes/NodeText";
 
 export interface TextPosition {
     plate: { x: number; y: number };

@@ -1,14 +1,15 @@
 'use client';
 
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useMemo} from 'react';
 
 import {GraphContext} from '../graph/graphContextCreator';
 import {forceAttributesInitial} from '../forceAttributesMetaData';
 
 import {ShowForceAdjustmentsKey} from '../graph/ShowForceAdjustments';
-import {useGraphController, useGraphListener} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {useGraphController, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {ForceGraphAttributesDto} from "@/graph-tools/hooks/ForceGraphAttributesDto";
 import {useGlobalController} from "selective-context";
+import GraphForceController from "@/graph-tools/components/GraphForceController";
 
 
 const listenerKey = 'graph-force-adjustment';
@@ -33,7 +34,7 @@ export default function GraphForceAdjustment() {
     }
   }, [dispatch, currentState, readyToGraph]);
 
-  const sliders = Object.entries(forceAttributesInitial).map((entry) => {
+  const sliders = useMemo(() => Object.entries(forceAttributesInitial).map((entry) => {
     if (entry[0] === 'id') {
       return null;
     }
@@ -43,36 +44,16 @@ export default function GraphForceAdjustment() {
     // const min = forceAttributesMin[entryKey];
     // const max = forceAttributesMax[entryKey];
 
-    useGlobalController({contextKey: stringKey, listenerKey: stringKey, initialValue: initial})
+    return <GraphForceController key={stringKey} contextKey={stringKey} listenerKey={stringKey} initialValue={initial}/>
 
-    return null;
-      // <li key={stringKey}>
-      //   <div className={'flex items-center w-full justify-between'}>
-      //     <label htmlFor={stringKey}>{entry[0]}</label>
-      //     <SelectiveContextRangeSlider
-      //       className={'max-w-[50%]'}
-      //       contextKey={stringKey}
-      //       listenerKey={stringKey}
-      //       minValue={min}
-      //       maxValue={max}
-      //       initialValue={initial}
-      //     />
-      //   </div>
-      // </li>
-
-  });
+  }), [uniqueGraphName])
 
   return (
-    <div className={`${show ? '' : 'hidden'}`}>
-      {/*<DisclosureThatGrowsOpen*/}
-      {/*  label={'Adjust Forces'}*/}
-      {/*  heightWhenOpen={'h-60'}*/}
-      {/*  showBorder={true}*/}
-      {/*>*/}
-        <div className={'h-60 overflow-auto border-slate-300 '}>
+    <div className={'h-0'}>
+
+
           <ul className={' p-2 '}>{...sliders}</ul>
-        </div>
-      {/*</DisclosureThatGrowsOpen>*/}
+
     </div>
   );
 }

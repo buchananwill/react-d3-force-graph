@@ -9,6 +9,8 @@ export function useSvgElements<T extends HasNumberId>(
   textAccessor: (n: number) => string,
   titleAccessor: (n: number) => string
 ) {
+  console.log('creating SVG elements.')
+
   const linkElements = useLinkElements(links);
   const nodeElements = useBasicNodeElements(nodes);
   const textElements = useTextElements(nodes, textAccessor, titleAccessor);

@@ -13,7 +13,7 @@ import {Button} from "@nextui-org/button";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {Tooltip} from "@nextui-org/tooltip";
 import {SelectiveContextRangeSlider} from "@/app/demo/components/SelectiveContextRangeSlider";
-import {useGraphController, useGraphSelectiveContextKey} from "@/graph-tools/graph/useGraphSelectiveContext";
+import {useGraphController, useGraphSelectiveContextKey} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 
 const graphToggles: GraphToggleProps[] = [
@@ -41,7 +41,7 @@ const graphToggles: GraphToggleProps[] = [
 
 const listenerKey = 'slider';
 export default function GraphViewOptions() {
-    const {uniqueGraphName} = useContext(GraphContext);
+
     const [showSliders, setShowSliders] = useState(false);
     const [hideFromLayout, setHideFromLayout] = useState(false);
     const mutableRefObject = useRef<NodeJS.Timeout>();
@@ -63,6 +63,7 @@ export default function GraphViewOptions() {
         <>
             <Button
                 color={`${showSliders ? 'primary' : 'default'}`}
+                className={'w-fit'}
                 onPress={() => setShowSliders(!showSliders)}
             >
                 View Options
@@ -73,25 +74,23 @@ export default function GraphViewOptions() {
                 ></ChevronDownIcon>
             </Button>
             <div
-                className={`mt-2 h-fit w-fit flex flex-col gap-1 items-center transition-opacity duration-500 ${
-                    showSliders ? 'opacity-100' : 'opacity-0 -z-10 '
-                } ${hideFromLayout ? 'hidden' : ''}`}
+                className={`mt-2 h-fit w-fit flex flex-col gap-1 items-left transition-opacity duration-500 text-black bg-transparent border-2 p-0 ${
+                    showSliders ? 'opacity-100 z-20 ' : 'opacity-0 -z-10 '
+                } ${hideFromLayout ? ' hidden ' : ''}`}
             >
                 {graphToggles.map((toggleProps, index) => (
                     <GraphToggle key={index} {...toggleProps} />
                 ))}
-                <Tooltip content={'Zoom in/out'}>
                     <SelectiveContextRangeSlider
-                        className={'w-32'}
+                        // className={'w-32'}
                         contextKey={zoomKey}
                         listenerKey={listenerKey}
                         maxValue={MaxGraphZoom}
                         minValue={10}
                         initialValue={DefaultGraphZoom}
                     ></SelectiveContextRangeSlider>
-
-                </Tooltip>
-                <Tooltip content={'Scale text size.'}>
+                {/*<Tooltip content={'Zoom in/out'}>*/}
+                {/*</Tooltip>*/}
 
                     <SelectiveContextRangeSlider
                         className={'w-32'}
@@ -101,9 +100,11 @@ export default function GraphViewOptions() {
                         minValue={1}
                         initialValue={100}
                     ></SelectiveContextRangeSlider>
+                {/*<Tooltip content={'Scale text size.'}>*/}
 
 
-                </Tooltip>
+
+
             </div>
         </>
     );

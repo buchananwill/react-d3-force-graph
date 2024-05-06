@@ -1,5 +1,5 @@
 import { GraphEditButton } from './GraphEditButton';
-import { useGraphEditHooks } from '../functions/useGraphEditHooks';
+import { useGraphEditHooks } from '../../hooks/useGraphEditHooks';
 import React from 'react';
 import { deleteLinks } from '../functions/deleteLinks';
 import {HasNumberId} from "@/graph-tools/types/types";

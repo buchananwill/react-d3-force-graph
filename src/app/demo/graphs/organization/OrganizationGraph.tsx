@@ -59,12 +59,12 @@ export default function OrganizationGraph({children}: PropsWithChildren) {
             titleList={titleList}
             unsavedNodeChangesProps={unsavedGraphChanges}
         >
-            {children}
-            <NodeDetails
-                nodeDetailElements={nodeDetailElements}
-                labels={classList}
-                detailsUiComponent={OrganizationDetails}
-            />
+            {/*{children}*/}
+            {/*<NodeDetails*/}
+            {/*    nodeDetailElements={nodeDetailElements}*/}
+            {/*    labels={classList}*/}
+            {/*    detailsUiComponent={OrganizationDetails}*/}
+            {/*/>*/}
         </NodeLinkRefWrapper>
     );
 }

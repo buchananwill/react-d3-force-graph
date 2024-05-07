@@ -1,6 +1,6 @@
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useLinkElements} from "@/graph-tools/aggregate-functions/useLinkElements";
-import {useBasicNodeElements} from "@/graph-tools/aggregate-functions/useNodeElements";
+import {useNodeElements} from "@/graph-tools/aggregate-functions/useNodeElements";
 import {useTextElements} from "@/graph-tools/aggregate-functions/useTextElements";
 
 export function useSvgElements<T extends HasNumberId>(
@@ -11,7 +11,7 @@ export function useSvgElements<T extends HasNumberId>(
 ) {
 
   const linkElements = useLinkElements(links);
-  const nodeElements = useBasicNodeElements(nodes);
+  const nodeElements = useNodeElements(nodes);
   const textElements = useTextElements(nodes, textAccessor, titleAccessor);
   return { nodeElements, linkElements, textElements };
 }

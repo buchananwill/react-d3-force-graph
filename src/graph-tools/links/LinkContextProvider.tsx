@@ -12,7 +12,7 @@ import { useGraphName } from '../graph/graphContextCreator';
 import {DataLink, HasNumberId} from "@/graph-tools/types/types";
 
 // Example of a generic Provider component that can be used to wrap parts of your app
-export const GenericLinkContextProvider = <T extends HasNumberId>({
+export const LinkContextProvider = <T extends HasNumberId>({
   children,
   links
 }: {

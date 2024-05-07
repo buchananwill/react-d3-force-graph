@@ -3,7 +3,7 @@ import React, {useMemo} from 'react';
 import {DataNode, HasNumberId} from "@/graph-tools/types/types";
 
 
-export function useBasicNodeElements<T extends HasNumberId>(
+export function useNodeElements<T extends HasNumberId>(
     nodes: DataNode<T>[]
 ) {
     return useMemo(() => {

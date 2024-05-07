@@ -1,9 +1,10 @@
 'use client';
-import React, {ReactNode, useContext} from 'react';
+import React, {ReactNode, useContext, useMemo} from 'react';
 import {useNodeInteractionContext} from './NodeInteractionContext';
 import {NodeRefContext} from './genericNodeContextCreator';
 import {useForceGraphDndElement} from '../force-graph-dnd/useForceGraphDndElement';
 import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {NodeComponentContext} from "@/graph-tools/nodes/nodeComponentContextCreator";
 
 export function NodeComponent({
   gProps,
@@ -19,6 +20,7 @@ export function NodeComponent({
   nodeId: number;
 }) {
   const { dispatch } = useNodeInteractionContext();
+  const {component: Component} = useContext(NodeComponentContext);
   const nodeDragKey = `node-${nodeId}`;
 
   const {currentState} = useGraphListener('node-positions-key', nodeDragKey, 0);
@@ -34,6 +36,7 @@ export function NodeComponent({
   if (nodesRef?.current === undefined || nodeIndex > nodesRef.current.length)
     return null;
   const updatedNodeData = nodesRef?.current[nodeIndex];
+
 
   const { x, y, distanceFromRoot } = updatedNodeData; // Only x and y are necessarily relevant
 
@@ -56,25 +59,21 @@ export function NodeComponent({
     }
   }
 
+
   return (
     <g
-      transform={`translate(${finalX}, ${finalY})`}
-      onMouseEnter={() =>
-        dispatch({ type: 'setHover', payload: updatedNodeData.id })
-      }
-      onMouseLeave={() => dispatch({ type: 'setHover', payload: null })}
-      onClick={handleClick}
-      {...gProps}
-      className={'select-none cursor-pointer'}
-      onMouseDown={mouseDown}
-      onMouseUp={mouseUp}
+        transform={`translate(${finalX}, ${finalY})`}
+        onMouseEnter={() =>
+            dispatch({type: 'setHover', payload: updatedNodeData.id})
+        }
+        onMouseLeave={() => dispatch({type: 'setHover', payload: null})}
+        onClick={handleClick}
+        {...gProps}
+        className={'select-none cursor-pointer'}
+        onMouseDown={mouseDown}
+        onMouseUp={mouseUp}
     >
-      <circle
-        cx={0}
-        cy={0}
-        r={Math.max((4 - (distanceFromRoot || 0)) * 2 + 10, 10)}
-        className={'fill-transparent stroke-slate-600 stroke-2'}
-      ></circle>
+      <Component node={updatedNodeData}/>
 
       {children && children}
     </g>

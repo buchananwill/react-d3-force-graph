@@ -1,7 +1,7 @@
 'use client';
 import React, {PropsWithChildren} from 'react';
 
-import CurriculumDeliveryDetails from './CurriculumDeliveryDetails';
+import OrganizationDetails from './OrganizationDetails';
 import {NodePayload} from '@/graph-tools/ForceGraphPage';
 
 
@@ -43,7 +43,7 @@ export default function OrganizationGraph({children}: PropsWithChildren) {
         (n: DataNode<OrganizationDto>) => n.data?.type.name || ''
     );
 
-    const nodeDetailElements: NodePayload<OrganizationDto>[] = nodes.map(
+    const nodeDetailElements: NodePayload<OrganizationDto>[] = nodesRef.current.map(
         (node) => {
             return {
                 node: node
@@ -63,7 +63,7 @@ export default function OrganizationGraph({children}: PropsWithChildren) {
             <NodeDetails
                 nodeDetailElements={nodeDetailElements}
                 labels={classList}
-                detailsUiComponent={CurriculumDeliveryDetails}
+                detailsUiComponent={OrganizationDetails}
             />
         </NodeLinkRefWrapper>
     );

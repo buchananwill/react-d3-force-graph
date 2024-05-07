@@ -1,5 +1,5 @@
 
-import { MutableRefObject, useEffect, useMemo, useRef } from 'react';
+import React, { MutableRefObject, useEffect, useMemo, useRef } from 'react';
 import * as d3 from 'd3';
 import { Simulation } from 'd3';
 
@@ -25,6 +25,7 @@ import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useGlobalListener} from "selective-context";
 import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
 import {useGraphDispatch, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 
 
 export type StandardForceKey =
@@ -41,11 +42,11 @@ const listenerKey = `force-sim`;
 const dimensionArray = [1800, 1200];
 
 export function useD3ForceSimulation<T extends HasNumberId>(
-  nodesRef: MutableRefObject<DataNode<T>[]>,
-  linksRef: MutableRefObject<DataLink<T>[]>,
-  ticked: () => void,
-  uniqueGraphName: string
+    nodesRef: React.MutableRefObject<DataNode<T>[]>,
+    linksRef: React.MutableRefObject<DataLink<T>[]>,
+    ticked: () => void
 ) {
+  const uniqueGraphName = useGraphName();
   const forceAttributeListeners = useForceAttributeListeners('sim');
   const { contextKey, mountedListenerKey, mountedKey } =
     useMemo(() => {

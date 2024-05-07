@@ -9,29 +9,29 @@ import {DataLink, HasNumberId} from "@/graph-tools/types/types";
 
 
 // Define the interface as generic
-export interface GenericLinkContextInterface<T extends HasNumberId> {
+export interface LinkContextInterface<T extends HasNumberId> {
   links: DataLink<T>[];
   uniqueGraphName: string;
 }
 
 // Create a generic context with a default value
-export const GenericLinkContext = createContext<
-  GenericLinkContextInterface<any> | undefined
+export const LinkContext = createContext<
+  LinkContextInterface<any> | undefined
 >(undefined);
 
-export const GenericLinkDispatchContext = createContext<
+export const LinkDispatchContext = createContext<
   Dispatch<SetStateAction<DataLink<any>[]>> | undefined
 >(undefined);
 
 // Generic hook to use the context
-export function useGenericLinkContext<T extends HasNumberId>() {
+export function useLinkContext<T extends HasNumberId>() {
   const context = useContext(
-    GenericLinkContext as React.Context<
-      GenericLinkContextInterface<T> | undefined
+    LinkContext as React.Context<
+      LinkContextInterface<T> | undefined
     >
   );
   const dispatch = useContext(
-    GenericLinkDispatchContext as React.Context<
+    LinkDispatchContext as React.Context<
       Dispatch<SetStateAction<DataLink<T>[]>> | undefined
     >
   );
@@ -43,6 +43,6 @@ export function useGenericLinkContext<T extends HasNumberId>() {
   return { ...context, dispatch };
 }
 
-export const GenericLinkRefContext = createContext<MutableRefObject<
+export const LinkRefContext = createContext<MutableRefObject<
   DataLink<any>[]
 > | null>(null);

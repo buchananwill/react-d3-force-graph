@@ -2,25 +2,26 @@
 
 import React, {ReactNode, useCallback, useContext, useRef, useState} from 'react';
 import {useD3ForceSimulation} from './hooks/useD3ForceSimulation';
-import {GenericLinkRefContext} from './links/genericLinkContextCreator';
-import {GenericNodeRefContext} from './nodes/genericNodeContextCreator';
+import {LinkRefContext} from './links/genericLinkContextCreator';
+import {NodeRefContext} from './nodes/genericNodeContextCreator';
 
 import {useGraphDispatch, useGraphDispatchAndListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {NodePositionsKey} from "@/graph-tools/constants";
+import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 
 export default function ForceSimWrapper({
   linkElements,
   nodeElements,
   textElements,
-  uniqueGraphName
 }: {
   textElements: ReactNode[];
   nodeElements: ReactNode[];
   linkElements: ReactNode[];
-  uniqueGraphName: string;
+
 }) {
-  const nodesRef = useContext(GenericNodeRefContext);
-  const linksRef = useContext(GenericLinkRefContext);
+  const nodesRef = useContext(NodeRefContext);
+  const linksRef = useContext(LinkRefContext);
+
 
   let {dispatchWithoutControl} = useGraphDispatchAndListener<number>(NodePositionsKey, 'wrapper', 0);
 
@@ -39,7 +40,7 @@ export default function ForceSimWrapper({
     if (!simDisplaying) setSimDisplaying(true);
   }, [dispatchWithoutControl, simDisplaying]
 )
-  useD3ForceSimulation(nodesRef!, linksRef!, ticked, uniqueGraphName);
+  useD3ForceSimulation(nodesRef!, linksRef!, ticked);
 
   return (
     <g>

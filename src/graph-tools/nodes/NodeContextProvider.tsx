@@ -2,14 +2,14 @@
 
 import React from 'react';
 import {
-  GenericNodeContext,
-  GenericNodeDispatchContext
+  NodeContext,
+  NodeDispatchContext
 } from './genericNodeContextCreator';
 
 import { useGraphName } from '../graph/graphContextCreator';
 import {DataNode, HasNumberId} from "@/graph-tools/types/types";
 
-export const GenericNodeContextProvider = <T extends HasNumberId>({
+export const NodeContextProvider = <T extends HasNumberId>({
   children,
   nodes
 }: {
@@ -20,10 +20,10 @@ export const GenericNodeContextProvider = <T extends HasNumberId>({
   const uniqueGraphName = useGraphName();
 
   return (
-    <GenericNodeContext.Provider value={{ nodes: nodeState, uniqueGraphName }}>
-      <GenericNodeDispatchContext.Provider value={setNodeState}>
+    <NodeContext.Provider value={{ nodes: nodeState, uniqueGraphName }}>
+      <NodeDispatchContext.Provider value={setNodeState}>
         {children}
-      </GenericNodeDispatchContext.Provider>
-    </GenericNodeContext.Provider>
+      </NodeDispatchContext.Provider>
+    </NodeContext.Provider>
   );
 };

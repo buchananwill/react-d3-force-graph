@@ -1,8 +1,8 @@
 'use client';
 import React, { PropsWithChildren } from 'react';
 
-import { GenericNodeRefContext } from '../nodes/genericNodeContextCreator';
-import { GenericLinkRefContext } from '../links/genericLinkContextCreator';
+import { NodeRefContext } from '../nodes/genericNodeContextCreator';
+import { LinkRefContext } from '../links/genericLinkContextCreator';
 import { GraphViewer } from './GraphViewer';
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 
@@ -32,8 +32,8 @@ export function NodeLinkRefWrapper<T extends HasNumberId>({
   unsavedNodeChangesProps?: UnsavedNodeChangesProps;
 } & PropsWithChildren) {
   return (
-    <GenericNodeRefContext.Provider value={nodeListRef}>
-      <GenericLinkRefContext.Provider value={linkListRef}>
+    <NodeRefContext.Provider value={nodeListRef}>
+      <LinkRefContext.Provider value={linkListRef}>
         <div className={'flex-col'}>
           <GraphViewer textList={textList} titleList={titleList}>
             {children}
@@ -44,7 +44,7 @@ export function NodeLinkRefWrapper<T extends HasNumberId>({
         {/*    <p>Save graph changes to database?</p>*/}
         {/*  </UnsavedChangesModal>*/}
         {/*)}*/}
-      </GenericLinkRefContext.Provider>
-    </GenericNodeRefContext.Provider>
+      </LinkRefContext.Provider>
+    </NodeRefContext.Provider>
   );
 }

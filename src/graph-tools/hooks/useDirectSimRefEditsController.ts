@@ -1,13 +1,13 @@
 import {HasNumberId} from "@/graph-tools/types/types";
-import {useGenericGraphRefs, useGenericNodeContext} from "@/graph-tools/nodes/genericNodeContextCreator";
+import {useGraphRefs, useNodeContext} from "@/graph-tools/nodes/genericNodeContextCreator";
 import {useGraphController} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import {useGenericLinkContext} from "@/graph-tools/links/genericLinkContextCreator";
+import {useLinkContext} from "@/graph-tools/links/genericLinkContextCreator";
 
 const EditController = 'edit-controller'
 
 export function useDirectSimRefEditsController<T extends HasNumberId>() {
-    useGenericNodeContext()
-    useGenericLinkContext()
+    useNodeContext()
+    useLinkContext()
 
     useGraphController<number>(
         'version',
@@ -15,6 +15,6 @@ export function useDirectSimRefEditsController<T extends HasNumberId>() {
         0
     );
 
-    const {nodeListRef, linkListRef} = useGenericGraphRefs<T>();
+    const {nodeListRef, linkListRef} = useGraphRefs<T>();
     return {nodeListRef, linkListRef};
 }

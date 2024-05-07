@@ -6,7 +6,7 @@ import {useSvgElements} from '../aggregate-functions/useSvgElements';
 
 import GraphViewOptions from '../components/GraphViewOptions';
 import NodeInteractionProvider from '../nodes/NodeInteractionContext';
-import {useGenericGraphRefs} from '../nodes/genericNodeContextCreator';
+import {useGraphRefs} from '../nodes/genericNodeContextCreator';
 import {
   DraggablePositionContext,
   IsDraggingContext,
@@ -41,7 +41,7 @@ export default function Graph<T extends HasNumberId>({
 } & PropsWithChildren) {
   const textAccessor = (n: number) => textList[n] || '';
   const titleAccessor = (n: number) => titleList[n] || ''; //auxNodes[n.data.entityId].data.product.name;
-  const { nodeListRef, linkListRef } = useGenericGraphRefs<T>();
+  const { nodeListRef, linkListRef } = useGraphRefs<T>();
 
   const uniqueGraphName = useGraphName();
 
@@ -134,7 +134,6 @@ export default function Graph<T extends HasNumberId>({
                         textElements={textElements}
                         linkElements={linkElements}
                         nodeElements={nodeElements}
-                        uniqueGraphName={uniqueGraphName}
                       />
 
                     </g>

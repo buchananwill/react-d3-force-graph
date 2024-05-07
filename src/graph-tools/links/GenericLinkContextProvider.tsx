@@ -2,8 +2,8 @@
 
 import React from 'react';
 import {
-  GenericLinkContext,
-  GenericLinkDispatchContext
+  LinkContext,
+  LinkDispatchContext
 } from './genericLinkContextCreator';
 
 import { useFilteredLinkMemo } from '../aggregate-functions/useFilteredLinkMemo';
@@ -29,10 +29,10 @@ export const GenericLinkContextProvider = <T extends HasNumberId>({
     React.useState<DataLink<T>[]>(filteredLinks);
 
   return (
-    <GenericLinkContext.Provider value={{ links: linkState, uniqueGraphName }}>
-      <GenericLinkDispatchContext.Provider value={setLinkState}>
+    <LinkContext.Provider value={{ links: linkState, uniqueGraphName }}>
+      <LinkDispatchContext.Provider value={setLinkState}>
         {children}
-      </GenericLinkDispatchContext.Provider>
-    </GenericLinkContext.Provider>
+      </LinkDispatchContext.Provider>
+    </LinkContext.Provider>
   );
 };

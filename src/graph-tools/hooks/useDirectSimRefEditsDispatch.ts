@@ -1,7 +1,7 @@
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {useGenericGraphRefs, useGenericNodeContext} from "@/graph-tools/nodes/genericNodeContextCreator";
-import {useGenericLinkContext} from "@/graph-tools/links/genericLinkContextCreator";
-import {MutableRefObject, useCallback, useMemo} from "react";
+import {NodeDispatchContext, useGraphRefs, useNodeContext} from "@/graph-tools/nodes/genericNodeContextCreator";
+import {LinkDispatchContext, useLinkContext} from "@/graph-tools/links/genericLinkContextCreator";
+import {Dispatch, MutableRefObject, SetStateAction, useCallback, useContext, useMemo} from "react";
 import {
     useGraphDispatch,
     useGraphDispatchAndListener,
@@ -17,43 +17,33 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>() {
 
     },[])
 
-    const {dispatch: updateNodes} = useGenericNodeContext();
-    const {dispatch: updateLinks} = useGenericLinkContext();
+    const updateNodes = useContext<Dispatch<SetStateAction<DataNode<T>[]>>| undefined>(NodeDispatchContext);
+    const updateLinks = useContext<Dispatch<SetStateAction<DataLink<T>[]>> | undefined>(LinkDispatchContext);
 
     const {dispatchWithoutListen: dispatchUnsavedGraph} =
         useGraphDispatch<boolean>(
             "unsaved-node-data"
         );
 
-    const {dispatchWithoutControl} =
-        useGraphDispatchAndListener<number>(
+
+    useGraphListener<number>(
             'version',
             listenerKey,
             0
         );
 
-    const {nodeListRef, linkListRef} = useGenericGraphRefs<T>();
+    const {nodeListRef, linkListRef} = useGraphRefs<T>();
     const {currentState} = useGraphListener<MutableRefObject<Simulation<any, any>> | null>('sim', listenerKey, null);
     const incrementSimVersion = useCallback(() => {
-        if (nodeListRef && linkListRef && currentState?.current) {
+        if (nodeListRef?.current && linkListRef?.current && currentState?.current && updateNodes && updateLinks) {
             currentState.current.stop()
             const resetLinksWithNumberIds = resetLinks(linkListRef.current);
-            const safeCopyOfNodes = nodeListRef.current.map(
-                (n) => ({...n}) as DataNode<T>
-            );
-            const safeCopyOfLinks = resetLinksWithNumberIds.map(
-                (l) =>
-                    ({
-                        ...l
-                    }) as DataLink<T>
-            );
 
-            updateNodes(safeCopyOfNodes);
-            updateLinks(safeCopyOfLinks);
+            updateNodes(nodeListRef.current);
+            updateLinks(resetLinksWithNumberIds);
             dispatchUnsavedGraph(true);
-
         }
     }
-    ,[dispatchUnsavedGraph, dispatchWithoutControl, linkListRef, nodeListRef, updateLinks, updateNodes, currentState])
+    ,[dispatchUnsavedGraph, linkListRef, nodeListRef, updateLinks, updateNodes, currentState])
     return {incrementSimVersion, nodeListRef, linkListRef};
 }

@@ -22,12 +22,11 @@ export function useNodeNameEditing<T extends HasNumberId & HasName>(
         useDirectSimRefEditsDispatch<T>();
     const handleConfirmRename = useCallback(() => {
         if (nodeListRef && linkListRef) {
-
             const currentElement = nodeListRef.current[node.index!];
-
-            currentElement.data.name = currentState;
-
-            incrementSimVersion();
+            if (currentElement && currentElement.data) {
+                currentElement.data.name = currentState;
+                incrementSimVersion();
+            }
         }
 
 
@@ -41,8 +40,7 @@ export function useNodeNameEditing<T extends HasNumberId & HasName>(
     }, [dispatchUpdate, node]);
 
 
-
     return {
-    handleConfirmRename, handleCancelRename, contextKey
+        handleConfirmRename, handleCancelRename, contextKey
     };
 }

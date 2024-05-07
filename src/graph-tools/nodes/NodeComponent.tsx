@@ -1,7 +1,7 @@
 'use client';
 import React, {ReactNode, useContext} from 'react';
 import {useNodeInteractionContext} from './NodeInteractionContext';
-import {GenericNodeRefContext} from './genericNodeContextCreator';
+import {NodeRefContext} from './genericNodeContextCreator';
 import {useForceGraphDndElement} from '../force-graph-dnd/useForceGraphDndElement';
 import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
@@ -30,7 +30,7 @@ export function NodeComponent({
       draggingNodeKey: nodeDragKey
     });
 
-  const nodesRef = useContext(GenericNodeRefContext);
+  const nodesRef = useContext(NodeRefContext);
   if (nodesRef?.current === undefined || nodeIndex > nodesRef.current.length)
     return null;
   const updatedNodeData = nodesRef?.current[nodeIndex];

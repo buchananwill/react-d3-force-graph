@@ -5,7 +5,7 @@ import {useNodeSelectedListener} from '../nodes/NodeInteractionContext';
 
 import * as d3 from 'd3';
 
-import {useGenericGraphRefs} from '../nodes/genericNodeContextCreator';
+import {useGraphRefs} from '../nodes/genericNodeContextCreator';
 
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
@@ -28,7 +28,7 @@ export function LinkComponent<T extends HasNumberId>({
   linkIndex: number;
 }) {
 
-  const { linkListRef } = useGenericGraphRefs();
+  const { linkListRef } = useGraphRefs();
 
   const listenerKey = `link-${linkData.closureType}-${linkData.id}`;
 

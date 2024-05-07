@@ -20,7 +20,6 @@ export function GraphViewer<T extends HasNumberId>({
   titleList,
   children
 }: {
-  graphDto?: GraphDto<T>;
   textList: string[];
   titleList: string[];
 } & PropsWithChildren) {

@@ -12,8 +12,7 @@ import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
 import { StarIcon } from '@heroicons/react/24/solid';
 
 import { Button } from '@nextui-org/button';
-import { NodeDetailsUiComponentProps } from '@/app/demo/graphs/work-task-types/work-task-type-dto-details';
-import {DataNode, HasNumberId} from "@/graph-tools/types/types";
+import {DataNode, HasNumberId, NodeDetailsUiComponentProps} from "@/graph-tools/types/types";
 import { Disclosure } from '@headlessui/react';
 
 export function NodeDetailWrapper<T extends HasNumberId>({

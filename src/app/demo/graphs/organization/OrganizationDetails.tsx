@@ -12,7 +12,7 @@ export const LeftCol =
     'text-xs w-full text-center h-full flex items-center justify-center';
 export const CurriculumDetailsListenerKey = 'curriculum-details';
 
-export default function CurriculumDeliveryDetails({
+export default function OrganizationDetails({
                                                       node
                                                   }: {
     node: DataNode<OrganizationDto>;

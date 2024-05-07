@@ -2,7 +2,7 @@
 import React, { PropsWithChildren } from 'react';
 
 import GraphContextProvider from './graph/GraphContextProvider';
-import { GenericNodeContextProvider } from './nodes/GenericNodeContextProvider';
+import { NodeContextProvider } from './nodes/NodeContextProvider';
 import { GenericLinkContextProvider } from './links/GenericLinkContextProvider';
 
 import MountedTracker from './graph/MountedTracker';
@@ -28,7 +28,7 @@ export default function ForceGraphPage<T extends HasNumberId>({
   return (
     <div className={'flex'}>
       <GraphContextProvider uniqueGraphName={graphName}>
-        <GenericNodeContextProvider nodes={nodes}>
+        <NodeContextProvider nodes={nodes}>
           <GenericLinkContextProvider links={closureDtos}>
             <MountedTracker />
             <NodePositionsTracker />
@@ -36,7 +36,7 @@ export default function ForceGraphPage<T extends HasNumberId>({
             <ShowNodeEditing />
             {children}
           </GenericLinkContextProvider>
-        </GenericNodeContextProvider>
+        </NodeContextProvider>
       </GraphContextProvider>
     </div>
   );

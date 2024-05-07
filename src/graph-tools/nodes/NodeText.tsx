@@ -2,7 +2,7 @@
 
 import React, {ReactElement, useContext, useMemo} from 'react';
 import {useNodeInteractionContext} from './NodeInteractionContext';
-import {useGenericGraphRefs} from './genericNodeContextCreator';
+import {useGraphRefs} from './genericNodeContextCreator';
 
 import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 import {HasNumberId} from "@/graph-tools/types/types";
@@ -19,7 +19,7 @@ export default function NodeText<T extends HasNumberId>({
 }) {
   const leftCtrlHeld = useContext(LeftCtrlListener);
   const uniqueGraphName = useGraphName()
-  const { nodeListRef } = useGenericGraphRefs();
+  const { nodeListRef } = useGraphRefs();
   const listenerKey = useMemo(
     () => `node-text-${textIndex}-${uniqueGraphName}`,
     [textIndex, uniqueGraphName]

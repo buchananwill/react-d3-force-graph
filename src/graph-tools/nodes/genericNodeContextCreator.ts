@@ -6,30 +6,30 @@ import React, {
   useContext
 } from 'react';
 
-import { GenericLinkRefContext } from '../links/genericLinkContextCreator';
+import { LinkRefContext } from '../links/genericLinkContextCreator';
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 
-export interface GenericNodeContextInterface<T extends HasNumberId> {
+export interface NodeContextInterface<T extends HasNumberId> {
   nodes: DataNode<T>[];
   uniqueGraphName: string;
 }
 
-export const GenericNodeContext = createContext<
-  GenericNodeContextInterface<any> | undefined
+export const NodeContext = createContext<
+  NodeContextInterface<any> | undefined
 >(undefined);
 
-export const GenericNodeDispatchContext = createContext<
+export const NodeDispatchContext = createContext<
   Dispatch<SetStateAction<DataNode<any>[]>> | undefined
 >(undefined);
 
-export function useGenericNodeContext<T extends HasNumberId>() {
+export function useNodeContext<T extends HasNumberId>() {
   const context = useContext(
-    GenericNodeContext as React.Context<
-      GenericNodeContextInterface<T> | undefined
+    NodeContext as React.Context<
+      NodeContextInterface<T> | undefined
     >
   );
   const dispatch = useContext(
-    GenericNodeDispatchContext as React.Context<
+    NodeDispatchContext as React.Context<
       Dispatch<SetStateAction<DataNode<T>[]>> | undefined
     >
   );
@@ -41,18 +41,18 @@ export function useGenericNodeContext<T extends HasNumberId>() {
   return { ...context, dispatch };
 }
 
-export const GenericNodeRefContext = createContext<MutableRefObject<
+export const NodeRefContext = createContext<MutableRefObject<
   DataNode<any>[]
 > | null>(null);
 
-export function useGenericGraphRefs<T extends HasNumberId>() {
+export function useGraphRefs<T extends HasNumberId>() {
   const nodeListRef = useContext(
-    GenericNodeRefContext as React.Context<React.MutableRefObject<
+    NodeRefContext as React.Context<React.MutableRefObject<
       DataNode<T>[]
     > | null>
   );
   const linkListRef = useContext(
-    GenericLinkRefContext as React.Context<React.MutableRefObject<
+    LinkRefContext as React.Context<React.MutableRefObject<
       DataLink<T>[]
     > | null>
   );

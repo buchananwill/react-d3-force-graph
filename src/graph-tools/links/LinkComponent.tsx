@@ -78,7 +78,6 @@ export function LinkComponent<T extends HasNumberId>({
     updatedLink.source === undefined ||
     !updatedLink.target === undefined
   ) {
-    console.log('could not find attached nodes.')
     return null;
   }
   const source = updatedLink.source as DataNode<T>;
@@ -88,7 +87,6 @@ export function LinkComponent<T extends HasNumberId>({
   const { x: x2, y: y2 } = target;
 
   if (!(x1 && y1 && x2 && y2)) {
-    // console.log('attached nodes have no location data.', source, target)
     return null;
   }
 

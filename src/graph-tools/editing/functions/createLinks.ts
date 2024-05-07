@@ -68,7 +68,6 @@ export function createLinks<T extends HasNumberId>({
           id: currentLinkId
         } as DataLink<T>;
         newLinks.push(newLink);
-        console.log(newLink);
       }
       break;
     }

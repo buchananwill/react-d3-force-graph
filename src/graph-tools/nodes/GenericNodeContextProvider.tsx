@@ -18,7 +18,6 @@ export const GenericNodeContextProvider = <T extends HasNumberId>({
 }) => {
   const [nodeState, setNodeState] = React.useState<DataNode<T>[]>(nodes);
   const uniqueGraphName = useGraphName();
-  console.log('rendering node provider.')
 
   return (
     <GenericNodeContext.Provider value={{ nodes: nodeState, uniqueGraphName }}>

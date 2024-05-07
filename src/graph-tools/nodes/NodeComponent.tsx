@@ -35,11 +35,6 @@ export function NodeComponent({
     return null;
   const updatedNodeData = nodesRef?.current[nodeIndex];
 
-  if (nodeIndex===0) {
-    console.log(currentState)
-  console.log(updatedNodeData)
-  }
-
   const { x, y, distanceFromRoot } = updatedNodeData; // Only x and y are necessarily relevant
 
   const handleClick = enableRunnable

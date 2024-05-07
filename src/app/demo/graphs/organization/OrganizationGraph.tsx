@@ -23,8 +23,6 @@ const organizationGraphUpdater = getGraphUpdaterWithNameDeDuplication(putGraph);
 export default function OrganizationGraph({children}: PropsWithChildren) {
     const {nodes, nodesRef, linksRef} = useNodeAndLinkRefs<OrganizationDto>();
 
-    console.log('rendering top level component')
-
     const unsavedGraphChanges = useNodeEditing<OrganizationDto>(
         nodesRef,
         linksRef,

@@ -20,9 +20,9 @@ export function GraphToggle({toggleKey, tooltipContent}: GraphToggleProps) {
                 isSelected={currentState}
                 onValueChange={dispatch}
                 aria-label={tooltipContent}
+                classNames={{label: 'text-xs'}}
                 size={'sm'}
             >{tooltipContent}</Switch>
-        // <Tooltip content={tooltipContent}>
-        // </Tooltip>
+
     );
 }

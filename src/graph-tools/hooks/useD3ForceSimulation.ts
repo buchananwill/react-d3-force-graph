@@ -89,7 +89,6 @@ export function useD3ForceSimulation<T extends HasNumberId>(
   > | null> = useRef(null);
 
   useEffect(() => {
-    console.log('in the D3 useEffect:', simVersion)
     const numberOfNodes = nodesRef.current?.length || 0;
     const spacingX = numberOfNodes > 0 ? (width - 200) / numberOfNodes : 1;
     const spacingY = numberOfNodes > 0 ? (height / numberOfNodes) * 2 : 1;
@@ -237,15 +236,11 @@ export function useD3ForceSimulation<T extends HasNumberId>(
       }
     } else {
       if (simVersionRef.current !== simVersion) {
-        console.log('re-connecting links')
-          console.log(linksMutable)
         simulationRef.current?.nodes(nodesMutable);
         const force = simulationRef.current?.force('link');
         if (force) {
           const forceLink = force as d3.ForceLink<DataNode<T>, DataLink<T>>;
           forceLink.links(linksMutable);
-          console.log(linksMutable)
-
         }
         simVersionRef.current = simVersion
         simulationRef.current?.restart()

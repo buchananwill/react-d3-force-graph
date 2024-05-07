@@ -45,8 +45,6 @@ export default function Graph<T extends HasNumberId>({
 
   const uniqueGraphName = useGraphName();
 
-  console.log('rendering Graph')
-
   const { nodeElements, linkElements, textElements } = useSvgElements(
     nodeListRef?.current || EmptyArray,
     linkListRef?.current || EmptyArray,

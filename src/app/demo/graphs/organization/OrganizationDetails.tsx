@@ -7,7 +7,7 @@ import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import RenameModal from "@/app/demo/components/RenameModal";
 import {useDisclosure} from "@nextui-org/modal";
 import {useCallback} from "react";
-import {OrganizationDto} from "@/app/demo/graphs/organization/OrganizationDto";
+import {OrganizationDto} from "@/app/demo/types/OrganizationDto";
 export const LeftCol =
     'text-xs w-full text-center h-full flex items-center justify-center';
 export const CurriculumDetailsListenerKey = 'curriculum-details';

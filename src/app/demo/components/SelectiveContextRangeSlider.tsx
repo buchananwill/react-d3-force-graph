@@ -1,7 +1,8 @@
 'use client';
 import React, {useCallback} from 'react';
-import {useGlobalController} from "selective-context";
+import {useGlobalController, useGlobalDispatchAndListener} from "selective-context";
 import {Slider} from "@nextui-org/slider";
+import {useGraphDispatchAndListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 // Todo: make this a dispatch, not a controller.
 export function SelectiveContextRangeSlider({
@@ -19,7 +20,7 @@ export function SelectiveContextRangeSlider({
   minValue?: number;
   className?: string;
 }) {
-  const { currentState, dispatch: dispatchUpdate } = useGlobalController({
+  const { currentState, dispatchWithoutControl: dispatchUpdate } = useGlobalDispatchAndListener({
     contextKey,
     listenerKey,
     initialValue

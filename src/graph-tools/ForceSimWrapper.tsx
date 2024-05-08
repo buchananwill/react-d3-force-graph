@@ -3,7 +3,7 @@
 import React, {ReactNode, useCallback, useContext, useRef, useState} from 'react';
 import {useD3ForceSimulation} from './hooks/useD3ForceSimulation';
 import {LinkRefContext} from './links/genericLinkContextCreator';
-import {NodeRefContext} from './nodes/genericNodeContextCreator';
+import {NodeRefContext, useGraphRefs} from './nodes/genericNodeContextCreator';
 
 import {useGraphDispatch, useGraphDispatchAndListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {NodePositionsKey} from "@/graph-tools/constants";
@@ -19,8 +19,6 @@ export default function ForceSimWrapper({
   linkElements: ReactNode[];
 
 }) {
-  const nodesRef = useContext(NodeRefContext);
-  const linksRef = useContext(LinkRefContext);
 
 
   let {dispatchWithoutControl} = useGraphDispatchAndListener<number>(NodePositionsKey, 'wrapper', 0);
@@ -28,8 +26,6 @@ export default function ForceSimWrapper({
   const lastRenderTimer = useRef(Date.now());
 
   const [simDisplaying, setSimDisplaying] = useState(false);
-
-
 
   const ticked = useCallback(() => {
     const elapsed = Date.now() - lastRenderTimer.current;
@@ -40,7 +36,7 @@ export default function ForceSimWrapper({
     if (!simDisplaying) setSimDisplaying(true);
   }, [dispatchWithoutControl, simDisplaying]
 )
-  useD3ForceSimulation(nodesRef!, linksRef!, ticked);
+  useD3ForceSimulation(ticked);
 
   return (
     <g>

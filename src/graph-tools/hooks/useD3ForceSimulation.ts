@@ -9,6 +9,7 @@ import {beginSim} from "@/graph-tools/functions/beginSim";
 import {updateForces} from "@/graph-tools/functions/updateForces";
 import {createForces} from "@/graph-tools/functions/createForces";
 import {ForcesContext} from "@/graph-tools/contexts/forces/forcesContextCreator";
+import {useGraphRefs} from "@/graph-tools/nodes/genericNodeContextCreator";
 
 
 const listenerKey = `force-sim`;
@@ -16,10 +17,9 @@ const listenerKey = `force-sim`;
 export const defaultDimensionArray = [1800, 1200];
 
 export function useD3ForceSimulation<T extends HasNumberId>(
-    nodesRef: React.MutableRefObject<DataNode<T>[]>,
-    linksRef: React.MutableRefObject<DataLink<T>[]>,
     ticked: () => void
 ) {
+    const {linkListRef: linksRef, nodeListRef: nodesRef} = useGraphRefs<T>();
     const forceAttributes = useForceAttributeListeners('sim');
     const {currentState: isMounted} = useGraphListener(GraphSelectiveKeys.mounted, listenerKey, false);
     const {currentState: isReady} = useGraphListener(GraphSelectiveKeys.ready, listenerKey, false);
@@ -52,6 +52,7 @@ export function useD3ForceSimulation<T extends HasNumberId>(
     , [forceAttributes, width, height]);
 
     useEffect(() => {
+        if (!linksRef || !nodesRef) return;
         const simulationRefCurrent = simulationRef.current;
         const nodesMutable = nodesRef.current;
         const linksMutable = linksRef.current;
@@ -79,7 +80,6 @@ export function useD3ForceSimulation<T extends HasNumberId>(
             }
             updateForces(simulationRefCurrent!, forceAttributes);
         }
-
 
         return () => {
             if (

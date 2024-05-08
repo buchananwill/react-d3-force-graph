@@ -77,7 +77,7 @@ function StandardDisclosureButton({
       {({ open }) => (
         <Button
           color={`${open ? 'primary' : 'default'}`}
-          className={`max-w-full w-[300px] grow flex justify-between`}
+          className={`max-w-full w-[260px] grow flex justify-between`}
         >
           <span className={'w-5/6 h-fit leading-6 text-left truncate ...'}>
             {label}

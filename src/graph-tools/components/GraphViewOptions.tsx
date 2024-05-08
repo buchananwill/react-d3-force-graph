@@ -13,6 +13,7 @@ import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {Tooltip} from "@nextui-org/tooltip";
 import {SelectiveContextRangeSlider} from "@/app/demo/components/SelectiveContextRangeSlider";
 import {useGraphSelectiveContextKey} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import ControllerComponent from "@/graph-tools/components/ControllerComponent";
 
 
 const graphToggles: GraphToggleProps[] = [
@@ -81,7 +82,9 @@ export default function GraphViewOptions() {
                     <GraphToggle key={index} {...toggleProps} />
                 ))}
                 <Tooltip content={'Zoom in/out'} showArrow={true}>
-                    <div><SelectiveContextRangeSlider
+                    <div>
+                        <ControllerComponent contextKey={zoomKey} initialValue={DefaultGraphZoom}/>
+                        <SelectiveContextRangeSlider
                         // className={'w-32'}
                         contextKey={zoomKey}
                         listenerKey={listenerKey}
@@ -92,13 +95,15 @@ export default function GraphViewOptions() {
                 </Tooltip>
 
                 <Tooltip content={'Scale text size.'} showArrow={true}>
-                    <div><SelectiveContextRangeSlider
+                    <div>
+                        <ControllerComponent contextKey={textSizeKey} initialValue={100}/>
+                        <SelectiveContextRangeSlider
                         // className={'w-32'}
                         contextKey={textSizeKey}
                         listenerKey={listenerKey}
                         maxValue={200}
                         minValue={1}
-                        initialValue={100}
+                        initialValue={50}
                     ></SelectiveContextRangeSlider></div>
                 </Tooltip>
 

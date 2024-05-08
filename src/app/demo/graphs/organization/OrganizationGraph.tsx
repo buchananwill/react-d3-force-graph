@@ -13,7 +13,7 @@ import {useNodeAndLinkRefs} from '@/graph-tools/hooks/useNodeAndLinkRefs';
 import {getGraphUpdaterWithNameDeDuplication} from './getGraphUpdaterWithNameDeDuplication';
 import {putGraph} from "@/app/demo/graphs/organization/mockPutServerAction";
 import {DataNode} from "@/graph-tools/types/types";
-import {OrganizationDto} from "@/app/demo/graphs/organization/OrganizationDto";
+import {OrganizationDto} from "@/app/demo/types/OrganizationDto";
 
 
 const cloneFunctionWrapper = {cachedFunction: cloneOrganizationNode};
@@ -57,14 +57,14 @@ export default function OrganizationGraph({children}: PropsWithChildren) {
             linkListRef={linksRef}
             textList={descriptionList}
             titleList={titleList}
-            unsavedNodeChangesProps={unsavedGraphChanges}
+            // unsavedNodeChangesProps={unsavedGraphChanges}
         >
-            {/*{children}*/}
-            {/*<NodeDetails*/}
-            {/*    nodeDetailElements={nodeDetailElements}*/}
-            {/*    labels={classList}*/}
-            {/*    detailsUiComponent={OrganizationDetails}*/}
-            {/*/>*/}
+            {children}
+            <NodeDetails
+                nodeDetailElements={nodeDetailElements}
+                labels={classList}
+                detailsUiComponent={OrganizationDetails}
+            />
         </NodeLinkRefWrapper>
     );
 }

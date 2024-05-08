@@ -28,7 +28,7 @@ export const ListenerKey = 'node-editor-disclosure';
 
 export const ShowNodeEditingKey = '';
 
-export function NodeEditorDisclosure<T extends HasNumberId>({}: {
+export function NodeEditorPanel<T extends HasNumberId>({}: {
   propCloneFunction?: CloneFunction<DataNode<T>>;
 }) {
   const {
@@ -39,13 +39,8 @@ export function NodeEditorDisclosure<T extends HasNumberId>({}: {
     { cachedFunction: FallBackCloneFunction }
   );
 
-  return (
-    <div className={'sticky -top-0 w-full flex flex-col bg-slate-50 z-10 '}>
-      <div className={'h-2'}></div>
-      {/*<DisclosureThatGrowsOpen*/}
-      {/*  label={'Edit Graph'}*/}
-      {/*  heightWhenOpen={'h-[9.5rem]'}*/}
-      {/*>*/}
+  return (<>
+
         <div className={'w-full grid grid-cols-2 gap-1 relative mb-1'}>
           <AddNodesButton relation={'sibling'} cloneFunction={cloneFunction}>
             Add Sibling
@@ -62,8 +57,7 @@ export function NodeEditorDisclosure<T extends HasNumberId>({}: {
           <DeleteNodesButton>Delete Nodes</DeleteNodesButton>
           <DeleteLinksButton>Delete Links</DeleteLinksButton>
         </div>
-      {/*</DisclosureThatGrowsOpen>*/}
-      <div className={'h-2  border-t'}></div>
-    </div>
+
+    </>
   );
 }

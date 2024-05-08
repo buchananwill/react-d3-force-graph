@@ -3,6 +3,7 @@ import {NodeDispatchContext, useGraphRefs, useNodeContext} from "@/graph-tools/n
 import {LinkDispatchContext, useLinkContext} from "@/graph-tools/links/genericLinkContextCreator";
 import {Dispatch, MutableRefObject, SetStateAction, useCallback, useContext, useMemo} from "react";
 import {
+    GraphSelectiveKeys,
     useGraphDispatch,
     useGraphDispatchAndListener,
     useGraphListener
@@ -33,7 +34,7 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>() {
         );
 
     const {nodeListRef, linkListRef} = useGraphRefs<T>();
-    const {currentState} = useGraphListener<MutableRefObject<Simulation<any, any>> | null>('sim', listenerKey, null);
+    const {currentState} = useGraphListener<MutableRefObject<Simulation<any, any>> | null>(GraphSelectiveKeys.sim, listenerKey, null);
     const incrementSimVersion = useCallback(() => {
         if (nodeListRef?.current && linkListRef?.current && currentState?.current && updateNodes && updateLinks) {
             currentState.current.stop()

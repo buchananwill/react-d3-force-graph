@@ -1,4 +1,4 @@
-import {useGraphController} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {GraphSelectiveKeys, useGraphController} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {useDirectSimRefEditsController} from "@/graph-tools/hooks/useDirectSimRefEditsController";
 import {EmptyArray, TransientIdOffset} from "@/graph-tools/constants";
 import {useRef} from "react";
@@ -17,7 +17,7 @@ export function useGraphEditController() {
   useGraphController('deleted-link-ids', rootListenerKey, EmptyArray);
   useGraphController('deleted-node-ids', rootListenerKey, EmptyArray);
   useGraphController('dimensions', rootListenerKey, dimensionsStaticArray);
-  useGraphController('sim', rootListenerKey, sim)
+  useGraphController(GraphSelectiveKeys.sim, rootListenerKey, sim)
 
   useDirectSimRefEditsController();
 }

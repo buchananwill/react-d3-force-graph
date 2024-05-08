@@ -31,6 +31,9 @@ export const ConstantGraphZoomFactor = 2;
 const DefaultGraphWidth = 900;
 const DefaultGraphHeight = 600;
 const listenerKey = 'graph';
+let translateX = 0
+let translateY = 0
+
 export default function Graph<T extends HasNumberId>({
   titleList,
   textList,
@@ -108,11 +111,13 @@ export default function Graph<T extends HasNumberId>({
                     // ref={setNodeRef}
                 >
                   <svg
-                    className={'border-2 border-slate-600 rounded-lg'}
                     viewBox={`0 0 ${width} ${height}`}
                     style={{
                       width: DefaultGraphWidth,
-                      height: DefaultGraphHeight
+                      height: DefaultGraphHeight,
+                      borderWidth: "2px",
+                      borderColor: "rgb(71,85,105)",
+                      borderRadius: "0.5rem"
                     }}
                     xmlns="http://www.w3.org/2000/svg"
                     ref={svgRef}
@@ -127,8 +132,8 @@ export default function Graph<T extends HasNumberId>({
                     />
                     <g
                       transform={`translate(${
-                        0 * svgScale + centerOffsetX
-                    } ${0 * svgScale + centerOffsetY})`}
+                        translateX * svgScale + centerOffsetX
+                    } ${translateY * svgScale + centerOffsetY})`}
                     >
                       <ForceSimWrapper
                         textElements={textElements}

@@ -8,7 +8,7 @@ import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 import {HasNumberId} from "@/graph-tools/types/types";
 import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {SvgTransitionWrapper} from "@/graph-tools/components/SvgTransitionWrapper";
-import {LeftCtrlListener} from "@/graph-tools/components/key-listener-context/keyListenerContextCreator";
+import {LeftCtrlListener} from "@/graph-tools/contexts/key-listener-context/keyListenerContextCreator";
 
 export default function NodeText<T extends HasNumberId>({
   textIndex,

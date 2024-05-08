@@ -2,7 +2,7 @@ import * as d3 from "d3";
 import {calculateRotationAngle} from "@/graph-tools/links/calculateRotationAngle";
 import React from "react";
 import {Coordinate} from "@/graph-tools/links/LinkComponent";
-import {useSineLutContext} from "@/graph-tools/animation-sync-context/animationSyncContextCreator";
+import {useSineLutContext} from "@/graph-tools/contexts/animation-sync-context/animationSyncContextCreator";
 import {LinkGraphicsElementProps} from "@/graph-tools/links/linkComponentContextCreator";
 
 

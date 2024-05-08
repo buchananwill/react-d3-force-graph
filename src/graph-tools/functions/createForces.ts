@@ -7,12 +7,12 @@ import {getForceCollide} from "@/graph-tools/forces/forceCollide";
 import {getForceRadial} from "@/graph-tools/forces/forceRadial";
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {ForceAttributeListenerReturn} from "@/graph-tools/hooks/ForceGraphAttributesDto";
-import {Forces} from "@/graph-tools/hooks/forces";
+import {Forces} from "@/graph-tools/types/forces";
 
 export function createForces<T extends HasNumberId>(
     forceAttributeListeners: ForceAttributeListenerReturn, width: number,
     height: number,
-    linksRef: DataLink<T>[],
+    links: DataLink<T>[],
     nodes: DataNode<T>[]): Forces {
     const {
         forceYStrengthNormalized,
@@ -66,13 +66,16 @@ export function createForces<T extends HasNumberId>(
     );
 
     const link = getLinkForceMinCosFallOffBusiestNode(
-        linksRef,
+        links,
         () => {
             return nodes.length;
         },
         linkStrengthNormalized,
         linkDistanceNormalized
     );
+
+    console.log(link)
+    console.log('links', links)
 
     const center = d3
         .forceCenter(width / 2, height / 2)

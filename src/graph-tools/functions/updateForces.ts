@@ -10,7 +10,7 @@ import {StringMap} from "selective-context/dist/types";
 import {useRef} from "react";
 import _ from "lodash";
 
-export function updateValues<T extends HasNumberId>(currentSim: Simulation<DataNode<T>, DataLink<T>>, forceAttributeListeners: ForceAttributeListenerReturn) {
+export function updateForces<T extends HasNumberId>(currentSim: Simulation<DataNode<T>, DataLink<T>>, forceAttributeListeners: ForceAttributeListenerReturn) {
     const {
         forceYStrengthNormalized,
         forceXStrengthNormalized,

@@ -3,7 +3,6 @@ import {NodeGraphicsElementProps} from "@/graph-tools/nodes/nodeComponentContext
 
 export function SquareNode({node, ...otherProps}: NodeGraphicsElementProps<any, SVGRectElement>) {
     const dimension = (80 - (node.distanceFromRoot)*20)
-    console.log(dimension)
 
     return <rect
         {...otherProps}

@@ -1,4 +1,4 @@
-import React, {MutableRefObject, useCallback, useEffect, useMemo, useRef} from 'react';
+import React, {MutableRefObject, useCallback, useContext, useEffect, useMemo, useRef} from 'react';
 import * as d3 from 'd3';
 import {Simulation} from 'd3';
 
@@ -6,13 +6,14 @@ import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
 import {GraphSelectiveKeys, useGraphDispatch, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {beginSim} from "@/graph-tools/functions/beginSim";
-import {updateValues} from "@/graph-tools/functions/updateValues";
+import {updateForces} from "@/graph-tools/functions/updateForces";
 import {createForces} from "@/graph-tools/functions/createForces";
+import {ForcesContext} from "@/graph-tools/contexts/forces/forcesContextCreator";
 
 
 const listenerKey = `force-sim`;
 
-const dimensionArray = [1800, 1200];
+export const defaultDimensionArray = [1800, 1200];
 
 export function useD3ForceSimulation<T extends HasNumberId>(
     nodesRef: React.MutableRefObject<DataNode<T>[]>,
@@ -24,10 +25,11 @@ export function useD3ForceSimulation<T extends HasNumberId>(
     const {currentState: isReady} = useGraphListener(GraphSelectiveKeys.ready, listenerKey, false);
     const {currentState: simVersion} = useGraphListener('version', listenerKey, 0);
     const {dispatchWithoutListen} = useGraphDispatch(GraphSelectiveKeys.sim);
+    const forces = useContext(ForcesContext);
 
     const {
         currentState: [width, height]
-    } = useGraphListener(GraphSelectiveKeys.dimensions, listenerKey, dimensionArray);
+    } = useGraphListener(GraphSelectiveKeys.dimensions, listenerKey, defaultDimensionArray);
 
     const simVersionRef = useRef(simVersion);
 
@@ -75,7 +77,7 @@ export function useD3ForceSimulation<T extends HasNumberId>(
             } else {
                 simulationRefCurrent.on('tick', ticked);
             }
-            updateValues(simulationRefCurrent!, forceAttributes);
+            updateForces(simulationRefCurrent!, forceAttributes);
         }
 
 

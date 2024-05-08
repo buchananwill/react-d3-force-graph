@@ -1,7 +1,7 @@
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import * as D3 from "d3";
 import {Simulation} from "d3";
-import {ForceKey} from "@/graph-tools/hooks/forces";
+import {ForceKey} from "@/graph-tools/types/forces";
 
 export function updateForce<
     T extends HasNumberId,
@@ -14,5 +14,6 @@ export function updateForce<
     const optionalForce = current.force(forceKey);
     if (!optionalForce) return;
     const force = optionalForce as F;
+    console.log(force)
     apply(force);
 }

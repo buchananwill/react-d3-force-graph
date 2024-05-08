@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useMemo, useRef} from 'react';
 import {useGlobalListener} from "selective-context";
 import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 import {useNormalizeForceRange} from "@/graph-tools/forceAttributesMetaData";
@@ -148,7 +148,7 @@ export function useForceAttributeListeners(listenerKey: string) {
     const collideStrengthRef = useRef(collideStrengthNormalized);
     const centerStrengthRef = useRef(centerStrengthNormalized);
     const manyBodyThetaRef = useRef(manyBodyThetaNormalized);
-    return <ForceAttributeListenerReturn>{
+    return useMemo(() =>( {
         manyBodyStrengthNormalized,
         forceXStrengthNormalized,
         forceYStrengthNormalized,
@@ -175,5 +175,17 @@ export function useForceAttributeListeners(listenerKey: string) {
         collideStrengthRef,
         centerStrengthRef,
         manyBodyThetaRef,
-    }
+    }), [  manyBodyStrengthNormalized,
+        forceXStrengthNormalized,
+        forceYStrengthNormalized,
+        forceRadialYRelativeNormalized,
+        forceRadialStrengthNormalized,
+        linkStrengthNormalized,
+        forceRadialXRelativeNormalized,
+        manyBodyMinDistanceNormalized,
+        manyBodyMaxDistanceNormalized,
+        linkDistanceNormalized,
+        collideStrengthNormalized,
+        centerStrengthNormalized,
+        manyBodyThetaNormalized])
 }

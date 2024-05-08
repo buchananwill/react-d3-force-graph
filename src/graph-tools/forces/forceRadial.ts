@@ -1,8 +1,8 @@
 import * as d3 from 'd3';
 import { Simulation } from 'd3';
 
-import { updateForce } from './forceLink';
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
+import {updateForce} from "@/graph-tools/forces/updateForce";
 
 
 export function updateForceRadial<T extends HasNumberId>(

@@ -56,124 +56,124 @@ export interface ForceAttributeListenerReturn {
 export function useForceAttributeListeners(listenerKey: string) {
     let uniqueGraphName = useGraphName();
     const {currentState: manyBodyStrength} = useGlobalListener<number>({
-            contextKey: `${uniqueGraphName}-manyBodyStrength`,
+            contextKey: `${uniqueGraphName}:manyBodyStrength`,
             listenerKey,
             initialValue
         }
     );
     const {currentState: forceXStrength} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-forceXStrength`,
+        contextKey: `${uniqueGraphName}:forceXStrength`,
         listenerKey,
         initialValue
     });
     const {currentState: forceYStrength} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-forceYStrength`,
+        contextKey: `${uniqueGraphName}:forceYStrength`,
         listenerKey,
         initialValue
     });
     const {currentState: forceRadialYRelative} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-forceRadialYRelative`,
+        contextKey: `${uniqueGraphName}:forceRadialYRelative`,
         listenerKey,
         initialValue
     });
     const {currentState: forceRadialStrength} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-forceRadialStrength`,
+        contextKey: `${uniqueGraphName}:forceRadialStrength`,
         listenerKey,
         initialValue
     });
     const {currentState: linkStrength} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-linkStrength`,
+        contextKey: `${uniqueGraphName}:linkStrength`,
         listenerKey,
         initialValue
     });
     const {currentState: forceRadialXRelative} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-forceRadialXRelative`,
+        contextKey: `${uniqueGraphName}:forceRadialXRelative`,
         listenerKey,
         initialValue
     });
     const {currentState: manyBodyMinDistance} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-manyBodyMinDistance`,
+        contextKey: `${uniqueGraphName}:manyBodyMinDistance`,
         listenerKey,
         initialValue
     });
     const {currentState: manyBodyMaxDistance} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-manyBodyMaxDistance`,
+        contextKey: `${uniqueGraphName}:manyBodyMaxDistance`,
         listenerKey,
         initialValue
     });
     const {currentState: linkDistance} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-linkDistance`,
+        contextKey: `${uniqueGraphName}:linkDistance`,
         listenerKey,
         initialValue
     });
     const {currentState: collideStrength} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-collideStrength`,
+        contextKey: `${uniqueGraphName}:collideStrength`,
         listenerKey,
         initialValue
     });
     const {currentState: centerStrength} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-centerStrength`,
+        contextKey: `${uniqueGraphName}:centerStrength`,
         listenerKey,
         initialValue
     });
     const {currentState: manyBodyTheta} = useGlobalListener<number>({
-        contextKey: `${uniqueGraphName}-manyBodyTheta`,
+        contextKey: `${uniqueGraphName}:manyBodyTheta`,
         listenerKey,
         initialValue
     });
 
     const manyBodyStrengthNormalized = useNormalizeForceRange(manyBodyStrength, 'manyBodyStrength');
-    const manyBodyStrengthRef = useRef(manyBodyStrengthNormalized);
     const forceXStrengthNormalized = useNormalizeForceRange(forceXStrength);
-    const forceXStrengthRef = useRef(forceXStrengthNormalized);
     const forceYStrengthNormalized = useNormalizeForceRange(forceYStrength);
-    const forceYStrengthRef = useRef(forceYStrengthNormalized);
     const forceRadialYRelativeNormalized = useNormalizeForceRange(forceRadialYRelative);
-    const forceRadialYRelativeRef = useRef(forceRadialYRelativeNormalized);
     const forceRadialStrengthNormalized = useNormalizeForceRange(forceRadialStrength);
-    const forceRadialStrengthRef = useRef(forceRadialStrengthNormalized);
     const linkStrengthNormalized = useNormalizeForceRange(linkStrength);
-    const linkStrengthRef = useRef(linkStrengthNormalized);
     const forceRadialXRelativeNormalized = useNormalizeForceRange(forceRadialXRelative);
-    const forceRadialXRelativeRef = useRef(forceRadialXRelativeNormalized);
     const manyBodyMinDistanceNormalized = useNormalizeForceRange(manyBodyMinDistance, 'manyBodyMinDistance');
-    const manyBodyMinDistanceRef = useRef(manyBodyMinDistanceNormalized);
     const manyBodyMaxDistanceNormalized = useNormalizeForceRange(manyBodyMaxDistance, 'manyBodyMaxDistance');
-    const manyBodyMaxDistanceRef = useRef(manyBodyMaxDistanceNormalized);
     const linkDistanceNormalized = useNormalizeForceRange(linkDistance, 'linkDistance');
-    const linkDistanceRef = useRef(linkDistanceNormalized);
     const collideStrengthNormalized = useNormalizeForceRange(collideStrength);
-    const collideStrengthRef = useRef(collideStrengthNormalized);
     const centerStrengthNormalized = useNormalizeForceRange(centerStrength);
-    const centerStrengthRef = useRef(centerStrengthNormalized);
     const manyBodyThetaNormalized = useNormalizeForceRange(manyBodyTheta);
+    const manyBodyStrengthRef = useRef(manyBodyStrengthNormalized);
+    const forceXStrengthRef = useRef(forceXStrengthNormalized);
+    const forceYStrengthRef = useRef(forceYStrengthNormalized);
+    const forceRadialYRelativeRef = useRef(forceRadialYRelativeNormalized);
+    const forceRadialStrengthRef = useRef(forceRadialStrengthNormalized);
+    const linkStrengthRef = useRef(linkStrengthNormalized);
+    const forceRadialXRelativeRef = useRef(forceRadialXRelativeNormalized);
+    const manyBodyMinDistanceRef = useRef(manyBodyMinDistanceNormalized);
+    const manyBodyMaxDistanceRef = useRef(manyBodyMaxDistanceNormalized);
+    const linkDistanceRef = useRef(linkDistanceNormalized);
+    const collideStrengthRef = useRef(collideStrengthNormalized);
+    const centerStrengthRef = useRef(centerStrengthNormalized);
     const manyBodyThetaRef = useRef(manyBodyThetaNormalized);
     return <ForceAttributeListenerReturn>{
         manyBodyStrengthNormalized,
-        manyBodyStrengthRef,
         forceXStrengthNormalized,
-        forceXStrengthRef,
         forceYStrengthNormalized,
-        forceYStrengthRef,
         forceRadialYRelativeNormalized,
-        forceRadialYRelativeRef,
         forceRadialStrengthNormalized,
-        forceRadialStrengthRef,
         linkStrengthNormalized,
-        linkStrengthRef,
         forceRadialXRelativeNormalized,
-        forceRadialXRelativeRef,
         manyBodyMinDistanceNormalized,
-        manyBodyMinDistanceRef,
         manyBodyMaxDistanceNormalized,
-        manyBodyMaxDistanceRef,
         linkDistanceNormalized,
-        linkDistanceRef,
         collideStrengthNormalized,
-        collideStrengthRef,
         centerStrengthNormalized,
-        centerStrengthRef,
         manyBodyThetaNormalized,
+        manyBodyStrengthRef,
+        forceXStrengthRef,
+        forceYStrengthRef,
+        forceRadialYRelativeRef,
+        forceRadialStrengthRef,
+        linkStrengthRef,
+        forceRadialXRelativeRef,
+        manyBodyMinDistanceRef,
+        manyBodyMaxDistanceRef,
+        linkDistanceRef,
+        collideStrengthRef,
+        centerStrengthRef,
         manyBodyThetaRef,
     }
 }

@@ -35,6 +35,7 @@ export function SelectiveContextRangeSlider({
   return (
       <Slider
       className={className}
+      label={contextKey.substring(contextKey.indexOf(':')+1)}
       hideValue={false}
       showTooltip={true}
       hideThumb

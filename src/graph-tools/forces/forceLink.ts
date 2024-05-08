@@ -1,10 +1,10 @@
 import * as D3 from 'd3';
 import * as d3 from 'd3';
-import { Simulation, SimulationLinkDatum } from 'd3';
+import {Simulation, SimulationLinkDatum} from 'd3';
 
 
-import { StandardForceKey } from '../hooks/useD3ForceSimulation';
 import {DataLink, DataNode, HasNumberId} from '../types/types';
+import {updateForce} from "@/graph-tools/forces/updateForce";
 
 
 export function getCosFallOffFunction(numberOfNodes: number) {
@@ -117,16 +117,3 @@ export function updateLinkForce<T extends HasNumberId>(
   updateForce(current, 'link', consumerOfLinkForce);
 }
 
-export function updateForce<
-  T extends HasNumberId,
-  F extends D3.Force<DataNode<T>, DataLink<T>>
->(
-  current: Simulation<DataNode<T>, DataLink<T>>,
-  forceKey: StandardForceKey | string,
-  apply: (force: F) => void
-) {
-  const optionalForce = current.force(forceKey);
-  if (!optionalForce) return;
-  const force = optionalForce as F;
-  apply(force);
-}

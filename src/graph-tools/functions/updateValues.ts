@@ -6,6 +6,9 @@ import {updateManyBodyForce} from "@/graph-tools/forces/forceManyBody";
 import {updateForceX} from "@/graph-tools/forces/forceX";
 import {updateForceY} from "@/graph-tools/forces/forceY";
 import {updateForceRadial} from "@/graph-tools/forces/forceRadial";
+import {StringMap} from "selective-context/dist/types";
+import {useRef} from "react";
+import _ from "lodash";
 
 export function updateValues<T extends HasNumberId>(currentSim: Simulation<DataNode<T>, DataLink<T>>, forceAttributeListeners: ForceAttributeListenerReturn) {
     const {
@@ -36,6 +39,8 @@ export function updateValues<T extends HasNumberId>(currentSim: Simulation<DataN
         manyBodyStrengthRef,
         manyBodyThetaRef
     } = forceAttributeListeners;
+
+
     if (
         linkStrengthRef.current != linkStrengthNormalized ||
         linkDistanceRef.current != linkDistanceNormalized
@@ -77,5 +82,15 @@ export function updateValues<T extends HasNumberId>(currentSim: Simulation<DataN
     if (forceRadialStrengthRef.current != forceRadialStrengthNormalized) {
         updateForceRadial(currentSim, forceRadialStrengthNormalized);
         forceRadialStrengthRef.current = forceRadialStrengthNormalized;
+    }
+}
+
+function useForceUpdate(values: StringMap<number>, forceUpdater: (currentSim:  Simulation<DataNode<any>, DataLink<any>>, values: StringMap<number>) => void, currentSim: Simulation<DataNode<any>, DataLink<any>>) {
+    const valuesRef = useRef(values);
+    if (!_.isEqual(valuesRef.current, values)) {
+        forceUpdater(currentSim, values)
+        return true
+    } else {
+        return false
     }
 }

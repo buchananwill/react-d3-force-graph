@@ -1,24 +1,14 @@
-import React, {MutableRefObject, useEffect, useMemo, useRef} from 'react';
+import React, {MutableRefObject, useCallback, useEffect, useMemo, useRef} from 'react';
 import * as d3 from 'd3';
 import {Simulation} from 'd3';
 
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {useGlobalListener} from "selective-context";
 import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
 import {GraphSelectiveKeys, useGraphDispatch, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 import {beginSim} from "@/graph-tools/functions/beginSim";
 import {updateValues} from "@/graph-tools/functions/updateValues";
+import {createForces} from "@/graph-tools/functions/createForces";
 
-
-export type StandardForceKey =
-    | 'link'
-    | 'charge'
-    | 'collide'
-    | 'center'
-    | 'radial'
-    | 'forceX'
-    | 'forceY';
 
 const listenerKey = `force-sim`;
 
@@ -29,37 +19,11 @@ export function useD3ForceSimulation<T extends HasNumberId>(
     linksRef: React.MutableRefObject<DataLink<T>[]>,
     ticked: () => void
 ) {
-    const uniqueGraphName = useGraphName();
-    const forceAttributeListeners = useForceAttributeListeners('sim');
-    const {contextKey, mountedListenerKey, mountedKey} =
-        useMemo(() => {
-            return {
-                contextKey: `${uniqueGraphName}:ready`,
-                listenerKey: listenerKey,
-                mountedKey: `${uniqueGraphName}:mounted`,
-                mountedListenerKey: listenerKey
-            };
-        }, [uniqueGraphName]);
-
-    const {currentState: isReady} = useGlobalListener<boolean>(
-        {
-            contextKey,
-            listenerKey,
-            initialValue: false
-        }
-    );
-
+    const forceAttributes = useForceAttributeListeners('sim');
+    const {currentState: isMounted} = useGraphListener(GraphSelectiveKeys.mounted, listenerKey, false);
+    const {currentState: isReady} = useGraphListener(GraphSelectiveKeys.ready, listenerKey, false);
     const {currentState: simVersion} = useGraphListener('version', listenerKey, 0);
-
     const {dispatchWithoutListen} = useGraphDispatch(GraphSelectiveKeys.sim);
-
-    const {currentState: isMounted} = useGlobalListener<boolean>(
-        {
-            contextKey: mountedKey,
-            listenerKey,
-            initialValue: false
-        }
-    );
 
     const {
         currentState: [width, height]
@@ -72,50 +36,70 @@ export function useD3ForceSimulation<T extends HasNumberId>(
         DataLink<T>
     > | null> = useRef(null);
 
-    useEffect(() => {
-        const numberOfNodes = nodesRef.current?.length || 0;
-        const spacingX = numberOfNodes > 0 ? (width - 200) / numberOfNodes : 1;
-        const spacingY = numberOfNodes > 0 ? (height / numberOfNodes) * 2 : 1;
+    const getForces = useCallback((
+        nodes: DataNode<T>[],
+        links: DataLink<T>[]
+        ) =>
+        createForces(
+            forceAttributes,
+            width,
+            height,
+            links,
+            nodes
+        )
+    , [forceAttributes, width, height]);
 
+    useEffect(() => {
+        const simulationRefCurrent = simulationRef.current;
         const nodesMutable = nodesRef.current;
         const linksMutable = linksRef.current;
 
-        if (!simulationRef.current) {
-            if (isReady) {
+        if (!simulationRefCurrent) {
+            if (isMounted && isReady) {
+                const forces = getForces(nodesMutable, linksMutable);
                 simVersionRef.current = simVersion;
-                beginSim(forceAttributeListeners, ticked, width, height, linksRef, simulationRef, nodesRef, spacingY, dispatchWithoutListen);
+                simulationRef.current = beginSim(ticked, nodesMutable, forces);
+                dispatchWithoutListen(simulationRef)
             }
         } else {
             if (simVersionRef.current !== simVersion) {
-                simulationRef.current?.nodes(nodesMutable);
-                const force = simulationRef.current?.force('link');
+                simulationRefCurrent?.nodes(nodesMutable);
+                const force = simulationRefCurrent?.force('link');
                 if (force) {
                     const forceLink = force as d3.ForceLink<DataNode<T>, DataLink<T>>;
                     forceLink.links(linksMutable);
                 }
                 simVersionRef.current = simVersion
-                simulationRef.current?.restart()
-                simulationRef.current.on('tick', ticked)
+                simulationRefCurrent?.restart()
+                simulationRefCurrent.on('tick', ticked)
             } else {
-                simulationRef.current.on('tick', ticked);
+                simulationRefCurrent.on('tick', ticked);
             }
-            updateValues(simulationRef.current!, forceAttributeListeners);
+            updateValues(simulationRefCurrent!, forceAttributes);
         }
 
+
         return () => {
-            if (!isMounted && simulationRef.current) simulationRef.current.stop();
+            if (
+                !isMounted &&
+                simulationRefCurrent
+            ) simulationRefCurrent.stop();
         };
     }, [
         dispatchWithoutListen,
         isMounted,
         simVersion,
-        forceAttributeListeners,
+        forceAttributes,
         nodesRef,
         linksRef,
         width,
         height,
         ticked,
-        isReady
+        isReady,
+        getForces
     ]);
+
+
+
 }
 

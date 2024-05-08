@@ -38,7 +38,7 @@ export default function GraphForceAdjustment() {
     if (entry[0] === 'id') {
       return null;
     }
-    const stringKey = `${uniqueGraphName}-${entry[0]}`;
+    const stringKey = `${uniqueGraphName}:${entry[0]}`;
     const entryKey = entry[0] as keyof ForceGraphAttributesDto;
     const initial = forceAttributesInitial[entryKey];
     // const min = forceAttributesMin[entryKey];

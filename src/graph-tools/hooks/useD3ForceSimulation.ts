@@ -85,6 +85,7 @@ export function useD3ForceSimulation<T extends HasNumberId>(
             }
             updateForces(simulationRefCurrent!, forceAttributes);
         }
+        console.log(simulationRefCurrent, nodesMutable)
 
         return () => {
             if (

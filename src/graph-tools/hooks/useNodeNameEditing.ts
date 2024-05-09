@@ -25,7 +25,6 @@ export function useNodeNameEditing<T extends HasNumberId & HasName>(
         useDirectSimRefEditsDispatch<T>();
     const handleConfirmRename =
         useCallback(() => {
-                console.log('Confirming rename!', nodeListRef, index)
         if (nodeListRef && linkListRef && (index !== undefined)) {
             const currentElement = nodeListRef.current[index];
             if (currentElement && currentElement.data) {

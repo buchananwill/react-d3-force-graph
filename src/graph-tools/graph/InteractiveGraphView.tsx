@@ -25,9 +25,10 @@ import GraphViewOptions from "@/graph-tools/components/GraphViewOptions";
 
 const listenerKey = 'graph-viewer';
 
-export function GraphViewer<T extends HasNumberId>({
-                                                       children
-                                                   }: {} & PropsWithChildren) {
+export function InteractiveGraphView({
+                                                                children,
+                                                                sidePanel = true
+                                                            }: { sidePanel?: boolean } & PropsWithChildren) {
     const [mouseActionContext, reducer] = useReducer(
         ForceGraphMouseActionReducer,
         {leftMouseDown: false, rightMouseDown: false}
@@ -68,13 +69,13 @@ export function GraphViewer<T extends HasNumberId>({
                                 <SvgGraphViewBox/>
                                 <div
                                     className={
-                                        'absolute w-fit h-fit top-4 right-4 Z-10 flex flex-col gap-1 items-end'
+                                        'absolute w-fit h-fit top-4 right-4 z-10 flex flex-col gap-1 items-end'
                                     }
                                 >
                                     <GraphViewOptions/>
                                 </div>
                             </div>
-                            <div
+                            {sidePanel && <div
                                 className={
                                     'flex flex-col overflow-y-scroll border-slate-600 border-2 rounded-lg p-2 mt-2 relative'
                                 }
@@ -92,10 +93,9 @@ export function GraphViewer<T extends HasNumberId>({
                                         <GraphForceSliders/>
                                     </Tab>
                                 </Tabs>
-
-                                {children}
-                            </div>
+                            </div>}
                         </div>
+                        {children}
 
                     </ForceGraphMouseButtonEventsDispatch.Provider>
                 </ForceGraphMouseButtonEventsContext.Provider>

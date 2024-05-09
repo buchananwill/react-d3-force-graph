@@ -15,7 +15,7 @@ import {CircleNode} from "@/graph-tools/ui-defaults/svg/CircleNode";
 import {SquareNode} from "@/graph-tools/ui-defaults/svg/SquareNode";
 import {LinkComponentContext} from "@/graph-tools/links/linkComponentContextCreator";
 import CurvedLinkComponent from "@/graph-tools/ui-defaults/svg/CurvedLinkComponent";
-import {GraphViewer} from "@/graph-tools/graph/GraphViewer";
+import {InteractiveGraphView} from "@/graph-tools/graph/InteractiveGraphView";
 import {NodeLinkRefWrapper} from "@/graph-tools/graph/NodeLinkRefWrapper";
 import {NodeDetailsComponentContext} from "@/graph-tools/contexts/details-component/nodeDetailsComponentContextCreator";
 import NodeDetailsComponentContextProvider
@@ -40,6 +40,7 @@ export interface ForceGraphPageOptionProps {
     nodeEditing: boolean;
     forceEditing: boolean;
     sidePanel: boolean;
+    defaultInteractiveViewer: boolean;
 }
 
 export interface NodePayload<T extends HasNumberId> {
@@ -72,10 +73,15 @@ export default function ForceGraphPage<T extends HasNumberId>({
                                         <ShowNodeEditing/>
                                         <GraphForceAdjuster/>
                                         <ForceSimEngine/>
-                                        <GraphViewer
-                                        >
-                                            {children}
-                                        </GraphViewer>
+                                            {
+                                                options?.defaultInteractiveViewer ? (
+                                                <InteractiveGraphView
+                                                sidePanel={options?.sidePanel}
+                                            >
+                                                {children}
+                                            </InteractiveGraphView> )
+                                                : children
+                                            }
                                         </NodeInteractionProvider>
 
                                     </NodeDetailsComponentContextProvider>

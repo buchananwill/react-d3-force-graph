@@ -45,7 +45,6 @@ export function useGraphSelectiveContextKey(
 ) {
     const {uniqueGraphName} = useContext(GraphContext);
     return useMemo(() => {
-    console.log(uniqueGraphName, contextKey)
         return `${uniqueGraphName}:${contextKey}`
     }, [uniqueGraphName, contextKey]);
 }

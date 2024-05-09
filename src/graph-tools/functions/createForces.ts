@@ -10,7 +10,8 @@ import {ForceAttributeListenerReturn} from "@/graph-tools/hooks/ForceGraphAttrib
 import {Forces} from "@/graph-tools/types/forces";
 
 export function createForces<T extends HasNumberId>(
-    forceAttributeListeners: ForceAttributeListenerReturn, width: number,
+    forceAttributeListeners: ForceAttributeListenerReturn,
+    width: number,
     height: number,
     links: DataLink<T>[],
     nodes: DataNode<T>[]): Forces {
@@ -44,10 +45,8 @@ export function createForces<T extends HasNumberId>(
     } = forceAttributeListeners;
 
     const numberOfNodes = nodes.length;
-    const spacingX = numberOfNodes > 0 ? (width - 200) / numberOfNodes : 1;
     const spacingY = numberOfNodes > 0 ? (height / numberOfNodes) * 2 : 1;
 
-    // const forceX = getGridX(width, spacingX, forceXStrengthNormalized);
     const forceX = getHorizontalParentsToChildrenLayout(
         nodes,
         width,
@@ -73,9 +72,6 @@ export function createForces<T extends HasNumberId>(
         linkStrengthNormalized,
         linkDistanceNormalized
     );
-
-    console.log(link)
-    console.log('links', links)
 
     const center = d3
         .forceCenter(width / 2, height / 2)

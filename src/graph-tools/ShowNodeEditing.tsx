@@ -15,7 +15,6 @@ export function useShowNodeEditing(show: boolean) {
       GraphSelectiveKeys.showNodeEditing
   );
   useEffect(() => {
-    console.log('dispatching show: ', show)
     dispatchWithoutListen(show);
   }, [show, dispatchWithoutListen]);
 }

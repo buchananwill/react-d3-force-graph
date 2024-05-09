@@ -14,6 +14,5 @@ export function updateForce<
     const optionalForce = current.force(forceKey);
     if (!optionalForce) return;
     const force = optionalForce as F;
-    console.log(force)
     apply(force);
 }

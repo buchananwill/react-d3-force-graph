@@ -1,4 +1,4 @@
-import React, {MutableRefObject, useCallback, useContext, useEffect, useMemo, useRef} from 'react';
+import {MutableRefObject, useCallback, useEffect, useRef} from 'react';
 import * as d3 from 'd3';
 import {Simulation} from 'd3';
 
@@ -8,7 +8,6 @@ import {GraphSelectiveKeys, useGraphDispatch, useGraphListener} from "@/graph-to
 import {beginSim} from "@/graph-tools/functions/beginSim";
 import {updateForces} from "@/graph-tools/functions/updateForces";
 import {createForces} from "@/graph-tools/functions/createForces";
-import {ForcesContext} from "@/graph-tools/contexts/forces/forcesContextCreator";
 import {useGraphRefs} from "@/graph-tools/nodes/genericNodeContextCreator";
 
 
@@ -25,7 +24,6 @@ export function useD3ForceSimulation<T extends HasNumberId>(
     const {currentState: isReady} = useGraphListener(GraphSelectiveKeys.ready, listenerKey, false);
     const {currentState: simVersion} = useGraphListener('version', listenerKey, 0);
     const {dispatchWithoutListen} = useGraphDispatch(GraphSelectiveKeys.sim);
-    const forces = useContext(ForcesContext);
 
     const {
         currentState: [width, height]

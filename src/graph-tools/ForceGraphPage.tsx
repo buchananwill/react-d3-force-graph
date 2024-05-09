@@ -54,8 +54,6 @@ export default function ForceGraphPage<T extends HasNumberId>({
                                                                   children
                                                               }: ForceGraphPageAllProps<T>) {
     const {nodes, closureDtos} = graphDto;
-    console.log('force graph page rendered!')
-
 
     return (
         <div className={'flex'}>
@@ -67,7 +65,6 @@ export default function ForceGraphPage<T extends HasNumberId>({
                                 <LinkComponentContext.Provider value={defaultLinkSvg}>
                                     <NodeDetailsComponentContextProvider>
                                         <NodeInteractionProvider>
-
                                         <GraphEditController/>
                                         <MountedTracker/>
                                         <NodePositionsTracker/>

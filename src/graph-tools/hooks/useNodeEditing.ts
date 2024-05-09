@@ -47,7 +47,6 @@ export function useNodeEditing<T extends HasNumberId>(
         nodes: nodes,
         closureDtos: linksWithNumberIdRefs
       };
-      console.log(updatedGraph);
       const deletedLinkNonTransientIds =
         deletedLinkIds.filter(removeTransientId);
       const deletedNodeNonTransientIds =

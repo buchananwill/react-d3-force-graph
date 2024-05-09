@@ -6,7 +6,7 @@ import {GraphContext, useGraphName} from '../graph/graphContextCreator';
 import {forceAttributesInitial} from '../forceAttributesMetaData';
 
 import {ShowForceAdjustmentsKey} from '../graph/ShowForceAdjustments';
-import {useGraphController, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {GraphSelectiveKeys, useGraphController, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {ForceGraphAttributesDto} from "@/graph-tools/hooks/ForceGraphAttributesDto";
 import {useGlobalController} from "selective-context";
 import ControllerComponent from "@/graph-tools/components/ControllerComponent";
@@ -17,7 +17,7 @@ const listenerKey = 'graph-force-adjustment';
 export default function GraphForceAttributes() {
   const uniqueGraphName = useGraphName();
   const { currentState, dispatch } = useGraphController(
-    'ready',
+    GraphSelectiveKeys.ready,
     listenerKey,
     false
   );

@@ -1,11 +1,10 @@
 'use client';
 import SvgRenderWrapper from '../SvgRenderWrapper';
-import React, {PropsWithChildren} from 'react';
+import React from 'react';
 import {useSvgElements} from '../aggregate-functions/useSvgElements';
 
 
 import GraphViewOptions from '../components/GraphViewOptions';
-import NodeInteractionProvider from '../nodes/NodeInteractionContext';
 import {useGraphRefs} from '../nodes/genericNodeContextCreator';
 import {
     DraggablePositionContext,
@@ -14,7 +13,6 @@ import {
 } from '../force-graph-dnd/mouseEventContextCreator';
 
 import {useGraphName} from './graphContextCreator';
-import GraphForceAdjuster from '../components/GraphForceAttributes';
 
 import {useMouseMoveSvgDraggable} from '../force-graph-dnd/useMouseMoveSvgDraggable';
 import {HasNumberId} from "@/graph-tools/types/types";
@@ -43,15 +41,11 @@ export default function Graph<T extends HasNumberId>() {
         textElements
     } = useSvgElements(nodeListRef?.current || EmptyArray, linkListRef?.current || EmptyArray);
 
-    // const { listeners, setNodeRef, transform } = useDraggable({
-    //   id: 'draggable'
-    // });
     const {currentState} = useGraphListener(
         'zoom',
         listenerKey,
         DefaultGraphZoom
     );
-
 
     const {
         handleMouseMove,
@@ -63,13 +57,7 @@ export default function Graph<T extends HasNumberId>() {
         svgScale
     } = useMouseMoveSvgDraggable(nodeListRef!, uniqueGraphName);
 
-    // const translationContextInterface = useDragToTranslate();
-    // const translationElement = translationContextInterface['draggable'];
-    // const xTranslate = (transform?.x || 0) + (translationElement?.x || 0);
-    // const yTranslate = (transform?.y || 0) + (translationElement?.y || 0);
-
     const scale = DefaultGraphZoom / currentState;
-
     const initialWidth = DefaultGraphWidth * scale;
     const initialHeight = DefaultGraphHeight * scale;
     const width = initialWidth * ConstantGraphZoomFactor;
@@ -112,7 +100,6 @@ export default function Graph<T extends HasNumberId>() {
                                     linkElements={linkElements}
                                     nodeElements={nodeElements}
                                 />
-
                             </g>
                         </svg>
                         <div

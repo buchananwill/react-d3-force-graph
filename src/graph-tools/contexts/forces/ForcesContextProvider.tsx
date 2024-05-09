@@ -37,7 +37,6 @@ export default function ForcesContextProvider({children}: PropsWithChildren) {
         , [forceAttributes, width, height]);
 
     useEffect(() => {
-        console.log('making forces', nodesRef, linksRef)
         const nodes = nodesRef?.current
         const links = linksRef?.current
         if (nodes !== undefined && links !== undefined && ready) {

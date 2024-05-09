@@ -40,15 +40,11 @@ export function GraphViewer<T extends HasNumberId>({
         false
     );
 
-    console.log(showNodeEditing)
-
     const {currentState: showForceEditing} = useGraphListener(
         GraphSelectiveKeys.showForceEditing,
         listenerKey,
         false
     );
-
-    const graphName = useGraphName();
 
     const disabledTabKeys = useMemo(() => {
         const disabledTabKeys = [];
@@ -56,7 +52,7 @@ export function GraphViewer<T extends HasNumberId>({
         if (!showForceEditing) disabledTabKeys.push(GraphSelectiveKeys.showForceEditing)
         return disabledTabKeys
     }, [showForceEditing, showNodeEditing]);
-    console.log(graphName, disabledTabKeys)
+
 
     return (
         // <DraggableToTranslate>

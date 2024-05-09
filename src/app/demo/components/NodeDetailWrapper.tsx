@@ -15,6 +15,7 @@ import { Button } from '@nextui-org/button';
 import {DataNode, HasNumberId, NodeDetailsUiComponentProps} from "@/graph-tools/types/types";
 import { Disclosure } from '@headlessui/react';
 import {NodeDetailsComponentContext} from "@/graph-tools/contexts/details-component/nodeDetailsComponentContextCreator";
+import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 export function NodeDetailWrapper<T extends HasNumberId>({
   label,
@@ -26,6 +27,7 @@ export function NodeDetailWrapper<T extends HasNumberId>({
   const { dispatch } = useNodeInteractionContext();
   const {component: Component} = useContext(NodeDetailsComponentContext);
   const isSelected = useNodeSelectedListener(node.id);
+
 
   const handleDispatch = () => {
     dispatch({ type: 'toggleSelect', payload: node.id });

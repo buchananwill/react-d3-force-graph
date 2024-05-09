@@ -5,7 +5,7 @@ import {GraphToggle, GraphToggleProps} from './GraphToggle';
 import React, {useEffect, useRef, useState} from 'react';
 
 
-import {DefaultGraphZoom, MaxGraphZoom} from '../graph/Graph';
+import {DefaultGraphZoom, MaxGraphZoom} from '../graph/SvgGraphViewBox';
 import {Button} from "@nextui-org/button";
 
 
@@ -75,7 +75,7 @@ export default function GraphViewOptions() {
             </Button>
             <div
                 className={`p-4 mt-2 h-fit w-fit flex flex-col gap-1 items-left transition-opacity duration-500 text-black bg-transparent border-2 rounded-lg ${
-                    showSliders ? 'opacity-100 z-20 ' : 'opacity-0 -z-10 '
+                    showSliders ? 'opacity-100 z-20 backdrop-blur-sm' : 'opacity-0 -z-10 '
                 } ${hideFromLayout ? ' hidden ' : ''}`}
             >
                 {graphToggles.map((toggleProps, index) => (

@@ -4,7 +4,7 @@ import {EmptyArray, TransientIdOffset} from "@/graph-tools/constants";
 import {useRef} from "react";
 import {Simulation} from "d3";
 
-const rootListenerKey = 'root-listener-key';
+const rootListenerKey = 'graph-edit-controller-key';
 const dimensionsStaticArray: number[] = [1800, 1200];
 
 export function useGraphEditController() {
@@ -17,8 +17,8 @@ export function useGraphEditController() {
   useGraphController('deleted-link-ids', rootListenerKey, EmptyArray);
   useGraphController('deleted-node-ids', rootListenerKey, EmptyArray);
   useGraphController('dimensions', rootListenerKey, dimensionsStaticArray);
-  useGraphController(GraphSelectiveKeys.sim, rootListenerKey, sim)
 
+console.log(sim)
   useDirectSimRefEditsController();
 }
 

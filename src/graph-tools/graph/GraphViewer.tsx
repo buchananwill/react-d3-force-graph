@@ -1,7 +1,7 @@
 'use client';
 
 
-import Graph from './Graph';
+import SvgGraphViewBox from './SvgGraphViewBox';
 import React, {PropsWithChildren, useMemo, useReducer, useState} from 'react';
 import {
     ForceGraphDraggable,
@@ -21,6 +21,7 @@ import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraph
 import {ShowForceAdjustmentsKey} from "@/graph-tools/graph/ShowForceAdjustments";
 import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 import NodeDetails from "@/graph-tools/components/NodeDetails";
+import GraphViewOptions from "@/graph-tools/components/GraphViewOptions";
 
 const listenerKey = 'graph-viewer';
 
@@ -63,7 +64,16 @@ export function GraphViewer<T extends HasNumberId>({
                 >
                     <ForceGraphMouseButtonEventsDispatch.Provider value={reducer}>
                         <div className={'flex'}>
-                            <Graph/>
+                            <div className={'relative justify-center m-2 gap-2 h-fit w-fit bg-white'}>
+                                <SvgGraphViewBox/>
+                                <div
+                                    className={
+                                        'absolute w-fit h-fit top-4 right-4 Z-10 flex flex-col gap-1 items-end'
+                                    }
+                                >
+                                    <GraphViewOptions/>
+                                </div>
+                            </div>
                             <div
                                 className={
                                     'flex flex-col overflow-y-scroll border-slate-600 border-2 rounded-lg p-2 mt-2 relative'

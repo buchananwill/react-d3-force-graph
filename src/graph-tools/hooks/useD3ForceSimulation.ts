@@ -4,7 +4,12 @@ import {Simulation} from 'd3';
 
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
-import {GraphSelectiveKeys, useGraphDispatch, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {
+    GraphSelectiveKeys,
+    useGraphController,
+    useGraphDispatch,
+    useGraphListener
+} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {beginSim} from "@/graph-tools/functions/beginSim";
 import {updateForces} from "@/graph-tools/functions/updateForces";
 import {createForces} from "@/graph-tools/functions/createForces";
@@ -23,7 +28,7 @@ export function useD3ForceSimulation<T extends HasNumberId>(
     const {currentState: isMounted} = useGraphListener(GraphSelectiveKeys.mounted, listenerKey, false);
     const {currentState: isReady} = useGraphListener(GraphSelectiveKeys.ready, listenerKey, false);
     const {currentState: simVersion} = useGraphListener('version', listenerKey, 0);
-    const {dispatchWithoutListen} = useGraphDispatch(GraphSelectiveKeys.sim);
+    // const {dispatchWithoutListen} = useGraphDispatch(GraphSelectiveKeys.sim);
 
     const {
         currentState: [width, height]
@@ -36,6 +41,7 @@ export function useD3ForceSimulation<T extends HasNumberId>(
         DataLink<T>
     > | null> = useRef(null);
 
+    useGraphController(GraphSelectiveKeys.sim, listenerKey, simulationRef)
     const getForces = useCallback((
         nodes: DataNode<T>[],
         links: DataLink<T>[]
@@ -60,7 +66,8 @@ export function useD3ForceSimulation<T extends HasNumberId>(
                 const forces = getForces(nodesMutable, linksMutable);
                 simVersionRef.current = simVersion;
                 simulationRef.current = beginSim(ticked, nodesMutable, forces);
-                dispatchWithoutListen(simulationRef)
+                // console.log('dispatching the simRef', simulationRef)
+                // dispatchWithoutListen(simulationRef)
             }
         } else {
             if (simVersionRef.current !== simVersion) {
@@ -86,7 +93,7 @@ export function useD3ForceSimulation<T extends HasNumberId>(
             ) simulationRefCurrent.stop();
         };
     }, [
-        dispatchWithoutListen,
+        // dispatchWithoutListen,
         isMounted,
         simVersion,
         forceAttributes,

@@ -7,6 +7,7 @@ import RenameModal from "@/app/demo/components/RenameModal";
 import {useDisclosure} from "@nextui-org/modal";
 import React, {useCallback} from "react";
 import {NodeDetailsProps} from "@/graph-tools/contexts/details-component/nodeDetailsComponentContextCreator";
+import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 export const LeftCol =
     'text-xs w-full text-center h-full flex items-center justify-center';

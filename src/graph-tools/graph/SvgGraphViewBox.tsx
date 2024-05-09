@@ -29,7 +29,7 @@ const listenerKey = 'graph';
 let translateX = 0
 let translateY = 0
 
-export default function Graph<T extends HasNumberId>() {
+export default function SvgGraphViewBox<T extends HasNumberId>() {
 
     const {nodeListRef, linkListRef} = useGraphRefs<T>();
 
@@ -69,7 +69,6 @@ export default function Graph<T extends HasNumberId>() {
         <MouseDownDispatchContext.Provider value={mouseDownDispatch}>
             <DraggablePositionContext.Provider value={draggablePosition}>
                 <IsDraggingContext.Provider value={isDragging}>
-                    <div className={'relative justify-center m-2 gap-2 h-fit w-fit bg-white'}>
                         <svg
                             viewBox={`0 0 ${width} ${height}`}
                             style={{
@@ -102,14 +101,7 @@ export default function Graph<T extends HasNumberId>() {
                                 />
                             </g>
                         </svg>
-                        <div
-                            className={
-                                'absolute w-fit h-fit top-4 right-4 Z-10 flex flex-col gap-1 items-end'
-                            }
-                        >
-                            <GraphViewOptions/>
-                        </div>
-                    </div>
+
                 </IsDraggingContext.Provider>
             </DraggablePositionContext.Provider>
         </MouseDownDispatchContext.Provider>

@@ -47,11 +47,7 @@ export default function OrganizationGraph({children}: PropsWithChildren) {
     return (
         <>
             {children}
-            <NodeDetails
-                nodeDetailElements={nodeDetailElements}
-                labels={classList}
-                detailsUiComponent={OrganizationDetails}
-            />
+
         </>
     );
 }

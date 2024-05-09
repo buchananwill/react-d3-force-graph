@@ -20,6 +20,7 @@ import GraphForceSliders from "@/graph-tools/components/GraphForceSliders";
 import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {ShowForceAdjustmentsKey} from "@/graph-tools/graph/ShowForceAdjustments";
 import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
+import NodeDetails from "@/graph-tools/components/NodeDetails";
 
 const listenerKey = 'graph-viewer';
 
@@ -78,17 +79,18 @@ export function GraphViewer<T extends HasNumberId>({
                         style={{height: '600px'}}
                     >
                       <Tabs aria-label={'graph options'} disabledKeys={disabledTabKeys}>
+                        <Tab key={'node-details'} title={'Node Details'}>
+                          <NodeDetails/>
+                        </Tab>
                         <Tab key={GraphSelectiveKeys.showNodeEditing} title={'Edit Nodes'} disabled={!showNodeEditing}>
                           <NodeEditorPanel/>
                         </Tab>
                         <Tab key={GraphSelectiveKeys.showForceEditing} title={'Edit Forces'}>
                           <GraphForceSliders/>
                         </Tab>
-                        <Tab key={'node-details'} title={'Node Details'}>
-                {children}
-                        </Tab>
                       </Tabs>
 
+                {children}
                     </div>
               </Graph>
             </ForceGraphMouseButtonEventsDispatch.Provider>

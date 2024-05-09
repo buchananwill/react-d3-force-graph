@@ -11,9 +11,6 @@ export default function Home() {
             <NextUIProvider>
                 <SelectiveContextManagerGlobal>
                     <ForceGraphPage dataGraph={graphDto} graphName={'organization-graph'}>
-                        {/*<OrganizationGraph/>*/}
-                    </ForceGraphPage>
-                    <ForceGraphPage dataGraph={graphDto} graphName={'organization-graph-duplicate'} options={{nodeEditing: true}}>
                         <OrganizationGraph/>
                     </ForceGraphPage>
                 </SelectiveContextManagerGlobal>

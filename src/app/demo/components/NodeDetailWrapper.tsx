@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, Fragment, PropsWithChildren } from 'react';
+import React, {FC, Fragment, PropsWithChildren, useContext} from 'react';
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
@@ -14,17 +14,17 @@ import { StarIcon } from '@heroicons/react/24/solid';
 import { Button } from '@nextui-org/button';
 import {DataNode, HasNumberId, NodeDetailsUiComponentProps} from "@/graph-tools/types/types";
 import { Disclosure } from '@headlessui/react';
+import {NodeDetailsComponentContext} from "@/graph-tools/contexts/details-component/nodeDetailsComponentContextCreator";
 
 export function NodeDetailWrapper<T extends HasNumberId>({
   label,
-  node,
-  detailsUiComponent: Details
-}: {
+  node
+                                                         }: {
   label: string;
   node: DataNode<T>;
-  detailsUiComponent?: FC<NodeDetailsUiComponentProps<T>>;
 } & PropsWithChildren) {
   const { dispatch } = useNodeInteractionContext();
+  const {component: Component} = useContext(NodeDetailsComponentContext);
   const isSelected = useNodeSelectedListener(node.id);
 
   const handleDispatch = () => {
@@ -57,7 +57,7 @@ export function NodeDetailWrapper<T extends HasNumberId>({
           </div>
 
           <Disclosure.Panel>
-            {Details && <Details node={node} />}
+            {<Component node={node} />}
           </Disclosure.Panel>
         </>
       )}

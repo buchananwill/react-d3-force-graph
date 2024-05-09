@@ -1,22 +1,20 @@
 'use client';
 
-import {DataNode} from "@/graph-tools/types/types";
 import {useNodeNameEditing} from "@/graph-tools/hooks/useNodeNameEditing";
 import {Button} from "@nextui-org/button";
 import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import RenameModal from "@/app/demo/components/RenameModal";
 import {useDisclosure} from "@nextui-org/modal";
-import {useCallback} from "react";
-import {OrganizationDto} from "@/app/demo/types/OrganizationDto";
+import React, {useCallback} from "react";
+import {NodeDetailsProps} from "@/graph-tools/contexts/details-component/nodeDetailsComponentContextCreator";
+
 export const LeftCol =
     'text-xs w-full text-center h-full flex items-center justify-center';
 export const CurriculumDetailsListenerKey = 'curriculum-details';
 
 export default function OrganizationDetails({
                                                       node
-                                                  }: {
-    node: DataNode<OrganizationDto>;
-}) {
+                                                  }: NodeDetailsProps<any>): React.JSX.Element {
     const {id} = node;
     const componentListenerKey = `${CurriculumDetailsListenerKey}:${id}`;
 

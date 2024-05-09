@@ -1,35 +1,35 @@
-import React, {FC, useMemo} from 'react';
+import React, {FC, useContext, useMemo} from 'react';
 
 import { NodePayload } from '../ForceGraphPage';
 
 
 import {HasNumberId, NodeDetailsUiComponentProps} from "@/graph-tools/types/types";
 import {NodeDetailWrapper} from "@/app/demo/components/NodeDetailWrapper";
+import {NodeDetailsComponentContext} from "@/graph-tools/contexts/details-component/nodeDetailsComponentContextCreator";
+import {useNodeContext} from "@/graph-tools/nodes/genericNodeContextCreator";
 
-export default function NodeDetails<T extends HasNumberId>({
-  nodeDetailElements,
-  labels,
-  detailsUiComponent
-}: {
-  nodeDetailElements: NodePayload<T>[];
-  labels: string[];
-  detailsUiComponent?: FC<NodeDetailsUiComponentProps<T>>;
-}) {
-
+export default function NodeDetails<T extends HasNumberId>() {
+  const {nodes} = useNodeContext();
+  const {labelAccessor} = useContext(NodeDetailsComponentContext);
 
   const nodeDetails = useMemo(() =>
-     nodeDetailElements.map((detailElement, index) => (
+     nodes.map((node, index) => (
         <NodeDetailWrapper
-            key={`${index}-${labels[index]}`}
-            label={`${labels[index]}`}
-            node={detailElement.node}
-            detailsUiComponent={detailsUiComponent}
+            key={`${node.id}:detail-wrapper`}
+            label={labelAccessor(node)}
+            node={node}
         />
-    )), [nodeDetailElements, detailsUiComponent, labels])
+    )), [nodes])
 
   return (
     <div>
-      {...nodeDetails}
+      {/*{...nodeDetails}*/}
+      {nodes.map((node, index) => (
+          <NodeDetailWrapper
+              key={`${node.id}:detail-wrapper`}
+              label={labelAccessor(node)}
+              node={node}
+          />))}
     </div>
   );
 }

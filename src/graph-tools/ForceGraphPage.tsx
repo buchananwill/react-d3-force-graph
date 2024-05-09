@@ -17,6 +17,8 @@ import {LinkComponentContext} from "@/graph-tools/links/linkComponentContextCrea
 import CurvedLinkComponent from "@/graph-tools/ui-defaults/svg/CurvedLinkComponent";
 import {GraphViewer} from "@/graph-tools/graph/GraphViewer";
 import {NodeLinkRefWrapper} from "@/graph-tools/graph/NodeLinkRefWrapper";
+import {NodeDetailsComponentContext} from "@/graph-tools/contexts/details-component/nodeDetailsComponentContextCreator";
+import NodeDetailsComponentContextProvider from "@/graph-tools/contexts/details-component/DetailsComponentContextProvider";
 
 const defaultNodeSvg = {component: SquareNode}
 const defaultLinkSvg = {component: CurvedLinkComponent}
@@ -55,14 +57,15 @@ export default function ForceGraphPage<T extends HasNumberId>({
                         <NodeLinkRefWrapper>
                             <NodeComponentContext.Provider value={defaultNodeSvg}>
                                 <LinkComponentContext.Provider value={defaultLinkSvg}>
-                                    <MountedTracker/>
-                                    <NodePositionsTracker/>
-                                    <ShowForceAdjustments/>
-                                    <ShowNodeEditing/>
-                                    <GraphViewer
-                                    >
-                                        {children}
-                                    </GraphViewer>
+                                    <NodeDetailsComponentContextProvider>
+                                        <MountedTracker/>
+                                        <NodePositionsTracker/>
+                                        <ShowForceAdjustments/>
+                                        <ShowNodeEditing/>
+                                        <GraphViewer
+                                        >
+                                            {children}
+                                        </GraphViewer></NodeDetailsComponentContextProvider>
                                 </LinkComponentContext.Provider>
                             </NodeComponentContext.Provider>
                         </NodeLinkRefWrapper>

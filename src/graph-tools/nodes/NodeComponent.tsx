@@ -1,10 +1,11 @@
 'use client';
-import React, {ReactNode, useContext, useMemo} from 'react';
+import React, {ReactNode, useContext, useEffect, useMemo} from 'react';
 import {useNodeInteractionContext} from './NodeInteractionContext';
 import {NodeRefContext} from './genericNodeContextCreator';
 import {useForceGraphDndElement} from '../force-graph-dnd/useForceGraphDndElement';
 import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {NodeComponentContext} from "@/graph-tools/nodes/nodeComponentContextCreator";
+import {DataNode} from "@/graph-tools/types/types";
 
 export function NodeComponent({
   gProps,
@@ -31,11 +32,23 @@ export function NodeComponent({
       draggingNodeIndex: nodeIndex,
       draggingNodeKey: nodeDragKey
     });
-
+  let updatedNodeData: DataNode<any> | undefined;
   const nodesRef = useContext(NodeRefContext);
-  if (nodesRef?.current === undefined || nodeIndex > nodesRef.current.length)
+  if (nodesRef)
+    updatedNodeData = nodesRef?.current[nodeIndex];
+
+  useEffect(() => {
+    if (doDrag && updatedNodeData) {
+      updatedNodeData.fx = draggablePosition.x
+      updatedNodeData.fy = draggablePosition.y
+    } else if (updatedNodeData) {
+      delete updatedNodeData.fx
+      delete updatedNodeData.fy
+    }
+  }, [doDrag, draggablePosition])
+
+  if (nodesRef?.current === undefined || nodeIndex > nodesRef.current.length || updatedNodeData === undefined)
     return null;
-  const updatedNodeData = nodesRef?.current[nodeIndex];
 
 
   const { x, y, distanceFromRoot } = updatedNodeData; // Only x and y are necessarily relevant
@@ -46,18 +59,8 @@ export function NodeComponent({
       }
     : () => {};
 
-  let finalX = x || 0;
-  let finalY = y || 0;
-
-  if (doDrag) {
-    const currentElement = nodesRef.current[nodeIndex];
-    if (!!currentElement) {
-      currentElement.x = draggablePosition.x;
-      currentElement.y = draggablePosition.y;
-      finalX = draggablePosition.x;
-      finalY = draggablePosition.y;
-    }
-  }
+  const finalX = x || 0;
+  const finalY = y || 0;
 
 
   return (

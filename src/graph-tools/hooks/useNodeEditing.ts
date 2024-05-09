@@ -1,24 +1,19 @@
 'use client';
-import React from 'react';
+import {useCallback} from 'react';
 
 import {useNodeCloneFunctionController} from './useNodeCloneFunctionController';
-import {useGraphEditHooks} from './useGraphEditHooks';
 import {mapLinkBackToIdRefs} from '../links/map-link-back-to-id-refs';
 
 import {UnsavedNodeChangesProps} from '../graph/NodeLinkRefWrapper';
 import {useShowNodeEditing} from '../ShowNodeEditing';
-import {TransientIdOffset} from "@/graph-tools/constants";
-import {useGraphDispatchAndListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {EmptyArray, TransientIdOffset} from "@/graph-tools/constants";
 import {
-  CachedFunction,
-  DataLink,
-  DataNode,
-  GraphDto,
-  GraphDtoPutRequestBody,
-  HasNumberId
-} from "@/graph-tools/types/types";
+  GraphSelectiveKeys,
+  useGraphDispatchAndListener,
+  useGraphListener
+} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {CachedFunction, DataNode, GraphDto, GraphDtoPutRequestBody, HasNumberId} from "@/graph-tools/types/types";
 import {useGraphRefs} from "@/graph-tools/nodes/genericNodeContextCreator";
-import {OrganizationDto} from "@/app/demo/types/OrganizationDto";
 
 function removeTransientId(id: number) {
   return id < TransientIdOffset;
@@ -34,15 +29,15 @@ export function useNodeEditing<T extends HasNumberId>(
 ): UnsavedNodeChangesProps {
   let {dispatchWithoutControl, currentState} = useGraphDispatchAndListener<boolean>('unsaved-node-data', listenerKey, false);
   const {nodeListRef, linkListRef} = useGraphRefs<T>();
-  console.log('use node editing rendered!')
 
   useShowNodeEditing(true);
   useNodeCloneFunctionController(cloneFunction);
 
-  const { deletedLinkIds, deletedNodeIds } = useGraphEditHooks(listenerKey);
+  const {currentState: deletedLinkIds} = useGraphListener(GraphSelectiveKeys.deletedLinkIds, listenerKey, EmptyArray);
+  const {currentState: deletedNodeIds} = useGraphListener(GraphSelectiveKeys.deletedNodeIds, listenerKey, EmptyArray);
 
 
-  const handleSaveGraph = () => {
+  const handleSaveGraph = useCallback(() => {
     if (!(nodeListRef && linkListRef && putUpdatedGraph)) return
     const nodes = nodeListRef.current;
     const links = linkListRef.current;
@@ -71,7 +66,7 @@ export function useNodeEditing<T extends HasNumberId>(
       dispatchWithoutControl(false)
 
     }
-  };
+  }, [deletedLinkIds, deletedNodeIds, linkListRef, nodeListRef, dispatchWithoutControl, putUpdatedGraph])
   return {
     unsavedChanges: currentState,
     onConfirm: handleSaveGraph

@@ -12,6 +12,7 @@ export function useNodeAndLinkRefVersionListen<T extends HasNumberId>() {
   const {dispatchWithoutListen} = useGraphDispatch<number>('version');
 
   useEffect(() => {
+    console.log('propagating update to refs...')
     nodesRef.current = nodes.map(n => ({...n}));
     linksRef.current = links.map(l => ({...l}));
     dispatchWithoutListen(version => {

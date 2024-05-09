@@ -18,7 +18,14 @@ import CurvedLinkComponent from "@/graph-tools/ui-defaults/svg/CurvedLinkCompone
 import {GraphViewer} from "@/graph-tools/graph/GraphViewer";
 import {NodeLinkRefWrapper} from "@/graph-tools/graph/NodeLinkRefWrapper";
 import {NodeDetailsComponentContext} from "@/graph-tools/contexts/details-component/nodeDetailsComponentContextCreator";
-import NodeDetailsComponentContextProvider from "@/graph-tools/contexts/details-component/DetailsComponentContextProvider";
+import NodeDetailsComponentContextProvider
+    from "@/graph-tools/contexts/details-component/DetailsComponentContextProvider";
+import ForceSimEngine from "@/graph-tools/graph/ForceSimEngine";
+import GraphForceAdjuster from "@/graph-tools/components/GraphForceAttributes";
+import {useGraphEditController} from "@/graph-tools/hooks/useGraphEditController";
+import GraphEditController from "@/graph-tools/graph/GraphEditController";
+import NodeInteractionProvider from "@/graph-tools/nodes/NodeInteractionContext";
+import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 const defaultNodeSvg = {component: SquareNode}
 const defaultLinkSvg = {component: CurvedLinkComponent}
@@ -49,6 +56,7 @@ export default function ForceGraphPage<T extends HasNumberId>({
     const {nodes, closureDtos} = graphDto;
     console.log('force graph page rendered!')
 
+
     return (
         <div className={'flex'}>
             <GraphContextProvider uniqueGraphName={graphName}>
@@ -58,14 +66,22 @@ export default function ForceGraphPage<T extends HasNumberId>({
                             <NodeComponentContext.Provider value={defaultNodeSvg}>
                                 <LinkComponentContext.Provider value={defaultLinkSvg}>
                                     <NodeDetailsComponentContextProvider>
+                                        <NodeInteractionProvider>
+
+                                        <GraphEditController/>
                                         <MountedTracker/>
                                         <NodePositionsTracker/>
                                         <ShowForceAdjustments/>
                                         <ShowNodeEditing/>
+                                        <GraphForceAdjuster/>
+                                        <ForceSimEngine/>
                                         <GraphViewer
                                         >
                                             {children}
-                                        </GraphViewer></NodeDetailsComponentContextProvider>
+                                        </GraphViewer>
+                                        </NodeInteractionProvider>
+
+                                    </NodeDetailsComponentContextProvider>
                                 </LinkComponentContext.Provider>
                             </NodeComponentContext.Provider>
                         </NodeLinkRefWrapper>

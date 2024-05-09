@@ -62,7 +62,7 @@ export function useGraphEditHooks<T extends HasNumberId>(
         setNextNodeId(responseId + 1);
         // setNextNodeId((prev) => responseId + 1);
         return responseId;
-    }, [nextNodeId, transientNodeIds])
+    }, [nextNodeId, transientNodeIds, setNextNodeId])
     const getNextLinkId = useCallback(() => {
         let responseId =
             // nextLinkId === undefined ? TransientIdOffset + 1 : nextLinkId;
@@ -73,7 +73,7 @@ export function useGraphEditHooks<T extends HasNumberId>(
         }
         setNextLinkId(responseId + 1);
         return responseId;
-    }, [nextLinkId, transientLinkIds]);
+    }, [nextLinkId, transientLinkIds, setNextLinkId]);
 
     const checkForSelectedNodes = useCallback((minimum: number = 1) => {
         if (selected.length < minimum) {

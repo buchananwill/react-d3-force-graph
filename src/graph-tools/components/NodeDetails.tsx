@@ -12,18 +12,8 @@ export default function NodeDetails<T extends HasNumberId>() {
   const {nodes} = useNodeContext();
   const {labelAccessor} = useContext(NodeDetailsComponentContext);
 
-  const nodeDetails = useMemo(() =>
-     nodes.map((node, index) => (
-        <NodeDetailWrapper
-            key={`${node.id}:detail-wrapper`}
-            label={labelAccessor(node)}
-            node={node}
-        />
-    )), [nodes])
-
   return (
     <div>
-      {/*{...nodeDetails}*/}
       {nodes.map((node, index) => (
           <NodeDetailWrapper
               key={`${node.id}:detail-wrapper`}

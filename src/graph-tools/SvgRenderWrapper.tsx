@@ -5,11 +5,15 @@ import {useD3ForceSimulation} from './hooks/useD3ForceSimulation';
 import {LinkRefContext} from './links/genericLinkContextCreator';
 import {NodeRefContext, useGraphRefs} from './nodes/genericNodeContextCreator';
 
-import {useGraphDispatch, useGraphDispatchAndListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {
+  useGraphDispatch,
+  useGraphDispatchAndListener,
+  useGraphListener
+} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {NodePositionsKey} from "@/graph-tools/constants";
 import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 
-export default function ForceSimWrapper({
+export default function SvgRenderWrapper({
   linkElements,
   nodeElements,
   textElements,
@@ -20,27 +24,11 @@ export default function ForceSimWrapper({
 
 }) {
 
-
-  let {dispatchWithoutControl} = useGraphDispatchAndListener<number>(NodePositionsKey, 'wrapper', 0);
-
-  const lastRenderTimer = useRef(Date.now());
-
-  const [simDisplaying, setSimDisplaying] = useState(false);
-
-  const ticked = useCallback(() => {
-    const elapsed = Date.now() - lastRenderTimer.current;
-    if (elapsed >= 25) {
-      lastRenderTimer.current = Date.now();
-      dispatchWithoutControl(current => current + 1);
-    }
-    if (!simDisplaying) setSimDisplaying(true);
-  }, [dispatchWithoutControl, simDisplaying]
-)
-  useD3ForceSimulation(ticked);
+  const {currentState: isReady} = useGraphListener('ready', 'svg-elements-wrapper', false);
 
   return (
     <g>
-      {simDisplaying && (
+      {isReady && (
         <>
           <g>{...linkElements}</g>
           <g>{...nodeElements}</g>

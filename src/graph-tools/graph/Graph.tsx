@@ -1,5 +1,5 @@
 'use client';
-import ForceSimWrapper from '../ForceSimWrapper';
+import SvgRenderWrapper from '../SvgRenderWrapper';
 import React, {PropsWithChildren} from 'react';
 import {useSvgElements} from '../aggregate-functions/useSvgElements';
 
@@ -31,17 +31,17 @@ const listenerKey = 'graph';
 let translateX = 0
 let translateY = 0
 
-export default function Graph<T extends HasNumberId>({
-                                                         children
-                                                     }: {
-
-} & PropsWithChildren) {
+export default function Graph<T extends HasNumberId>() {
 
     const {nodeListRef, linkListRef} = useGraphRefs<T>();
 
     const uniqueGraphName = useGraphName();
 
-    const {nodeElements, linkElements, textElements} = useSvgElements(nodeListRef?.current || EmptyArray, linkListRef?.current || EmptyArray);
+    const {
+        nodeElements,
+        linkElements,
+        textElements
+    } = useSvgElements(nodeListRef?.current || EmptyArray, linkListRef?.current || EmptyArray);
 
     // const { listeners, setNodeRef, transform } = useDraggable({
     //   id: 'draggable'
@@ -51,7 +51,6 @@ export default function Graph<T extends HasNumberId>({
         listenerKey,
         DefaultGraphZoom
     );
-
 
 
     const {
@@ -80,64 +79,52 @@ export default function Graph<T extends HasNumberId>({
 
     return (
         <MouseDownDispatchContext.Provider value={mouseDownDispatch}>
-            <NodeInteractionProvider>
-                <DraggablePositionContext.Provider value={draggablePosition}>
-                    <IsDraggingContext.Provider value={isDragging}>
-                        <GraphForceAdjuster/>
-                        <div className={'flex'}>
-                            <div className={'relative justify-center m-2 gap-2 h-fit w-fit bg-white'}>
-                                <div
-                                    // ref={setNodeRef}
-                                >
-                                    <svg
-                                        viewBox={`0 0 ${width} ${height}`}
-                                        style={{
-                                            width: DefaultGraphWidth,
-                                            height: DefaultGraphHeight,
-                                            borderWidth: "2px",
-                                            borderColor: "rgb(71,85,105)",
-                                            borderRadius: "0.5rem"
-                                        }}
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        ref={svgRef}
-                                        onMouseMove={handleMouseMove}
-                                        onMouseUp={handleMouseUp}
-                                    >
-                                        <rect
-                                            width={'100%'}
-                                            height={'100%'}
-                                            className={'fill-transparent'}
-                                            {...listeners}
-                                        />
-                                        <g
-                                            transform={`translate(${
-                                                translateX * svgScale + centerOffsetX
-                                            } ${translateY * svgScale + centerOffsetY})`}
-                                        >
-                                            <ForceSimWrapper
-                                                textElements={textElements}
-                                                linkElements={linkElements}
-                                                nodeElements={nodeElements}
-                                            />
+            <DraggablePositionContext.Provider value={draggablePosition}>
+                <IsDraggingContext.Provider value={isDragging}>
+                    <div className={'relative justify-center m-2 gap-2 h-fit w-fit bg-white'}>
+                        <svg
+                            viewBox={`0 0 ${width} ${height}`}
+                            style={{
+                                width: DefaultGraphWidth,
+                                height: DefaultGraphHeight,
+                                borderWidth: "2px",
+                                borderColor: "rgb(71,85,105)",
+                                borderRadius: "0.5rem"
+                            }}
+                            xmlns="http://www.w3.org/2000/svg"
+                            ref={svgRef}
+                            onMouseMove={handleMouseMove}
+                            onMouseUp={handleMouseUp}
+                        >
+                            <rect
+                                width={'100%'}
+                                height={'100%'}
+                                className={'fill-transparent'}
+                                {...listeners}
+                            />
+                            <g
+                                transform={`translate(${
+                                    translateX * svgScale + centerOffsetX
+                                } ${translateY * svgScale + centerOffsetY})`}
+                            >
+                                <SvgRenderWrapper
+                                    textElements={textElements}
+                                    linkElements={linkElements}
+                                    nodeElements={nodeElements}
+                                />
 
-                                        </g>
-                                    </svg>
-                                </div>
-
-                                <div
-                                    className={
-                                        'absolute w-fit h-fit top-4 right-4 Z-10 flex flex-col gap-1 items-end'
-                                    }
-                                >
-                                    <GraphViewOptions/>
-                                </div>
-                            </div>
-
-                                    {children}
+                            </g>
+                        </svg>
+                        <div
+                            className={
+                                'absolute w-fit h-fit top-4 right-4 Z-10 flex flex-col gap-1 items-end'
+                            }
+                        >
+                            <GraphViewOptions/>
                         </div>
-                    </IsDraggingContext.Provider>
-                </DraggablePositionContext.Provider>
-            </NodeInteractionProvider>
+                    </div>
+                </IsDraggingContext.Provider>
+            </DraggablePositionContext.Provider>
         </MouseDownDispatchContext.Provider>
     );
 }

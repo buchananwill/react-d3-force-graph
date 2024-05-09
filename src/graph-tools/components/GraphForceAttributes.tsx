@@ -22,7 +22,7 @@ export default function GraphForceAttributes() {
     false
   );
 
-  const { currentState: show } = useGraphListener(
+  useGraphListener(
     ShowForceAdjustmentsKey,
     listenerKey,
     false

@@ -4,7 +4,7 @@ import {useEffect, useRef} from 'react';
 import {HasNumberId} from "@/graph-tools/types/types";
 import {useGraphDispatch} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
-export function useNodeAndLinkRefs<T extends HasNumberId>() {
+export function useNodeAndLinkRefVersionListen<T extends HasNumberId>() {
   const { nodes } = useNodeContext<T>();
   const { links } = useLinkContext<T>();
   const nodesRef = useRef(nodes);
@@ -12,7 +12,6 @@ export function useNodeAndLinkRefs<T extends HasNumberId>() {
   const {dispatchWithoutListen} = useGraphDispatch<number>('version');
 
   useEffect(() => {
-    console.log('Setting nodesRef', nodes, nodesRef)
     nodesRef.current = nodes.map(n => ({...n}));
     linksRef.current = links.map(l => ({...l}));
     dispatchWithoutListen(version => {

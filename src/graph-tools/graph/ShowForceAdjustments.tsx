@@ -3,7 +3,7 @@
 import {useEffect} from 'react';
 import {useGraphController, useGraphDispatch} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
-export const ShowForceAdjustmentsKey = 'show-force-adjustments';
+export const ShowForceAdjustmentsKey = 'show-force-editing';
 
 export const ControllerKey = 'controller';
 

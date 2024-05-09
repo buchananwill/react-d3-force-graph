@@ -11,18 +11,18 @@ import {SvgTransitionWrapper} from "@/graph-tools/components/SvgTransitionWrappe
 import {LeftCtrlListener} from "@/graph-tools/contexts/key-listener-context/keyListenerContextCreator";
 
 export default function NodeText<T extends HasNumberId>({
-  textIndex,
+  nodeIndex,
   children
 }: {
-  textIndex: number;
+  nodeIndex: number;
   children?: ReactElement<SVGElement>;
 }) {
   const leftCtrlHeld = useContext(LeftCtrlListener);
   const uniqueGraphName = useGraphName()
   const { nodeListRef } = useGraphRefs();
   const listenerKey = useMemo(
-    () => `node-text-${textIndex}-${uniqueGraphName}`,
-    [textIndex, uniqueGraphName]
+    () => `node-text-${nodeIndex}-${uniqueGraphName}`,
+    [nodeIndex, uniqueGraphName]
   );
   const { selected, hover } = useNodeInteractionContext();
 
@@ -38,7 +38,9 @@ export default function NodeText<T extends HasNumberId>({
     return null;
   }
 
-  const updatedData = nodeListRef.current[textIndex];
+  const updatedData = nodeListRef.current[nodeIndex];
+
+  if (!updatedData) return null
 
   const { id } = updatedData;
   const show = leftCtrlHeld || hover === id || selected.includes(id);

@@ -2,19 +2,20 @@
 
 import {ControllerKey} from './graph/ShowForceAdjustments';
 import {useEffect} from 'react';
-import {useGraphController, useGraphDispatch} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {GraphSelectiveKeys, useGraphController, useGraphDispatch} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 export function ShowNodeEditing() {
-    useGraphController('show-node-editing', ControllerKey, false)
+    useGraphController(GraphSelectiveKeys.showNodeEditing, ControllerKey, false)
 
   return null;
 }
 
 export function useShowNodeEditing(show: boolean) {
   const { dispatchWithoutListen } = useGraphDispatch(
-      'show-node-editing'
+      GraphSelectiveKeys.showNodeEditing
   );
   useEffect(() => {
+    console.log('dispatching show: ', show)
     dispatchWithoutListen(show);
   }, [show, dispatchWithoutListen]);
 }

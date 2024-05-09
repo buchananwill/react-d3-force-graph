@@ -2,7 +2,7 @@ import React from "react";
 import {NodeGraphicsElementProps} from "@/graph-tools/nodes/nodeComponentContextCreator";
 
 export function SquareNode({node, ...otherProps}: NodeGraphicsElementProps<any, SVGRectElement>) {
-    const dimension = (80 - (node.distanceFromRoot)*20)
+    const dimension = Math.max(80 - (node.distanceFromRoot)*20, 5)
 
     return <rect
         {...otherProps}

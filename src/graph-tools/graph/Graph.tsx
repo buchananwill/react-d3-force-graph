@@ -32,25 +32,16 @@ let translateX = 0
 let translateY = 0
 
 export default function Graph<T extends HasNumberId>({
-                                                         titleList,
-                                                         textList,
                                                          children
                                                      }: {
-    textList: string[];
-    titleList: string[];
+
 } & PropsWithChildren) {
-    const textAccessor = (n: number) => textList[n] || '';
-    const titleAccessor = (n: number) => titleList[n] || ''; //auxNodes[n.data.entityId].data.product.name;
+
     const {nodeListRef, linkListRef} = useGraphRefs<T>();
 
     const uniqueGraphName = useGraphName();
 
-    const {nodeElements, linkElements, textElements} = useSvgElements(
-        nodeListRef?.current || EmptyArray,
-        linkListRef?.current || EmptyArray,
-        textAccessor,
-        titleAccessor
-    );
+    const {nodeElements, linkElements, textElements} = useSvgElements(nodeListRef?.current || EmptyArray, linkListRef?.current || EmptyArray);
 
     // const { listeners, setNodeRef, transform } = useDraggable({
     //   id: 'draggable'

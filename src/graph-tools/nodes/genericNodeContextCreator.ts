@@ -11,7 +11,6 @@ import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 
 export interface NodeContextInterface<T extends HasNumberId> {
   nodes: DataNode<T>[];
-  uniqueGraphName: string;
 }
 
 export const NodeContext = createContext<

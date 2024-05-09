@@ -17,10 +17,9 @@ export const NodeContextProvider = <T extends HasNumberId>({
   nodes: DataNode<T>[];
 }) => {
   const [nodeState, setNodeState] = React.useState<DataNode<T>[]>(nodes);
-  const uniqueGraphName = useGraphName();
 
   return (
-    <NodeContext.Provider value={{ nodes: nodeState, uniqueGraphName }}>
+    <NodeContext.Provider value={{ nodes: nodeState }}>
       <NodeDispatchContext.Provider value={setNodeState}>
         {children}
       </NodeDispatchContext.Provider>

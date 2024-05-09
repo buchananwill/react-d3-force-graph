@@ -6,6 +6,7 @@ import {LinkRefContext} from '../links/genericLinkContextCreator';
 import {GraphViewer} from './GraphViewer';
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import ForcesContextProvider from "@/graph-tools/contexts/forces/ForcesContextProvider";
+import {useNodeAndLinkRefVersionListen} from "@/graph-tools/hooks/useNodeAndLinkRefVersionListen";
 
 
 export interface UnsavedNodeChangesProps {
@@ -17,27 +18,14 @@ export interface UnsavedNodeChangesProps {
     onCancel?: () => void;
 }
 
-export function NodeLinkRefWrapper<T extends HasNumberId>({
-                                                              unsavedNodeChangesProps,
-                                                              textList,
-                                                              titleList,
-                                                              nodeListRef,
-                                                              linkListRef,
-                                                              children
-                                                          }: {
-    nodeListRef: React.MutableRefObject<DataNode<T>[]>;
-    linkListRef: React.MutableRefObject<DataLink<T>[]>;
-    textList: string[];
-    titleList: string[];
-    unsavedNodeChangesProps?: UnsavedNodeChangesProps;
-} & PropsWithChildren) {
+export function NodeLinkRefWrapper<T extends HasNumberId>({children}:PropsWithChildren) {
+    const {nodesRef, linksRef} = useNodeAndLinkRefVersionListen();
+
     return (
-        <NodeRefContext.Provider value={nodeListRef}>
-            <LinkRefContext.Provider value={linkListRef}>
+        <NodeRefContext.Provider value={nodesRef}>
+            <LinkRefContext.Provider value={linksRef}>
                 <div className={'flex-col'}>
-                    <GraphViewer textList={textList} titleList={titleList}>
-                        {children}
-                    </GraphViewer>
+                    {children}
                 </div>
                 {/*{unsavedNodeChangesProps && (*/}
                 {/*  <UnsavedChangesModal {...unsavedNodeChangesProps}>*/}

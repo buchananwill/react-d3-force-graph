@@ -6,15 +6,18 @@ import {SelectiveContextManagerGlobal} from "selective-context";
 import {NextUIProvider} from "@nextui-org/system";
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <NextUIProvider>
-        <SelectiveContextManagerGlobal>
-      <ForceGraphPage dataGraph={graphDto} graphName={'organization-graph'}>
-        <OrganizationGraph/>
-      </ForceGraphPage>
-        </SelectiveContextManagerGlobal>
-        </NextUIProvider>
-    </main>
-  );
+    return (
+        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+            <NextUIProvider>
+                <SelectiveContextManagerGlobal>
+                    <ForceGraphPage dataGraph={graphDto} graphName={'organization-graph'}>
+                        {/*<OrganizationGraph/>*/}
+                    </ForceGraphPage>
+                    <ForceGraphPage dataGraph={graphDto} graphName={'organization-graph-duplicate'} options={{nodeEditing: true}}>
+                        <OrganizationGraph/>
+                    </ForceGraphPage>
+                </SelectiveContextManagerGlobal>
+            </NextUIProvider>
+        </main>
+    );
 }

@@ -1,6 +1,9 @@
 import {DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import NodeText from "@/graph-tools/nodes/NodeText";
+import {TextPositions} from "@/graph-tools/aggregate-functions/useTextElements";
+import {OrganizationDto} from "@/app/demo/types/OrganizationDto";
+import {useGraphRefs, useNodeContext} from "@/graph-tools/nodes/genericNodeContextCreator";
 
 export interface TextPosition {
     plate: { x: number; y: number };
@@ -8,38 +11,39 @@ export interface TextPosition {
     title: { x: number; y: number };
 }
 
-export function TextElement<T extends HasNumberId>({
-                                                       n,
-                                                       index,
-                                                       text,
-                                                       title,
-                                                       textPosition: {plate, text: textPosition, title: titlePosition}
+export function TextElement({
+                                                       n
                                                    }: {
-    n: DataNode<T>;
-    index: number;
-    text: string;
-    title: string;
-    textPosition: TextPosition;
+    n: DataNode<any>;
 }) {
-
+    const {plate, title: titlePos, text: textPos} = TextPositions['center']
+    const {nodes} = useNodeContext<OrganizationDto>();
     const {currentState: textSizeMultiplier} =
         useGraphListener(
             'text-size',
-            `${n.id}-${text}`,
+            `${n.id}:text-element`,
             1
         );
+
+    if (n.index === undefined || n.index === null) return null
+
+    const node = nodes[n.index];
+
+    const text = node.data.name
+    const title = node.data.type.name
+
+
 
     const textScale = textSizeMultiplier
         ? Math.sqrt(textSizeMultiplier) / 4 + 0.5
         : 1;
 
     return (
-        <NodeText key={`text-${n.id}`} textIndex={index}>
             <g>
                 <circle {...plate} r={24} className={'fill-white opacity-50'}></circle>
                 {n.distanceFromRoot == 0 ? (
                     <text
-                        {...titlePosition}
+                        {...titlePos}
                         textAnchor="middle"
                         fontSize={'12'}
                         transform={`scale(${textScale})`}
@@ -50,7 +54,7 @@ export function TextElement<T extends HasNumberId>({
                     ''
                 )}
                 <text
-                    {...textPosition}
+                    {...textPos}
                     dy=".3em"
                     textAnchor="middle"
                     fontWeight={'bold'}
@@ -59,6 +63,6 @@ export function TextElement<T extends HasNumberId>({
                     {text}
                 </text>
             </g>
-        </NodeText>
+
     );
 }

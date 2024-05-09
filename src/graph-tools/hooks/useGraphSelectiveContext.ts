@@ -4,7 +4,7 @@ import {
     useGlobalDispatchAndListener,
     useGlobalListener
 } from "selective-context";
-import {useContext} from "react";
+import {useContext, useMemo} from "react";
 import {GraphContext} from "@/graph-tools/graph/graphContextCreator";
 
 // Defining the GraphSelectiveKeys as a constant object
@@ -27,7 +27,7 @@ export const GraphSelectiveKeys = {
     mounted: 'mounted',
     showNodeEditing: 'show-node-editing',
     nodeCloneFunction: 'node-clone-function',
-    showForceAdjustments: 'show-force-adjustments',
+    showForceEditing: 'show-force-editing',
     unsavedNodeData: 'unsaved-node-data',
     lockTextWithSelect: 'lock-text-with-select',
     textSize: 'text-size',
@@ -40,47 +40,22 @@ export const GraphSelectiveKeys = {
 // Redefining the GraphSelectiveContext type to use the values of GraphSelectiveKeys
 export type GraphSelectiveContext = typeof GraphSelectiveKeys[keyof typeof GraphSelectiveKeys];
 
-//
-//
-// export type GraphSelectiveContext =
-//     |'arrows-to-parents'
-//     | 'arrows-to-children'
-//     |'highlight-from-source'
-//     |'highlight-from-target'
-//     |'version'
-//     | 'transient-node-ids'
-//     | 'transient-link-ids'
-//     | 'next-node-id'
-//     | 'next-link-id'
-//     |'node-positions-key'
-//     | 'debouncing'
-//     | 'no-node-selected'
-//     | 'deleted-link-ids'
-//     | 'deleted-node-ids'
-//     | 'dimensions'
-//     | 'mounted'
-//     | 'show-node-editing'
-//     | 'node-clone-function'
-//     | 'show-force-adjustments'
-//     | 'unsaved-node-data'
-//     |'lock-text-with-select'
-//     |'text-size'
-//     |'ready'
-//     | 'sim'
-//     | 'zoom'
-//     |'svg-scale';
-
 export function useGraphSelectiveContextKey(
     contextKey: GraphSelectiveContext
 ) {
     const {uniqueGraphName} = useContext(GraphContext);
-    return `${uniqueGraphName}:${contextKey}`
+    return useMemo(() => {
+    console.log(uniqueGraphName, contextKey)
+        return `${uniqueGraphName}:${contextKey}`
+    }, [uniqueGraphName, contextKey]);
 }
 
 export function useGraphDispatch<T>(
     contextKey: GraphSelectiveContext
 ) {
+
     let selectiveContextKey = useGraphSelectiveContextKey(contextKey);
+
     return useGlobalDispatch<T>(selectiveContextKey)
 }
 

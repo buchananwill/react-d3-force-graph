@@ -1,8 +1,9 @@
 import {DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {TextElement} from "@/graph-tools/aggregate-functions/TextElement";
 import {useMemo} from "react";
+import NodeText from "@/graph-tools/nodes/NodeText";
 
-const textPositions = {
+export const TextPositions = {
     top: {
         plate: {x: -50, y: -45},
         text: {x: 0, y: -30},
@@ -33,25 +34,20 @@ const textPositions = {
 export type TextPosition = 'top' | 'bottom' | 'left' | 'right' | 'center'
 
 export function useTextElements<T extends HasNumberId>(
-    nodes: DataNode<T>[],
-    textAccessor: (n: number) => string,
-    titleAccessor: (n: number) => string,
-    position: TextPosition = 'center'
+    nodes: DataNode<T>[]
 ) {
-    const textPosition = textPositions[position];
+
 
 
     return useMemo(() =>
             nodes.map((n, index) => (
+                <NodeText key={`text-${n.id}`} nodeIndex={index}>
                 <TextElement
                     key={`${index}-${n.id}`}
                     n={n}
-                    index={index}
-                    text={textAccessor(index)}
-                    title={titleAccessor(index)}
-                    textPosition={textPosition}
                 />
+                </NodeText>
             ))
-        , [nodes, textAccessor, textPosition, titleAccessor]);
+        , [nodes]);
 }
 

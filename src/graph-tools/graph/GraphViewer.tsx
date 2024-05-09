@@ -2,7 +2,7 @@
 
 
 import Graph from './Graph';
-import React, { PropsWithChildren, useReducer, useState } from 'react';
+import React, {PropsWithChildren, useMemo, useReducer, useState} from 'react';
 import {
   ForceGraphDraggable,
   ForceGraphDraggableContext,
@@ -17,18 +17,16 @@ import {GraphDto, HasNumberId} from "@/graph-tools/types/types";
 import {Tab, Tabs} from "@nextui-org/tabs";
 import {NodeEditorPanel} from "@/graph-tools/nodes/NodeEditorPanel";
 import GraphForceSliders from "@/graph-tools/components/GraphForceSliders";
-import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {ShowForceAdjustmentsKey} from "@/graph-tools/graph/ShowForceAdjustments";
+import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 
 const listenerKey = 'graph-viewer';
 
 export function GraphViewer<T extends HasNumberId>({
-  textList,
-  titleList,
-  children
-}: {
-  textList: string[];
-  titleList: string[];
+                                                     children
+                                                   }: {
+
 } & PropsWithChildren) {
   const [mouseActionContext, reducer] = useReducer(
     ForceGraphMouseActionReducer,
@@ -40,16 +38,28 @@ export function GraphViewer<T extends HasNumberId>({
   useGraphEditController();
 
   const {currentState: showNodeEditing} = useGraphListener(
-      'show-node-editing',
+      GraphSelectiveKeys.showNodeEditing,
       listenerKey,
       false
   );
 
+  console.log(showNodeEditing)
+
   const {currentState: showForceEditing} = useGraphListener(
-      ShowForceAdjustmentsKey,
+      GraphSelectiveKeys.showForceEditing,
       listenerKey,
       false
   );
+
+  const graphName = useGraphName();
+
+  const disabledTabKeys = useMemo(() => {
+    const disabledTabKeys = [];
+    if (!showNodeEditing) disabledTabKeys.push(GraphSelectiveKeys.showNodeEditing)
+    if (!showForceEditing) disabledTabKeys.push(GraphSelectiveKeys.showForceEditing)
+    return disabledTabKeys
+  }, [showForceEditing, showNodeEditing]);
+  console.log(graphName, disabledTabKeys)
 
   return (
     // <DraggableToTranslate>
@@ -59,19 +69,19 @@ export function GraphViewer<T extends HasNumberId>({
             value={mouseActionContext}
           >
             <ForceGraphMouseButtonEventsDispatch.Provider value={reducer}>
-              <Graph textList={textList} titleList={titleList}>
-                {showForceEditing || showNodeEditing ?
+              <Graph >
+
                     <div
                         className={
                           'flex flex-col overflow-y-scroll border-slate-600 border-2 rounded-lg p-2 mt-2 relative'
                         }
                         style={{height: '600px'}}
                     >
-                      <Tabs aria-label={'graph options'}>
-                        <Tab key={'node-editor'} title={'Edit Nodes'}>
+                      <Tabs aria-label={'graph options'} disabledKeys={disabledTabKeys}>
+                        <Tab key={GraphSelectiveKeys.showNodeEditing} title={'Edit Nodes'} disabled={!showNodeEditing}>
                           <NodeEditorPanel/>
                         </Tab>
-                        <Tab key={'force-editor'} title={'Edit Forces'}>
+                        <Tab key={GraphSelectiveKeys.showForceEditing} title={'Edit Forces'}>
                           <GraphForceSliders/>
                         </Tab>
                         <Tab key={'node-details'} title={'Node Details'}>
@@ -79,7 +89,7 @@ export function GraphViewer<T extends HasNumberId>({
                         </Tab>
                       </Tabs>
 
-                    </div> : null}
+                    </div>
               </Graph>
             </ForceGraphMouseButtonEventsDispatch.Provider>
           </ForceGraphMouseButtonEventsContext.Provider>

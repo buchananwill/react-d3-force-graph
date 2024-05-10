@@ -44,16 +44,9 @@ export function useLayoutedElements() {
         // if there are no nodes in the flow, then we can't run the simulation!
         if (!initialised || nodes.length === 0) return [false, {}];
 
-        simulation.nodes(nodes).force(
-            'link',
-            forceLink(edges)
-                .id((d) => d.id)
-                .strength(0.05)
-                .distance(100)
-        );
-
-        console.log('sim ref:', currentState)
         if (currentState.current) {
+            // This is the logic to set the nodes for the simulation.
+            console.log('Setting nodes and Links')
             currentState.current.nodes(nodes).force(
                 'link',
                 forceLink(edges)
@@ -111,5 +104,5 @@ export function useLayoutedElements() {
         const isRunning = () => running;
 
         return [true, {toggle, isRunning}];
-    }, [initialised, fitView, getEdges, getNodes, setNodes]);
+    }, [currentState, initialised, fitView, getEdges, getNodes, setNodes, linkListRef, nodeListRef]);
 }

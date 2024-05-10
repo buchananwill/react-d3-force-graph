@@ -73,15 +73,9 @@ export default function ForceGraphPage<T extends HasNumberId>({
                                         <ShowNodeEditing/>
                                         <GraphForceAdjuster/>
                                         <ForceSimEngine/>
-                                            {
-                                                options?.defaultInteractiveViewer ? (
-                                                <InteractiveGraphView
-                                                sidePanel={options?.sidePanel}
-                                            >
-                                                {children}
-                                            </InteractiveGraphView> )
-                                                : children
-                                            }
+
+                                            {children}
+
                                         </NodeInteractionProvider>
 
                                     </NodeDetailsComponentContextProvider>

@@ -36,10 +36,10 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>() {
         console.log('incrementing version!')
         if (nodeListRef?.current && linkListRef?.current && currentState?.current && updateNodes && updateLinks) {
             currentState.current.stop()
-            const resetLinksWithNumberIds = resetLinks(linkListRef.current);
+            const resetLinksWithIdNotReferences = resetLinks(linkListRef.current);
 
             updateNodes(nodeListRef.current);
-            updateLinks(resetLinksWithNumberIds);
+            updateLinks(resetLinksWithIdNotReferences);
             dispatchUnsavedGraph(true);
         }
     }

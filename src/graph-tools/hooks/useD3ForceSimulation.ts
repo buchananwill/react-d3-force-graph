@@ -4,12 +4,7 @@ import {Simulation} from 'd3';
 
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
-import {
-    GraphSelectiveKeys,
-    useGraphController,
-    useGraphDispatch,
-    useGraphListener
-} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {GraphSelectiveKeys, useGraphController, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {beginSim} from "@/graph-tools/functions/beginSim";
 import {updateForces} from "@/graph-tools/functions/updateForces";
 import {createForces} from "@/graph-tools/functions/createForces";
@@ -20,6 +15,9 @@ const listenerKey = `force-sim`;
 
 export const defaultDimensionArray = [1800, 1200];
 
+// Todo: remove adding nodes and links as a responsibility of this hook.
+//  It only needs to setup up the simulation and forces, making it available as context.
+// Todo: remove automated ticking: can be triggered manually by the employing UI.
 export function useD3ForceSimulation<T extends HasNumberId>(
     ticked: () => void
 ) {
@@ -85,7 +83,6 @@ export function useD3ForceSimulation<T extends HasNumberId>(
             }
             updateForces(simulationRefCurrent!, forceAttributes);
         }
-        console.log(simulationRefCurrent, nodesMutable)
 
         return () => {
             if (

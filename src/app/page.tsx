@@ -10,8 +10,6 @@ import SimulationSwitch from "@/app/demo/components/SimulationSwitch";
 export default function Home() {
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <NextUIProvider>
-                <SelectiveContextManagerGlobal>
                     <ForceGraphPage dataGraph={graphDto} graphName={'organization-graph'} options={{sidePanel: true, defaultInteractiveViewer: true}}>
                         <OrganizationGraph>
                             <Card>
@@ -23,8 +21,7 @@ export default function Home() {
                             </Card>
                         </OrganizationGraph>
                     </ForceGraphPage>
-                </SelectiveContextManagerGlobal>
-            </NextUIProvider>
+
         </main>
     );
 }

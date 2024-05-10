@@ -33,6 +33,7 @@
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
+    "reactflow": "^11.11.3",
     "selective-context": "file:D:\\Coding\\selective-context"
   },
   "devDependencies": {

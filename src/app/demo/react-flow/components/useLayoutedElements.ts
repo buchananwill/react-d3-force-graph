@@ -5,6 +5,8 @@ import {useDirectSimRefEditsDispatch} from "@/graph-tools/hooks/useDirectSimRefE
 import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {DataNode, FlowEdge, FlowNode} from "@/graph-tools/types/types";
 import {useGlobalDispatch} from "selective-context";
+import {useD3ForceSimulationMemo} from "@/graph-tools/hooks/useD3ForceSimulationMemo";
+import {useD3ForceSimulationEffect} from "@/graph-tools/hooks/useD3ForceSimulationEffect";
 
 
 export function useLayoutedElements(): [boolean, (() => void) | undefined, (() => boolean) | undefined] {
@@ -13,6 +15,8 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
     const initialised = useStore((store) =>
         [...store.nodeInternals.values()].every((node) => node.width && node.height)
     );
+
+    useD3ForceSimulationMemo()
 
     const {nodeListRef, linkListRef, incrementSimVersion} = useDirectSimRefEditsDispatch();
     const {currentState: simRef} = useGraphListener<MutableRefObject<Simulation<any, any>> | undefined>(GraphSelectiveKeys.sim, 'layout-flow-with-forces', undefined);

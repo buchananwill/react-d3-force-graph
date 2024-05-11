@@ -1,7 +1,12 @@
 import {SimulationLinkDatum, SimulationNodeDatum} from "d3";
+import {Node, Edge } from 'reactflow'
+
+export type FlowNode = Node & DataNode<any>
+
+export type FlowEdge = Edge & Omit<DataLink<any>, 'id'> & HasStringId
 
 export type DataNode<T extends HasNumberId> = SimulationNodeDatum & {
-    id: number;
+    id: string;
     distanceFromRoot: number;
     data: T;
 };
@@ -10,10 +15,10 @@ export type DataLink<T extends HasNumberId> = SimulationLinkDatum<
 > &
     ClosureDto;
 
-export interface ClosureDto extends HasNumberId {
+export interface ClosureDto extends HasStringId {
     closureType: string
-    target: number
-    source: number,
+    target: string
+    source: string,
     value: number,
     weighting: number,
 }
@@ -21,6 +26,11 @@ export interface ClosureDto extends HasNumberId {
 export interface HasNumberId {
     id: number
 }
+export interface HasStringId {
+    id: string
+}
+
+export type HasId = HasNumberId | HasStringId
 
 export interface HasName {
     name: string
@@ -38,6 +48,8 @@ export interface CachedFunction<T, U> {
 export interface Predicate<T> {
     (arg: T): boolean
 }
+
+
 
 export interface CloneFunction<T extends HasNumberId> {
     (object: T): T;

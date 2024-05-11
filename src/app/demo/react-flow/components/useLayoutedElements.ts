@@ -94,8 +94,8 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
                 if (dragging) {
                     foundDrag = true
                     nodeIndex = i
-                    scopedNode.fx = node.position.x;
-                    scopedNode.fy = node.position.y;
+                    scopedNode.fx = draggingNode?.current.position.x;
+                    scopedNode.fy = draggingNode?.current.position.y;
                 } else {
                    delete scopedNode.fx
                     delete scopedNode.fy

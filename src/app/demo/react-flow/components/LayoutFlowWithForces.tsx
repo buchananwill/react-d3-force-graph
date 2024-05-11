@@ -28,7 +28,7 @@ export function LayoutFlowWithForces({children}: PropsWithChildren) {
         (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
         console.log('drag start:', node, nodes)
             // dispatchWithoutListen({...node})
-            draggingNodeRef.current = node
+            draggingNodeRef.current = {...node}
     }, [draggingNodeRef])
 
     const handleDragStop = useCallback(
@@ -36,6 +36,13 @@ export function LayoutFlowWithForces({children}: PropsWithChildren) {
         console.log(node, nodes)
             // dispatchWithoutListen(undefined)
             draggingNodeRef.current = undefined
+    }, [draggingNodeRef])
+
+    const handleDrag = useCallback(
+        (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
+        console.log(node, nodes)
+            // dispatchWithoutListen(undefined)
+            draggingNodeRef.current = {...node}
     }, [draggingNodeRef])
 
     useEffect(() => {
@@ -53,6 +60,7 @@ export function LayoutFlowWithForces({children}: PropsWithChildren) {
             onEdgesChange={onEdgesChange}
             fitView
             onNodeDragStart={handleDragStart}
+            onNodeDrag={handleDrag}
             onNodeDragStop={handleDragStop}
         >{children}
 

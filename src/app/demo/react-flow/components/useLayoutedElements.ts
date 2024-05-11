@@ -1,14 +1,14 @@
 import {useReactFlow, useStore} from "reactflow";
-import {MutableRefObject, useMemo, useRef} from "react";
-import {forceLink, Simulation} from "d3";
+import {MutableRefObject, useMemo} from "react";
+import {Simulation} from "d3";
 import {useDirectSimRefEditsDispatch} from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
 import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import {DataNode, FlowEdge, FlowNode} from "@/graph-tools/types/types";
+import {FlowNode} from "@/graph-tools/types/types";
 import {useGlobalDispatch} from "selective-context";
 import {useD3ForceSimulationMemo} from "@/graph-tools/hooks/useD3ForceSimulationMemo";
-import {useD3ForceSimulationEffect} from "@/graph-tools/hooks/useD3ForceSimulationEffect";
-import {run} from "node:test";
 
+
+const listenerKey = 'react-flow-layout';
 
 export function useLayoutedElements(): [boolean, (() => void) | undefined, (() => boolean) | undefined] {
     const {getNodes, setNodes, getEdges, fitView} = useReactFlow();

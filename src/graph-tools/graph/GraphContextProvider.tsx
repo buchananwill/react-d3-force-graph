@@ -10,9 +10,9 @@ export default function GraphContextProvider({
 }: PropsWithChildren & { uniqueGraphName: string }) {
   return (
     <GraphContext.Provider value={{ uniqueGraphName }}>
-      <RootSvgContext.Provider value={uniqueGraphName}>
+
         {children}
-      </RootSvgContext.Provider>
+
     </GraphContext.Provider>
   );
 }

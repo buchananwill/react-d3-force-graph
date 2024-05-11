@@ -1,14 +1,14 @@
-import {MutableRefObject, useCallback, useEffect, useMemo, useRef} from 'react';
+import {MutableRefObject, useCallback, useMemo, useRef} from 'react';
 import * as d3 from 'd3';
 import {Simulation} from 'd3';
 
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
+import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceAttributesDto";
 import {GraphSelectiveKeys, useGraphController, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {beginSim} from "@/graph-tools/functions/beginSim";
-import {updateForces} from "@/graph-tools/functions/updateForces";
 import {createForces} from "@/graph-tools/functions/createForces";
 import {useGraphRefs} from "@/graph-tools/nodes/genericNodeContextCreator";
+import {updateForces} from "@/graph-tools/functions/updateForces";
 
 
 const listenerKey = `force-sim`;
@@ -20,7 +20,7 @@ export const defaultDimensionArray = [1800, 1200];
 // Todo: remove automated ticking: can be triggered manually by the employing UI.
 export function useD3ForceSimulationMemo<T extends HasNumberId>() {
     const {linkListRef: linksRef, nodeListRef: nodesRef} = useGraphRefs<T>();
-    const forceAttributes = useForceAttributeListeners('sim');
+    const forceAttributes = useForceAttributeListeners(listenerKey);
     const {currentState: isMounted} = useGraphListener(GraphSelectiveKeys.mounted, listenerKey, false);
     const {currentState: isReady} = useGraphListener(GraphSelectiveKeys.ready, listenerKey, false);
     const {currentState: simVersion} = useGraphListener('version', listenerKey, 0);

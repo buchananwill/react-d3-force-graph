@@ -1,23 +1,32 @@
 import {useMemo} from 'react';
-import {ForceGraphAttributesDto} from "@/graph-tools/hooks/ForceGraphAttributesDto";
 
-export const forceAttributesInitial: ForceGraphAttributesDto = {
+// This object defines the initial settings for force attributes.
+export const ForceAttributesInitial = {
     id: 1,
+    centerStrength: 50,
+    collideStrength: 20,
+    linkDistance: 100,
+    linkStrength: 80,
+    manyBodyStrength: 50,
+    manyBodyTheta: 180,
+    manyBodyMinDistance: 20,
+    manyBodyMaxDistance: 400,
     forceXStrength: 0,
     forceYStrength: 0,
-    linkStrength: 80, // 80
-    linkDistance: 100, // 100
-    centerStrength: 50, // 50
-    collideStrength: 3, // 3
-    manyBodyStrength: 50, // 0
-    manyBodyMinDistance: 10, // 5
-    manyBodyMaxDistance: 400, // 400
-    manyBodyTheta: 50, // 9
-    forceRadialStrength: 1, // Must not be 0
-    forceRadialXRelative: 100, // 100
-    forceRadialYRelative: 100 // 100
-};
-export const forceAttributesMin: ForceGraphAttributesDto = {
+    forceRadialStrength: 0,
+    forceRadialXRelative: 100,
+    forceRadialYRelative: 100
+} as const;
+
+// Define a type 'ForceAttributeKeys' as a key of the initial settings object.
+export type ForceAttributeKeys = keyof typeof ForceAttributesInitial;
+
+// Define an interface 'ForceAttributesDto' using 'ForceAttributeKeys' with all values as numbers.
+export type ForceAttributesDto = {
+    [key in ForceAttributeKeys]: number;
+}
+
+export const forceAttributesMin: ForceAttributesDto = {
     id: 1,
     forceXStrength: 0,
     forceYStrength: 0,
@@ -33,7 +42,7 @@ export const forceAttributesMin: ForceGraphAttributesDto = {
     forceRadialXRelative: 1,
     forceRadialYRelative: 1
 };
-export const forceAttributesMax: ForceGraphAttributesDto = {
+export const forceAttributesMax: ForceAttributesDto = {
     id: 1,
     forceXStrength: 100,
     forceYStrength: 100,
@@ -71,7 +80,7 @@ export function useNormalizeForceRange(
     return useMemo(() => {
         switch (category) {
             case 'manyBodyStrength':
-                return value - 100;
+                return (value - 100);
             case 'manyBodyMaxDistance':
             case 'manyBodyMinDistance':
             case 'linkDistance': {

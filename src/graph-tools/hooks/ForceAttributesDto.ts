@@ -3,23 +3,6 @@ import {useGlobalListener} from "selective-context";
 import {useGraphName} from "@/graph-tools/graph/graphContextCreator";
 import {useNormalizeForceRange} from "@/graph-tools/forceAttributesMetaData";
 
-export interface ForceGraphAttributesDto {
-    id: number,
-    centerStrength: number,
-    collideStrength: number,
-    linkDistance: number,
-    linkStrength: number,
-    manyBodyStrength: number,
-    manyBodyTheta: number,
-    manyBodyMinDistance: number,
-    manyBodyMaxDistance: number,
-    forceXStrength: number,
-    forceYStrength: number,
-    forceRadialStrength: number,
-    forceRadialXRelative: number,
-    forceRadialYRelative: number,
-}
-
 const defaultValueForForceSliders = 100
 
 const initialValue = defaultValueForForceSliders

@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 // Defining the ForceKeys as a constant object
 export const ForceKeys = {
     link: 'link',
-    charge: 'charge',
+    manyBody: 'manyBody',
     collide: 'collide',
     center: 'center',
     radial: 'radial',

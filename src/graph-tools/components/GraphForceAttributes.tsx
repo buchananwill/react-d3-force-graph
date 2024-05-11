@@ -1,20 +1,19 @@
 'use client';
 
-import React, {useContext, useEffect, useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 
-import {GraphContext, useGraphName} from '../graph/graphContextCreator';
-import {forceAttributesInitial} from '../forceAttributesMetaData';
+import {useGraphName} from '../graph/graphContextCreator';
+import {ForceAttributesDto, ForceAttributesInitial} from '../forceAttributesMetaData';
 
 import {ShowForceAdjustmentsKey} from '../graph/ShowForceAdjustments';
 import {GraphSelectiveKeys, useGraphController, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import {ForceGraphAttributesDto} from "@/graph-tools/hooks/ForceGraphAttributesDto";
-import {useGlobalController} from "selective-context";
 import ControllerComponent from "@/graph-tools/components/ControllerComponent";
-import {SelectiveContextRangeSlider} from "@/app/demo/components/SelectiveContextRangeSlider";
+import {PartialDeep} from "type-fest";
+import {ForceGraphPageOptionProps} from "@/graph-tools/ForceGraphPage";
 
 
 const listenerKey = 'graph-force-adjustment';
-export default function GraphForceAttributes() {
+export default function GraphForceAttributes({forceAttributesInitial}:PartialDeep<Pick<ForceGraphPageOptionProps, 'forceAttributesInitial'>>) {
   const uniqueGraphName = useGraphName();
   const { currentState, dispatch } = useGraphController(
     GraphSelectiveKeys.ready,
@@ -34,18 +33,18 @@ export default function GraphForceAttributes() {
     }
   }, [dispatch, currentState]);
 
-  const controllers = useMemo(() => Object.entries(forceAttributesInitial).map((entry) => {
+  const controllers = useMemo(() => Object.entries(ForceAttributesInitial).map((entry) => {
     if (entry[0] === 'id') {
       return null;
     }
-    const stringKey = `${uniqueGraphName}:${entry[0]}`;
-    const entryKey = entry[0] as keyof ForceGraphAttributesDto;
-    const initial = forceAttributesInitial[entryKey];
 
+    const stringKey = `${uniqueGraphName}:${entry[0]}`;
+    const entryKey = entry[0] as keyof ForceAttributesDto;
+    const initial = forceAttributesInitial?.[entryKey] ?? ForceAttributesInitial[entryKey]
 
     return <ControllerComponent key={stringKey} contextKey={stringKey} listenerKey={stringKey} initialValue={initial}/>
 
-  }), [uniqueGraphName])
+  }), [uniqueGraphName, forceAttributesInitial])
 
 
   return (

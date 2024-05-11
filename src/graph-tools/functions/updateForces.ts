@@ -1,6 +1,6 @@
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {Simulation} from "d3";
-import {ForceAttributeListenerReturn} from "@/graph-tools/hooks/ForceGraphAttributesDto";
+import {Force, ForceManyBody, Simulation} from "d3";
+import {ForceAttributeListenerReturn} from "@/graph-tools/hooks/ForceAttributesDto";
 import {updateLinkForce} from "@/graph-tools/forces/forceLink";
 import {updateManyBodyForce} from "@/graph-tools/forces/forceManyBody";
 import {updateForceX} from "@/graph-tools/forces/forceX";
@@ -9,6 +9,8 @@ import {updateForceRadial} from "@/graph-tools/forces/forceRadial";
 import {StringMap} from "selective-context/dist/types";
 import {useRef} from "react";
 import _ from "lodash";
+import {updateCollideForce} from "@/graph-tools/forces/forceCollide";
+import {ForceKeys} from "@/graph-tools/types/forces";
 
 export function updateForces<T extends HasNumberId>(currentSim: Simulation<DataNode<T>, DataLink<T>>, forceAttributeListeners: ForceAttributeListenerReturn) {
     const {
@@ -42,8 +44,8 @@ export function updateForces<T extends HasNumberId>(currentSim: Simulation<DataN
 
 
     if (
-        linkStrengthRef.current != linkStrengthNormalized ||
-        linkDistanceRef.current != linkDistanceNormalized
+        linkStrengthRef.current !== linkStrengthNormalized ||
+        linkDistanceRef.current !== linkDistanceNormalized
     ) {
         updateLinkForce(
             currentSim,
@@ -54,10 +56,19 @@ export function updateForces<T extends HasNumberId>(currentSim: Simulation<DataN
         linkDistanceRef.current = linkDistanceNormalized;
     }
     if (
-        manyBodyThetaRef.current != manyBodyThetaNormalized ||
-        manyBodyStrengthRef.current != manyBodyStrengthNormalized ||
-        manyBodyMinDistanceRef.current != manyBodyMinDistanceNormalized ||
-        manyBodyMaxDistanceRef.current != manyBodyMaxDistanceNormalized
+        collideStrengthRef.current !== collideStrengthNormalized
+    ) {
+        updateCollideForce(
+            currentSim,
+            collideStrengthNormalized
+        );
+        collideStrengthRef.current = collideStrengthNormalized;
+    }
+    if (
+        manyBodyThetaRef.current !== manyBodyThetaNormalized ||
+        manyBodyStrengthRef.current !== manyBodyStrengthNormalized ||
+        manyBodyMinDistanceRef.current !== manyBodyMinDistanceNormalized ||
+        manyBodyMaxDistanceRef.current !== manyBodyMaxDistanceNormalized
     ) {
         updateManyBodyForce(
             currentSim,
@@ -70,16 +81,17 @@ export function updateForces<T extends HasNumberId>(currentSim: Simulation<DataN
         manyBodyStrengthRef.current = manyBodyStrengthNormalized;
         manyBodyMinDistanceRef.current = manyBodyMinDistanceNormalized;
         manyBodyMaxDistanceRef.current = manyBodyMaxDistanceNormalized;
+        const force = currentSim.force(ForceKeys.manyBody) as ForceManyBody<any>
     }
-    if (forceXStrengthRef.current != forceXStrengthNormalized) {
+    if (forceXStrengthRef.current !== forceXStrengthNormalized) {
         updateForceX(currentSim, forceXStrengthNormalized);
         forceXStrengthRef.current = forceXStrengthNormalized;
     }
-    if (forceYStrengthRef.current != forceYStrengthNormalized) {
+    if (forceYStrengthRef.current !== forceYStrengthNormalized) {
         updateForceY(currentSim, forceYStrengthNormalized);
         forceYStrengthRef.current = forceYStrengthNormalized;
     }
-    if (forceRadialStrengthRef.current != forceRadialStrengthNormalized) {
+    if (forceRadialStrengthRef.current !== forceRadialStrengthNormalized) {
         updateForceRadial(currentSim, forceRadialStrengthNormalized);
         forceRadialStrengthRef.current = forceRadialStrengthNormalized;
     }

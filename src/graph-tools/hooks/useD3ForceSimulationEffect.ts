@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import {Simulation} from 'd3';
 
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
+import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceAttributesDto";
 import {GraphSelectiveKeys, useGraphController, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {beginSim} from "@/graph-tools/functions/beginSim";
 import {updateForces} from "@/graph-tools/functions/updateForces";

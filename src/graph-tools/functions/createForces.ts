@@ -6,7 +6,7 @@ import * as d3 from "d3";
 import {getForceCollide} from "@/graph-tools/forces/forceCollide";
 import {getForceRadial} from "@/graph-tools/forces/forceRadial";
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {ForceAttributeListenerReturn} from "@/graph-tools/hooks/ForceGraphAttributesDto";
+import {ForceAttributeListenerReturn} from "@/graph-tools/hooks/ForceAttributesDto";
 import {Forces} from "@/graph-tools/types/forces";
 
 export function createForces<T extends HasNumberId>(
@@ -25,23 +25,7 @@ export function createForces<T extends HasNumberId>(
         linkStrengthNormalized,
         manyBodyMinDistanceNormalized,
         manyBodyMaxDistanceNormalized,
-        manyBodyThetaNormalized,
-        linkDistanceNormalized,
-        forceRadialStrengthRef,
-        centerStrengthRef,
-        collideStrengthRef,
-        forceRadialXRelativeNormalized,
-        forceRadialXRelativeRef,
-        forceRadialYRelativeNormalized,
-        forceRadialYRelativeRef,
-        forceXStrengthRef,
-        forceYStrengthRef,
-        linkDistanceRef,
-        linkStrengthRef,
-        manyBodyMaxDistanceRef,
-        manyBodyMinDistanceRef,
-        manyBodyStrengthRef,
-        manyBodyThetaRef
+        linkDistanceNormalized
     } = forceAttributeListeners;
 
     const numberOfNodes = nodes.length;
@@ -58,7 +42,7 @@ export function createForces<T extends HasNumberId>(
         () => forceYStrengthNormalized
     );
 
-    const charge = getForceManyBody(
+    const manyBody = getForceManyBody(
         manyBodyMaxDistanceNormalized,
         manyBodyMinDistanceNormalized,
         () => manyBodyStrengthNormalized
@@ -86,6 +70,6 @@ export function createForces<T extends HasNumberId>(
     );
 
     return {
-        forceX, forceY, center, charge, collide, link, radial,
+        forceX, forceY, center, manyBody, collide, link, radial,
     }
 }

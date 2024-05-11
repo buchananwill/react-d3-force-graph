@@ -65,9 +65,7 @@ export function getBusiestNodeFunction(base: number) {
     const sourceCrowding = links.filter(sourceToAndFrom).length;
     const targetCrowding = links.filter(targetToOrFrom).length;
     const busiestNode = Math.max(targetCrowding, sourceCrowding);
-    return Math.pow(base, busiestNode);
-    // return 0.01 + 0.01 / Math.pow(2, dLink.value*children);
-    // return 00.1;
+    return base === 0 ? 0 : Math.pow(base, busiestNode);
   };
 }
 

@@ -16,10 +16,13 @@ export function updateForceRadial<T extends HasNumberId>(
   updateForce(currentSim, 'radial', consumerRadial);
 }
 
+const cubicRadialCurveForEasierAdjustment = 4;
+
 function getRadialStrength(forceRadialStrengthNormalized: number) {
-  const squaredStrength =
-    forceRadialStrengthNormalized * forceRadialStrengthNormalized;
-  return squaredStrength < 0.001 ? 0 : squaredStrength;
+  const curvedStrength = forceRadialStrengthNormalized === 0 ? 0 :
+    Math.pow(forceRadialStrengthNormalized, cubicRadialCurveForEasierAdjustment);
+  const computedValue = (curvedStrength < 0.001 ? 0 : curvedStrength);
+  return Math.min(Math.max(computedValue, 0), 1)
 }
 
 export function getForceRadial(

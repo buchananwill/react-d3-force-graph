@@ -26,7 +26,6 @@ export function useD3ForceSimulation<T extends HasNumberId>(
     const {currentState: isMounted} = useGraphListener(GraphSelectiveKeys.mounted, listenerKey, false);
     const {currentState: isReady} = useGraphListener(GraphSelectiveKeys.ready, listenerKey, false);
     const {currentState: simVersion} = useGraphListener('version', listenerKey, 0);
-    // const {dispatchWithoutListen} = useGraphDispatch(GraphSelectiveKeys.sim);
 
     const {
         currentState: [width, height]
@@ -64,8 +63,6 @@ export function useD3ForceSimulation<T extends HasNumberId>(
                 const forces = getForces(nodesMutable, linksMutable);
                 simVersionRef.current = simVersion;
                 simulationRef.current = beginSim(ticked, nodesMutable, forces);
-                // console.log('dispatching the simRef', simulationRef)
-                // dispatchWithoutListen(simulationRef)
             }
         } else {
             if (simVersionRef.current !== simVersion) {
@@ -91,7 +88,6 @@ export function useD3ForceSimulation<T extends HasNumberId>(
             ) simulationRefCurrent.stop();
         };
     }, [
-        // dispatchWithoutListen,
         isMounted,
         simVersion,
         forceAttributes,

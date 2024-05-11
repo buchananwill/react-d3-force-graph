@@ -33,7 +33,7 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>() {
     const {nodeListRef, linkListRef} = useGraphRefs<T>();
     const {currentState} = useGraphListener<MutableRefObject<Simulation<any, any>> | null>(GraphSelectiveKeys.sim, listenerKey, null);
     const incrementSimVersion = useCallback(() => {
-        console.log('incrementing version!')
+        // console.log('incrementing version!')
         if (nodeListRef?.current && linkListRef?.current && currentState?.current && updateNodes && updateLinks) {
             currentState.current.stop()
             const resetLinksWithIdNotReferences = resetLinks(linkListRef.current);

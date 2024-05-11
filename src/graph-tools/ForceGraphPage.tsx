@@ -67,14 +67,14 @@ export default function ForceGraphPage<T extends HasNumberId>({
                             <NodeComponentContext.Provider value={defaultNodeSvg}>
                                 <LinkComponentContext.Provider value={defaultLinkSvg}>
                                     <NodeDetailsComponentContextProvider>
-                                        <SliderVisibilityController forceAttributesInitial={options?.forceAttributesInitial} forceSlidersVisibleInitial={options?.forceSlidersVisibleInitial}/>
+                                        <SliderVisibilityController forceSlidersVisibleInitial={options?.forceSlidersVisibleInitial}/>
                                         <NodeInteractionProvider>
                                         <GraphEditController/>
                                         <MountedTracker/>
                                         <NodePositionsTracker/>
                                         <ShowForceAdjustments/>
                                         <ShowNodeEditing/>
-                                        <GraphForceAttributes/>
+                                        <GraphForceAttributes forceAttributesInitial={options?.forceAttributesInitial}/>
                                             {options?.useInternalSimEngine && <ForceSimEngine/>}
 
                                             {children}

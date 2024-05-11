@@ -7,10 +7,20 @@ export default function Page() {
         <ForceGraphPage
             graphName={'react-flow'}
             dataGraph={{
-                               nodes: initialNodes,
-                               closureDtos: (initialEdges as ClosureDto[])
-                           }}
-            options={{forceSlidersVisibleInitial:{manyBodyTheta: false, forceRadialXRelative: false, forceRadialYRelative: false, centerStrength: false}}}
+                nodes: initialNodes,
+                closureDtos: (initialEdges as ClosureDto[])
+            }}
+            options={{
+                forceSlidersVisibleInitial: {
+                    manyBodyTheta: false,
+                    forceRadialXRelative: false,
+                    forceRadialYRelative: false,
+                    centerStrength: false
+                },
+                forceAttributesInitial: {
+                    forceYStrength: 50
+                }
+            }}
         >
             <ReactFlowWrapper/>
         </ForceGraphPage>

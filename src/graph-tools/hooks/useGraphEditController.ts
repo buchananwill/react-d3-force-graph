@@ -18,7 +18,7 @@ export function useGraphEditController() {
   useGraphController('deleted-node-ids', rootListenerKey, EmptyArray);
   useGraphController('dimensions', rootListenerKey, dimensionsStaticArray);
 
-console.log(sim)
+// console.log(sim)
   useDirectSimRefEditsController();
 }
 

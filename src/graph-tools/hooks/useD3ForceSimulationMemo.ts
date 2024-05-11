@@ -51,7 +51,7 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
         , [forceAttributes, width, height]);
 
     return useMemo(() => {
-        console.log('running force sim memo')
+        // console.log('running force sim memo')
         if (!linksRef || !nodesRef) return [];
         const simulationRefCurrent = simulationRef.current;
         const nodesMutable = nodesRef.current;

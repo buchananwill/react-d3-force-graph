@@ -36,11 +36,11 @@ export function getHorizontalParentsToChildrenLayout<T extends HasNumberId>(
   width: number,
   strength: number
 ): D3.ForceX<DataNode<T>> {
-  console.log('width for x force:', width)
+  // console.log('width for x force:', width)
   const rootDistances = new Set<number>();
   nodes.forEach((n) => rootDistances.add(n.distanceFromRoot));
   const spacing = width / (rootDistances.size + 1);
-  console.log('width for x force:', spacing)
+  // console.log('width for x force:', spacing)
   const distancesInOrder: number[] = [...rootDistances.values()];
   distancesInOrder.sort((a, b) => a - b);
   return D3.forceX((d) => {

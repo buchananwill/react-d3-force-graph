@@ -17,14 +17,14 @@ export function getGridX(
   }).strength(strength);
 }
 
-const squarePositionalForcesToCreateCurvedDelta = 2;
+export const exponentForPositionalForcesToCreateCurvedDelta = 3;
 
 export function updateForceX<T extends HasNumberId>(
   currentSim: Simulation<DataNode<T>, DataLink<T>>,
   forceXStrength: number
 ) {
   function consumerForceX(forceXDefined: d3.ForceX<DataNode<T>>) {
-    const strength = Math.pow(forceXStrength, squarePositionalForcesToCreateCurvedDelta);
+    const strength = Math.pow(forceXStrength, exponentForPositionalForcesToCreateCurvedDelta);
     const finalStrength = strength > 0.001 ? strength : 0;
     forceXDefined.strength(finalStrength);
   }

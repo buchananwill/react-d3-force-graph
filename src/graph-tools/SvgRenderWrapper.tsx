@@ -1,7 +1,7 @@
 'use client';
 
 import React, {ReactNode, useCallback, useContext, useRef, useState} from 'react';
-import {useD3ForceSimulation} from './hooks/useD3ForceSimulation';
+import {useD3ForceSimulationEffect} from './hooks/useD3ForceSimulationEffect';
 import {LinkRefContext} from './links/genericLinkContextCreator';
 import {NodeRefContext, useGraphRefs} from './nodes/genericNodeContextCreator';
 

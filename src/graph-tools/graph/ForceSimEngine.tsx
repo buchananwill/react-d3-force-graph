@@ -1,7 +1,7 @@
 import {useGraphDispatchAndListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {NodePositionsKey} from "@/graph-tools/constants";
 import {useCallback, useRef, useState} from "react";
-import {useD3ForceSimulation} from "@/graph-tools/hooks/useD3ForceSimulation";
+import {useD3ForceSimulationEffect} from "@/graph-tools/hooks/useD3ForceSimulationEffect";
 
 export default function ForceSimEngine() {
 
@@ -17,7 +17,7 @@ export default function ForceSimEngine() {
 
         }, [dispatchWithoutControl]
     )
-    useD3ForceSimulation(ticked);
+    useD3ForceSimulationEffect(ticked);
 
     return null
 }

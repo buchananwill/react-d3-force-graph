@@ -6,7 +6,7 @@ import {DataLink, DataNode} from "@/graph-tools/types/types";
 import {createForces} from "@/graph-tools/functions/createForces";
 import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceGraphAttributesDto";
 import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import {defaultDimensionArray} from "@/graph-tools/hooks/useD3ForceSimulation";
+import {defaultDimensionArray} from "@/graph-tools/hooks/useD3ForceSimulationEffect";
 import {NodeRefContext} from "@/graph-tools/nodes/genericNodeContextCreator";
 import {LinkRefContext} from "@/graph-tools/links/genericLinkContextCreator";
 

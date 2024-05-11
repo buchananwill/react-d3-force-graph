@@ -41,6 +41,7 @@ export interface ForceGraphPageOptionProps {
     forceEditing: boolean;
     sidePanel: boolean;
     defaultInteractiveViewer: boolean;
+    useInternalSimEngine: boolean
 }
 
 export interface NodePayload<T extends HasNumberId> {
@@ -72,7 +73,7 @@ export default function ForceGraphPage<T extends HasNumberId>({
                                         <ShowForceAdjustments/>
                                         <ShowNodeEditing/>
                                         <GraphForceAdjuster/>
-                                        <ForceSimEngine/>
+                                            {options?.useInternalSimEngine && <ForceSimEngine/>}
 
                                             {children}
 

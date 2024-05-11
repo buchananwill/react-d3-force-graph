@@ -18,7 +18,7 @@ export const defaultDimensionArray = [1800, 1200];
 // Todo: remove adding nodes and links as a responsibility of this hook.
 //  It only needs to setup up the simulation and forces, making it available as context.
 // Todo: remove automated ticking: can be triggered manually by the employing UI.
-export function useD3ForceSimulation<T extends HasNumberId>(
+export function useD3ForceSimulationEffect<T extends HasNumberId>(
     ticked: () => void
 ) {
     const {linkListRef: linksRef, nodeListRef: nodesRef} = useGraphRefs<T>();
@@ -62,7 +62,7 @@ export function useD3ForceSimulation<T extends HasNumberId>(
             if (isMounted && isReady) {
                 const forces = getForces(nodesMutable, linksMutable);
                 simVersionRef.current = simVersion;
-                simulationRef.current = beginSim(ticked, nodesMutable, forces);
+                simulationRef.current = beginSim(nodesMutable, forces, undefined, ticked);
             }
         } else {
             if (simVersionRef.current !== simVersion) {

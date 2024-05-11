@@ -10,10 +10,10 @@ const defaultOptions: SimOptions = {
 }
 
 export function beginSim<T extends HasNumberId>(
-    ticked: (this: Simulation<DataNode<T>, DataLink<T>>) => void,
     nodes: DataNode<T>[],
     forces?: Forces,
-    options?: SimOptions) {
+    options?: SimOptions,
+    ticked?: (this: Simulation<DataNode<T>, DataLink<T>>) => void) {
     const mergedOptions = {...defaultOptions, ...options}
 
     const simulation = d3.forceSimulation<DataNode<T>, DataLink<T>>(
@@ -34,6 +34,6 @@ export function beginSim<T extends HasNumberId>(
             simulation[optionKey](optionValue)
         })
 
-    simulation.on('tick', ticked);
+    if (ticked) simulation.on('tick', ticked);
     return simulation
 }

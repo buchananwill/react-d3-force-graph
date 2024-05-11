@@ -128,10 +128,10 @@ export function useForceAttributeListeners(listenerKey: string) {
     const forceRadialYRelativeNormalized = useNormalizeForceRange(forceRadialYRelative);
     const forceRadialStrengthNormalized = useNormalizeForceRange(forceRadialStrength);
     const linkStrengthNormalized = useNormalizeForceRange(linkStrength);
+    const linkDistanceNormalized = useNormalizeForceRange(linkDistance, 'linkDistance');
     const forceRadialXRelativeNormalized = useNormalizeForceRange(forceRadialXRelative);
     const manyBodyMinDistanceNormalized = useNormalizeForceRange(manyBodyMinDistance, 'manyBodyMinDistance');
     const manyBodyMaxDistanceNormalized = useNormalizeForceRange(manyBodyMaxDistance, 'manyBodyMaxDistance');
-    const linkDistanceNormalized = useNormalizeForceRange(linkDistance, 'linkDistance');
     const collideStrengthNormalized = useNormalizeForceRange(collideStrength);
     const centerStrengthNormalized = useNormalizeForceRange(centerStrength);
     const manyBodyThetaNormalized = useNormalizeForceRange(manyBodyTheta);

@@ -23,6 +23,7 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
     const {currentState: simRef} = useGraphListener<MutableRefObject<Simulation<any, any>> | undefined>(GraphSelectiveKeys.sim, 'layout-flow-with-forces', undefined);
 
     return useMemo(() => {
+        console.log('rendering memo')
         let nodes = (getNodes().map((node) => ({...node, x: node.position.x, y: node.position.y})) as FlowNode[]);
         // let edges = (getEdges().map((edge) => edge) as FlowEdge[]);
         let running = false;

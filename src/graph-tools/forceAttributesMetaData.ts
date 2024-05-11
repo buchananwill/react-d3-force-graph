@@ -78,7 +78,7 @@ export function useNormalizeForceRange(
                 return value;
             }
             default:
-                return value/ 200;
+                return value / 200;
         }
     }, [category, value]);
 }

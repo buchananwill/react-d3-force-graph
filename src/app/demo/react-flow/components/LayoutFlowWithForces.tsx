@@ -19,6 +19,7 @@ export function LayoutFlowWithForces({children}: PropsWithChildren) {
     const [initialised, toggle] = useLayoutedElements();
 
     useEffect(() => {
+        console.log('setting nodes and links...')
         setNodes(initialNodes as FlowNode[])
         setEdges(initialEdges as FlowEdge[])
     }, [initialNodes, initialEdges, setEdges, setNodes])

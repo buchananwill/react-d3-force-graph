@@ -7,6 +7,7 @@ import {DataNode, FlowEdge, FlowNode} from "@/graph-tools/types/types";
 import {useGlobalDispatch} from "selective-context";
 import {useD3ForceSimulationMemo} from "@/graph-tools/hooks/useD3ForceSimulationMemo";
 import {useD3ForceSimulationEffect} from "@/graph-tools/hooks/useD3ForceSimulationEffect";
+import {run} from "node:test";
 
 
 export function useLayoutedElements(): [boolean, (() => void) | undefined, (() => boolean) | undefined] {
@@ -23,27 +24,25 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
 
     return useMemo(() => {
         let nodes = (getNodes().map((node) => ({...node, x: node.position.x, y: node.position.y})) as FlowNode[]);
-        let edges = (getEdges().map((edge) => edge) as FlowEdge[]);
+        // let edges = (getEdges().map((edge) => edge) as FlowEdge[]);
         let running = false;
         let simulation: Simulation<any, any>;
 
-        if (!initialised || nodes.length === 0 || !nodeListRef || !linkListRef || !simRef) {
+        // If React Flow hasn't initialised our nodes with a width and height yet, or
+        // if there are no nodes in the flow, then we can't run the simulation!
+        if (!initialised
+            || nodes.length === 0
+            || !nodeListRef || !linkListRef
+            || !simRef
+            || nodeListRef.current.length !== nodes.length // These arrays should match, because the top-level context should sync them.
+        ) {
             return [false, undefined, undefined]
         }
 
-        // If React Flow hasn't initialised our nodes with a width and height yet, or
-        // if there are no nodes in the flow, then we can't run the simulation!
-            nodeListRef.current = nodes
-            linkListRef.current = edges
-
-
-            // This is the logic to set the nodes for the simulation.
-            simRef.current.nodes(nodes).force(
-                'link',
-                forceLink(edges)
-                    .id((d) => (d as DataNode<any>).id)
-            );
-
+        // Copy any internals to the nodeListRef so we don't lose those properties.
+        for (let i = 0; i < nodes.length; i++) {
+            Object.assign(nodeListRef.current[i], nodes[i])
+        }
 
         // The tick function is called every animation frame while the simulation is
         // running and progresses the simulation one step forward each time.
@@ -79,6 +78,7 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
         };
 
         const toggle = () => {
+            console.log('running in the toggle function:', running)
             const scopedNodes = nodeListRef.current;
             running = !running;
             if (running) {
@@ -87,13 +87,22 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
                     scopedNode.x = node.position.x;
                     scopedNode.y = node.position.y;
                 })
+            window.requestAnimationFrame(tick);
             }
-            running && window.requestAnimationFrame(tick);
             dispatchWithoutListen(running)
         };
 
         const isRunning = () => running;
 
         return [true, toggle, isRunning];
-    }, [simRef, initialised, fitView, getEdges, getNodes, setNodes, linkListRef, nodeListRef, dispatchWithoutListen]);
+    }, [
+        simRef,
+        initialised,
+        fitView,
+        getNodes,
+        setNodes,
+        linkListRef,
+        nodeListRef,
+        dispatchWithoutListen
+    ]);
 }

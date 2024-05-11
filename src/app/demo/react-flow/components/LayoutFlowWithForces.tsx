@@ -59,8 +59,8 @@ export function LayoutFlowWithForces({children}: PropsWithChildren) {
             onNodeDragStart={handleDragStart}
             onNodeDrag={handleDrag}
             onNodeDragStop={handleDragStop}
-        >{children}
-
+        >
+            {children}
             <Panel position={'top-right'}>
                 {(initialised && toggle) && (
                     <Button onPress={toggle} color={running ? 'danger' : 'success'}

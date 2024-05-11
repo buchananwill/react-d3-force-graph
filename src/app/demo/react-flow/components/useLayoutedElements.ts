@@ -18,44 +18,15 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
     const initialised = useStore((store) =>
         [...store.nodeInternals.values()].every((node) => node.width && node.height)
     );
-    // const draggingNodeRef = useRef<FlowNode | undefined>(undefined);
-
-
 
     useD3ForceSimulationMemo()
     const {currentState: draggingNode} = useGlobalController<MutableRefObject<FlowNode> | undefined>({contextKey: draggingNodeKey, listenerKey, initialValue: undefined});
-    // draggingNodeRef.current = draggingNode
-    // if (draggingNodeRef.current !== draggingNode) console.log(draggingNodeRef, draggingNode)
-
-
-    const setDraggingPosition = useCallback((getNodes: () => Node[], scopedNodes:  DataNode<any>[]) => {
-
-        for (const node of getNodes()) {
-            const i = getNodes().indexOf(node);
-            // const dragging = Boolean(document.querySelector(`[data-id="${node.id}"].dragging`));
-            const dragging = draggingNode?.current?.id === node.id
-            // Setting the fx/fy properties of a node tells the simulation to "fix"
-            // the node at that position and ignore any forces that would normally
-            // cause it to move.
-            const scopedNode = scopedNodes[i];
-            if (dragging && scopedNode) {
-                console.log(scopedNodes)
-                scopedNode.fx = node.position.x;
-                scopedNode.fy = node.position.y;
-            } else if (scopedNode) {
-                scopedNode.fx = null
-                scopedNode.fy = null
-            }
-        }
-    } , [draggingNode])
-
     const {nodeListRef, linkListRef, incrementSimVersion} = useDirectSimRefEditsDispatch();
     const {currentState: simRef} = useGraphListener<MutableRefObject<Simulation<any, any>> | undefined>(GraphSelectiveKeys.sim, 'layout-flow-with-forces', undefined);
 
     return useMemo(() => {
-        // // console.log('rendering memo')
+
         let nodes = (getNodes().map((node) => ({...node, x: node.position.x, y: node.position.y})) as FlowNode[]);
-        // let edges = (getEdges().map((edge) => edge) as FlowEdge[]);
         let running = false;
         let simulation: Simulation<any, any>;
 
@@ -81,12 +52,12 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
             let nodeIndex = NaN
             simulation = simRef.current
             const scopedNodes = nodeListRef.current;
-            // setDraggingPosition(getNodes, scopedNodes)
+
             let foundDrag = false
-            for (let i = 0; i < getNodes().length; i++){
-                const node = getNodes()[i];
-                // const dragging = Boolean(document.querySelector(`[data-id="${node.id}"].dragging`));
-                const dragging = draggingNode?.current?.id === node.id
+            for (let i = 0; i < scopedNodes.length; i++){
+                const node = scopedNodes[i];
+
+                const dragging = draggingNode?.current?.id === node?.id
                 // Setting the fx/fy properties of a node tells the simulation to "fix"
                 // the node at that position and ignore any forces that would normally
                 // cause it to move.
@@ -94,6 +65,7 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
                 if (dragging) {
                     foundDrag = true
                     nodeIndex = i
+                    // Copy the current position from the ref
                     scopedNode.fx = draggingNode?.current.position.x;
                     scopedNode.fy = draggingNode?.current.position.y;
                 } else {
@@ -119,7 +91,6 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
         };
 
         const toggle = () => {
-            // console.log('running in the toggle function:', running)
             const scopedNodes = nodeListRef.current;
             running = !running;
             if (running) {

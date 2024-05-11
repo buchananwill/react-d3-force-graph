@@ -26,27 +26,25 @@ export function LayoutFlowWithForces({children}: PropsWithChildren) {
 
     const handleDragStart = useCallback(
         (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
-        console.log('drag start:', node, nodes)
-            // dispatchWithoutListen({...node})
+
+
             draggingNodeRef.current = {...node}
     }, [draggingNodeRef])
 
     const handleDragStop = useCallback(
         (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
         console.log(node, nodes)
-            // dispatchWithoutListen(undefined)
+
             draggingNodeRef.current = undefined
     }, [draggingNodeRef])
 
     const handleDrag = useCallback(
         (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
         console.log(node, nodes)
-            // dispatchWithoutListen(undefined)
             draggingNodeRef.current = {...node}
     }, [draggingNodeRef])
 
     useEffect(() => {
-        // console.log('setting nodes and links...')
         setNodes(initialNodes as FlowNode[])
         setEdges(initialEdges as FlowEdge[])
     }, [initialNodes, initialEdges, setEdges, setNodes])

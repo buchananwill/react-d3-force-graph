@@ -9,7 +9,11 @@ import {Button} from "@nextui-org/button";
 
 
 export function LayoutFlowWithForces({children}: PropsWithChildren) {
-    const {currentState: running} = useGlobalController({contextKey: 'running', listenerKey: 'layout-controller', initialValue: false});
+    const {currentState: running} = useGlobalController({
+        contextKey: 'running',
+        listenerKey: 'layout-controller',
+        initialValue: false
+    });
 
     const {nodes: initialNodes} = useNodeContext();
     const {links: initialEdges} = useLinkContext();
@@ -26,23 +30,18 @@ export function LayoutFlowWithForces({children}: PropsWithChildren) {
 
     const handleDragStart = useCallback(
         (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
-
-
             draggingNodeRef.current = {...node}
-    }, [draggingNodeRef])
+        }, [draggingNodeRef])
 
     const handleDragStop = useCallback(
         (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
-        console.log(node, nodes)
-
             draggingNodeRef.current = undefined
-    }, [draggingNodeRef])
+        }, [draggingNodeRef])
 
     const handleDrag = useCallback(
         (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
-        console.log(node, nodes)
             draggingNodeRef.current = {...node}
-    }, [draggingNodeRef])
+        }, [draggingNodeRef])
 
     useEffect(() => {
         setNodes(initialNodes as FlowNode[])
@@ -64,7 +63,9 @@ export function LayoutFlowWithForces({children}: PropsWithChildren) {
 
             <Panel position={'top-right'}>
                 {(initialised && toggle) && (
-                    <Button onPress={toggle} color={running ? 'danger' : 'success'} className={running ? 'animate-pulse' : ''}>{running ? 'Stop' : 'Start'} force simulation</Button>
+                    <Button onPress={toggle} color={running ? 'danger' : 'success'}
+                            className={running ? 'animate-pulse' : ''}>{running ? 'Stop' : 'Start'} force
+                        simulation</Button>
                 )}
             </Panel>
         </ReactFlow>

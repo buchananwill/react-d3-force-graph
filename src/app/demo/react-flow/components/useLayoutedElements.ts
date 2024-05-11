@@ -61,16 +61,16 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
                 // Setting the fx/fy properties of a node tells the simulation to "fix"
                 // the node at that position and ignore any forces that would normally
                 // cause it to move.
-                const scopedNode = scopedNodes[i];
+
                 if (dragging) {
                     foundDrag = true
                     nodeIndex = i
                     // Copy the current position from the ref
-                    scopedNode.fx = draggingNode?.current.position.x;
-                    scopedNode.fy = draggingNode?.current.position.y;
-                } else {
-                   delete scopedNode.fx
-                    delete scopedNode.fy
+                    node.fx = draggingNode?.current.position.x;
+                    node.fy = draggingNode?.current.position.y;
+                } else if (node) {
+                   delete node.fx
+                    delete node.fy
                 }
             }
 

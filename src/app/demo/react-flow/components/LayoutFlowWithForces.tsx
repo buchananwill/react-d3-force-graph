@@ -35,7 +35,7 @@ export function LayoutFlowWithForces({children}: PropsWithChildren) {
         (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
         console.log(node, nodes)
             // dispatchWithoutListen(undefined)
-            draggingNodeRef.current = node
+            draggingNodeRef.current = undefined
     }, [draggingNodeRef])
 
     useEffect(() => {

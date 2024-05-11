@@ -81,23 +81,28 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
             let nodeIndex = NaN
             simulation = simRef.current
             const scopedNodes = nodeListRef.current;
-            setDraggingPosition(getNodes, scopedNodes)
-            // getNodes().forEach((node, i) => {
-            //     // const dragging = Boolean(document.querySelector(`[data-id="${node.id}"].dragging`));
-            //     const dragging = draggingNodeRef.current?.id === node.id
-            //     // Setting the fx/fy properties of a node tells the simulation to "fix"
-            //     // the node at that position and ignore any forces that would normally
-            //     // cause it to move.
-            //     const scopedNode = scopedNodes[i];
-            //     if (dragging) {
-            //         nodeIndex = i
-            //         scopedNode.fx = node.position.x;
-            //         scopedNode.fy = node.position.y;
-            //     } else {
-            //         scopedNode.fx = null
-            //         scopedNode.fy = null
-            //     }
-            // });
+            // setDraggingPosition(getNodes, scopedNodes)
+            let foundDrag = false
+            for (let i = 0; i < getNodes().length; i++){
+                const node = getNodes()[i];
+                // const dragging = Boolean(document.querySelector(`[data-id="${node.id}"].dragging`));
+                const dragging = draggingNode?.current?.id === node.id
+                // Setting the fx/fy properties of a node tells the simulation to "fix"
+                // the node at that position and ignore any forces that would normally
+                // cause it to move.
+                const scopedNode = scopedNodes[i];
+                if (dragging) {
+                    foundDrag = true
+                    nodeIndex = i
+                    scopedNode.fx = node.position.x;
+                    scopedNode.fy = node.position.y;
+                } else {
+                   delete scopedNode.fx
+                    delete scopedNode.fy
+                }
+            }
+
+            if (!foundDrag) nodeIndex = NaN
 
             simulation.tick();
             if (!isNaN(nodeIndex)) console.log(scopedNodes[nodeIndex])
@@ -132,6 +137,7 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
 
         return [true, toggle, isRunning];
     }, [
+        draggingNode,
         simRef,
         initialised,
         fitView,

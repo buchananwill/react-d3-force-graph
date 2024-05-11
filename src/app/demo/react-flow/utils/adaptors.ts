@@ -1,21 +1,23 @@
-import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
+import {DataLink, DataNode, FlowNode, HasId, HasNumberId} from "@/graph-tools/types/types";
 import {Edge, Node} from "reactflow";
 
 const nodeType = 'default'
 
-function getNumberIdAsString(entity: HasNumberId) {
+function getAnyIdAsString(entity: HasId) {
     return `${entity.id}`;
 }
 
-export function convertToReactFlowNode(dataNode: DataNode<any>): Node {
-    const stringId = getNumberIdAsString(dataNode);
-    const position = {x: dataNode.x || 0, y: dataNode.y || 0}
-    return {...dataNode, id: stringId, position, type: nodeType}
+export function convertToReactFlowNode(dataNode: DataNode<any>): FlowNode {
+    const stringId = getAnyIdAsString(dataNode);
+    const x = dataNode.x || 0
+    const y = dataNode.y || 0;
+    const position = {x, y: y}
+    return {...dataNode, id: stringId, position, type: nodeType, x, y }
 }
 
 export function convertToReactFlowEdge(dataLink: DataLink<any>): Edge {
 
-    const stringId = getNumberIdAsString(dataLink)
+    const stringId = getAnyIdAsString(dataLink)
     const sourceId = getStringIdFromConnection(dataLink.source)
     const targetId = getStringIdFromConnection(dataLink.target)
 
@@ -23,9 +25,11 @@ export function convertToReactFlowEdge(dataLink: DataLink<any>): Edge {
 
 }
 
-export function getStringIdFromConnection(connection: number | DataNode<any>) {
-    if (typeof connection === 'number') return `${connection}`
-    else return getNumberIdAsString(connection)
+export function getStringIdFromConnection(connection: number| string | DataNode<any>) {
+    if (typeof connection === 'object')
+        return getAnyIdAsString(connection)
+    else
+        return `${connection}`
 }
 
 export function convertDataNodeListToNodeList(list: DataNode<any>[]) {

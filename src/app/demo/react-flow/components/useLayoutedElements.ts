@@ -7,7 +7,7 @@ import {DataNode, FlowEdge, FlowNode} from "@/graph-tools/types/types";
 import {useGlobalDispatch} from "selective-context";
 
 
-export function useLayoutedElements():[boolean, (() => void) | undefined, (() => boolean) | undefined] {
+export function useLayoutedElements(): [boolean, (() => void) | undefined, (() => boolean) | undefined] {
     const {getNodes, setNodes, getEdges, fitView} = useReactFlow();
     const {dispatchWithoutListen} = useGlobalDispatch<boolean>('running');
     const initialised = useStore((store) =>
@@ -15,44 +15,37 @@ export function useLayoutedElements():[boolean, (() => void) | undefined, (() =>
     );
 
     const {nodeListRef, linkListRef, incrementSimVersion} = useDirectSimRefEditsDispatch();
-    const {currentState} = useGraphListener<MutableRefObject<Simulation<any, any>> | undefined>(GraphSelectiveKeys.sim, 'layout-flow-with-forces', undefined);
-
-    const nodesRef = useRef<FlowNode[]>([]);
-    const linksRef = useRef<FlowEdge[]>([]);
+    const {currentState: simRef} = useGraphListener<MutableRefObject<Simulation<any, any>> | undefined>(GraphSelectiveKeys.sim, 'layout-flow-with-forces', undefined);
 
     return useMemo(() => {
         let nodes = (getNodes().map((node) => ({...node, x: node.position.x, y: node.position.y})) as FlowNode[]);
         let edges = (getEdges().map((edge) => edge) as FlowEdge[]);
         let running = false;
-        nodesRef.current = (nodes as FlowNode[])
-        linksRef.current = (edges as FlowEdge[])
-
         let simulation: Simulation<any, any>;
-        if (nodeListRef && linkListRef) {
-            nodeListRef.current = nodes
-            linkListRef.current = edges
+
+        if (!initialised || nodes.length === 0 || !nodeListRef || !linkListRef || !simRef) {
+            return [false, undefined, undefined]
         }
 
         // If React Flow hasn't initialised our nodes with a width and height yet, or
         // if there are no nodes in the flow, then we can't run the simulation!
-        if (!initialised || nodes.length === 0 || !nodeListRef || !linkListRef) {
-            return [false, undefined, undefined]
-        }
+            nodeListRef.current = nodes
+            linkListRef.current = edges
 
-        if (currentState?.current) {
+
             // This is the logic to set the nodes for the simulation.
-            currentState.current.nodes(nodes).force(
+            simRef.current.nodes(nodes).force(
                 'link',
                 forceLink(edges)
                     .id((d) => (d as DataNode<any>).id)
             );
-        }
+
 
         // The tick function is called every animation frame while the simulation is
         // running and progresses the simulation one step forward each time.
         const tick = () => {
-            if (currentState?.current) simulation = currentState.current
-            const scopedNodes = nodeListRef?.current;
+            simulation = simRef.current
+            const scopedNodes = nodeListRef.current;
             getNodes().forEach((node, i) => {
                 const dragging = Boolean(document.querySelector(`[data-id="${node.id}"].dragging`));
                 // Setting the fx/fy properties of a node tells the simulation to "fix"
@@ -82,7 +75,7 @@ export function useLayoutedElements():[boolean, (() => void) | undefined, (() =>
         };
 
         const toggle = () => {
-            const scopedNodes = nodesRef.current;
+            const scopedNodes = nodeListRef.current;
             running = !running;
             if (running) {
                 getNodes().forEach((node, index) => {
@@ -98,5 +91,5 @@ export function useLayoutedElements():[boolean, (() => void) | undefined, (() =>
         const isRunning = () => running;
 
         return [true, toggle, isRunning];
-    }, [currentState, initialised, fitView, getEdges, getNodes, setNodes, linkListRef, nodeListRef, dispatchWithoutListen]);
+    }, [simRef, initialised, fitView, getEdges, getNodes, setNodes, linkListRef, nodeListRef, dispatchWithoutListen]);
 }

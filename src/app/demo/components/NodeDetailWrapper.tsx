@@ -3,19 +3,20 @@ import React, {FC, Fragment, PropsWithChildren, useContext} from 'react';
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
-import SelectionOutline from '../../../graph-tools/components/SelectionOutline';
+import SelectionOutline from './SelectionOutline';
 import {
   useNodeInteractionContext,
   useNodeSelectedListener
-} from '@/graph-tools/nodes/NodeInteractionContext';
+} from '@/app/demo/svg-ui/context/NodeInteractionContext';
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
 import { StarIcon } from '@heroicons/react/24/solid';
 
 import { Button } from '@nextui-org/button';
 import {DataNode, HasNumberId, NodeDetailsUiComponentProps} from "@/graph-tools/types/types";
 import { Disclosure } from '@headlessui/react';
-import {NodeDetailsComponentContext} from "@/graph-tools/contexts/details-component/nodeDetailsComponentContextCreator";
-import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {NodeDetailsComponentContext} from "@/app/demo/components/details-component-context/nodeDetailsComponentContextCreator";
+import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {GraphSelectiveContextKeys} from "@/graph-tools/hooks/graphSelectiveContextKeys";
 
 export function NodeDetailWrapper<T extends HasNumberId>({
   label,

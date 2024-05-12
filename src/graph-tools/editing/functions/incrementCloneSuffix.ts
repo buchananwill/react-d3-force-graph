@@ -1,4 +1,4 @@
-import { NameCharLimit } from '@/app/demo/graphs/organization/cloneOrganizationNode';
+import { NameCharLimit } from '@/app/demo/components/organization/cloneOrganizationNode';
 import {HasName} from "@/graph-tools/types/types";
 import _ from "lodash";
 

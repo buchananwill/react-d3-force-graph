@@ -2,18 +2,19 @@
 import {useCallback} from 'react';
 
 import {useNodeCloneFunctionController} from './useNodeCloneFunctionController';
-import {mapLinkBackToIdRefs} from '../links/map-link-back-to-id-refs';
+import {mapLinkBackToIdRefs} from '../functions/mapLinkBackToIdRefs';
 
-import {UnsavedNodeChangesProps} from '../graph/NodeLinkRefWrapper';
-import {useShowNodeEditing} from '../ShowNodeEditing';
-import {EmptyArray, TransientIdOffset} from "@/graph-tools/constants";
+import {EmptyArray, TransientIdOffset} from "@/graph-tools/literals/constants";
 import {
-  GraphSelectiveKeys,
   useGraphDispatchAndListener,
   useGraphListener
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {CachedFunction, DataNode, GraphDto, GraphDtoPutRequestBody, HasNumberId} from "@/graph-tools/types/types";
-import {useGraphRefs} from "@/graph-tools/nodes/genericNodeContextCreator";
+import {GraphSelectiveContextKeys} from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import {useShowNodeEditing} from "@/graph-tools/hooks/useShowNodeEditing";
+import {UnsavedNodeChangesProps} from "@/graph-tools/types/unsavedNodeChangesProps";
+
+import {useGraphRefs} from "@/graph-tools/hooks/useGraphRefs";
 
 function removeTransientId(id: number) {
   return id < TransientIdOffset;
@@ -33,8 +34,8 @@ export function useNodeEditing<T extends HasNumberId>(
   useShowNodeEditing(true);
   useNodeCloneFunctionController(cloneFunction);
 
-  const {currentState: deletedLinkIds} = useGraphListener(GraphSelectiveKeys.deletedLinkIds, listenerKey, EmptyArray);
-  const {currentState: deletedNodeIds} = useGraphListener(GraphSelectiveKeys.deletedNodeIds, listenerKey, EmptyArray);
+  const {currentState: deletedLinkIds} = useGraphListener(GraphSelectiveContextKeys.deletedLinkIds, listenerKey, EmptyArray);
+  const {currentState: deletedNodeIds} = useGraphListener(GraphSelectiveContextKeys.deletedNodeIds, listenerKey, EmptyArray);
 
 
   const handleSaveGraph = useCallback(() => {
@@ -59,6 +60,8 @@ export function useNodeEditing<T extends HasNumberId>(
       };
       putUpdatedGraph(request).then((r) => {
         if (r.status == 200) {
+          // TODO: handle the happy and sad paths.
+          // Would need a function parameter that can update the client state with the received data - effectively replacing the state, since we cannot provide any guarantees about matching up new entities with unknown IDs.
         }
       });
 

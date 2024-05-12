@@ -1,6 +1,5 @@
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
 import {Force, ForceManyBody, Simulation} from "d3";
-import {ForceAttributeListenerReturn} from "@/graph-tools/hooks/ForceAttributesDto";
 import {updateLinkForce} from "@/graph-tools/forces/forceLink";
 import {updateManyBodyForce} from "@/graph-tools/forces/forceManyBody";
 import {updateForceX} from "@/graph-tools/forces/forceX";
@@ -11,8 +10,9 @@ import {useRef} from "react";
 import _ from "lodash";
 import {updateCollideForce} from "@/graph-tools/forces/forceCollide";
 import {ForceKeys} from "@/graph-tools/types/forces";
+import {ForceAttributeListenersReturn} from "@/graph-tools/types/forceAttributeListenersReturn";
 
-export function updateForces<T extends HasNumberId>(currentSim: Simulation<DataNode<T>, DataLink<T>>, forceAttributeListeners: ForceAttributeListenerReturn) {
+export function updateForces<T extends HasNumberId>(currentSim: Simulation<DataNode<T>, DataLink<T>>, forceAttributeListeners: ForceAttributeListenersReturn) {
     const {
         forceYStrengthNormalized,
         forceXStrengthNormalized,

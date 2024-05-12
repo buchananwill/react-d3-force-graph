@@ -2,10 +2,11 @@ import {Node, useReactFlow, useStore} from "reactflow";
 import {MutableRefObject, useCallback, useMemo, useRef} from "react";
 import {Simulation} from "d3";
 import {useDirectSimRefEditsDispatch} from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
-import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {DataNode, FlowNode} from "@/graph-tools/types/types";
 import {useGlobalController, useGlobalDispatch, useGlobalListener} from "selective-context";
 import {useD3ForceSimulationMemo} from "@/graph-tools/hooks/useD3ForceSimulationMemo";
+import {GraphSelectiveContextKeys} from "@/graph-tools/hooks/graphSelectiveContextKeys";
 
 
 const listenerKey = 'react-flow-layout';
@@ -22,7 +23,7 @@ export function useLayoutedElements(): [boolean, (() => void) | undefined, (() =
     useD3ForceSimulationMemo()
     const {currentState: draggingNode} = useGlobalController<MutableRefObject<FlowNode> | undefined>({contextKey: draggingNodeKey, listenerKey, initialValue: undefined});
     const {nodeListRef, linkListRef, incrementSimVersion} = useDirectSimRefEditsDispatch();
-    const {currentState: simRef} = useGraphListener<MutableRefObject<Simulation<any, any>> | undefined>(GraphSelectiveKeys.sim, 'layout-flow-with-forces', undefined);
+    const {currentState: simRef} = useGraphListener<MutableRefObject<Simulation<any, any>> | undefined>(GraphSelectiveContextKeys.sim, 'layout-flow-with-forces', undefined);
 
     return useMemo(() => {
 

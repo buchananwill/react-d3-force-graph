@@ -1,14 +1,16 @@
-import {useNodeInteractionContext} from '../nodes/NodeInteractionContext';
-import {useCallback, useMemo, useState} from 'react';
+import {useNodeInteractionContext} from '../../app/demo/svg-ui/context/NodeInteractionContext';
+import {useCallback, useState} from 'react';
 
-import {useGraphDispatchAndListener, useGraphNumberDispatch} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {useGraphDispatchAndListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {useDirectSimRefEditsDispatch} from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
 import {HasNumberId} from "@/graph-tools/types/types";
-import {EmptyArray, TransientIdOffset} from "@/graph-tools/constants";
+import {EmptyArray, TransientIdOffset} from "@/graph-tools/literals/constants";
 
 export function useGraphEditHooks<T extends HasNumberId>(
     listenerKey: string
 ) {
+
+    // Todo: move this into a separate Svg Edit Button hook that is specific for the buttons on the old graph implementation.
     const {selected} = useNodeInteractionContext();
 
     const {incrementSimVersion, nodeListRef, linkListRef} =
@@ -22,7 +24,7 @@ export function useGraphEditHooks<T extends HasNumberId>(
         );
 
     const {currentState: nextLinkId, dispatchWithoutControl: setNextLinkId} =
-        useGraphNumberDispatch(
+        useGraphDispatchAndListener(
             'next-link-id',
             listenerKey,
             NaN

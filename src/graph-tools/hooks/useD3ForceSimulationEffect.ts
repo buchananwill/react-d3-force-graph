@@ -3,12 +3,14 @@ import * as d3 from 'd3';
 import {Simulation} from 'd3';
 
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {useForceAttributeListeners} from "@/graph-tools/hooks/ForceAttributesDto";
-import {GraphSelectiveKeys, useGraphController, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {useForceAttributeListeners} from "@/graph-tools/hooks/useForceAttributeListeners";
+import {useGraphController, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {beginSim} from "@/graph-tools/functions/beginSim";
 import {updateForces} from "@/graph-tools/functions/updateForces";
 import {createForces} from "@/graph-tools/functions/createForces";
-import {useGraphRefs} from "@/graph-tools/nodes/genericNodeContextCreator";
+import {GraphSelectiveContextKeys} from "@/graph-tools/hooks/graphSelectiveContextKeys";
+
+import {useGraphRefs} from "@/graph-tools/hooks/useGraphRefs";
 
 
 const listenerKey = `force-sim`;
@@ -23,13 +25,13 @@ export function useD3ForceSimulationEffect<T extends HasNumberId>(
 ) {
     const {linkListRef: linksRef, nodeListRef: nodesRef} = useGraphRefs<T>();
     const forceAttributes = useForceAttributeListeners('sim');
-    const {currentState: isMounted} = useGraphListener(GraphSelectiveKeys.mounted, listenerKey, false);
-    const {currentState: isReady} = useGraphListener(GraphSelectiveKeys.ready, listenerKey, false);
+    const {currentState: isMounted} = useGraphListener(GraphSelectiveContextKeys.mounted, listenerKey, false);
+    const {currentState: isReady} = useGraphListener(GraphSelectiveContextKeys.ready, listenerKey, false);
     const {currentState: simVersion} = useGraphListener('version', listenerKey, 0);
 
     const {
         currentState: [width, height]
-    } = useGraphListener(GraphSelectiveKeys.dimensions, listenerKey, defaultDimensionArray);
+    } = useGraphListener(GraphSelectiveContextKeys.dimensions, listenerKey, defaultDimensionArray);
 
     const simVersionRef = useRef(simVersion);
 
@@ -38,7 +40,7 @@ export function useD3ForceSimulationEffect<T extends HasNumberId>(
         DataLink<T>
     > | null> = useRef(null);
 
-    useGraphController(GraphSelectiveKeys.sim, listenerKey, simulationRef)
+    useGraphController(GraphSelectiveContextKeys.sim, listenerKey, simulationRef)
     const getForces = useCallback((
         nodes: DataNode<T>[],
         links: DataLink<T>[]

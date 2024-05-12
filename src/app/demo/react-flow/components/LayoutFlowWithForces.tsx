@@ -2,8 +2,8 @@ import React, {type MouseEvent as ReactMouseEvent, PropsWithChildren, useCallbac
 import ReactFlow, {Node, Panel, useEdgesState, useNodesState} from "reactflow";
 import {draggingNodeKey, useLayoutedElements} from "@/app/demo/react-flow/components/useLayoutedElements";
 import {useGlobalController, useGlobalDispatch} from "selective-context";
-import {useNodeContext} from "@/graph-tools/nodes/genericNodeContextCreator";
-import {useLinkContext} from "@/graph-tools/links/genericLinkContextCreator";
+import {useNodeContext} from "@/graph-tools/contexts/genericNodeContextCreator";
+import {useLinkContext} from "@/graph-tools/contexts/genericLinkContextCreator";
 import {FlowEdge, FlowNode} from "@/graph-tools/types/types";
 import {Button} from "@nextui-org/button";
 

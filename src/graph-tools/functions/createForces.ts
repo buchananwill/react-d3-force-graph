@@ -6,11 +6,11 @@ import * as d3 from "d3";
 import {getForceCollide} from "@/graph-tools/forces/forceCollide";
 import {getForceRadial} from "@/graph-tools/forces/forceRadial";
 import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {ForceAttributeListenerReturn} from "@/graph-tools/hooks/ForceAttributesDto";
 import {Forces} from "@/graph-tools/types/forces";
+import {ForceAttributeListenersReturn} from "@/graph-tools/types/forceAttributeListenersReturn";
 
 export function createForces<T extends HasNumberId>(
-    forceAttributeListeners: ForceAttributeListenerReturn,
+    forceAttributeListeners: ForceAttributeListenersReturn,
     width: number,
     height: number,
     links: DataLink<T>[],

@@ -5,43 +5,11 @@ import {
     useGlobalListener
 } from "selective-context";
 import {useContext, useMemo} from "react";
-import {GraphContext} from "@/graph-tools/graph/graphContextCreator";
-
-// Defining the GraphSelectiveKeys as a constant object
-export const GraphSelectiveKeys = {
-    arrowsToParents: 'arrows-to-parents',
-    arrowsToChildren: 'arrows-to-children',
-    highlightFromSource: 'highlight-from-source',
-    highlightFromTarget: 'highlight-from-target',
-    version: 'version',
-    transientNodeIds: 'transient-node-ids',
-    transientLinkIds: 'transient-link-ids',
-    nextNodeId: 'next-node-id',
-    nextLinkId: 'next-link-id',
-    nodePositionsKey: 'node-positions-key',
-    debouncing: 'debouncing',
-    noNodeSelected: 'no-node-selected',
-    deletedLinkIds: 'deleted-link-ids',
-    deletedNodeIds: 'deleted-node-ids',
-    dimensions: 'dimensions',
-    mounted: 'mounted',
-    showNodeEditing: 'show-node-editing',
-    nodeCloneFunction: 'node-clone-function',
-    showForceEditing: 'show-force-editing',
-    unsavedNodeData: 'unsaved-node-data',
-    lockTextWithSelect: 'lock-text-with-select',
-    textSize: 'text-size',
-    ready: 'ready',
-    sim: 'simulationRef',
-    zoom: 'zoom',
-    svgScale: 'svg-scale'
-} as const;
-
-// Redefining the GraphSelectiveContext type to use the values of GraphSelectiveKeys
-export type GraphSelectiveContext = typeof GraphSelectiveKeys[keyof typeof GraphSelectiveKeys];
+import {GraphContext} from "@/graph-tools/contexts/graphContextCreator";
+import {GraphSelectiveContextKey} from "@/graph-tools/hooks/graphSelectiveContextKeys";
 
 export function useGraphSelectiveContextKey(
-    contextKey: GraphSelectiveContext
+    contextKey: GraphSelectiveContextKey
 ) {
     const {uniqueGraphName} = useContext(GraphContext);
     return useMemo(() => {
@@ -50,16 +18,16 @@ export function useGraphSelectiveContextKey(
 }
 
 export function useGraphDispatch<T>(
-    contextKey: GraphSelectiveContext
+    contextKey: GraphSelectiveContextKey
 ) {
 
-    let selectiveContextKey = useGraphSelectiveContextKey(contextKey);
+    const selectiveContextKey = useGraphSelectiveContextKey(contextKey);
 
     return useGlobalDispatch<T>(selectiveContextKey)
 }
 
 export function useGraphDispatchAndListener<T>(
-    contextKey: GraphSelectiveContext,
+    contextKey: GraphSelectiveContextKey,
     listenerKey: string,
     initialValue: T
 ) {
@@ -79,7 +47,7 @@ export function useGraphDispatchAndListener<T>(
 }
 
 export function useGraphController<T>(
-    contextKey: GraphSelectiveContext,
+    contextKey: GraphSelectiveContextKey,
     listenerKey: string,
     initialValue: T
 ) {
@@ -99,7 +67,7 @@ export function useGraphController<T>(
 }
 
 export function useGraphListener<T>(
-    contextKey: GraphSelectiveContext,
+    contextKey: GraphSelectiveContextKey,
     listenerKey: string,
     initialValue: T
 ) {
@@ -112,13 +80,4 @@ export function useGraphListener<T>(
             initialValue
         }
     );
-}
-
-export function useGraphNumberDispatch(
-    contextKey: GraphSelectiveContext,
-    listenerKey: string,
-    initialValue: number
-) {
-    return useGraphDispatchAndListener<number>(contextKey, listenerKey, initialValue)
-
 }

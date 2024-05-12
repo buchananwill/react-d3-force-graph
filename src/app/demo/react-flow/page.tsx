@@ -1,5 +1,5 @@
 import ReactFlowWrapper, {initialEdges, initialNodes} from "@/app/demo/react-flow/components/ReactFlowWrapper";
-import ForceGraphPage from "@/graph-tools/ForceGraphPage";
+import ForceGraphPage from "@/graph-tools/components/wrappers/ForceGraphPage";
 import {ClosureDto, DataLink} from "@/graph-tools/types/types";
 
 export default function Page() {

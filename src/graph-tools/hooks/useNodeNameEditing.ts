@@ -2,7 +2,6 @@ import {useDirectSimRefEditsDispatch} from "@/graph-tools/hooks/useDirectSimRefE
 import {DataNode, HasName, HasNumberId} from "@/graph-tools/types/types";
 import {useGlobalController} from "selective-context";
 import {useCallback} from "react";
-import {GraphSelectiveKeys, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 export function useNodeNameEditing<T extends HasNumberId & HasName>(
     node: DataNode<T>,

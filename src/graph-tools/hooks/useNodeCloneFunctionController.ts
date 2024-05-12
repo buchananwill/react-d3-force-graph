@@ -1,6 +1,9 @@
 import {CachedFunction, DataNode, HasNumberId} from '@/graph-tools/types/types';
 import {useGraphController} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
+/**
+ * The value passed for initial value must be defined outside of a function component scope, or memoized.
+ * */
 export function useNodeCloneFunctionController<T extends HasNumberId>(
   initialValue: CachedFunction<DataNode<T>, DataNode<T>>
 ) {

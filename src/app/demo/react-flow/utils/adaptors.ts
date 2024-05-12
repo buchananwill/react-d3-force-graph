@@ -1,10 +1,25 @@
-import {DataLink, DataNode, FlowNode, HasId, HasNumberId} from "@/graph-tools/types/types";
-import {Edge, Node} from "reactflow";
+import {DataLink, DataNode, FlowNode, HasId} from "@/graph-tools/types/types";
+import {Edge} from "reactflow";
 
 const nodeType = 'default'
 
+const stringOrNumber = ['string','number'] as const
+
 function getAnyIdAsString(entity: HasId) {
-    return `${entity.id}`;
+    const {id} = entity
+    const idType = typeof id;
+    if (idType === 'string' || idType === 'number') return `${id}`
+    else throw Error('Id not valid string or number')
+}
+
+function getNumberFromStringId(id: string) {
+    const number = parseInt(id, 10);
+    if (isNaN(number)) {
+        const colonIndex = id.indexOf(':');
+        const afterColon = parseInt(id.substring(colonIndex+1));
+        if (isNaN(afterColon)) throw Error('Id did not contain valid number after colon separator.')
+        return afterColon
+    } else return number
 }
 
 export function convertToReactFlowNode(dataNode: DataNode<any>): FlowNode {

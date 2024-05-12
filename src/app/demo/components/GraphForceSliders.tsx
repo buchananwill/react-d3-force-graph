@@ -2,10 +2,10 @@
 
 import React, {useMemo} from 'react';
 
-import {useGraphName} from '../../../graph-tools/contexts/graphContextCreator';
-import {ForceAttributesDto, ForceAttributesInitial} from '../../../graph-tools/types/forceAttributesMetaData';
+import {useGraphName} from '@/graph-tools/contexts/graphContextCreator';
+import {ForceAttributesDto, ForceAttributesInitial} from '@/graph-tools/types/forceAttributesMetaData';
 
-import {ShowForceAdjustmentsKey} from '../../../graph-tools/components/controllers/ShowForceAdjustmentsController';
+import {ShowForceAdjustmentsKey} from '@/graph-tools/components/controllers/ShowForceAdjustmentsController';
 import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import {SelectiveContextRangeSlider} from "@/app/demo/components/SelectiveContextRangeSlider";
 import {useGlobalReadAny} from "selective-context";

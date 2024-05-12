@@ -1,22 +1,22 @@
 'use client';
-import React, {FC, Fragment, PropsWithChildren, useContext} from 'react';
+import React, {Fragment, PropsWithChildren, useContext} from 'react';
 
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import {ChevronDownIcon} from '@heroicons/react/20/solid';
 
 import SelectionOutline from './SelectionOutline';
-import {
-  useNodeInteractionContext,
-  useNodeSelectedListener
-} from '@/app/demo/svg-ui/context/NodeInteractionContext';
-import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
-import { StarIcon } from '@heroicons/react/24/solid';
+import {StarIcon as StarIconOutline} from '@heroicons/react/24/outline';
+import {StarIcon} from '@heroicons/react/24/solid';
 
-import { Button } from '@nextui-org/button';
-import {DataNode, HasNumberId, NodeDetailsUiComponentProps} from "@/graph-tools/types/types";
-import { Disclosure } from '@headlessui/react';
-import {NodeDetailsComponentContext} from "@/app/demo/components/details-component-context/nodeDetailsComponentContextCreator";
-import {useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import {GraphSelectiveContextKeys} from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import {Button} from '@nextui-org/button';
+import {DataNode, HasNumberId} from "@/graph-tools/types/types";
+import {Disclosure} from '@headlessui/react';
+import {
+  NodeDetailsComponentContext
+} from "@/app/demo/components/details-component-context/nodeDetailsComponentContextCreator";
+import {
+    useNodeInteractionContext,
+    useNodeSelectedListener
+} from "@/app/demo/components/node-interaction-context/NodeInteractionContext";
 
 export function NodeDetailWrapper<T extends HasNumberId>({
   label,

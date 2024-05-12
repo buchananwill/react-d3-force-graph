@@ -1,4 +1,4 @@
-import {useNodeInteractionContext} from '../../app/demo/svg-ui/context/NodeInteractionContext';
+import {useNodeInteractionContext} from '@/app/demo/components/node-interaction-context/NodeInteractionContext';
 import {useCallback, useState} from 'react';
 
 import {useGraphDispatchAndListener} from "@/graph-tools/hooks/useGraphSelectiveContext";

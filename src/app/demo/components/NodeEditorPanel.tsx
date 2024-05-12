@@ -1,11 +1,11 @@
 'use client';
 
-import {AddNodesButton} from '../../../graph-tools/editing/buttons/AddNodesButton';
+import {AddNodesButton} from '@/graph-tools/editing/buttons/AddNodesButton';
 
 
 import AddLinksButton from '../../../graph-tools/editing/buttons/AddLinksButton';
-import {DeleteNodesButton} from '../../../graph-tools/editing/buttons/DeleteNodesButton';
-import {DeleteLinksButton} from '../../../graph-tools/editing/buttons/DeleteLinksButton';
+import {DeleteNodesButton} from '@/graph-tools/editing/buttons/DeleteNodesButton';
+import {DeleteLinksButton} from '@/graph-tools/editing/buttons/DeleteLinksButton';
 import React from 'react';
 
 import InvertLinksButton from '../../../graph-tools/editing/buttons/InvertLinksButton';

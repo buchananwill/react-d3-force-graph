@@ -9,7 +9,7 @@ import MountedTracker from '../controllers/MountedTracker';
 import NodePositionsTracker from '../controllers/NodePositionsTracker';
 import {ShowForceAdjustmentsController} from '../controllers/ShowForceAdjustmentsController';
 import {ShowNodeEditingController} from '../controllers/ShowNodeEditingController';
-import {DataNode, HasNumberId} from "@/graph-tools/types/types";
+import {HasNumberId} from "@/graph-tools/types/types";
 import {NodeLinkRefContextProvider} from "@/graph-tools/components/wrappers/NodeLinkRefContextProvider";
 import ForceSimEngine from "@/graph-tools/components/controllers/ForceSimEngine";
 import GraphForceAttributes from "@/graph-tools/components/controllers/GraphForceAttributes";

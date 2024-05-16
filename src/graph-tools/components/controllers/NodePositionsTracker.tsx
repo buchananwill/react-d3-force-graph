@@ -6,10 +6,6 @@ import {NodePositionsKey} from "@/graph-tools/literals/constants";
 const listenerKey = 'update-counter';
 export default function NodePositionsTracker() {
 
-  useGraphController<number>(
-    NodePositionsKey,
-    listenerKey,
-    0
-  );
+
   return null;
 }

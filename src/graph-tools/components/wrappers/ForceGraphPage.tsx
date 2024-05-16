@@ -35,7 +35,6 @@ export default function ForceGraphPage<T extends HasNumberId>({
                         <SliderVisibilityController forceSlidersVisibleInitial={options?.forceSlidersVisibleInitial}/>
                         <GraphEditController/>
                         <MountedTracker/>
-                        <NodePositionsTracker/>
                         <ShowForceAdjustmentsController/>
                         <ShowNodeEditingController/>
                         <GraphForceAttributes forceAttributesInitial={options?.forceAttributesInitial}/>

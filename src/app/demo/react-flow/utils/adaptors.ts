@@ -1,7 +1,7 @@
 import {DataLink, DataNode, FlowNode, HasId} from "@/graph-tools/types/types";
 import {Edge} from "reactflow";
 
-const nodeType = 'default'
+const nodeType = 'organization'
 
 const stringOrNumber = ['string','number'] as const
 

@@ -1,11 +1,19 @@
-import {CachedFunction, DataNode, HasNumberId} from '@/graph-tools/types/types';
-import {useGraphController} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {
+  MemoizedFunction,
+  DataNode,
+  HasNumberId,
+} from "@/graph-tools/types/types";
+import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 /**
  * The value passed for initial value must be defined outside of a function component scope, or memoized.
  * */
 export function useNodeCloneFunctionController<T extends HasNumberId>(
-  initialValue: CachedFunction<DataNode<T>, DataNode<T>>
+  initialValue: MemoizedFunction<DataNode<T>, DataNode<T>>,
 ) {
-  return useGraphController('node-clone-function', 'clone-controller', initialValue)
+  return useGraphController(
+    "node-clone-function",
+    "clone-controller",
+    initialValue,
+  );
 }

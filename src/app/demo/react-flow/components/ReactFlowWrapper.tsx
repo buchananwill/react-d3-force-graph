@@ -10,6 +10,8 @@ import {Card, CardBody, CardHeader} from "@nextui-org/card";
 import GraphForceSliders from "@/app/demo/components/GraphForceSliders";
 import {Button} from "@nextui-org/button";
 import {ChevronLeftIcon} from "@heroicons/react/24/solid";
+import {useNodeEditing} from "@/graph-tools/hooks/useNodeEditing";
+import {cloneFunctionWrapper} from "@/app/demo/components/organization/OrganizationGraph";
 
 export const initialNodes = convertDataNodeListToNodeList(graphDto.nodes)
 export const initialEdges = convertDataLinkListToEdgeList(graphDto.closureDtos)
@@ -17,6 +19,7 @@ export const initialEdges = convertDataLinkListToEdgeList(graphDto.closureDtos)
 
 export default function ReactFlowWrapper() {
     const [showSliders, setShowSliders] = useState(false)
+    useNodeEditing(cloneFunctionWrapper);
 
     return (
         <div style={{width: '100vw', height: '100vh'}}>

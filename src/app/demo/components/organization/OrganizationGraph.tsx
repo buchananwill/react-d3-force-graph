@@ -15,9 +15,9 @@ import {DataNode} from "@/graph-tools/types/types";
 import {useGraphRefs} from "@/graph-tools/hooks/useGraphRefs";
 
 
-const cloneFunctionWrapper = {cachedFunction: cloneOrganizationNode};
+export const cloneFunctionWrapper = {cachedFunction: cloneOrganizationNode};
 
-const organizationGraphUpdater = getGraphUpdaterWithNameDeDuplication(putGraph);
+export const organizationGraphUpdater = getGraphUpdaterWithNameDeDuplication(putGraph);
 
 export default function OrganizationGraph({children}: PropsWithChildren) {
     const setDetailsState = useContext(NodeDetailsComponentDispatchContext);

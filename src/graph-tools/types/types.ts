@@ -1,66 +1,66 @@
-import {SimulationLinkDatum, SimulationNodeDatum} from "d3";
-import {Node, Edge } from 'reactflow'
+import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
+import { Node, Edge } from "reactflow";
 
-export type FlowNode = Node & DataNode<any>
+export type FlowNode = Node & DataNode<any>;
 
-export type FlowEdge = Edge & Omit<DataLink<any>, 'id'> & HasStringId
+export type FlowEdge = Edge & Omit<DataLink<any>, "id"> & HasStringId;
 
 export type DataNode<T extends HasNumberId> = SimulationNodeDatum & {
-    id: string;
-    distanceFromRoot: number;
-    data: T;
+  id: string;
+  distanceFromRoot: number;
+  data: T;
 };
-export type DataLink<T extends HasNumberId> = SimulationLinkDatum<
-    DataNode<T>
-> &
-    ClosureDto;
+export type DataLink<T extends HasNumberId> = SimulationLinkDatum<DataNode<T>> &
+  ClosureDto;
 
 export interface ClosureDto extends HasStringId {
-    closureType: string
-    target: string
-    source: string,
-    value: number,
-    weighting: number,
+  closureType: string;
+  target: string;
+  source: string;
+  value: number;
+  weighting: number;
 }
 
 export interface HasNumberId {
-    id: number
+  id: number;
 }
 export interface HasStringId {
-    id: string
+  id: string;
 }
 
-export type HasId = HasNumberId | HasStringId
+export type HasId = HasNumberId | HasStringId;
 
 export interface HasName {
-    name: string
+  name: string;
 }
 
 export interface GraphDto<T extends HasNumberId> {
-    nodes: DataNode<T>[];
-    closureDtos: ClosureDto[];
+  nodes: DataNode<T>[];
+  closureDtos: ClosureDto[];
 }
 
-export interface CachedFunction<T, U> {
-    cachedFunction: (param: T) => U
+export interface MemoizedFunction<T, U> {
+  memoizedFunction: (param: T) => U;
+}
+
+export interface MemoizedSupplier<T> {
+  get: () => T;
 }
 
 export interface Predicate<T> {
-    (arg: T): boolean
+  (arg: T): boolean;
 }
 
-
-
-export interface CloneFunction<T extends HasNumberId> {
-    (object: T): T;
+export interface CloneFunction<T extends HasId> {
+  (object: T): T;
 }
 
 export interface GraphDtoPutRequestBody<T extends HasNumberId> {
-    graphDto: GraphDto<T>;
-    deletedNodeIdList: number[];
-    deletedClosureIdList: number[];
+  graphDto: GraphDto<T>;
+  deletedNodeIdList: number[];
+  deletedClosureIdList: number[];
 }
 
 export interface NodeDetailsUiComponentProps<T extends HasNumberId> {
-    node: DataNode<T>;
+  node: DataNode<T>;
 }

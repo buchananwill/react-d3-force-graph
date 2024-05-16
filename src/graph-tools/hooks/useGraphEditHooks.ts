@@ -1,117 +1,103 @@
-import {useNodeInteractionContext} from '@/app/demo/components/node-interaction-context/NodeInteractionContext';
-import {useCallback, useState} from 'react';
+import { useNodeInteractionContext } from "@/app/demo/components/node-interaction-context/NodeInteractionContext";
+import { useCallback, useState } from "react";
 
-import {useGraphDispatchAndListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import {useDirectSimRefEditsDispatch} from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
-import {HasNumberId} from "@/graph-tools/types/types";
-import {EmptyArray, TransientIdOffset} from "@/graph-tools/literals/constants";
+import {
+  useGraphDispatch,
+  useGraphDispatchAndListener,
+  useGraphListener,
+} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import { useDirectSimRefEditsDispatch } from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
+import { HasNumberId, MemoizedSupplier } from "@/graph-tools/types/types";
+import {
+  EmptyArray,
+  TransientIdOffset,
+} from "@/graph-tools/literals/constants";
+import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 
-export function useGraphEditHooks<T extends HasNumberId>(
-    listenerKey: string
-) {
+function undefinedErrorFunction() {
+  throw Error("id supplier has not been defined!");
+}
 
-    // Todo: move this into a separate Svg Edit Button hook that is specific for the buttons on the old graph implementation.
-    const {selected} = useNodeInteractionContext();
+const memoizedErrorSupplier = {
+  get: undefinedErrorFunction,
+};
 
-    const {incrementSimVersion, nodeListRef, linkListRef} =
-        useDirectSimRefEditsDispatch<T>();
+export function useGraphEditHooks<T extends HasNumberId>(listenerKey: string) {
+  // Todo: move this into a separate Svg Edit Button hook that is specific for the buttons on the old graph implementation.
+  const { selected } = useNodeInteractionContext();
 
-    const {currentState: nextNodeId, dispatchWithoutControl: setNextNodeId} =
-        useGraphDispatchAndListener(
-            "next-node-id",
-            listenerKey,
-            NaN
-        );
+  const { incrementSimVersion, nodeListRef, linkListRef } =
+    useDirectSimRefEditsDispatch<T>();
 
-    const {currentState: nextLinkId, dispatchWithoutControl: setNextLinkId} =
-        useGraphDispatchAndListener(
-            'next-link-id',
-            listenerKey,
-            NaN
-        );
+  const { currentState: nextNodeId } = useGraphListener<
+    MemoizedSupplier<number>
+  >(
+    GraphSelectiveContextKeys.nextNodeId,
+    listenerKey,
+    memoizedErrorSupplier as MemoizedSupplier<number>,
+  );
 
-    const {
-        dispatchWithoutControl: setTransientNodeIds,
-        currentState: transientNodeIds
-    } = useGraphDispatchAndListener('transient-node-ids', listenerKey, EmptyArray);
+  const { currentState: nextLinkId } = useGraphListener(
+    GraphSelectiveContextKeys.nextLinkId,
+    listenerKey,
+    memoizedErrorSupplier as MemoizedSupplier<number>,
+  );
 
-    const {
-        dispatchWithoutControl: setTransientLinkIds,
-        currentState: transientLinkIds
-    } = useGraphDispatchAndListener('transient-link-ids', listenerKey, EmptyArray);
+  const { dispatchWithoutListen: setTransientNodeIds } =
+    useGraphDispatch("transient-node-ids");
 
-    const {
-        dispatchWithoutControl: setDeletedLinkIds,
-        currentState: deletedLinkIds
-    } = useGraphDispatchAndListener('deleted-link-ids', listenerKey, EmptyArray);
-    const {
-        dispatchWithoutControl: setDeletedNodeIds,
-        currentState: deletedNodeIds
-    } = useGraphDispatchAndListener('deleted-node-ids', listenerKey, EmptyArray);
+  const { dispatchWithoutListen: setTransientLinkIds } =
+    useGraphDispatch("transient-link-ids");
 
-    const [noNodeSelected, setNoNodeSelected] = useState(false);
+  const {
+    dispatchWithoutControl: setDeletedLinkIds,
+    currentState: deletedLinkIds,
+  } = useGraphDispatchAndListener("deleted-link-ids", listenerKey, EmptyArray);
+  const {
+    dispatchWithoutControl: setDeletedNodeIds,
+    currentState: deletedNodeIds,
+  } = useGraphDispatchAndListener("deleted-node-ids", listenerKey, EmptyArray);
 
-    const [deBouncing, setDeBouncing] = useState<boolean>(false);
+  const [noNodeSelected, setNoNodeSelected] = useState(false);
 
-    const getNextNodeId = useCallback(() => {
-        let responseId =
-            // nextNodeId === undefined ? TransientIdOffset + 1 : nextNodeId;
-            isNaN(nextNodeId) ? TransientIdOffset + 1 : nextNodeId;
-        const nodeIdSet = new Set(transientNodeIds);
-        while (nodeIdSet.has(responseId)) {
-            responseId++;
+  const [deBouncing, setDeBouncing] = useState<boolean>(false);
+
+  const checkForSelectedNodes = useCallback(
+    (minimum: number = 1) => {
+      if (selected.length < minimum) {
+        if (!noNodeSelected) {
+          setNoNodeSelected(true);
+          setTimeout(() => {
+            if (setNoNodeSelected) setNoNodeSelected(false);
+          }, 2000);
         }
-        setNextNodeId(responseId + 1);
-        // setNextNodeId((prev) => responseId + 1);
-        return responseId;
-    }, [nextNodeId, transientNodeIds, setNextNodeId])
-    const getNextLinkId = useCallback(() => {
-        let responseId =
-            // nextLinkId === undefined ? TransientIdOffset + 1 : nextLinkId;
-            isNaN(nextLinkId) ? TransientIdOffset + 1 : nextLinkId;
-        const linkIdSet = new Set(transientLinkIds);
-        while (linkIdSet.has(responseId)) {
-            responseId++;
-        }
-        setNextLinkId(responseId + 1);
-        return responseId;
-    }, [nextLinkId, transientLinkIds, setNextLinkId]);
+        return false;
+      } else return true;
+    },
+    [selected, noNodeSelected],
+  );
 
-    const checkForSelectedNodes = useCallback((minimum: number = 1) => {
-        if (selected.length < minimum) {
-            if (!noNodeSelected) {
-                setNoNodeSelected(true);
-                setTimeout(() => {
-                    if (setNoNodeSelected) setNoNodeSelected(false);
-                }, 2000);
-            }
-            return false;
-        } else return true;
-    }, [selected, noNodeSelected])
+  const deBounce = () => {
+    setDeBouncing(true);
+    setTimeout(() => setDeBouncing(false), 250);
+  };
 
-    const deBounce = () => {
-        setDeBouncing(true);
-        setTimeout(() => setDeBouncing(false), 250);
-    };
-
-    return {
-        nodeListRef,
-        linkListRef,
-        selected,
-        incrementSimVersion,
-        setTransientNodeIds,
-        transientNodeIds,
-        setTransientLinkIds,
-        transientLinkIds,
-        checkForSelectedNodes,
-        noNodeSelected,
-        deBouncing,
-        deBounce,
-        getNextLinkId,
-        getNextNodeId,
-        setDeletedLinkIds,
-        deletedLinkIds,
-        setDeletedNodeIds,
-        deletedNodeIds
-    };
+  return {
+    nodeListRef,
+    linkListRef,
+    selected,
+    incrementSimVersion,
+    setTransientNodeIds,
+    setTransientLinkIds,
+    checkForSelectedNodes,
+    noNodeSelected,
+    deBouncing,
+    deBounce,
+    getNextLinkId: nextLinkId.get,
+    getNextNodeId: nextNodeId.get,
+    setDeletedLinkIds,
+    deletedLinkIds,
+    setDeletedNodeIds,
+    deletedNodeIds,
+  };
 }

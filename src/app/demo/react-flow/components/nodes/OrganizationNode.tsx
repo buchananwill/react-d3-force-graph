@@ -1,10 +1,9 @@
-import { OrganizationDto } from "@/app/demo/types/OrganizationDto";
-import {ArrowDownIcon, ArrowRightIcon, PlusIcon } from "@heroicons/react/16/solid";
-import {ArrowDownOnSquareIcon, ArrowDownOnSquareStackIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
-import { Button } from "@nextui-org/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
+import {OrganizationDto} from "@/app/demo/types/OrganizationDto";
+import {ArrowDownOnSquareStackIcon, PlusCircleIcon} from "@heroicons/react/24/outline";
+import {Button} from "@nextui-org/button";
+import {Popover, PopoverContent, PopoverTrigger} from "@nextui-org/popover";
 import React from "react";
-import { Handle, Position } from "reactflow";
+import {Handle, Position} from "reactflow";
 
 function OrganizationNode({
   data,
@@ -13,6 +12,7 @@ function OrganizationNode({
   data: OrganizationDto;
   isConnectable: boolean;
 }) {
+
   return (
     <>
       <Handle

@@ -13,7 +13,7 @@ import {GraphSelectiveContextKeys} from "@/graph-tools/hooks/graphSelectiveConte
 import {ForceGraphPageOptionProps} from "@/graph-tools/types/forceGraphPageProps";
 
 
-const listenerKey = 'graph-force-adjustment';
+const listenerKey = 'graph-force-attributes';
 export default function GraphForceAttributes({forceAttributesInitial}:PartialDeep<Pick<ForceGraphPageOptionProps, 'forceAttributesInitial'>>) {
   const uniqueGraphName = useGraphName();
   const { currentState, dispatch } = useGraphController(

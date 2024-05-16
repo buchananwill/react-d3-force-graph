@@ -1,4 +1,6 @@
 import { OrganizationDto } from "@/app/demo/types/OrganizationDto";
+import { Button } from "@nextui-org/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import React from "react";
 import { Handle, Position } from "reactflow";
 
@@ -18,7 +20,15 @@ function OrganizationNode({
         onConnect={(params) => console.log(params)}
         isConnectable={isConnectable}
       />
-      <div>{data.name}</div>
+      <div className="border border-black p-2 rounded-md bg-white flex flex-col">
+        {data.name}
+        <Popover>
+          <PopoverTrigger>
+            <Button size={"sm"}>Details</Button>
+          </PopoverTrigger>
+          <PopoverContent>{data.type.name}</PopoverContent>
+        </Popover>
+      </div>
       <Handle
         type="source"
         position={Position.Bottom}

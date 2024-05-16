@@ -17,7 +17,6 @@ import GraphEditController from "@/graph-tools/components/controllers/GraphEditC
 import {SliderVisibilityController} from "@/graph-tools/components/controllers/SliderVisibilityController";
 import {ForceGraphPageAllProps} from "@/graph-tools/types/forceGraphPageProps";
 
-
 export default function ForceGraphPage<T extends HasNumberId>({
                                                                   dataGraph: graphDto,
                                                                   graphName,
@@ -27,7 +26,6 @@ export default function ForceGraphPage<T extends HasNumberId>({
     const {nodes, closureDtos} = graphDto;
 
     return (
-
         <GraphContextProvider uniqueGraphName={graphName}>
             <NodeContextProvider nodes={nodes}>
                 <LinkContextProvider links={closureDtos}>
@@ -45,6 +43,5 @@ export default function ForceGraphPage<T extends HasNumberId>({
                 </LinkContextProvider>
             </NodeContextProvider>
         </GraphContextProvider>
-
     );
 }

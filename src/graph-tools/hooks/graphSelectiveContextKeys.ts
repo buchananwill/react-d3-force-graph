@@ -10,7 +10,6 @@ export const GraphSelectiveContextKeys = {
   nextNodeId: "next-node-id",
   nextLinkId: "next-link-id",
   nodePositionsKey: "node-positions-key",
-  debouncing: "debouncing",
   noNodeSelected: "no-node-selected",
   deletedLinkIds: "deleted-link-ids",
   deletedNodeIds: "deleted-node-ids",
@@ -27,6 +26,8 @@ export const GraphSelectiveContextKeys = {
   zoom: "zoom",
   svgScale: "svg-scale",
   addNodes: "add-nodes",
+  addLinks: "add-links",
+  deleteLinks: "delete-links",
   running: "running",
 } as const; // Redefining the GraphSelectiveContext type to use the values of GraphSelectiveKeys
 

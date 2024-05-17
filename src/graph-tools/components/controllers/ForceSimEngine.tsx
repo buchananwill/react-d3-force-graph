@@ -5,10 +5,10 @@ import {useD3ForceSimulationEffect} from "@/graph-tools/hooks/useD3ForceSimulati
 
 export default function ForceSimEngine() {
 
-    const {dispatch} = useGraphController<number>(
-        NodePositionsKey,
-        'controller',
-        0
+    const { dispatch } = useGraphController<number>(
+      NodePositionsKey,
+      0,
+      "controller",
     );
 
     const lastRenderTimer = useRef(Date.now());

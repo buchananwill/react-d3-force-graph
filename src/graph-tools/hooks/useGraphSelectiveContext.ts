@@ -27,43 +27,44 @@ export function useGraphDispatch<T>(
 }
 
 export function useGraphDispatchAndListener<T>(
-    contextKey: GraphSelectiveContextKey,
-    listenerKey: string,
-    initialValue: T
+  contextKey: GraphSelectiveContextKey,
+  listenerKey: string,
+  initialValue: T,
 ) {
-    const contextKeyConcat = useGraphSelectiveContextKey(contextKey);
-    const {currentState, dispatchWithoutControl} = useGlobalDispatchAndListener<T>({
-        contextKey: contextKeyConcat,
-        listenerKey,
-        initialValue
+  const contextKeyConcat = useGraphSelectiveContextKey(contextKey);
+  const { currentState, dispatchWithoutControl } =
+    useGlobalDispatchAndListener<T>({
+      contextKey: contextKeyConcat,
+      listenerKey,
+      initialValue,
     });
 
-    return {
-        currentState,
-        dispatchWithoutControl,
-        contextKey,
-        listenerKey
-    };
+  return {
+    currentState,
+    dispatchWithoutControl,
+    contextKey,
+    listenerKey,
+  };
 }
 
 export function useGraphController<T>(
-    contextKey: GraphSelectiveContextKey,
-    listenerKey: string,
-    initialValue: T
+  contextKey: GraphSelectiveContextKey,
+  initialValue: T,
+  listenerKey = "controller",
 ) {
-    const contextKeyConcat = useGraphSelectiveContextKey(contextKey);
-    const {currentState, dispatch} = useGlobalController<T>({
-        contextKey: contextKeyConcat,
-        listenerKey: listenerKey,
-        initialValue
-    });
+  const contextKeyConcat = useGraphSelectiveContextKey(contextKey);
+  const { currentState, dispatch } = useGlobalController<T>({
+    contextKey: contextKeyConcat,
+    listenerKey: listenerKey,
+    initialValue,
+  });
 
-    return {
-        currentState,
-        dispatch,
-        contextKey,
-        listenerKey
-    };
+  return {
+    currentState,
+    dispatch,
+    contextKey,
+    listenerKey,
+  };
 }
 
 export function useGraphListener<T>(

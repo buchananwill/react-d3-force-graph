@@ -24,6 +24,9 @@ import { useNodeEditing } from "@/graph-tools/hooks/useNodeEditing";
 import { cloneFunctionWrapper } from "@/app/demo/components/organization/OrganizationGraph";
 import { useAddNodes } from "@/graph-tools/flow-node-editing/buttons/useAddNodes";
 import { useEscapeToClose } from "@/app/demo/react-flow/components/nodes/useEscapeToClose";
+import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
+import { useAddLinks } from "@/graph-tools/flow-node-editing/buttons/useAddLinks";
+import { useDeleteLinks } from "@/graph-tools/flow-node-editing/buttons/useDeleteLinks";
 
 export const initialNodes = convertDataNodeListToNodeList(graphDto.nodes);
 export const initialEdges = convertDataLinkListToEdgeList(graphDto.closureDtos);
@@ -32,6 +35,8 @@ export default function ReactFlowWrapper() {
   const [showSliders, setShowSliders] = useState(false);
   useNodeEditing(cloneFunctionWrapper);
   useAddNodes();
+  useAddLinks();
+  useDeleteLinks();
 
   useEscapeToClose(showSliders, setShowSliders);
 
@@ -43,25 +48,30 @@ export default function ReactFlowWrapper() {
           <MiniMap />
           <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
           <Panel position={"top-left"}>
-            <Card classNames={{ base: "w-56" }}>
-              <CardHeader className={"p-0"}>
+            <Popover
+              classNames={{ base: "w-56" }}
+              isOpen={showSliders}
+              onOpenChange={setShowSliders}
+              shouldCloseOnInteractOutside={() => false}
+            >
+              <PopoverTrigger className={"p-0"}>
                 <Button
-                  className={"w-full relative"}
-                  variant={"light"}
-                  onPress={() => setShowSliders((show) => !show)}
+                  className={"w-56 relative"}
+                  // variant={"light"}
+                  // onPress={() => setShowSliders((show) => !show)}
                 >
                   Forces{" "}
                   <ChevronLeftIcon
                     className={`p-1 absolute right-2 transition-transform ${showSliders ? "-rotate-90" : ""}`}
                   />
                 </Button>
-              </CardHeader>
-              <CardBody
-                className={`${showSliders ? "h-fit opacity-100" : "h-0 overflow-hidden p-0 scale-75"} transition-all`}
+              </PopoverTrigger>
+              <PopoverContent
+              // className={`${showSliders ? "h-fit opacity-100" : "h-0 overflow-hidden p-0 scale-75"} transition-all`}
               >
                 <GraphForceSliders />
-              </CardBody>
-            </Card>
+              </PopoverContent>
+            </Popover>
           </Panel>
         </LayoutFlowWithForces>
       </ReactFlowProvider>

@@ -1,16 +1,11 @@
-'use client';
+"use client";
 
-import {useGraphController} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import {ControllerKey} from "@/graph-tools/literals/controllerKey";
+import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
+import { ControllerKey } from "@/graph-tools/literals/controllerKey";
 
-export const ShowForceAdjustmentsKey = 'show-force-editing';
+export const ShowForceAdjustmentsKey = "show-force-editing";
 
 export function ShowForceAdjustmentsController() {
-    useGraphController<boolean>(
-        ShowForceAdjustmentsKey,
-        ControllerKey,
-        true
-    );
-    return null;
+  useGraphController<boolean>(ShowForceAdjustmentsKey, true, ControllerKey);
+  return null;
 }
-

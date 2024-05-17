@@ -36,11 +36,15 @@ export function useD3ForceSimulationEffect<T extends HasNumberId>(
     const simVersionRef = useRef(simVersion);
 
     const simulationRef: MutableRefObject<Simulation<
-        DataNode<T>,
-        DataLink<T>
+      DataNode<T>,
+      DataLink<T>
     > | null> = useRef(null);
 
-    useGraphController(GraphSelectiveContextKeys.sim, listenerKey, simulationRef)
+    useGraphController(
+      GraphSelectiveContextKeys.sim,
+      simulationRef,
+      listenerKey,
+    );
     const getForces = useCallback((
         nodes: DataNode<T>[],
         links: DataLink<T>[]

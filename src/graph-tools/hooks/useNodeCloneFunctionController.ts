@@ -13,7 +13,7 @@ export function useNodeCloneFunctionController<T extends HasNumberId>(
 ) {
   return useGraphController(
     "node-clone-function",
-    "clone-controller",
     initialValue,
+    "clone-controller",
   );
 }

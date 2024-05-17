@@ -9,8 +9,8 @@ export default function SimulationController() {
 
   useGraphController(
     GraphSelectiveContextKeys.sim,
-    "controller",
     simulationRef,
+    "controller",
   );
 
   return null;

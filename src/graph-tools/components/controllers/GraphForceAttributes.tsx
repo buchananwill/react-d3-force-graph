@@ -18,8 +18,8 @@ export default function GraphForceAttributes({forceAttributesInitial}:PartialDee
   const uniqueGraphName = useGraphName();
   const { currentState, dispatch } = useGraphController(
     GraphSelectiveContextKeys.ready,
+    false,
     listenerKey,
-    false
   );
 
   useGraphListener(

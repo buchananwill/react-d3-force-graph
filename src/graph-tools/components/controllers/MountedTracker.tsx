@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import {useEffect} from 'react';
-import {useGraphController} from "@/graph-tools/hooks/useGraphSelectiveContext";
+import { useEffect } from "react";
+import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
 
-import {ControllerKey} from "@/graph-tools/literals/controllerKey";
+import { ControllerKey } from "@/graph-tools/literals/controllerKey";
 
 export default function MountedTracker({}: {}) {
-  let {dispatch} = useGraphController('mounted', ControllerKey, true);
+  let { dispatch } = useGraphController("mounted", true, ControllerKey);
 
   useEffect(() => {
-    dispatch( true);
+    dispatch(true);
     return () => {
-      dispatch( false );
+      dispatch(false);
     };
   }, [dispatch]);
   return null;

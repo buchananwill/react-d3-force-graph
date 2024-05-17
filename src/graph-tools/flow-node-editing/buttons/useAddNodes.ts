@@ -5,13 +5,11 @@ import { useGraphEditHooks } from "../../hooks/useGraphEditHooks";
 import { createNodes } from "../functions/createNodes";
 import { createLinks } from "../functions/createLinks";
 import {
-  CloneFunction,
   DataLink,
   DataNode,
   HasNumberId,
   MemoizedFunction,
 } from "@/graph-tools/types/types";
-import { useNodeContext } from "@/graph-tools/contexts/genericNodeContextCreator";
 import {
   useGraphController,
   useGraphListener,
@@ -55,7 +53,7 @@ export function useAddNodes<T extends HasNumberId>() {
         cloneFunction: memoizedFunction,
       });
 
-      const { allUpdatedLinks, newLinks } = createLinks<T>({
+      const { allLinksUpdated, newLinks } = createLinks<T>({
         references: sourceNodes,
         newNodes: createdNodes,
         allLinks,
@@ -63,7 +61,7 @@ export function useAddNodes<T extends HasNumberId>() {
         relation: relation,
       });
 
-      return [allNodesUpdate, allUpdatedLinks, createdNodes, newLinks];
+      return [allNodesUpdate, allLinksUpdated, createdNodes, newLinks];
     },
     [memoizedFunction, getNextLinkId, getNextNodeId],
   );
@@ -107,11 +105,7 @@ export function useAddNodes<T extends HasNumberId>() {
     setTransientLinkIds,
   ]);
 
-  useGraphController(
-    GraphSelectiveContextKeys.addNodes,
-    "controller",
-    addNodes,
-  );
+  useGraphController(GraphSelectiveContextKeys.addNodes, addNodes);
 }
 
 const undefinedCloneNode = {

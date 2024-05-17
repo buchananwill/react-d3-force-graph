@@ -62,7 +62,7 @@ export default function InvertLinksButton<T extends HasNumberId>({
 
     const linksToDelete = linksToInvert.map((l) => l.id);
 
-    const { newLinks, allUpdatedLinks } = createLinks({
+    const { newLinks, allLinksUpdated } = createLinks({
       references: childToParent,
       newNodes: parentToChild,
       allLinks: linksToKeep,
@@ -76,7 +76,7 @@ export default function InvertLinksButton<T extends HasNumberId>({
     setTransientLinkIds([...transientLinkIds, ...newLinkIds]);
     nodeListRef.current = [...nodeListRef.current];
     // linkListRef.current = resetLinks([...allUpdatedLinks]);
-    linkListRef.current = [...allUpdatedLinks];
+    linkListRef.current = [...allLinksUpdated];
     dispatchNextSimVersion();
 
     deBounce();

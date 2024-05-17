@@ -20,7 +20,7 @@ export function createLinks<T extends HasNumberId>({
   relation,
   templateLink,
 }: LinkParams<T>): {
-  allUpdatedLinks: DataLink<T>[];
+  allLinksUpdated: DataLink<T>[];
   newLinks: DataLink<T>[];
 } {
   let newLinks: DataLink<T>[] = [];
@@ -66,5 +66,5 @@ export function createLinks<T extends HasNumberId>({
     ...l,
     index,
   }));
-  return { allUpdatedLinks, newLinks };
+  return { allLinksUpdated: allUpdatedLinks, newLinks };
 }

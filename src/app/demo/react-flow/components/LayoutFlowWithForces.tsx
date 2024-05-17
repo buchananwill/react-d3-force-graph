@@ -6,6 +6,7 @@ import React, {
   useRef,
 } from "react";
 import ReactFlow, {
+  Connection,
   Node,
   Panel,
   useEdgesState,
@@ -18,20 +19,32 @@ import {
 import { useGlobalDispatch } from "selective-context";
 import { useNodeContext } from "@/graph-tools/contexts/genericNodeContextCreator";
 import { useLinkContext } from "@/graph-tools/contexts/genericLinkContextCreator";
-import { FlowEdge, FlowNode } from "@/graph-tools/types/types";
+import {
+  FlowEdge,
+  FlowNode,
+  MemoizedFunction,
+} from "@/graph-tools/types/types";
 import { Button } from "@nextui-org/button";
 import OrganizationNode from "./nodes/OrganizationNode";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
+import { undefinedDeleteLinks } from "@/graph-tools/flow-node-editing/buttons/useAddLinks";
+import EdgeWithDelete from "@/app/demo/react-flow/components/edges/EdgeWithDelete";
 
 const nodeTypes = {
   organization: OrganizationNode,
 };
 
+const edgeTypes = {
+  default: EdgeWithDelete,
+};
+
+const listenerKey = "layout-flow-with-forces";
+
 export function LayoutFlowWithForces({ children }: PropsWithChildren) {
   const { currentState: running } = useGraphListener(
     GraphSelectiveContextKeys.running,
-    "layout-flow-with-forces",
+    listenerKey,
     false,
   );
 
@@ -47,6 +60,20 @@ export function LayoutFlowWithForces({ children }: PropsWithChildren) {
   const [initialised, toggle] = useLayoutedElements();
   const draggingNodeRef = useRef<Node | undefined>(undefined);
   const { dispatchWithoutListen } = useGlobalDispatch(draggingNodeKey);
+  const {
+    currentState: { memoizedFunction },
+  } = useGraphListener<MemoizedFunction<string[], void>>(
+    GraphSelectiveContextKeys.addLinks,
+    listenerKey,
+    undefinedDeleteLinks,
+  );
+
+  const onConnect = useCallback(
+    ({ source, target }: Connection) => {
+      if (source && target) memoizedFunction([source, target]);
+    },
+    [memoizedFunction],
+  );
 
   useEffect(() => {
     dispatchWithoutListen(draggingNodeRef);
@@ -86,6 +113,8 @@ export function LayoutFlowWithForces({ children }: PropsWithChildren) {
       onNodeDrag={handleDrag}
       onNodeDragStop={handleDragStop}
       nodeTypes={nodeTypes}
+      edgeTypes={edgeTypes}
+      onConnect={onConnect}
     >
       {children}
       <Panel position={"top-right"}>

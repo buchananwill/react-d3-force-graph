@@ -31,20 +31,20 @@ export function useGraphEditController() {
 
   useGraphController(
     GraphSelectiveContextKeys.nextNodeId,
-    listenerKey,
     nextNodeId,
+    listenerKey,
   );
   useGraphController(
     GraphSelectiveContextKeys.nextLinkId,
-    listenerKey,
     nextLinkId,
+    listenerKey,
   );
-  useGraphController<number[]>("transient-link-ids", listenerKey, EmptyArray);
-  useGraphController("transient-node-ids", listenerKey, EmptyArray);
-  useGraphController("deleted-link-ids", listenerKey, EmptyArray);
-  useGraphController("deleted-node-ids", listenerKey, EmptyArray);
-  useGraphController("dimensions", listenerKey, dimensionsStaticArray);
-  useGraphController<number>("version", listenerKey, 0);
+  useGraphController<number[]>("transient-link-ids", EmptyArray, listenerKey);
+  useGraphController("transient-node-ids", EmptyArray, listenerKey);
+  useGraphController("deleted-link-ids", EmptyArray, listenerKey);
+  useGraphController("deleted-node-ids", EmptyArray, listenerKey);
+  useGraphController("dimensions", dimensionsStaticArray, listenerKey);
+  useGraphController<number>("version", 0, listenerKey);
 
   useNodeContext();
   useLinkContext();

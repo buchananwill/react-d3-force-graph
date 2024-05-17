@@ -12,19 +12,16 @@ import {
   useGraphDispatch,
   useGraphListener,
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { resetLinks } from "@/graph-tools/editing/functions/resetLinks";
+
 import { Simulation } from "d3";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 
 import { useGraphRefs } from "@/graph-tools/hooks/useGraphRefs";
+import { resetLinks } from "@/graph-tools/flow-node-editing/functions/resetLinks";
 
 export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
   listenerKey: string,
 ) {
-  // const listenerKey = useMemo(() => {
-  //   return crypto.randomUUID();
-  // }, []);
-
   const updateNodes = useContext<
     Dispatch<SetStateAction<DataNode<T>[]>> | undefined
   >(NodeDispatchContext);

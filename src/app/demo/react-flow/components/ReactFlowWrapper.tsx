@@ -16,7 +16,6 @@ import {
   convertDataNodeListToNodeList,
 } from "@/app/demo/react-flow/utils/adaptors";
 import { LayoutFlowWithForces } from "@/app/demo/react-flow/components/LayoutFlowWithForces";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import GraphForceSliders from "@/app/demo/components/GraphForceSliders";
 import { Button } from "@nextui-org/button";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";

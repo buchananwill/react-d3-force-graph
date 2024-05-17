@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { deleteLinks } from "../functions/deleteLinks";
 
 import { HasNumberId } from "@/graph-tools/types/types";
-import { deleteNodes } from "@/graph-tools/flow-node-editing/buttons/deleteNodes";
+import { deleteNodes } from "@/graph-tools/flow-node-editing/functions/deleteNodes";
 import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 

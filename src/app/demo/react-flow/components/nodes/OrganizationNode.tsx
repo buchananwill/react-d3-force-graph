@@ -11,7 +11,7 @@ import { Handle, NodeProps, Position } from "reactflow";
 import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { MemoizedFunction } from "@/graph-tools/types/types";
-import { AddNodesParams } from "@/graph-tools/flow-node-editing/buttons/useAddNodes";
+import { AddNodesParams } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
 import { usePopoverFix } from "@/app/demo/react-flow/components/nodes/usePopoverFix";
 import { TrashIcon } from "@heroicons/react/16/solid";
 

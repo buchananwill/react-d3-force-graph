@@ -1,4 +1,4 @@
-import { Relation } from "../buttons/useAddNodes";
+import { Relation } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
 import {
   CloneFunction,
   DataNode,

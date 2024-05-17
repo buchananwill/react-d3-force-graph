@@ -5,7 +5,7 @@ const nodeType = "organization";
 
 const stringOrNumber = ["string", "number"] as const;
 
-function getAnyIdAsString(entity: HasId) {
+export function getAnyIdAsString(entity: HasId) {
   const { id } = entity;
   const idType = typeof id;
   if (idType === "string" || idType === "number") return `${id}`;

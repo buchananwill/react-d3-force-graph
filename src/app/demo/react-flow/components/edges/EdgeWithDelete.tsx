@@ -6,7 +6,7 @@ import {
 } from "reactflow";
 import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import { undefinedDeleteLinks } from "@/graph-tools/flow-node-editing/buttons/useAddLinks";
+import { undefinedDeleteLinks } from "@/graph-tools/flow-node-editing/hooks/useAddLinks";
 import { MemoizedFunction } from "@/graph-tools/types/types";
 import { TrashIcon } from "@heroicons/react/16/solid";
 

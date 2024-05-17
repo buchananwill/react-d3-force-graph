@@ -1,4 +1,4 @@
-import { Relation } from "../buttons/useAddNodes";
+import { Relation } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
 import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
 import { createSiblingLinks } from "@/graph-tools/flow-node-editing/functions/createSiblingLinks";
 import { createChildLink } from "@/graph-tools/flow-node-editing/functions/createChildLink";

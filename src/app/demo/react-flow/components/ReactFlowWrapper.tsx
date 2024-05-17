@@ -21,12 +21,13 @@ import { Button } from "@nextui-org/button";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNodeEditing } from "@/graph-tools/hooks/useNodeEditing";
 import { cloneFunctionWrapper } from "@/app/demo/components/organization/OrganizationGraph";
-import { useAddNodes } from "@/graph-tools/flow-node-editing/buttons/useAddNodes";
+import { useAddNodes } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
 import { useEscapeToClose } from "@/app/demo/react-flow/components/nodes/useEscapeToClose";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { useAddLinks } from "@/graph-tools/flow-node-editing/buttons/useAddLinks";
-import { useDeleteLinks } from "@/graph-tools/flow-node-editing/buttons/useDeleteLinks";
-import { useDeleteNodes } from "@/graph-tools/flow-node-editing/buttons/useDeleteNodes";
+import { useAddLinks } from "@/graph-tools/flow-node-editing/hooks/useAddLinks";
+import { useDeleteLinks } from "@/graph-tools/flow-node-editing/hooks/useDeleteLinks";
+import { useDeleteNodes } from "@/graph-tools/flow-node-editing/hooks/useDeleteNodes";
+import { useEditNodeData } from "@/graph-tools/flow-node-editing/hooks/useEditNodeData";
 
 export const initialNodes = convertDataNodeListToNodeList(graphDto.nodes);
 export const initialEdges = convertDataLinkListToEdgeList(graphDto.closureDtos);
@@ -38,6 +39,7 @@ export default function ReactFlowWrapper() {
   useAddLinks();
   useDeleteLinks();
   useDeleteNodes();
+  useEditNodeData();
 
   useEscapeToClose(showSliders, setShowSliders);
 

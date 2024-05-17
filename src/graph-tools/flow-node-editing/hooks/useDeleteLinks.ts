@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { HasNumberId } from "@/graph-tools/types/types";
 import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import { useEffectSyncToMemo } from "@/graph-tools/flow-node-editing/buttons/useAddLinks";
+import { useEffectSyncToMemo } from "@/graph-tools/flow-node-editing/hooks/useAddLinks";
 
 const deleteLinksKey = "delete-links";
 

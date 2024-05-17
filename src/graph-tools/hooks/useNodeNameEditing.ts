@@ -1,7 +1,20 @@
 import { useDirectSimRefEditsDispatch } from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
-import { DataNode, HasName, HasNumberId } from "@/graph-tools/types/types";
+import {
+  DataNode,
+  HasName,
+  HasNumberId,
+  MemoizedFunction,
+} from "@/graph-tools/types/types";
 import { useGlobalController } from "selective-context";
 import { useCallback } from "react";
+import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
+import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+
+export const undefinedEditNodeData = {
+  memoizedFunction: () => {
+    throw Error("Edit node data function has not been defined.");
+  },
+};
 
 export function useNodeNameEditing<T extends HasNumberId & HasName>(
   node: DataNode<T>,
@@ -15,19 +28,18 @@ export function useNodeNameEditing<T extends HasNumberId & HasName>(
       initialValue: node.data.name,
     });
 
-  const index = node.index;
+  const {
+    currentState: { memoizedFunction: updateData },
+  } = useGraphListener(
+    GraphSelectiveContextKeys.editNodeData,
+    `${componentListenerKey}:rename`,
+    undefinedEditNodeData as MemoizedFunction<T, void>,
+  );
 
-  const { nodeListRef, dispatchNextSimVersion, linkListRef } =
-    useDirectSimRefEditsDispatch<T>(componentListenerKey);
+  useDirectSimRefEditsDispatch<T>(componentListenerKey);
   const handleConfirmRename = useCallback(() => {
-    if (nodeListRef && linkListRef && index !== undefined) {
-      const currentElement = nodeListRef.current[index];
-      if (currentElement && currentElement.data) {
-        currentElement.data.name = currentState;
-        dispatchNextSimVersion();
-      }
-    }
-  }, [index, nodeListRef, linkListRef, currentState, dispatchNextSimVersion]);
+    updateData({ ...node.data, name: currentState });
+  }, [node, updateData, currentState]);
 
   const handleCancelRename = useCallback(() => {
     dispatchUpdate(node.data.name);

@@ -1,6 +1,5 @@
 import { useGraphEditHooks } from "../../hooks/useGraphEditHooks";
 import { useMemo } from "react";
-import { GraphEditButton } from "./GraphEditButton";
 
 import { deleteLinks } from "../functions/deleteLinks";
 
@@ -11,11 +10,7 @@ import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveCon
 
 const deleteNodesKey = "delete-nodes";
 
-export function useDeleteNodes<T extends HasNumberId>({
-  children,
-}: {
-  children: string;
-}) {
+export function useDeleteNodes<T extends HasNumberId>() {
   const deleteNodesMemoKey = useMemo(() => {
     return deleteNodesKey;
   }, []);
@@ -51,7 +46,16 @@ export function useDeleteNodes<T extends HasNumberId>({
     };
 
     return { memoizedFunction: handleDeleteNodes };
-  }, []);
+  }, [
+    dispatchNextSimVersion,
+    linkListRef,
+    nodeListRef,
+    setDeletedNodeIds,
+    setDeletedLinkIds,
+  ]);
 
-  useGraphController(GraphSelectiveContextKeys.deleteNodes);
+  useGraphController(
+    GraphSelectiveContextKeys.deleteNodes,
+    memoizedDeleteNodes,
+  );
 }

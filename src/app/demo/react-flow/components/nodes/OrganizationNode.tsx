@@ -20,6 +20,11 @@ const undefinedAddNodes = {
     throw Error("Add nodes function has not been defined.");
   },
 };
+const undefinedDeleteNodes = {
+  memoizedFunction: () => {
+    throw Error("Delete nodes function has not been defined.");
+  },
+};
 
 function OrganizationNode({
   data,
@@ -27,12 +32,21 @@ function OrganizationNode({
   xPos,
   yPos,
 }: NodeProps<OrganizationDto>) {
+  const listenerKey = `node:${data.id}`;
+
   const {
     currentState: { memoizedFunction },
   } = useGraphListener(
     GraphSelectiveContextKeys.addNodes,
-    `node:${data.id}`,
+    listenerKey,
     undefinedAddNodes as MemoizedFunction<AddNodesParams, void>,
+  );
+  const {
+    currentState: { memoizedFunction: memoizedDeleteNodes },
+  } = useGraphListener<MemoizedFunction<string[], void>>(
+    GraphSelectiveContextKeys.deleteNodes,
+    listenerKey,
+    undefinedDeleteNodes,
   );
   const fixAddProps = usePopoverFix();
   const fixDeleteProps = usePopoverFix();
@@ -119,11 +133,7 @@ function OrganizationNode({
                   isIconOnly
                   className={"p-2"}
                   onPress={() => {
-                    console.log("Adding sibling.");
-                    memoizedFunction({
-                      sourceNodeIdList: [`${data.id}`],
-                      relation: "sibling",
-                    });
+                    memoizedDeleteNodes([`${data.id}`]);
                   }}
                 >
                   <TrashIcon />

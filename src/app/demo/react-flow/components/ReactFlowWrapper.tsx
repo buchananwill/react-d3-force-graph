@@ -27,6 +27,7 @@ import { useEscapeToClose } from "@/app/demo/react-flow/components/nodes/useEsca
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import { useAddLinks } from "@/graph-tools/flow-node-editing/buttons/useAddLinks";
 import { useDeleteLinks } from "@/graph-tools/flow-node-editing/buttons/useDeleteLinks";
+import { useDeleteNodes } from "@/graph-tools/flow-node-editing/buttons/useDeleteNodes";
 
 export const initialNodes = convertDataNodeListToNodeList(graphDto.nodes);
 export const initialEdges = convertDataLinkListToEdgeList(graphDto.closureDtos);
@@ -37,6 +38,7 @@ export default function ReactFlowWrapper() {
   useAddNodes();
   useAddLinks();
   useDeleteLinks();
+  useDeleteNodes();
 
   useEscapeToClose(showSliders, setShowSliders);
 

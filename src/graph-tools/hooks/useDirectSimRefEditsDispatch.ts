@@ -43,37 +43,15 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
     Simulation<any, any>
   > | null>(GraphSelectiveContextKeys.sim, listenerKey, null);
   const dispatchNextSimVersion = useMemo(() => {
-    return () => {
-      console.log(
-        "Dispatching next sim version?",
-        nodeListRef,
-        linkListRef,
-        simRef,
-        updateNodes,
-        updateLinks,
-      );
-      if (
-        nodeListRef?.current &&
-        linkListRef?.current &&
-        simRef?.current &&
-        updateNodes &&
-        updateLinks
-      ) {
-        simRef.current.stop();
-        const resetLinksWithIdNotReferences = resetLinks(linkListRef.current);
+    return (updatedNodes: DataNode<any>[], updatedLinks: DataLink<any>[]) => {
+      if (updateNodes && updateLinks) {
+        const resetLinksWithIdNotReferences = resetLinks(updatedLinks);
         console.log(resetLinksWithIdNotReferences);
-        updateNodes(nodeListRef.current);
+        updateNodes(updatedNodes);
         updateLinks(resetLinksWithIdNotReferences);
         dispatchUnsavedGraph(true);
       }
     };
-  }, [
-    dispatchUnsavedGraph,
-    linkListRef,
-    nodeListRef,
-    updateLinks,
-    updateNodes,
-    simRef,
-  ]);
+  }, [dispatchUnsavedGraph, updateLinks, updateNodes]);
   return { dispatchNextSimVersion, nodeListRef, linkListRef, simRef };
 }

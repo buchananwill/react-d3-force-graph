@@ -94,10 +94,8 @@ export function useAddNodes<T extends HasNumberId>() {
         ...newLinks.map((l) => l.id),
       ]);
 
-      linkListRef.current = [...allLinks];
-      nodeListRef.current = allNodes;
       console.log("before dispatching next version:", linkListRef, nodeListRef);
-      dispatchNextSimVersion();
+      dispatchNextSimVersion(allNodes, allLinks);
     };
     return { memoizedFunction: add };
   }, [

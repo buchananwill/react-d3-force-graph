@@ -1,4 +1,4 @@
-import { Relation } from "../buttons/AddNodesButton";
+import { Relation } from "../buttons/useAddNodes";
 import {
   CloneFunction,
   DataNode,

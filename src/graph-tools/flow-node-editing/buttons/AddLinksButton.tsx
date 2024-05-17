@@ -24,7 +24,7 @@ export default function AddLinksButton<T extends HasNumberId>({
     checkForSelectedNodes,
     deBounce,
     deBouncing,
-    incrementSimVersion,
+    dispatchNextSimVersion,
   } = useGraphEditHooks<T>(buttonListenerKey);
 
   if (nodeListRef === null || linkListRef === null) return <></>;
@@ -65,7 +65,7 @@ export default function AddLinksButton<T extends HasNumberId>({
     nodeListRef.current = [...nodeListRef.current];
     // linkListRef.current = resetLinks([...allLinks]);
     linkListRef.current = [...allLinks];
-    incrementSimVersion();
+    dispatchNextSimVersion();
 
     deBounce();
   };

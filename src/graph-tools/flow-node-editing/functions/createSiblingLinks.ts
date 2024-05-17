@@ -8,13 +8,13 @@ export function createSiblingLinks<T extends HasNumberId>(
 ) {
   const newLinks: DataLink<T>[] = [];
   const linksAsChild = allLinks.filter(
-    (l) => (l.source as DataNode<T>).id === referenceNode.id,
+    (l) => (l.target as DataNode<T>).id === referenceNode.id,
   );
   linksAsChild
     .map((l, index) => {
       return {
         ...l,
-        source: newNode,
+        target: newNode,
         id: `${getNextLinkId()}`,
         index: index,
       } as DataLink<T>;

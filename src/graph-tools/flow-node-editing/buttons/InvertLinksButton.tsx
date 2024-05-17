@@ -24,7 +24,7 @@ export default function InvertLinksButton<T extends HasNumberId>({
     checkForSelectedNodes,
     deBounce,
     deBouncing,
-    incrementSimVersion,
+    dispatchNextSimVersion,
   } = useGraphEditHooks<T>(InvertLinksKey);
 
   if (nodeListRef === null || linkListRef === null) return <></>;
@@ -77,7 +77,7 @@ export default function InvertLinksButton<T extends HasNumberId>({
     nodeListRef.current = [...nodeListRef.current];
     // linkListRef.current = resetLinks([...allUpdatedLinks]);
     linkListRef.current = [...allUpdatedLinks];
-    incrementSimVersion();
+    dispatchNextSimVersion();
 
     deBounce();
   };

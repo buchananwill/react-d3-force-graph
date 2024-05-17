@@ -1,17 +1,15 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 import {
   NodeContext,
-  NodeDispatchContext
-} from '../../contexts/genericNodeContextCreator';
-
-import { useGraphName } from '../../contexts/graphContextCreator';
-import {DataNode, HasNumberId} from "@/graph-tools/types/types";
+  NodeDispatchContext,
+} from "../../contexts/genericNodeContextCreator";
+import { DataNode, HasNumberId } from "@/graph-tools/types/types";
 
 export const NodeContextProvider = <T extends HasNumberId>({
   children,
-  nodes
+  nodes,
 }: {
   children: React.ReactNode;
   nodes: DataNode<T>[];

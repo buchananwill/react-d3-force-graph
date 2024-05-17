@@ -1,28 +1,27 @@
-import { GraphEditButton } from './GraphEditButton';
-import { useGraphEditHooks } from '../../hooks/useGraphEditHooks';
-import React from 'react';
-import { deleteLinks } from '../functions/deleteLinks';
-import {HasNumberId} from "@/graph-tools/types/types";
+import { GraphEditButton } from "./GraphEditButton";
+import { useGraphEditHooks } from "../../hooks/useGraphEditHooks";
+import React from "react";
+import { deleteLinks } from "../functions/deleteLinks";
+import { HasNumberId } from "@/graph-tools/types/types";
 
-
-const deleteLinksKey = 'delete-links';
+const deleteLinksKey = "delete-links";
 
 export function DeleteLinksButton<T extends HasNumberId>({
-  children
+  children,
 }: {
   children: string;
 }) {
   const {
     nodeListRef,
     linkListRef,
-    incrementSimVersion,
+    dispatchNextSimVersion,
     deBounce,
     deBouncing,
     checkForSelectedNodes,
     noNodeSelected,
     selected,
     deletedLinkIds,
-    setDeletedLinkIds
+    setDeletedLinkIds,
   } = useGraphEditHooks<T>(deleteLinksKey);
 
   if (linkListRef === null) return <></>;
@@ -30,18 +29,18 @@ export function DeleteLinksButton<T extends HasNumberId>({
   const handleDeleteLinks = () => {
     if (nodeListRef === undefined || nodeListRef === null) return;
     if (!checkForSelectedNodes(1)) return;
-    const mode = selected.length === 1 ? 'any' : 'all';
+    const mode = selected.length === 1 ? "any" : "all";
     const { toDelete, remainingLinks } = deleteLinks(
       linkListRef.current,
       selected,
-      mode
+      mode,
     );
     setDeletedLinkIds([...deletedLinkIds, ...toDelete]);
     deBounce();
     nodeListRef.current = [...nodeListRef.current];
     // linkListRef.current = resetLinks(remainingLinks);
     linkListRef.current = [...remainingLinks];
-    incrementSimVersion();
+    dispatchNextSimVersion();
   };
   return (
     <GraphEditButton

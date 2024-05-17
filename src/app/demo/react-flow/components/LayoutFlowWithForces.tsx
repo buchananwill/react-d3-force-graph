@@ -15,32 +15,34 @@ import {
   draggingNodeKey,
   useLayoutedElements,
 } from "@/app/demo/react-flow/components/useLayoutedElements";
-import { useGlobalController, useGlobalDispatch } from "selective-context";
+import { useGlobalDispatch } from "selective-context";
 import { useNodeContext } from "@/graph-tools/contexts/genericNodeContextCreator";
 import { useLinkContext } from "@/graph-tools/contexts/genericLinkContextCreator";
 import { FlowEdge, FlowNode } from "@/graph-tools/types/types";
 import { Button } from "@nextui-org/button";
 import OrganizationNode from "./nodes/OrganizationNode";
+import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 const nodeTypes = {
   organization: OrganizationNode,
 };
 
 export function LayoutFlowWithForces({ children }: PropsWithChildren) {
-  const { currentState: running } = useGlobalController({
-    contextKey: "running",
-    listenerKey: "layout-controller",
-    initialValue: false,
-  });
+  const { currentState: running } = useGraphListener(
+    GraphSelectiveContextKeys.running,
+    "layout-flow-with-forces",
+    false,
+  );
 
   const { nodes: initialNodes } = useNodeContext();
   const { links: initialEdges } = useLinkContext();
 
   const [nodes, setNodes, onNodesChange] = useNodesState(
-    initialNodes as FlowNode[]
+    initialNodes as FlowNode[],
   );
   const [edges, setEdges, onEdgesChange] = useEdgesState(
-    initialEdges as FlowEdge[]
+    initialEdges as FlowEdge[],
   );
   const [initialised, toggle] = useLayoutedElements();
   const draggingNodeRef = useRef<Node | undefined>(undefined);
@@ -51,24 +53,21 @@ export function LayoutFlowWithForces({ children }: PropsWithChildren) {
   }, [draggingNodeRef, dispatchWithoutListen]);
 
   const handleDragStart = useCallback(
-    (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
+    (_event: ReactMouseEvent, node: Node) => {
       draggingNodeRef.current = { ...node };
     },
-    [draggingNodeRef]
+    [draggingNodeRef],
   );
 
-  const handleDragStop = useCallback(
-    (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
-      draggingNodeRef.current = undefined;
-    },
-    [draggingNodeRef]
-  );
+  const handleDragStop = useCallback(() => {
+    draggingNodeRef.current = undefined;
+  }, [draggingNodeRef]);
 
   const handleDrag = useCallback(
-    (event: ReactMouseEvent, node: Node, nodes: Node[]) => {
+    (_event: ReactMouseEvent, node: Node) => {
       draggingNodeRef.current = { ...node };
     },
-    [draggingNodeRef]
+    [draggingNodeRef],
   );
 
   useEffect(() => {

@@ -1,12 +1,12 @@
-import { useGraphEditHooks } from '../../hooks/useGraphEditHooks';
-import React, { useMemo } from 'react';
-import { GraphEditButton } from './GraphEditButton';
+import { useGraphEditHooks } from "../../hooks/useGraphEditHooks";
+import React, { useMemo } from "react";
+import { GraphEditButton } from "./GraphEditButton";
 
-import { createLinks } from '../functions/createLinks';
-import {DataLink, HasNumberId} from "@/graph-tools/types/types";
-const joinNodes = 'join-nodes';
+import { createLinks } from "../functions/createLinks";
+import { DataLink, HasNumberId } from "@/graph-tools/types/types";
+const joinNodes = "join-nodes";
 export default function AddLinksButton<T extends HasNumberId>({
-  children
+  children,
 }: {
   children: string;
 }) {
@@ -24,7 +24,7 @@ export default function AddLinksButton<T extends HasNumberId>({
     checkForSelectedNodes,
     deBounce,
     deBouncing,
-    incrementSimVersion
+    dispatchNextSimVersion,
   } = useGraphEditHooks<T>(buttonListenerKey);
 
   if (nodeListRef === null || linkListRef === null) return <></>;
@@ -52,7 +52,7 @@ export default function AddLinksButton<T extends HasNumberId>({
         newNodes: singleton,
         allLinks: allLinks,
         linkIdSequenceStart: nextLinkId,
-        relation: 'child'
+        relation: "child",
       });
       nextLinkId = nextLinkId + newLinks.length;
       allNewLinks = [...allNewLinks, ...newLinks];
@@ -65,7 +65,7 @@ export default function AddLinksButton<T extends HasNumberId>({
     nodeListRef.current = [...nodeListRef.current];
     // linkListRef.current = resetLinks([...allLinks]);
     linkListRef.current = [...allLinks];
-    incrementSimVersion();
+    dispatchNextSimVersion();
 
     deBounce();
   };

@@ -1,16 +1,16 @@
-import { useGraphEditHooks } from '../../hooks/useGraphEditHooks';
-import { useMemo } from 'react';
-import { GraphEditButton } from './GraphEditButton';
+import { useGraphEditHooks } from "../../hooks/useGraphEditHooks";
+import { useMemo } from "react";
+import { GraphEditButton } from "./GraphEditButton";
 
-import {deleteLinks, isNotNull} from '../functions/deleteLinks';
+import { deleteLinks, isNotNull } from "../functions/deleteLinks";
 
-import {DataNode, HasNumberId} from "@/graph-tools/types/types";
+import { DataNode, HasNumberId } from "@/graph-tools/types/types";
 
-const deleteNodesKey = 'delete-nodes';
+const deleteNodesKey = "delete-nodes";
 
 export function deleteNodes<T extends HasNumberId>(
   selected: number[],
-  current: DataNode<T>[]
+  current: DataNode<T>[],
 ) {
   const selectedNodeIdSet = new Set(selected);
   const nodesForDeletion: number[] = [];
@@ -28,7 +28,7 @@ export function deleteNodes<T extends HasNumberId>(
 }
 
 export function DeleteNodesButton<T extends HasNumberId>({
-  children
+  children,
 }: {
   children: string;
 }) {
@@ -37,7 +37,7 @@ export function DeleteNodesButton<T extends HasNumberId>({
   }, []);
   const {
     deBouncing,
-    incrementSimVersion,
+    dispatchNextSimVersion,
     deBounce,
     deletedNodeIds,
     deletedLinkIds,
@@ -47,7 +47,7 @@ export function DeleteNodesButton<T extends HasNumberId>({
     checkForSelectedNodes,
     noNodeSelected,
     nodeListRef,
-    setDeletedNodeIds
+    setDeletedNodeIds,
   } = useGraphEditHooks<T>(deleteNodesMemoKey);
 
   if (nodeListRef?.current == null || linkListRef?.current == null)
@@ -57,7 +57,7 @@ export function DeleteNodesButton<T extends HasNumberId>({
     if (!checkForSelectedNodes(1)) return;
     const { remainingNodes, nodesForDeletion } = deleteNodes(
       selected,
-      nodeListRef.current
+      nodeListRef.current,
     );
     let linksToDelete: number[] = [];
     let linkCache = [...linkListRef.current];
@@ -65,7 +65,7 @@ export function DeleteNodesButton<T extends HasNumberId>({
       const { remainingLinks, toDelete } = deleteLinks<T>(
         linkCache,
         [number],
-        'any'
+        "any",
       );
       linksToDelete = [...linksToDelete, ...toDelete];
       linkCache = remainingLinks;
@@ -76,7 +76,7 @@ export function DeleteNodesButton<T extends HasNumberId>({
     // linkListRef.current = resetLinks(linkCache);
     linkListRef.current = [...linkCache];
     nodeListRef.current = remainingNodes;
-    incrementSimVersion();
+    dispatchNextSimVersion();
   };
 
   return (

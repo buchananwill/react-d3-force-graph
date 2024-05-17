@@ -14,20 +14,9 @@ import {
 } from "@/graph-tools/literals/constants";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 
-function undefinedErrorFunction() {
-  throw Error("id supplier has not been defined!");
-}
-
-const memoizedErrorSupplier = {
-  get: undefinedErrorFunction,
-};
-
 export function useGraphEditHooks<T extends HasNumberId>(listenerKey: string) {
-  // Todo: move this into a separate Svg Edit Button hook that is specific for the buttons on the old graph implementation.
-  const { selected } = useNodeInteractionContext();
-
-  const { incrementSimVersion, nodeListRef, linkListRef } =
-    useDirectSimRefEditsDispatch<T>();
+  const { dispatchNextSimVersion, nodeListRef, linkListRef } =
+    useDirectSimRefEditsDispatch<T>(listenerKey);
 
   const { currentState: nextNodeId } = useGraphListener<
     MemoizedSupplier<number>
@@ -44,10 +33,10 @@ export function useGraphEditHooks<T extends HasNumberId>(listenerKey: string) {
   );
 
   const { dispatchWithoutListen: setTransientNodeIds } =
-    useGraphDispatch("transient-node-ids");
+    useGraphDispatch<string[]>("transient-node-ids");
 
   const { dispatchWithoutListen: setTransientLinkIds } =
-    useGraphDispatch("transient-link-ids");
+    useGraphDispatch<string[]>("transient-link-ids");
 
   const {
     dispatchWithoutControl: setDeletedLinkIds,
@@ -58,46 +47,25 @@ export function useGraphEditHooks<T extends HasNumberId>(listenerKey: string) {
     currentState: deletedNodeIds,
   } = useGraphDispatchAndListener("deleted-node-ids", listenerKey, EmptyArray);
 
-  const [noNodeSelected, setNoNodeSelected] = useState(false);
-
-  const [deBouncing, setDeBouncing] = useState<boolean>(false);
-
-  const checkForSelectedNodes = useCallback(
-    (minimum: number = 1) => {
-      if (selected.length < minimum) {
-        if (!noNodeSelected) {
-          setNoNodeSelected(true);
-          setTimeout(() => {
-            if (setNoNodeSelected) setNoNodeSelected(false);
-          }, 2000);
-        }
-        return false;
-      } else return true;
-    },
-    [selected, noNodeSelected],
-  );
-
-  const deBounce = () => {
-    setDeBouncing(true);
-    setTimeout(() => setDeBouncing(false), 250);
-  };
-
   return {
-    nodeListRef,
-    linkListRef,
-    selected,
-    incrementSimVersion,
+    getNextNodeId: nextNodeId.get,
+    getNextLinkId: nextLinkId.get,
     setTransientNodeIds,
     setTransientLinkIds,
-    checkForSelectedNodes,
-    noNodeSelected,
-    deBouncing,
-    deBounce,
-    getNextLinkId: nextLinkId.get,
-    getNextNodeId: nextNodeId.get,
-    setDeletedLinkIds,
-    deletedLinkIds,
     setDeletedNodeIds,
     deletedNodeIds,
+    setDeletedLinkIds,
+    deletedLinkIds,
+    nodeListRef,
+    linkListRef,
+    dispatchNextSimVersion,
   };
 }
+
+function undefinedErrorFunction() {
+  throw Error("id supplier has not been defined!");
+}
+
+const memoizedErrorSupplier = {
+  get: undefinedErrorFunction,
+};

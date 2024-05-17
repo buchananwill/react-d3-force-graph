@@ -1,13 +1,13 @@
-import { useGraphEditHooks } from '../../hooks/useGraphEditHooks';
-import React from 'react';
-import { GraphEditButton } from './GraphEditButton';
-import { createLinks } from '../functions/createLinks';
-import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
+import { useGraphEditHooks } from "../../hooks/useGraphEditHooks";
+import React from "react";
+import { GraphEditButton } from "./GraphEditButton";
+import { createLinks } from "../functions/createLinks";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
 
-const InvertLinksKey = 'invert-links';
+const InvertLinksKey = "invert-links";
 
 export default function InvertLinksButton<T extends HasNumberId>({
-  children
+  children,
 }: {
   children: string;
 }) {
@@ -24,7 +24,7 @@ export default function InvertLinksButton<T extends HasNumberId>({
     checkForSelectedNodes,
     deBounce,
     deBouncing,
-    incrementSimVersion
+    dispatchNextSimVersion,
   } = useGraphEditHooks<T>(InvertLinksKey);
 
   if (nodeListRef === null || linkListRef === null) return <></>;
@@ -67,8 +67,8 @@ export default function InvertLinksButton<T extends HasNumberId>({
       newNodes: parentToChild,
       allLinks: linksToKeep,
       linkIdSequenceStart: nextLinkId,
-      relation: 'child',
-      templateLink: linkListRef.current[0]
+      relation: "child",
+      templateLink: linkListRef.current[0],
     });
 
     const newLinkIds = newLinks.map((l) => l.id);
@@ -77,7 +77,7 @@ export default function InvertLinksButton<T extends HasNumberId>({
     nodeListRef.current = [...nodeListRef.current];
     // linkListRef.current = resetLinks([...allUpdatedLinks]);
     linkListRef.current = [...allUpdatedLinks];
-    incrementSimVersion();
+    dispatchNextSimVersion();
 
     deBounce();
   };

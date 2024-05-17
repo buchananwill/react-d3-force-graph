@@ -1,20 +1,24 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 
-import { useGraphEditHooks } from '../../hooks/useGraphEditHooks';
-import { GraphEditButton } from './GraphEditButton';
+import { useGraphEditHooks } from "../../hooks/useGraphEditHooks";
+import { GraphEditButton } from "./GraphEditButton";
 
-import { createNodes } from '../functions/createNodes';
-import { createLinks } from '../functions/createLinks';
-import {CloneFunction, DataNode, HasNumberId} from "@/graph-tools/types/types";
+import { createNodes } from "../functions/createNodes";
+import { createLinks } from "../functions/createLinks";
+import {
+  CloneFunction,
+  DataNode,
+  HasNumberId,
+} from "@/graph-tools/types/types";
 
-export type Relation = 'sibling' | 'child';
+export type Relation = "sibling" | "child";
 
 const addNodesButton = `add-nodes-button`;
 
 export function AddNodesButton<T extends HasNumberId>({
   children,
   relation,
-  cloneFunction
+  cloneFunction,
 }: {
   relation: Relation;
   children: string;
@@ -27,7 +31,7 @@ export function AddNodesButton<T extends HasNumberId>({
     nodeListRef,
     linkListRef,
     selected,
-    incrementSimVersion,
+    dispatchNextSimVersion,
     setTransientNodeIds,
     transientNodeIds,
     setTransientLinkIds,
@@ -37,7 +41,7 @@ export function AddNodesButton<T extends HasNumberId>({
     deBouncing,
     deBounce,
     getNextLinkId,
-    getNextNodeId
+    getNextNodeId,
   } = useGraphEditHooks<T>(buttonListenerKey);
 
   if (nodeListRef === null || linkListRef === null) return <></>;
@@ -53,12 +57,12 @@ export function AddNodesButton<T extends HasNumberId>({
       targetNodes: refNodes,
       allNodes: nodeListRef.current,
       relation,
-      cloneFunction
+      cloneFunction,
     });
 
     setTransientNodeIds([
       ...transientNodeIds,
-      ...createdNodes.map((n) => n.id)
+      ...createdNodes.map((n) => n.id),
     ]);
 
     const nextLinkIdToSubmit = getNextLinkId();
@@ -68,7 +72,7 @@ export function AddNodesButton<T extends HasNumberId>({
       newNodes: createdNodes,
       allLinks: linkListRef.current,
       linkIdSequenceStart: nextLinkIdToSubmit,
-      relation: relation
+      relation: relation,
     });
 
     const newLinkIds = newLinks.map((l) => l.id);
@@ -79,7 +83,7 @@ export function AddNodesButton<T extends HasNumberId>({
 
     linkListRef.current = [...allUpdatedLinks];
     nodeListRef.current = allNodes;
-    incrementSimVersion();
+    dispatchNextSimVersion();
   };
 
   return (

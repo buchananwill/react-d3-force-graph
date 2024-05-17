@@ -28,6 +28,7 @@ export const GraphSelectiveContextKeys = {
   addNodes: "add-nodes",
   addLinks: "add-links",
   deleteLinks: "delete-links",
+  deleteNodes: "delete-nodes",
   running: "running",
 } as const; // Redefining the GraphSelectiveContext type to use the values of GraphSelectiveKeys
 

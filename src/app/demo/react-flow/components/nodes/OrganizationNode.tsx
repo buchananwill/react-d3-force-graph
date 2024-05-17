@@ -1,6 +1,7 @@
 import { OrganizationDto } from "@/app/demo/types/OrganizationDto";
 import {
   ArrowDownOnSquareStackIcon,
+  MinusCircleIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import { Button } from "@nextui-org/button";
@@ -12,6 +13,7 @@ import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveCon
 import { MemoizedFunction } from "@/graph-tools/types/types";
 import { AddNodesParams } from "@/graph-tools/flow-node-editing/buttons/useAddNodes";
 import { usePopoverFix } from "@/app/demo/react-flow/components/nodes/usePopoverFix";
+import { TrashIcon } from "@heroicons/react/16/solid";
 
 const undefinedAddNodes = {
   memoizedFunction: () => {
@@ -32,7 +34,8 @@ function OrganizationNode({
     `node:${data.id}`,
     undefinedAddNodes as MemoizedFunction<AddNodesParams, void>,
   );
-  const fixProps = usePopoverFix();
+  const fixAddProps = usePopoverFix();
+  const fixDeleteProps = usePopoverFix();
 
   return (
     <>
@@ -47,14 +50,14 @@ function OrganizationNode({
         <div className={"flex justify-between items-center gap-2"}>
           {data.name}
           <Popover
-            {...fixProps}
+            {...fixAddProps}
             placement={"right"}
             triggerScaleOnOpen
             updatePositionDeps={[xPos, yPos]}
             triggerType={"menu"}
           >
             <PopoverTrigger>
-              <Button size={"sm"} className={"p-1"} isIconOnly>
+              <Button size={"sm"} className={"p-1.5"} isIconOnly>
                 <PlusCircleIcon />
               </Button>
             </PopoverTrigger>
@@ -62,7 +65,7 @@ function OrganizationNode({
               <div className={"grid grid-cols-1 gap-1"}>
                 <Button
                   isIconOnly
-                  className={"p-1"}
+                  className={"p-1.5"}
                   onPress={() => {
                     console.log("Adding sibling.");
                     memoizedFunction({
@@ -75,7 +78,7 @@ function OrganizationNode({
                 </Button>
                 <Button
                   isIconOnly
-                  className={"p-1"}
+                  className={"p-1.5"}
                   onPress={() =>
                     memoizedFunction({
                       sourceNodeIdList: [`${data.id}`],
@@ -89,12 +92,46 @@ function OrganizationNode({
             </PopoverContent>
           </Popover>
         </div>
-        <Popover>
-          <PopoverTrigger>
-            <Button size={"sm"}>Details</Button>
-          </PopoverTrigger>
-          <PopoverContent>{data.type.name}</PopoverContent>
-        </Popover>
+        <div className={" flex gap-1"}>
+          <Popover>
+            <PopoverTrigger>
+              <Button size={"sm"} className={"grow"}>
+                Details
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>{data.type.name}</PopoverContent>
+          </Popover>
+          <Popover
+            {...fixDeleteProps}
+            placement={"right"}
+            triggerScaleOnOpen
+            updatePositionDeps={[xPos, yPos]}
+            triggerType={"menu"}
+          >
+            <PopoverTrigger>
+              <Button size={"sm"} className={"p-1.5"} isIconOnly>
+                <MinusCircleIcon />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <div className={"grid grid-cols-1 gap-1"}>
+                <Button
+                  isIconOnly
+                  className={"p-2"}
+                  onPress={() => {
+                    console.log("Adding sibling.");
+                    memoizedFunction({
+                      sourceNodeIdList: [`${data.id}`],
+                      relation: "sibling",
+                    });
+                  }}
+                >
+                  <TrashIcon />
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
       <Handle
         type="source"

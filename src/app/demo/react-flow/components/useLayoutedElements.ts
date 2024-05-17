@@ -45,8 +45,6 @@ export function useLayoutedElements(): [
   const { nodeListRef, linkListRef, simRef } =
     useDirectSimRefEditsDispatch(listenerKey);
 
-  console.log(simRef);
-
   return useMemo(() => {
     let nodes = getNodes().map((node) => ({
       ...node,
@@ -55,6 +53,7 @@ export function useLayoutedElements(): [
     })) as FlowNode[];
     let running = false;
     let simulation: Simulation<any, any>;
+    console.log(nodes);
 
     // If React Flow hasn't initialised our nodes with a width and height yet, or
     // if there are no nodes in the flow, then we can't run the simulation!

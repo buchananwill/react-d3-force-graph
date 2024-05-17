@@ -47,7 +47,9 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
       if (updateNodes && updateLinks) {
         const resetLinksWithIdNotReferences = resetLinks(updatedLinks);
         console.log(resetLinksWithIdNotReferences);
-        updateNodes(updatedNodes);
+        updateNodes(
+          updatedNodes.map((n) => ({ ...n, position: { x: n.x, y: n.y } })),
+        );
         updateLinks(resetLinksWithIdNotReferences);
         dispatchUnsavedGraph(true);
       }

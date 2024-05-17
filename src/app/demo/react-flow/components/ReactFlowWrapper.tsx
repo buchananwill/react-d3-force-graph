@@ -23,6 +23,7 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNodeEditing } from "@/graph-tools/hooks/useNodeEditing";
 import { cloneFunctionWrapper } from "@/app/demo/components/organization/OrganizationGraph";
 import { useAddNodes } from "@/graph-tools/flow-node-editing/buttons/useAddNodes";
+import { useEscapeToClose } from "@/app/demo/react-flow/components/nodes/useEscapeToClose";
 
 export const initialNodes = convertDataNodeListToNodeList(graphDto.nodes);
 export const initialEdges = convertDataLinkListToEdgeList(graphDto.closureDtos);
@@ -31,6 +32,8 @@ export default function ReactFlowWrapper() {
   const [showSliders, setShowSliders] = useState(false);
   useNodeEditing(cloneFunctionWrapper);
   useAddNodes();
+
+  useEscapeToClose(showSliders, setShowSliders);
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
@@ -54,7 +57,7 @@ export default function ReactFlowWrapper() {
                 </Button>
               </CardHeader>
               <CardBody
-                className={`${showSliders ? "h-fit" : "h-0 overflow-hidden p-0"}`}
+                className={`${showSliders ? "h-fit opacity-100" : "h-0 overflow-hidden p-0 scale-75"} transition-all`}
               >
                 <GraphForceSliders />
               </CardBody>

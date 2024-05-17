@@ -6,14 +6,12 @@ import {
 import { Button } from "@nextui-org/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import React from "react";
-import { Handle, Position } from "reactflow";
+import { Handle, NodeProps, Position } from "reactflow";
 import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import { DataNode, MemoizedFunction } from "@/graph-tools/types/types";
-import {
-  AddNodesParams,
-  Relation,
-} from "@/graph-tools/flow-node-editing/buttons/useAddNodes";
+import { MemoizedFunction } from "@/graph-tools/types/types";
+import { AddNodesParams } from "@/graph-tools/flow-node-editing/buttons/useAddNodes";
+import { usePopoverFix } from "@/app/demo/react-flow/components/nodes/usePopoverFix";
 
 const undefinedAddNodes = {
   memoizedFunction: () => {
@@ -24,10 +22,9 @@ const undefinedAddNodes = {
 function OrganizationNode({
   data,
   isConnectable,
-}: {
-  data: OrganizationDto;
-  isConnectable: boolean;
-}) {
+  xPos,
+  yPos,
+}: NodeProps<OrganizationDto>) {
   const {
     currentState: { memoizedFunction },
   } = useGraphListener(
@@ -35,6 +32,7 @@ function OrganizationNode({
     `node:${data.id}`,
     undefinedAddNodes as MemoizedFunction<AddNodesParams, void>,
   );
+  const fixProps = usePopoverFix();
 
   return (
     <>
@@ -48,7 +46,13 @@ function OrganizationNode({
       <div className="border border-black p-2 rounded-md bg-white flex flex-col relative gap-1">
         <div className={"flex justify-between items-center gap-2"}>
           {data.name}
-          <Popover placement={"right"}>
+          <Popover
+            {...fixProps}
+            placement={"right"}
+            triggerScaleOnOpen
+            updatePositionDeps={[xPos, yPos]}
+            triggerType={"menu"}
+          >
             <PopoverTrigger>
               <Button size={"sm"} className={"p-1"} isIconOnly>
                 <PlusCircleIcon />

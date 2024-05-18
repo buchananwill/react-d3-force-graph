@@ -6,9 +6,9 @@ import {
 } from "reactflow";
 import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import { undefinedDeleteLinks } from "@/graph-tools/flow-node-editing/hooks/useAddLinks";
 import { MemoizedFunction } from "@/graph-tools/types/types";
 import { TrashIcon } from "@heroicons/react/16/solid";
+import { undefinedDeleteLinks } from "@/graph-tools/literals/undefinedFunctionErrors";
 
 export interface Coordinate {
   x: number;
@@ -48,18 +48,18 @@ export default function EdgeWithDelete({
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
             pointerEvents: "all",
           }}
-          className="nodrag nopan bg-default-300 z-10 rounded-lg transition-opacity text-default-600 hover:opacity-100 opacity-0 duration-500"
+          className="nodrag nopan z-10 rounded-lg bg-default-300 text-default-600 opacity-0 transition-opacity duration-500 hover:opacity-100"
           onClick={() => {
             memoizedFunction([id]);
           }}
           // isIconOnly
           // size={"sm"}
         >
-          <TrashIcon className={"w-6 h-6 p-1"} />
+          <TrashIcon className={"h-6 w-6 p-1"} />
         </button>
         <div
           className={
-            "rounded-full bg-default-400 w-1 h-1 z-0 pointer-events-none"
+            "pointer-events-none z-0 h-1 w-1 rounded-full bg-default-400"
           }
           style={{
             position: "absolute",

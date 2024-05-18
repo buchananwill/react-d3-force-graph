@@ -4,15 +4,15 @@ import {
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { MemoizedFunction } from "@/graph-tools/types/types";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import { undefinedEditNodeData } from "@/graph-tools/hooks/useNodeNameEditing";
 import { OrganizationDto } from "@/app/demo/types/OrganizationDto";
 import { ModalBody, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
-import { ComponentUndefined } from "@/app/demo/react-flow/components/nodes/NodeDetailsModal";
+import { ComponentUndefined } from "@/react-flow/components/generic/NodeDetailsModal";
 import { ObjectPlaceholder } from "selective-context";
-import FocusToEdit from "@/app/demo/react-flow/components/generic/FocusToEdit";
+import FocusToEdit from "@/react-flow/components/generic/FocusToEdit";
 import { Select, SelectItem } from "@nextui-org/select";
-import { OrgTypes } from "@/app/demo/react-flow/components/nodes/OrganizationNode";
+import { OrgTypes } from "@/app/demo/components/organization/OrganizationNode";
+import { undefinedEditNodeData } from "@/graph-tools/literals/undefinedFunctionErrors";
 
 const listenerKey = "details-content";
 

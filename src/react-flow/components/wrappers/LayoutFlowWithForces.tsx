@@ -15,7 +15,7 @@ import ReactFlow, {
 import {
   draggingNodeKey,
   useLayoutedElements,
-} from "@/app/demo/react-flow/components/useLayoutedElements";
+} from "@/react-flow/hooks/useLayoutedElements";
 import { useGlobalDispatch } from "selective-context";
 import { useNodeContext } from "@/graph-tools/contexts/genericNodeContextCreator";
 import { useLinkContext } from "@/graph-tools/contexts/genericLinkContextCreator";
@@ -28,9 +28,9 @@ import { Button } from "@nextui-org/button";
 
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { undefinedDeleteLinks } from "@/graph-tools/flow-node-editing/hooks/useAddLinks";
-import EdgeWithDelete from "@/app/demo/react-flow/components/edges/EdgeWithDelete";
-import OrganizationNode from "@/app/demo/react-flow/components/nodes/OrganizationNode";
+import EdgeWithDelete from "@/react-flow/components/edges/EdgeWithDelete";
+import OrganizationNode from "@/app/demo/components/organization/OrganizationNode";
+import { undefinedDeleteLinks } from "@/graph-tools/literals/undefinedFunctionErrors";
 
 const nodeTypes = {
   organization: OrganizationNode,

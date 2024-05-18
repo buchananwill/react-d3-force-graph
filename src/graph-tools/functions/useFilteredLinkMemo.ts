@@ -1,20 +1,17 @@
-
-import { useMemo } from 'react';
-import {ClosureDto, Predicate} from "@/graph-tools/types/types";
-
+import { useMemo } from "react";
+import { DataLink, Predicate } from "@/graph-tools/types/types";
 
 export function useFilteredLinkMemo(
-  closureList: ClosureDto[],
-  closurePredicate: Predicate<ClosureDto> = (c: ClosureDto) => c.value == 1
+  closureList: DataLink<any>[],
+  closurePredicate: Predicate<DataLink<any>> = (c: DataLink<any>) =>
+    c.value == 1,
 ) {
   const filteredLinks = useMemo(
     () =>
-      closureList
-          .filter(closurePredicate)
-          .map((d) => ({
-        ...d
+      closureList.filter(closurePredicate).map((d) => ({
+        ...d,
       })),
-    [closurePredicate, closureList]
+    [closurePredicate, closureList],
   );
 
   return { filteredLinks };

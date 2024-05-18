@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useEscapeToClose } from "@/app/demo/react-flow/components/nodes/useEscapeToClose";
+import { useEscapeToClose } from "@/react-flow/hooks/useEscapeToClose";
 
 export function usePopoverFix() {
   const [popoverVisible, setPopoverVisible] = useState(false);

@@ -5,7 +5,6 @@ import {
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { MemoizedFunction } from "@/graph-tools/types/types";
-import { undefinedEditNodeData } from "@/graph-tools/hooks/useNodeNameEditing";
 import { ReactNode } from "react";
 
 export type NodeDetailsModalProps = Omit<

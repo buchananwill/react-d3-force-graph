@@ -15,6 +15,7 @@ import {
   useGraphListener,
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { undefinedCloneNode } from "@/graph-tools/literals/undefinedFunctionErrors";
 
 export type Relation = "sibling" | "child";
 
@@ -107,12 +108,6 @@ export function useAddNodes<T extends HasNumberId>() {
 
   useGraphController(GraphSelectiveContextKeys.addNodes, addNodes);
 }
-
-const undefinedCloneNode = {
-  memoizedFunction: () => {
-    throw Error("Clone node function has not been defined.");
-  },
-};
 
 export interface AddNodesParams {
   sourceNodeIdList: string[];

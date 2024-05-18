@@ -10,7 +10,7 @@ import {
 
 import { ShowForceAdjustmentsKey } from "@/graph-tools/components/controllers/ShowForceAdjustmentsController";
 import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { SelectiveContextRangeSlider } from "@/app/demo/react-flow/components/generic/SelectiveContextRangeSlider";
+import { SelectiveContextRangeSlider } from "@/react-flow/components/generic/SelectiveContextRangeSlider";
 import { useGlobalReadAny } from "selective-context";
 
 const listenerKey = "graph-force-adjustment";

@@ -14,21 +14,21 @@ import graphDto from "@/app/demo/data/graphDto.json";
 import {
   convertClosureDtoListToEdgeList,
   convertDataNodeDtoListToFlowNodeList,
-} from "@/app/demo/react-flow/utils/adaptors";
-import { LayoutFlowWithForces } from "@/app/demo/react-flow/components/LayoutFlowWithForces";
-import GraphForceSliders from "@/app/demo/react-flow/components/generic/GraphForceSliders";
+} from "@/react-flow/utils/adaptors";
+import { LayoutFlowWithForces } from "@/react-flow/components/wrappers/LayoutFlowWithForces";
+import GraphForceSliders from "@/react-flow/components/generic/GraphForceSliders";
 import { Button } from "@nextui-org/button";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNodeEditing } from "@/graph-tools/hooks/useNodeEditing";
 import { cloneFunctionWrapper } from "@/app/demo/components/organization/organizationCallbacks";
 import { useAddNodes } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
-import { useEscapeToClose } from "@/app/demo/react-flow/components/nodes/useEscapeToClose";
+import { useEscapeToClose } from "@/react-flow/hooks/useEscapeToClose";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import { useAddLinks } from "@/graph-tools/flow-node-editing/hooks/useAddLinks";
 import { useDeleteLinks } from "@/graph-tools/flow-node-editing/hooks/useDeleteLinks";
 import { useDeleteNodes } from "@/graph-tools/flow-node-editing/hooks/useDeleteNodes";
 import { useEditNodeData } from "@/graph-tools/flow-node-editing/hooks/useEditNodeData";
-import NodeDetailsModal from "@/app/demo/react-flow/components/nodes/NodeDetailsModal";
+import NodeDetailsModal from "@/react-flow/components/generic/NodeDetailsModal";
 
 export const initialNodes = convertDataNodeDtoListToFlowNodeList(
   graphDto.nodes,
@@ -63,20 +63,14 @@ export default function ReactFlowWrapper() {
               shouldCloseOnInteractOutside={() => false}
             >
               <PopoverTrigger className={"p-0"}>
-                <Button
-                  className={"w-56 relative"}
-                  // variant={"light"}
-                  // onPress={() => setShowSliders((show) => !show)}
-                >
+                <Button className={"relative w-56"}>
                   Forces{" "}
                   <ChevronLeftIcon
-                    className={`p-1 absolute right-2 transition-transform ${showSliders ? "-rotate-90" : ""}`}
+                    className={`absolute right-2 p-1 transition-transform ${showSliders ? " -rotate-90 " : ""}`}
                   />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent
-              // className={`${showSliders ? "h-fit opacity-100" : "h-0 overflow-hidden p-0 scale-75"} transition-all`}
-              >
+              <PopoverContent>
                 <GraphForceSliders />
               </PopoverContent>
             </Popover>

@@ -6,7 +6,7 @@ import {
   FlowNode,
   HasId,
 } from "@/graph-tools/types/types";
-import { Coordinate } from "@/app/demo/react-flow/components/edges/EdgeWithDelete";
+import { Coordinate } from "@/react-flow/components/edges/EdgeWithDelete";
 
 const nodeType = "organization";
 

@@ -10,7 +10,6 @@ import { ShowForceAdjustmentsController } from "../controllers/ShowForceAdjustme
 import { ShowNodeEditingController } from "../controllers/ShowNodeEditingController";
 import { HasNumberId } from "@/graph-tools/types/types";
 import { NodeLinkRefContextProvider } from "@/graph-tools/components/wrappers/NodeLinkRefContextProvider";
-import ForceSimEngine from "@/graph-tools/components/controllers/ForceSimEngine";
 import GraphForceAttributes from "@/graph-tools/components/controllers/GraphForceAttributes";
 import GraphEditController from "@/graph-tools/components/controllers/GraphEditController";
 import { SliderVisibilityController } from "@/graph-tools/components/controllers/SliderVisibilityController";
@@ -48,7 +47,6 @@ export default function ForceGraphPage<T extends HasNumberId>({
             <GraphForceAttributes
               forceAttributesInitial={options?.forceAttributesInitial}
             />
-            {options?.useInternalSimEngine && <ForceSimEngine />}
 
             {children}
           </NodeLinkRefContextProvider>

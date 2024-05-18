@@ -16,9 +16,6 @@ const listenerKey = `force-sim`;
 
 export const defaultDimensionArray = [1800, 1200];
 
-// Todo: remove adding nodes and links as a responsibility of this hook.
-//  It only needs to setup up the simulation and forces, making it available as context.
-// Todo: remove automated ticking: can be triggered manually by the employing UI.
 export function useD3ForceSimulationMemo<T extends HasNumberId>() {
   const { linkListRef: linksRef, nodeListRef: nodesRef } = useGraphRefs<T>();
   const forceAttributes = useForceAttributeListeners(listenerKey);
@@ -59,7 +56,6 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
   );
 
   return useMemo(() => {
-    // console.log('running force sim memo')
     if (!linksRef || !nodesRef || simulationRef === null) return [];
     const simulationRefCurrent = simulationRef.current;
     const nodesMutable = nodesRef.current;
@@ -83,10 +79,6 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
       }
       updateForces(simulationRefCurrent!, forceAttributes);
     }
-
-    const cleanUp = () => {
-      if (!isMounted && simulationRefCurrent) simulationRefCurrent.stop();
-    };
 
     return [simulationRef];
   }, [

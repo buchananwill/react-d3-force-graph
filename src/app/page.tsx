@@ -1,7 +1,30 @@
-"use client";
+import ReactFlowWrapper, {
+  initialEdges,
+  initialNodes,
+} from "@/react-flow/components/wrappers/ReactFlowWrapper";
+import ForceGraphPage from "@/graph-tools/components/wrappers/ForceGraphPage";
+import DefineModalContent from "@/graph-tools/components/controllers/DefineModalContent";
 
-export default function Home() {
+export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+    <ForceGraphPage
+      graphName={"react-flow"}
+      flowNodes={initialNodes}
+      edges={initialEdges}
+      options={{
+        forceSlidersVisibleInitial: {
+          manyBodyTheta: false,
+          forceRadialXRelative: false,
+          forceRadialYRelative: false,
+          centerStrength: false,
+        },
+        forceAttributesInitial: {
+          forceYStrength: 50,
+        },
+      }}
+    >
+      <DefineModalContent />
+      <ReactFlowWrapper />
+    </ForceGraphPage>
   );
 }

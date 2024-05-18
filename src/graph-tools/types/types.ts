@@ -45,7 +45,7 @@ export interface HasName {
 }
 
 export interface GraphDto<T extends HasNumberId> {
-  nodes: DataNode<T>[];
+  nodes: DataNodeDto<T>[];
   closureDtos: ClosureDto[];
 }
 

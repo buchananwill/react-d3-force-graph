@@ -81,18 +81,6 @@ export function useAddLinks<T extends HasNumberId>() {
   useEffectSyncToMemo(dispatch, memoizedAddLinks);
 }
 
-export const undefinedAddLinks = {
-  memoizedFunction: () => {
-    throw Error("Add links function has not been defined.");
-  },
-};
-
-export const undefinedDeleteLinks = {
-  memoizedFunction: () => {
-    throw Error("Delete links function has not been defined.");
-  },
-};
-
 export interface AddLinksParams {
   nodeIdList: string[];
 }

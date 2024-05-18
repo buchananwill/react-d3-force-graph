@@ -1,17 +1,10 @@
-import { Node, useReactFlow, useStore } from "reactflow";
-import { MutableRefObject, useCallback, useMemo, useRef } from "react";
+import { useReactFlow, useStore } from "reactflow";
+import { MutableRefObject, useMemo } from "react";
 import { Simulation } from "d3";
 import { useDirectSimRefEditsDispatch } from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
-import {
-  useGraphDispatch,
-  useGraphListener,
-} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { DataNode, FlowNode } from "@/graph-tools/types/types";
-import {
-  useGlobalController,
-  useGlobalDispatch,
-  useGlobalListener,
-} from "selective-context";
+import { useGraphDispatch } from "@/graph-tools/hooks/useGraphSelectiveContext";
+import { FlowNode } from "@/graph-tools/types/types";
+import { useGlobalController } from "selective-context";
 import { useD3ForceSimulationMemo } from "@/graph-tools/hooks/useD3ForceSimulationMemo";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 
@@ -88,7 +81,6 @@ export function useLayoutedElements(): [
         // Setting the fx/fy properties of a node tells the simulation to "fix"
         // the node at that position and ignore any forces that would normally
         // cause it to move.
-
         if (dragging) {
           foundDrag = true;
           nodeIndex = i;

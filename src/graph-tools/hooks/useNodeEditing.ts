@@ -2,7 +2,7 @@
 import { useCallback } from "react";
 
 import { useNodeCloneFunctionController } from "./useNodeCloneFunctionController";
-import { mapLinkBackToIdRefs } from "../functions/mapLinkBackToIdRefs";
+import { mapLinksBackToClosureDtos } from "../functions/mapLinksBackToClosureDtos";
 
 import {
   EmptyArray,
@@ -24,6 +24,7 @@ import { useShowNodeEditing } from "@/graph-tools/hooks/useShowNodeEditing";
 import { UnsavedNodeChangesProps } from "@/graph-tools/types/unsavedNodeChangesProps";
 
 import { useGraphRefs } from "@/graph-tools/hooks/useGraphRefs";
+import { getNumberFromStringId } from "@/react-flow/utils/adaptors";
 
 function removeTransientId(id: number) {
   return id < TransientIdOffset;
@@ -61,9 +62,13 @@ export function useNodeEditing<T extends HasNumberId>(
     const nodes = nodeListRef.current;
     const links = linkListRef.current;
     if (links && nodes) {
-      const linksWithNumberIdRefs = links.map(mapLinkBackToIdRefs);
+      const linksWithNumberIdRefs = links.map(mapLinksBackToClosureDtos);
+      const dataNodeDtoList = nodes.map((n) => ({
+        ...n,
+        id: getNumberFromStringId(n.id),
+      }));
       const updatedGraph: GraphDto<T> = {
-        nodes: nodes,
+        nodes: dataNodeDtoList,
         closureDtos: linksWithNumberIdRefs,
       };
       const deletedLinkNonTransientIds =

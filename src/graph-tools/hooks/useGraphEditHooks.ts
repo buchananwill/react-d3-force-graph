@@ -1,6 +1,3 @@
-import { useNodeInteractionContext } from "@/app/demo/components/node-interaction-context/NodeInteractionContext";
-import { useCallback, useState } from "react";
-
 import {
   useGraphDispatch,
   useGraphDispatchAndListener,
@@ -8,10 +5,7 @@ import {
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { useDirectSimRefEditsDispatch } from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
 import { HasNumberId, MemoizedSupplier } from "@/graph-tools/types/types";
-import {
-  EmptyArray,
-  TransientIdOffset,
-} from "@/graph-tools/literals/constants";
+import { EmptyArray } from "@/graph-tools/literals/constants";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 
 export function useGraphEditHooks<T extends HasNumberId>(listenerKey: string) {

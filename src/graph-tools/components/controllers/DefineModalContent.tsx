@@ -6,7 +6,7 @@ import {
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { useEffect } from "react";
-import OrganizationDetailsContent from "@/app/demo/react-flow/components/nodes/OrganizationDetailsContent";
+import OrganizationDetailsContent from "@/app/demo/components/organization/OrganizationDetailsContent";
 import { HasName } from "@/graph-tools/types/types";
 
 export default function DefineModalContent() {

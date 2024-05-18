@@ -6,7 +6,6 @@ import {
   HasNumberId,
 } from "@/graph-tools/types/types";
 import { deDuplicateNames } from "@/graph-tools/flow-node-editing/functions/incrementCloneSuffix";
-import { getNumberFromStringId } from "@/app/demo/react-flow/utils/adaptors";
 
 export function getGraphUpdaterWithNameDeDuplication<
   T extends HasNumberId & HasName,
@@ -23,7 +22,7 @@ export function getGraphUpdaterWithNameDeDuplication<
     const dtosWithNamesDeDuplicated = deDuplicateNames(organizationDtos);
     const nodesWithDataNamesDeDuplicated = nodes.map((dn, index) => {
       const replacementData = dtosWithNamesDeDuplicated[index];
-      if (replacementData.id !== getNumberFromStringId(dn.id))
+      if (replacementData.id !== dn.id)
         throw Error("Arrays not aligned. Could not clone nodes.");
       const cloneDeep = _.cloneDeep(dn);
       cloneDeep.data = replacementData;

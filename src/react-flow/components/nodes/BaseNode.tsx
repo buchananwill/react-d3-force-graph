@@ -18,13 +18,13 @@ import {
   MemoizedFunction,
 } from "@/graph-tools/types/types";
 import { AddNodesParams } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
-import { usePopoverFix } from "@/app/demo/react-flow/components/nodes/usePopoverFix";
+import { usePopoverFix } from "@/react-flow/hooks/usePopoverFix";
 import { TrashIcon } from "@heroicons/react/16/solid";
 import {
   undefinedAddNodes,
   undefinedDeleteNodes,
   undefinedLabelAccessor,
-} from "@/app/demo/react-flow/components/nodes/undefinedFunctionErrors";
+} from "@/graph-tools/literals/undefinedFunctionErrors";
 
 function BaseNode<T extends HasNumberId>({
   data,

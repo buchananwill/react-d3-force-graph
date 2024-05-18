@@ -1,4 +1,4 @@
-import BaseNode from "@/app/demo/react-flow/components/nodes/BaseNode";
+import BaseNode from "@/react-flow/components/nodes/BaseNode";
 import { NodeProps } from "reactflow";
 import { OrganizationDto } from "@/app/demo/types/OrganizationDto";
 import React from "react";

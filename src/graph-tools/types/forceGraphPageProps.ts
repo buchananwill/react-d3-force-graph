@@ -15,11 +15,12 @@ export interface ForceGraphPageAllProps<T extends HasNumberId>
 }
 
 export interface ForceGraphPageOptionProps {
-    nodeEditing: boolean;
-    forceEditing: boolean;
-    sidePanel: boolean;
-    defaultInteractiveViewer: boolean;
-    useInternalSimEngine: boolean
-    forceAttributesInitial: ForceAttributesDto
-    forceSlidersVisibleInitial: { [Key in ForceAttributeKeys]: boolean }
+  nodeEditing: boolean;
+  forceEditing: boolean;
+  sidePanel: boolean;
+  defaultInteractiveViewer: boolean;
+  useInternalSimEngine: boolean;
+  forceAttributesInitial: ForceAttributesDto;
+  // eslint-disable-next-line no-unused-vars
+  forceSlidersVisibleInitial: { [Key in ForceAttributeKeys]: boolean };
 }

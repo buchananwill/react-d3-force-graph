@@ -1,17 +1,16 @@
-import * as D3 from 'd3';
-import * as d3 from 'd3';
-import {Simulation, SimulationLinkDatum} from 'd3';
+/* eslint-disable no-unused-vars */
+import * as D3 from "d3";
+import * as d3 from "d3";
+import { Simulation, SimulationLinkDatum } from "d3";
 
-
-import {DataLink, DataNode, HasNumberId} from '../types/types';
-import {updateForce} from "@/graph-tools/forces/updateForce";
-
+import { DataLink, DataNode, HasNumberId } from "../types/types";
+import { updateForce } from "@/graph-tools/forces/updateForce";
 
 export function getCosFallOffFunction(numberOfNodes: number) {
   return (
     l: SimulationLinkDatum<DataNode<any>>,
     i: number,
-    links: DataLink<any>[]
+    links: DataLink<any>[],
   ) => {
     const dLink = l as DataLink<any>;
     const source = dLink.source as DataNode<any>;
@@ -34,14 +33,10 @@ function matchSource(node: DataNode<HasNumberId>) {
 
 function countConnections(
   link: DataLink<HasNumberId>,
-  links: DataLink<HasNumberId>[]
+  links: DataLink<HasNumberId>[],
 ) {
-  const predicateTarget = matchTarget(
-    link.target as DataNode<HasNumberId>
-  );
-  const predicateSource = matchSource(
-    link.source as DataNode<HasNumberId>
-  );
+  const predicateTarget = matchTarget(link.target as DataNode<HasNumberId>);
+  const predicateSource = matchSource(link.source as DataNode<HasNumberId>);
   const combined = (link: DataLink<HasNumberId>) =>
     predicateTarget(link) || predicateSource(link);
   return links.filter(combined).length;
@@ -51,7 +46,7 @@ export function getBusiestNodeFunction(base: number) {
   return (
     l: SimulationLinkDatum<DataNode<any>>,
     index: number,
-    links: SimulationLinkDatum<DataNode<any>>[]
+    links: SimulationLinkDatum<DataNode<any>>[],
   ) => {
     const dLink = l as DataLink<any>;
     const linksFromSource = matchSource(dLink.source as DataNode<any>);
@@ -71,18 +66,18 @@ export function getBusiestNodeFunction(base: number) {
 
 function getBusiestNodeFallOffFunction(
   numberOfNodes: number,
-  baseStrength: number
+  baseStrength: number,
 ) {
   return (
     l: SimulationLinkDatum<any>,
     i: number,
-    links: SimulationLinkDatum<any>[]
+    links: SimulationLinkDatum<any>[],
   ) => {
     const cosFallOffFunction = getCosFallOffFunction(numberOfNodes);
     const busiestNodeFunction = getBusiestNodeFunction(baseStrength);
     return Math.min(
       cosFallOffFunction(l, i, links as DataLink<any>[]),
-      busiestNodeFunction(l, i, links)
+      busiestNodeFunction(l, i, links),
     );
   };
 }
@@ -91,7 +86,7 @@ export function getLinkForceMinCosFallOffBusiestNode(
   linksMutable: DataLink<HasNumberId>[],
   numberOfNodes: () => number,
   strengthFactor: number,
-  distance: number
+  distance: number,
 ) {
   return D3.forceLink(linksMutable)
     .id((d) => (d as DataNode<HasNumberId>).id)
@@ -102,16 +97,15 @@ export function getLinkForceMinCosFallOffBusiestNode(
 export function updateLinkForce<T extends HasNumberId>(
   current: Simulation<DataNode<T>, DataLink<T>>,
   linkStrength: number,
-  linkDistance: number
+  linkDistance: number,
 ) {
   function consumerOfLinkForce(force: d3.ForceLink<DataNode<T>, DataLink<T>>) {
     const busiestNodeFallOffFunction = getBusiestNodeFallOffFunction(
       current.nodes().length,
-      linkStrength
+      linkStrength,
     );
     force.strength(busiestNodeFallOffFunction);
     force.distance(linkDistance);
   }
-  updateForce(current, 'link', consumerOfLinkForce);
+  updateForce(current, "link", consumerOfLinkForce);
 }
-

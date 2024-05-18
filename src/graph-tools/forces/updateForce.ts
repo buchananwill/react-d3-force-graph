@@ -1,18 +1,19 @@
-import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
 import * as D3 from "d3";
-import {Simulation} from "d3";
-import {ForceKey} from "@/graph-tools/types/forces";
+import { Simulation } from "d3";
+import { ForceKey } from "@/graph-tools/types/forces";
 
 export function updateForce<
-    T extends HasNumberId,
-    F extends D3.Force<DataNode<T>, DataLink<T>>
+  T extends HasNumberId,
+  F extends D3.Force<DataNode<T>, DataLink<T>>,
 >(
-    current: Simulation<DataNode<T>, DataLink<T>>,
-    forceKey: ForceKey | string,
-    apply: (force: F) => void
+  current: Simulation<DataNode<T>, DataLink<T>>,
+  forceKey: ForceKey | string,
+  // eslint-disable-next-line no-unused-vars
+  apply: (force: F) => void,
 ) {
-    const optionalForce = current.force(forceKey);
-    if (!optionalForce) return;
-    const force = optionalForce as F;
-    apply(force);
+  const optionalForce = current.force(forceKey);
+  if (!optionalForce) return;
+  const force = optionalForce as F;
+  apply(force);
 }

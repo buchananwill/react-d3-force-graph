@@ -1,10 +1,10 @@
-import * as d3 from 'd3';
-import {Simulation, SimulationNodeDatum} from 'd3';
+/* eslint-disable no-unused-vars */
+import * as d3 from "d3";
+import { Simulation, SimulationNodeDatum } from "d3";
 
-import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {updateForce} from "@/graph-tools/forces/updateForce";
-import {ForceKeys} from "@/graph-tools/types/forces";
-
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { updateForce } from "@/graph-tools/forces/updateForce";
+import { ForceKeys } from "@/graph-tools/types/forces";
 
 export function getForceManyBody(
   maxDist: number,
@@ -12,10 +12,11 @@ export function getForceManyBody(
   strength: (
     d: SimulationNodeDatum,
     i: number,
-    data: SimulationNodeDatum[]
-  ) => number
+    data: SimulationNodeDatum[],
+  ) => number,
 ) {
-  return d3.forceManyBody()
+  return d3
+    .forceManyBody()
     .strength(strength)
     .distanceMax(maxDist)
     .distanceMin(minDist);
@@ -26,7 +27,7 @@ export function updateManyBodyForce<T extends HasNumberId>(
   manyBodyStrength: number,
   manyBodyTheta: number,
   manyBodyMinDistance: number,
-  manyBodyMaxDistance: number
+  manyBodyMaxDistance: number,
 ) {
   function consumerManyBody(forceManyBody: d3.ForceManyBody<DataNode<T>>) {
     forceManyBody

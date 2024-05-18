@@ -5,7 +5,7 @@ import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext
 
 import { ControllerKey } from "@/graph-tools/literals/controllerKey";
 
-export default function MountedTracker({}: {}) {
+export default function MountedTracker() {
   let { dispatch } = useGraphController("mounted", true, ControllerKey);
 
   useEffect(() => {

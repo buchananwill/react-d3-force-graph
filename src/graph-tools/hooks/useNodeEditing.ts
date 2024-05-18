@@ -33,6 +33,7 @@ const listenerKey = "use-edit-component";
 
 export function useNodeEditing<T extends HasNumberId>(
   cloneFunction: MemoizedFunction<DataNode<T>, DataNode<T>>,
+  // eslint-disable-next-line no-unused-vars
   putUpdatedGraph?: (updatedGraph: GraphDtoPutRequestBody<T>) => Promise<any>,
 ): UnsavedNodeChangesProps {
   let { dispatchWithoutControl, currentState } =

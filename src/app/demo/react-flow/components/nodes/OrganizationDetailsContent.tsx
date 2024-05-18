@@ -11,6 +11,8 @@ import { Button } from "@nextui-org/button";
 import { ComponentUndefined } from "@/app/demo/react-flow/components/nodes/NodeDetailsModal";
 import { ObjectPlaceholder } from "selective-context";
 import FocusToEdit from "@/app/demo/react-flow/components/generic/FocusToEdit";
+import { Select, SelectItem } from "@nextui-org/select";
+import { OrgTypes } from "@/app/demo/react-flow/components/nodes/OrganizationNode";
 
 const listenerKey = "details-content";
 
@@ -49,17 +51,22 @@ export default function OrganizationDetailsContent({
         </FocusToEdit>
       </ModalHeader>
       <ModalBody>
-        <FocusToEdit
-          value={currentState.type.name}
-          onValueChange={(value) =>
+        <Select
+          label={"Class Type"}
+          selectedKeys={[currentState.type.name]}
+          onChange={(e) =>
             dispatchWithoutControl((data) => ({
               ...data,
-              type: { ...data.type, name: value },
+              type: { ...data.type, name: e.target.value },
             }))
           }
         >
-          {currentState.type.name}
-        </FocusToEdit>
+          {OrgTypes.map((orgType) => (
+            <SelectItem key={orgType} value={orgType}>
+              {orgType}
+            </SelectItem>
+          ))}
+        </Select>
       </ModalBody>
       <ModalFooter>
         <Button color="danger" variant="light" onPress={onClose}>

@@ -3,17 +3,14 @@ import ReactFlowWrapper, {
   initialNodes,
 } from "@/app/demo/react-flow/components/ReactFlowWrapper";
 import ForceGraphPage from "@/graph-tools/components/wrappers/ForceGraphPage";
-import { ClosureDto } from "@/graph-tools/types/types";
 import DefineModalContent from "@/app/demo/react-flow/components/nodes/DefineModalContent";
 
 export default function Page() {
   return (
     <ForceGraphPage
       graphName={"react-flow"}
-      dataGraph={{
-        nodes: initialNodes,
-        closureDtos: initialEdges as ClosureDto[],
-      }}
+      flowNodes={initialNodes}
+      edges={initialEdges}
       options={{
         forceSlidersVisibleInitial: {
           manyBodyTheta: false,

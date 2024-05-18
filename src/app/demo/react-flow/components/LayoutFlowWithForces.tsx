@@ -25,11 +25,12 @@ import {
   MemoizedFunction,
 } from "@/graph-tools/types/types";
 import { Button } from "@nextui-org/button";
-import OrganizationNode from "./nodes/OrganizationNode";
+
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { undefinedDeleteLinks } from "@/graph-tools/flow-node-editing/hooks/useAddLinks";
 import EdgeWithDelete from "@/app/demo/react-flow/components/edges/EdgeWithDelete";
+import OrganizationNode from "@/app/demo/react-flow/components/nodes/OrganizationNode";
 
 const nodeTypes = {
   organization: OrganizationNode,

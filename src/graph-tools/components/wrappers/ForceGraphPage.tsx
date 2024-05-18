@@ -6,7 +6,6 @@ import { NodeContextProvider } from "./NodeContextProvider";
 import { LinkContextProvider } from "./LinkContextProvider";
 
 import MountedTracker from "../controllers/MountedTracker";
-import NodePositionsTracker from "../controllers/NodePositionsTracker";
 import { ShowForceAdjustmentsController } from "../controllers/ShowForceAdjustmentsController";
 import { ShowNodeEditingController } from "../controllers/ShowNodeEditingController";
 import { HasNumberId } from "@/graph-tools/types/types";
@@ -22,17 +21,16 @@ import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveCon
 import NodeDetailsModalController from "@/graph-tools/components/controllers/NodeDetailsModalController";
 
 export default function ForceGraphPage<T extends HasNumberId>({
-  dataGraph: graphDto,
+  flowNodes,
+  edges,
   graphName,
   options,
   children,
 }: ForceGraphPageAllProps<T>) {
-  const { nodes, closureDtos } = graphDto;
-
   return (
     <GraphContextProvider uniqueGraphName={graphName}>
-      <NodeContextProvider nodes={nodes}>
-        <LinkContextProvider links={closureDtos}>
+      <NodeContextProvider nodes={flowNodes}>
+        <LinkContextProvider links={edges}>
           <NodeLinkRefContextProvider>
             <NodeDetailsModalController />
             <ControllerComponent

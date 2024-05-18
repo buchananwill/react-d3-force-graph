@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
 import { Node, Edge } from "reactflow";
+import React from "react";
 
 export type FlowNode = Node & DataNode<any>;
 
@@ -69,7 +70,7 @@ export interface GraphDtoPutRequestBody<T extends HasNumberId> {
   deletedNodeIdList: number[];
   deletedClosureIdList: number[];
 }
-
-export interface NodeDetailsUiComponentProps<T extends HasNumberId> {
-  node: DataNode<T>;
-}
+export type GenericDivProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;

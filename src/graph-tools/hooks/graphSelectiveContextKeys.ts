@@ -24,6 +24,7 @@ export const GraphSelectiveContextKeys = {
   nodeDetailsModalOpen: "node-details-modal-open",
   nodeInModal: "node-in-modal",
   nodeModalContent: "node-modal-component-content",
+  nodeLabelAccessor: "node-label-accessor",
 } as const;
 
 // Defining the GraphSelectiveContext type to use the values of GraphSelectiveKeys

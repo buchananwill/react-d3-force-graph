@@ -48,7 +48,19 @@ export default function OrganizationDetailsContent({
           {currentState.name}
         </FocusToEdit>
       </ModalHeader>
-      <ModalBody>{currentState.type.name}</ModalBody>
+      <ModalBody>
+        <FocusToEdit
+          value={currentState.type.name}
+          onValueChange={(value) =>
+            dispatchWithoutControl((data) => ({
+              ...data,
+              type: { ...data.type, name: value },
+            }))
+          }
+        >
+          {currentState.type.name}
+        </FocusToEdit>
+      </ModalBody>
       <ModalFooter>
         <Button color="danger" variant="light" onPress={onClose}>
           Close

@@ -1,9 +1,16 @@
-import { DataLink, DataNode, FlowNode, HasId } from "@/graph-tools/types/types";
-import { Edge } from "reactflow";
+import {
+  ClosureDto,
+  DataNode,
+  DataNodeDto,
+  FlowEdge,
+  FlowNode,
+  HasId,
+} from "@/graph-tools/types/types";
+import { Coordinate } from "@/app/demo/react-flow/components/edges/EdgeWithDelete";
 
 const nodeType = "organization";
 
-const stringOrNumber = ["string", "number"] as const;
+// const stringOrNumber = ["string", "number"] as const;
 
 export function getAnyIdAsString(entity: HasId) {
   const { id } = entity;
@@ -23,7 +30,9 @@ export function getNumberFromStringId(id: string) {
   } else return number;
 }
 
-export function convertToReactFlowNode(dataNode: DataNode<any>): FlowNode {
+export function convertToReactFlowNode(
+  dataNode: DataNodeDto<any> & Partial<Coordinate>,
+): FlowNode {
   const stringId = getAnyIdAsString(dataNode);
   const x = dataNode.x || 0;
   const y = dataNode.y || 0;
@@ -31,12 +40,12 @@ export function convertToReactFlowNode(dataNode: DataNode<any>): FlowNode {
   return { ...dataNode, id: stringId, position, type: nodeType, x, y };
 }
 
-export function convertToReactFlowEdge(dataLink: DataLink<any>): Edge {
-  const stringId = getAnyIdAsString(dataLink);
-  const sourceId = getStringIdFromConnection(dataLink.source);
-  const targetId = getStringIdFromConnection(dataLink.target);
+export function convertToReactFlowEdge(closureDto: ClosureDto): FlowEdge {
+  const stringId = getAnyIdAsString(closureDto);
+  const sourceId = getStringIdFromConnection(closureDto.source);
+  const targetId = getStringIdFromConnection(closureDto.target);
 
-  return { ...dataLink, target: targetId, source: sourceId, id: stringId };
+  return { ...closureDto, target: targetId, source: sourceId, id: stringId };
 }
 
 export function getStringIdFromConnection(
@@ -46,10 +55,10 @@ export function getStringIdFromConnection(
   else return `${connection}`;
 }
 
-export function convertDataNodeListToNodeList(list: DataNode<any>[]) {
+export function convertDataNodeDtoListToFlowNodeList(list: DataNodeDto<any>[]) {
   return list.map((n) => convertToReactFlowNode(n));
 }
 
-export function convertDataLinkListToEdgeList(list: DataLink<any>[]) {
+export function convertClosureDtoListToEdgeList(list: ClosureDto[]) {
   return list.map((l) => convertToReactFlowEdge(l));
 }

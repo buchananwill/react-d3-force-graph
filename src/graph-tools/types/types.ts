@@ -1,22 +1,31 @@
+/* eslint-disable no-unused-vars */
 import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
 import { Node, Edge } from "reactflow";
 
 export type FlowNode = Node & DataNode<any>;
 
-export type FlowEdge = Edge & Omit<DataLink<any>, "id"> & HasStringId;
+export type FlowEdge = Edge & DataLink<any>;
 
 export type DataNode<T extends HasNumberId> = SimulationNodeDatum & {
   id: string;
   distanceFromRoot: number;
   data: T;
 };
-export type DataLink<T extends HasNumberId> = SimulationLinkDatum<DataNode<T>> &
-  ClosureDto;
 
-export interface ClosureDto extends HasStringId {
+export interface DataNodeDto<T extends HasNumberId> {
+  id: number;
+  distanceFromRoot: number;
+  data: T;
+}
+
+export type DataLink<T extends HasNumberId> = SimulationLinkDatum<DataNode<T>> &
+  Omit<ClosureDto, "id" | "source" | "target"> &
+  HasStringId;
+
+export interface ClosureDto extends HasNumberId {
   closureType: string;
-  target: string;
-  source: string;
+  source: number;
+  target: number;
   value: number;
   weighting: number;
 }

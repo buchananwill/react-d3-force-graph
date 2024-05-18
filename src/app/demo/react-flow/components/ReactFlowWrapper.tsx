@@ -12,15 +12,15 @@ import {
 import "reactflow/dist/style.css";
 import graphDto from "@/app/demo/data/graphDto.json";
 import {
-  convertDataLinkListToEdgeList,
-  convertDataNodeListToNodeList,
+  convertClosureDtoListToEdgeList,
+  convertDataNodeDtoListToFlowNodeList,
 } from "@/app/demo/react-flow/utils/adaptors";
 import { LayoutFlowWithForces } from "@/app/demo/react-flow/components/LayoutFlowWithForces";
-import GraphForceSliders from "@/app/demo/components/GraphForceSliders";
+import GraphForceSliders from "@/app/demo/react-flow/components/generic/GraphForceSliders";
 import { Button } from "@nextui-org/button";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useNodeEditing } from "@/graph-tools/hooks/useNodeEditing";
-import { cloneFunctionWrapper } from "@/app/demo/components/organization/OrganizationGraph";
+import { cloneFunctionWrapper } from "@/app/demo/components/organization/organizationCallbacks";
 import { useAddNodes } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
 import { useEscapeToClose } from "@/app/demo/react-flow/components/nodes/useEscapeToClose";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
@@ -30,8 +30,12 @@ import { useDeleteNodes } from "@/graph-tools/flow-node-editing/hooks/useDeleteN
 import { useEditNodeData } from "@/graph-tools/flow-node-editing/hooks/useEditNodeData";
 import NodeDetailsModal from "@/app/demo/react-flow/components/nodes/NodeDetailsModal";
 
-export const initialNodes = convertDataNodeListToNodeList(graphDto.nodes);
-export const initialEdges = convertDataLinkListToEdgeList(graphDto.closureDtos);
+export const initialNodes = convertDataNodeDtoListToFlowNodeList(
+  graphDto.nodes,
+);
+export const initialEdges = convertClosureDtoListToEdgeList(
+  graphDto.closureDtos,
+);
 
 export default function ReactFlowWrapper() {
   const [showSliders, setShowSliders] = useState(false);

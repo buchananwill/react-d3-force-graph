@@ -13,7 +13,7 @@ export type NodeDetailsModalProps = Omit<
 >;
 
 const listenerKey = "modal";
-export default function NodeDetailsModal<T>(
+export default function NodeDetailsModal(
   nodeDetailsModalProps: NodeDetailsModalProps,
 ) {
   const { currentState: isOpen, dispatchWithoutControl: onOpenChange } =

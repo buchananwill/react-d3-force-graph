@@ -31,6 +31,9 @@ export const GraphSelectiveContextKeys = {
   deleteNodes: "delete-nodes",
   editNodeData: "edit-node-data",
   running: "running",
+  nodeDetailsModalOpen: "node-details-modal-open",
+  nodeInModal: "node-in-modal",
+  nodeModalContent: "node-modal-component-content",
 } as const; // Redefining the GraphSelectiveContext type to use the values of GraphSelectiveKeys
 
 export type GraphSelectiveContextKey =

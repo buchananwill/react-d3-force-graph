@@ -28,6 +28,7 @@ import { useAddLinks } from "@/graph-tools/flow-node-editing/hooks/useAddLinks";
 import { useDeleteLinks } from "@/graph-tools/flow-node-editing/hooks/useDeleteLinks";
 import { useDeleteNodes } from "@/graph-tools/flow-node-editing/hooks/useDeleteNodes";
 import { useEditNodeData } from "@/graph-tools/flow-node-editing/hooks/useEditNodeData";
+import NodeDetailsModal from "@/app/demo/react-flow/components/nodes/NodeDetailsModal";
 
 export const initialNodes = convertDataNodeListToNodeList(graphDto.nodes);
 export const initialEdges = convertDataLinkListToEdgeList(graphDto.closureDtos);
@@ -76,6 +77,7 @@ export default function ReactFlowWrapper() {
               </PopoverContent>
             </Popover>
           </Panel>
+          <NodeDetailsModal />
         </LayoutFlowWithForces>
       </ReactFlowProvider>
     </div>

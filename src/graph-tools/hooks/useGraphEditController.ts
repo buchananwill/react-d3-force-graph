@@ -8,7 +8,7 @@ import { useLinkContext } from "@/graph-tools/contexts/genericLinkContextCreator
 import { HasNumberId, MemoizedSupplier } from "@/graph-tools/types/types";
 
 import { useGraphRefs } from "@/graph-tools/hooks/useGraphRefs";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 
 const listenerKey = "graph-edit-controller-key";
@@ -22,7 +22,7 @@ function useNextId(initialId?: number): MemoizedSupplier<number> {
         return nextId++;
       },
     };
-  }, []);
+  }, [initialId]);
 }
 
 export function useGraphEditController() {
@@ -39,12 +39,13 @@ export function useGraphEditController() {
     nextLinkId,
     listenerKey,
   );
-  useGraphController<number[]>("transient-link-ids", EmptyArray, listenerKey);
-  useGraphController("transient-node-ids", EmptyArray, listenerKey);
-  useGraphController("deleted-link-ids", EmptyArray, listenerKey);
-  useGraphController("deleted-node-ids", EmptyArray, listenerKey);
-  useGraphController("dimensions", dimensionsStaticArray, listenerKey);
-  useGraphController<number>("version", 0, listenerKey);
+  useGraphController<number[]>("transient-link-ids", EmptyArray);
+  useGraphController("transient-node-ids", EmptyArray);
+  useGraphController("deleted-link-ids", EmptyArray);
+  useGraphController("deleted-node-ids", EmptyArray);
+  useGraphController("dimensions", dimensionsStaticArray);
+  useGraphController<number>("version", 0);
+  useGraphController<unknown>(GraphSelectiveContextKeys.nodeInModal, undefined);
 
   useNodeContext();
   useLinkContext();

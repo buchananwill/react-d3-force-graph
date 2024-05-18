@@ -8,7 +8,10 @@ import { Button } from "@nextui-org/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
 import React from "react";
 import { Handle, NodeProps, Position } from "reactflow";
-import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
+import {
+  useGraphDispatch,
+  useGraphListener,
+} from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { MemoizedFunction } from "@/graph-tools/types/types";
 import { AddNodesParams } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
@@ -32,7 +35,13 @@ function OrganizationNode({
   xPos,
   yPos,
 }: NodeProps<OrganizationDto>) {
+  const { dispatchWithoutListen: toggleDetailsModal } = useGraphDispatch(
+    GraphSelectiveContextKeys.nodeDetailsModalOpen,
+  );
   const listenerKey = `node:${data.id}`;
+  const { dispatchWithoutListen: sendNodeData } = useGraphDispatch(
+    GraphSelectiveContextKeys.nodeInModal,
+  );
 
   const {
     currentState: { memoizedFunction },
@@ -107,14 +116,16 @@ function OrganizationNode({
           </Popover>
         </div>
         <div className={" flex gap-1"}>
-          <Popover>
-            <PopoverTrigger>
-              <Button size={"sm"} className={"grow"}>
-                Details
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>{data.type.name}</PopoverContent>
-          </Popover>
+          <Button
+            size={"sm"}
+            className={"grow"}
+            onPress={() => {
+              sendNodeData(structuredClone(data));
+              toggleDetailsModal((isOpen: boolean) => !isOpen);
+            }}
+          >
+            Details
+          </Button>
           <Popover
             {...fixDeleteProps}
             placement={"right"}

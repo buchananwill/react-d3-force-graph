@@ -19,6 +19,7 @@ import { ForceGraphPageAllProps } from "@/graph-tools/types/forceGraphPageProps"
 import SimulationController from "@/graph-tools/components/controllers/SimulationController";
 import { ControllerComponent } from "selective-context";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import NodeDetailsModalController from "@/graph-tools/components/controllers/NodeDetailsModalController";
 
 export default function ForceGraphPage<T extends HasNumberId>({
   dataGraph: graphDto,
@@ -33,6 +34,7 @@ export default function ForceGraphPage<T extends HasNumberId>({
       <NodeContextProvider nodes={nodes}>
         <LinkContextProvider links={closureDtos}>
           <NodeLinkRefContextProvider>
+            <NodeDetailsModalController />
             <ControllerComponent
               contextKey={GraphSelectiveContextKeys.running}
               initialValue={false}

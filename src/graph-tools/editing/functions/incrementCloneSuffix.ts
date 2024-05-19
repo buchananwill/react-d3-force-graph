@@ -1,6 +1,6 @@
-import { NameCharLimit } from "@/app/demo/components/organization/cloneOrganizationNode";
 import { HasName } from "@/graph-tools/types/util";
 import _ from "lodash";
+import { NameCharLimit } from "@/graph-tools/literals/constants";
 
 const CloneSuffixPattern = /\(\d+\)$/;
 

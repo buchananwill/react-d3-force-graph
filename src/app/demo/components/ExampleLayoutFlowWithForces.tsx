@@ -8,6 +8,9 @@ import FlowOverlay from "@/react-flow/components/generic/FlowOverlay";
 import { useModalContent } from "@/graph-tools/components/controllers/DefineModalContent";
 import OrganizationDetailsContent from "@/app/demo/components/organization/OrganizationDetailsContent";
 import { NodeModalContentComponent } from "@/graph-tools/types/util";
+import { cloneFunctionWrapper } from "@/app/demo/components/organization/organizationCallbacks";
+import { useNodeEditing } from "@/graph-tools/hooks/useNodeEditing";
+import { useAllEdits } from "@/graph-tools/hooks/useAllEdits";
 
 // 1. Define the node types and their components
 const nodeTypes = {
@@ -27,6 +30,12 @@ const memoizedContentComponent: NodeModalContentComponent = {
 export function ExampleLayoutFlowWithForces({ children }: PropsWithChildren) {
   // 4. Call the hook to set up the layout with forces
   const { flowOverlayProps, reactFlowProps } = useLayoutFlowWithForces();
+
+  // Set up the available edit hooks.
+  useNodeEditing(cloneFunctionWrapper);
+  useAllEdits();
+
+  // useEffectSyncToMemo(dispatchWithoutListen, cloneFunctionWrapper);
 
   // 5. Call the hook to define the modal content
   useModalContent(memoizedContentComponent);

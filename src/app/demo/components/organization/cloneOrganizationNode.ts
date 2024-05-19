@@ -1,5 +1,5 @@
-import { DataNode, HasName, HasNumberId } from "@/graph-tools/types/types";
-import { incrementCloneSuffix } from "@/graph-tools/flow-node-editing/functions/incrementCloneSuffix";
+import { DataNode, HasName, HasNumberId } from "@/graph-tools/types/util";
+import { incrementCloneSuffix } from "@/graph-tools/editing/functions/incrementCloneSuffix";
 
 export const NameCharLimit = 255;
 export function cloneOrganizationNode<T extends HasNumberId & HasName>(

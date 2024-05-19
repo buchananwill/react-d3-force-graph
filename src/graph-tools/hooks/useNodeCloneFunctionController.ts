@@ -2,7 +2,7 @@ import {
   MemoizedFunction,
   DataNode,
   HasNumberId,
-} from "@/graph-tools/types/types";
+} from "@/graph-tools/types/util";
 import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 /**

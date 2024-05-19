@@ -1,10 +1,15 @@
-'use server'
+"use server";
 
-import {GraphDtoPutRequestBody, HasName, HasNumberId} from "@/graph-tools/types/types";
+import {
+  GraphDtoPutRequestBody,
+  HasName,
+  HasNumberId,
+} from "@/graph-tools/types/util";
 
-export async function putGraph<T extends HasNumberId & HasName>(graphRequest: GraphDtoPutRequestBody<T>) {
+export async function putGraph<T extends HasNumberId & HasName>(
+  graphRequest: GraphDtoPutRequestBody<T>,
+) {
+  console.log(graphRequest);
 
-    console.log(graphRequest)
-
-    return graphRequest.graphDto
+  return graphRequest.graphDto;
 }

@@ -1,5 +1,6 @@
-import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
-import { getNumberFromStringId } from "@/react-flow/utils/adaptors";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
+
+import { getNumberFromStringId } from "@/graph-tools/functions/utils";
 
 export function mapLinksBackToClosureDtos<T extends HasNumberId>(
   l: DataLink<T>,

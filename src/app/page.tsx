@@ -1,30 +1,33 @@
-import ReactFlowWrapper, {
-  initialEdges,
-  initialNodes,
-} from "@/react-flow/components/wrappers/ReactFlowWrapper";
+import ReactFlowWrapper from "@/react-flow/components/wrappers/ReactFlowWrapper";
 import ForceGraphPage from "@/graph-tools/components/wrappers/ForceGraphPage";
-import DefineModalContent from "@/graph-tools/components/controllers/DefineModalContent";
+import { ExampleLayoutFlowWithForces } from "@/app/demo/components/ExampleLayoutFlowWithForces";
+import React from "react";
+import { ForceGraphPageOptions } from "@/graph-tools/types/forceGraphPageProps";
+import { initialEdges, initialNodes } from "@/app/demo/data/initial";
 
+const defaultForceGraphPageOptions: ForceGraphPageOptions = {
+  forceSlidersVisibleInitial: {
+    manyBodyTheta: false,
+    forceRadialXRelative: false,
+    forceRadialYRelative: false,
+    centerStrength: false,
+  },
+  forceAttributesInitial: {
+    forceYStrength: 50,
+    linkStrength: 50,
+  },
+};
 export default function Page() {
   return (
     <ForceGraphPage
       graphName={"react-flow"}
-      flowNodes={initialNodes}
-      edges={initialEdges}
-      options={{
-        forceSlidersVisibleInitial: {
-          manyBodyTheta: false,
-          forceRadialXRelative: false,
-          forceRadialYRelative: false,
-          centerStrength: false,
-        },
-        forceAttributesInitial: {
-          forceYStrength: 50,
-        },
-      }}
+      dataNodes={initialNodes}
+      dataLinks={initialEdges}
+      options={defaultForceGraphPageOptions}
     >
-      <DefineModalContent />
-      <ReactFlowWrapper />
+      <ReactFlowWrapper>
+        <ExampleLayoutFlowWithForces></ExampleLayoutFlowWithForces>
+      </ReactFlowWrapper>
     </ForceGraphPage>
   );
 }

@@ -1,34 +1,11 @@
-import {
-  ClosureDto,
-  DataNode,
-  DataNodeDto,
-  FlowEdge,
-  FlowNode,
-  HasId,
-} from "@/graph-tools/types/types";
+import { ClosureDto, DataNode, DataNodeDto } from "@/graph-tools/types/util";
 import { Coordinate } from "@/react-flow/components/edges/EdgeWithDelete";
+import { FlowEdge, FlowNode } from "@/react-flow/types";
+import { getAnyIdAsString } from "@/graph-tools/functions/utils";
 
 const nodeType = "organization";
 
 // const stringOrNumber = ["string", "number"] as const;
-
-export function getAnyIdAsString(entity: HasId) {
-  const { id } = entity;
-  const idType = typeof id;
-  if (idType === "string" || idType === "number") return `${id}`;
-  else throw Error("Id not valid string or number");
-}
-
-export function getNumberFromStringId(id: string) {
-  const number = parseInt(id, 10);
-  if (isNaN(number)) {
-    const colonIndex = id.indexOf(":");
-    const afterColon = parseInt(id.substring(colonIndex + 1));
-    if (isNaN(afterColon))
-      throw Error("Id did not contain valid number after colon separator.");
-    return afterColon;
-  } else return number;
-}
 
 export function convertToReactFlowNode(
   dataNode: DataNodeDto<any> & Partial<Coordinate>,

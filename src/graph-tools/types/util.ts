@@ -1,11 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
-import { Node, Edge } from "reactflow";
 import React from "react";
-
-export type FlowNode = Node & DataNode<any>;
-
-export type FlowEdge = Edge & DataLink<any>;
 
 export type DataNode<T extends HasNumberId> = SimulationNodeDatum & {
   id: string;

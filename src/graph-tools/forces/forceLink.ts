@@ -3,7 +3,7 @@ import * as D3 from "d3";
 import * as d3 from "d3";
 import { Simulation, SimulationLinkDatum } from "d3";
 
-import { DataLink, DataNode, HasNumberId } from "../types/types";
+import { DataLink, DataNode, HasNumberId } from "../types/util";
 import { updateForce } from "@/graph-tools/forces/updateForce";
 
 export function getCosFallOffFunction(numberOfNodes: number) {

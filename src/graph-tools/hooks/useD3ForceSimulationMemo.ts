@@ -2,7 +2,7 @@ import { MutableRefObject, useCallback, useMemo, useRef } from "react";
 import * as d3 from "d3";
 import { Simulation } from "d3";
 
-import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
 import { useForceAttributeListeners } from "@/graph-tools/hooks/useForceAttributeListeners";
 import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { beginSim } from "@/graph-tools/functions/beginSim";

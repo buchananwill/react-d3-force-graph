@@ -1,4 +1,4 @@
-import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
 import { PropsWithChildren } from "react";
 import { PartialDeep } from "type-fest";
 import {
@@ -8,11 +8,13 @@ import {
 
 export interface ForceGraphPageAllProps<T extends HasNumberId>
   extends PropsWithChildren {
-  flowNodes: DataNode<T>[];
-  edges: DataLink<T>[];
+  dataNodes: DataNode<T>[];
+  dataLinks: DataLink<T>[];
   graphName: string;
-  options?: PartialDeep<ForceGraphPageOptionProps>;
+  options?: ForceGraphPageOptions;
 }
+
+export type ForceGraphPageOptions = PartialDeep<ForceGraphPageOptionProps>;
 
 export interface ForceGraphPageOptionProps {
   nodeEditing: boolean;

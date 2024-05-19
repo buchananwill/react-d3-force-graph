@@ -2,7 +2,7 @@
 import * as d3 from "d3";
 import { Simulation, SimulationNodeDatum } from "d3";
 
-import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
 import { updateForce } from "@/graph-tools/forces/updateForce";
 import { exponentForPositionalForcesToCreateCurvedDelta } from "@/graph-tools/forces/forceX";
 

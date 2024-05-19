@@ -1,15 +1,14 @@
-import * as D3 from 'd3';
-import * as d3 from 'd3';
-import { Simulation } from 'd3';
+import * as D3 from "d3";
+import * as d3 from "d3";
+import { Simulation } from "d3";
 
-import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
-import {updateForce} from "@/graph-tools/forces/updateForce";
-
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
+import { updateForce } from "@/graph-tools/forces/updateForce";
 
 export function getGridX(
   width: number,
   spacing: number = 30,
-  strength: number
+  strength: number,
 ) {
   return D3.forceX((_d, index) => {
     if (index == undefined || isNaN(index)) return width / 2;
@@ -21,20 +20,23 @@ export const exponentForPositionalForcesToCreateCurvedDelta = 3;
 
 export function updateForceX<T extends HasNumberId>(
   currentSim: Simulation<DataNode<T>, DataLink<T>>,
-  forceXStrength: number
+  forceXStrength: number,
 ) {
   function consumerForceX(forceXDefined: d3.ForceX<DataNode<T>>) {
-    const strength = Math.pow(forceXStrength, exponentForPositionalForcesToCreateCurvedDelta);
+    const strength = Math.pow(
+      forceXStrength,
+      exponentForPositionalForcesToCreateCurvedDelta,
+    );
     const finalStrength = strength > 0.001 ? strength : 0;
     forceXDefined.strength(finalStrength);
   }
-  updateForce(currentSim, 'forceX', consumerForceX);
+  updateForce(currentSim, "forceX", consumerForceX);
 }
 
 export function getHorizontalParentsToChildrenLayout<T extends HasNumberId>(
   nodes: DataNode<T>[],
   width: number,
-  strength: number
+  strength: number,
 ): D3.ForceX<DataNode<T>> {
   // console.log('width for x force:', width)
   const rootDistances = new Set<number>();

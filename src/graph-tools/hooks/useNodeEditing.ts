@@ -18,13 +18,14 @@ import {
   GraphDto,
   GraphDtoPutRequestBody,
   HasNumberId,
-} from "@/graph-tools/types/types";
+} from "@/graph-tools/types/util";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { useShowNodeEditing } from "@/graph-tools/hooks/useShowNodeEditing";
 import { UnsavedNodeChangesProps } from "@/graph-tools/types/unsavedNodeChangesProps";
 
 import { useGraphRefs } from "@/graph-tools/hooks/useGraphRefs";
-import { getNumberFromStringId } from "@/react-flow/utils/adaptors";
+
+import { getNumberFromStringId } from "@/graph-tools/functions/utils";
 
 function removeTransientId(id: number) {
   return id < TransientIdOffset;

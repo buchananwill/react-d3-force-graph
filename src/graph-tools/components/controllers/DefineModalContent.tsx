@@ -6,10 +6,12 @@ import {
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { useEffect } from "react";
-import OrganizationDetailsContent from "@/app/demo/components/organization/OrganizationDetailsContent";
-import { HasName } from "@/graph-tools/types/types";
+import { NodeModalContentComponent } from "@/app/demo/components/organization/OrganizationDetailsContent";
+import { HasName } from "@/graph-tools/types/util";
 
-export default function DefineModalContent() {
+export function useModalContent(
+  memoizedContentComponent: NodeModalContentComponent,
+) {
   const { dispatchWithoutListen } = useGraphDispatch(
     GraphSelectiveContextKeys.nodeModalContent,
   );
@@ -22,13 +24,7 @@ export default function DefineModalContent() {
     GraphSelectiveContextKeys.nodeLabelAccessor,
     memoizedNameLabelAccessor,
   );
-
-  return null;
 }
-
-const memoizedContentComponent = {
-  memoizedFunction: OrganizationDetailsContent,
-};
 
 const memoizedNameLabelAccessor = {
   memoizedFunction: (dataTypeTuple: [HasName, string]) => dataTypeTuple[0].name,

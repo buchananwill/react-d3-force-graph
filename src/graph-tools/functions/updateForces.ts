@@ -1,4 +1,4 @@
-import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
 import { Simulation } from "d3";
 import { updateLinkForce } from "@/graph-tools/forces/forceLink";
 import { updateManyBodyForce } from "@/graph-tools/forces/forceManyBody";

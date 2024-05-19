@@ -4,8 +4,8 @@ import {
   GraphDtoPutRequestBody,
   HasName,
   HasNumberId,
-} from "@/graph-tools/types/types";
-import { deDuplicateNames } from "@/graph-tools/flow-node-editing/functions/incrementCloneSuffix";
+} from "@/graph-tools/types/util";
+import { deDuplicateNames } from "@/graph-tools/editing/functions/incrementCloneSuffix";
 
 export function getGraphUpdaterWithNameDeDuplication<
   T extends HasNumberId & HasName,

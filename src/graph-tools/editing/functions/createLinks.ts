@@ -1,7 +1,7 @@
-import { Relation } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
-import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
-import { createSiblingLinks } from "@/graph-tools/flow-node-editing/functions/createSiblingLinks";
-import { createChildLink } from "@/graph-tools/flow-node-editing/functions/createChildLink";
+import { Relation } from "@/graph-tools/editing/hooks/useAddNodes";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
+import { createSiblingLinks } from "@/graph-tools/editing/functions/createSiblingLinks";
+import { createChildLink } from "@/graph-tools/editing/functions/createChildLink";
 
 export interface LinkParams<T extends HasNumberId> {
   references: DataNode<T>[];

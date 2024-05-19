@@ -1,9 +1,5 @@
-import { Relation } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
-import {
-  CloneFunction,
-  DataNode,
-  HasNumberId,
-} from "@/graph-tools/types/types";
+import { Relation } from "@/graph-tools/editing/hooks/useAddNodes";
+import { CloneFunction, DataNode, HasNumberId } from "@/graph-tools/types/util";
 
 export interface CreateNodeParams<T extends HasNumberId> {
   getNextNodeId: () => number;

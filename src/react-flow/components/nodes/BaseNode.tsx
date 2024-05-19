@@ -16,8 +16,8 @@ import {
   GenericDivProps,
   HasNumberId,
   MemoizedFunction,
-} from "@/graph-tools/types/types";
-import { AddNodesParams } from "@/graph-tools/flow-node-editing/hooks/useAddNodes";
+} from "@/graph-tools/types/util";
+import { AddNodesParams } from "@/graph-tools/editing/hooks/useAddNodes";
 import { usePopoverFix } from "@/react-flow/hooks/usePopoverFix";
 import { TrashIcon } from "@heroicons/react/16/solid";
 import {

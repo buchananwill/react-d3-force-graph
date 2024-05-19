@@ -5,7 +5,7 @@ import {
 } from "@/graph-tools/literals/constants";
 import { useNodeContext } from "@/graph-tools/contexts/genericNodeContextCreator";
 import { useLinkContext } from "@/graph-tools/contexts/genericLinkContextCreator";
-import { HasNumberId, MemoizedSupplier } from "@/graph-tools/types/types";
+import { HasNumberId, MemoizedSupplier } from "@/graph-tools/types/util";
 
 import { useGraphRefs } from "@/graph-tools/hooks/useGraphRefs";
 import { useMemo } from "react";

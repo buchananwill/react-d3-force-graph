@@ -5,7 +5,7 @@ import {
   NodeContext,
   NodeDispatchContext,
 } from "../../contexts/genericNodeContextCreator";
-import { DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { DataNode, HasNumberId } from "@/graph-tools/types/util";
 
 export const NodeContextProvider = <T extends HasNumberId>({
   children,

@@ -6,7 +6,7 @@ import {
 } from "reactflow";
 import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import { MemoizedFunction } from "@/graph-tools/types/types";
+import { MemoizedFunction } from "@/graph-tools/types/util";
 import { TrashIcon } from "@heroicons/react/16/solid";
 import { undefinedDeleteLinks } from "@/graph-tools/literals/undefinedFunctionErrors";
 
@@ -52,8 +52,6 @@ export default function EdgeWithDelete({
           onClick={() => {
             memoizedFunction([id]);
           }}
-          // isIconOnly
-          // size={"sm"}
         >
           <TrashIcon className={"h-6 w-6 p-1"} />
         </button>

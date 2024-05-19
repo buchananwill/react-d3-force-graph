@@ -1,33 +1,32 @@
-'use client';
+"use client";
 
-
-import {DataLink, DataNode, HasNumberId} from "@/graph-tools/types/types";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
 
 function getPredicates<T extends HasNumberId>(set: Set<string>) {
   const allPredicate = (l: DataLink<T>) => {
     return (
-        set.has((l.target as DataNode<T>).id) &&
-        set.has((l.source as DataNode<T>).id)
+      set.has((l.target as DataNode<T>).id) &&
+      set.has((l.source as DataNode<T>).id)
     );
   };
 
   const anyPredicate = (l: DataLink<T>) => {
     return (
-        set.has((l.target as DataNode<T>).id) ||
-        set.has((l.source as DataNode<T>).id)
+      set.has((l.target as DataNode<T>).id) ||
+      set.has((l.source as DataNode<T>).id)
     );
   };
-  return {allPredicate, anyPredicate};
+  return { allPredicate, anyPredicate };
 }
 
 export function deleteLinks<T extends HasNumberId>(
   linksListRef: DataLink<T>[],
   selectedNodeIds: string[],
-  mode: 'any' | 'all'
+  mode: "any" | "all",
 ) {
   const set = new Set(selectedNodeIds);
-  const {allPredicate, anyPredicate} = getPredicates(set);
-  const deletionPredicate = mode === 'any' ? anyPredicate : allPredicate;
+  const { allPredicate, anyPredicate } = getPredicates(set);
+  const deletionPredicate = mode === "any" ? anyPredicate : allPredicate;
   const toDelete: string[] = [];
   const remainingLinks = linksListRef
     .map((l) => {

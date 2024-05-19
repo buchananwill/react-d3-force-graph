@@ -1,4 +1,4 @@
-import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
 import { NodeDispatchContext } from "@/graph-tools/contexts/genericNodeContextCreator";
 import { LinkDispatchContext } from "@/graph-tools/contexts/genericLinkContextCreator";
 import {
@@ -17,7 +17,7 @@ import { Simulation } from "d3";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 
 import { useGraphRefs } from "@/graph-tools/hooks/useGraphRefs";
-import { resetLinks } from "@/graph-tools/flow-node-editing/functions/resetLinks";
+import { resetLinks } from "@/graph-tools/editing/functions/resetLinks";
 
 export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
   listenerKey: string,

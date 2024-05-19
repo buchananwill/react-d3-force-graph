@@ -1,4 +1,4 @@
-import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
 
 export function resetLinks<T extends HasNumberId>(
   allUpdatedLinks: DataLink<T>[],

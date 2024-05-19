@@ -1,22 +1,21 @@
-import * as d3 from 'd3';
-import { SimulationNodeDatum } from 'd3';
+import * as d3 from "d3";
+import { SimulationNodeDatum } from "d3";
 
-import { useMemo } from 'react';
-import {DataNode, HasNumberId} from "@/graph-tools/types/types";
-
+import { useMemo } from "react";
+import { DataNode, HasNumberId } from "@/graph-tools/types/util";
 
 export function useClockForce<T extends HasNumberId>(
   nodesMutable: DataNode<T>[],
   width: number = 720,
   height: number = 720,
-  centreStrength: number = 0.5
+  centreStrength: number = 0.5,
 ): {
   forceX?: d3.ForceX<DataNode<T>>;
   forceY?: d3.ForceY<DataNode<T>>;
 } {
   return useMemo(() => {
     const firstChildren = nodesMutable.filter(
-      (nextNode) => nextNode.distanceFromRoot == 1
+      (nextNode) => nextNode.distanceFromRoot == 1,
     );
 
     const anglePerChild = (Math.PI * 2) / firstChildren.length;
@@ -27,14 +26,14 @@ export function useClockForce<T extends HasNumberId>(
       return {
         id: childNode.id,
         x: xCoordinate,
-        y: yCoordinate
+        y: yCoordinate,
       };
     });
 
     const xForcePos = (nodeElement: SimulationNodeDatum) => {
       const completeNode = nodeElement as DataNode<T>;
       const find = childClockPositions.find(
-        (child) => child.id == completeNode.id
+        (child) => child.id == completeNode.id,
       );
       return find?.x || 0;
     };
@@ -42,7 +41,7 @@ export function useClockForce<T extends HasNumberId>(
     const yForcePos = (nodeElement: SimulationNodeDatum) => {
       const completeNode = nodeElement as DataNode<T>;
       const find = childClockPositions.find(
-        (child) => child.id == completeNode.id
+        (child) => child.id == completeNode.id,
       );
       return find?.y || 0;
     };

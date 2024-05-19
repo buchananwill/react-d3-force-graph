@@ -2,14 +2,14 @@ import { useCallback, useMemo } from "react";
 
 import { useGraphEditHooks } from "../../hooks/useGraphEditHooks";
 
-import { createNodes } from "../functions/createNodes";
-import { createLinks } from "../functions/createLinks";
+import { createNodes } from "@/graph-tools/editing/functions/createNodes";
+import { createLinks } from "@/graph-tools/editing/functions/createLinks";
 import {
   DataLink,
   DataNode,
   HasNumberId,
   MemoizedFunction,
-} from "@/graph-tools/types/types";
+} from "@/graph-tools/types/util";
 import {
   useGraphController,
   useGraphListener,

@@ -1,10 +1,10 @@
 import { useGraphEditHooks } from "../../hooks/useGraphEditHooks";
 import { useMemo } from "react";
 
-import { deleteLinks } from "../functions/deleteLinks";
+import { deleteLinks } from "@/graph-tools/editing/functions/deleteLinks";
 
-import { HasNumberId } from "@/graph-tools/types/types";
-import { deleteNodes } from "@/graph-tools/flow-node-editing/functions/deleteNodes";
+import { HasNumberId } from "@/graph-tools/types/util";
+import { deleteNodes } from "@/graph-tools/editing/functions/deleteNodes";
 import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 

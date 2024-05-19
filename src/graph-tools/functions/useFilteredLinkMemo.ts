@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { DataLink, Predicate } from "@/graph-tools/types/types";
+import { DataLink, Predicate } from "@/graph-tools/types/util";
 
 export function useFilteredLinkMemo(
   closureList: DataLink<any>[],

@@ -1,4 +1,4 @@
-import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
 import React, { useContext } from "react";
 import { NodeRefContext } from "@/graph-tools/contexts/nodeRefContextCreator";
 import { LinkRefContext } from "@/graph-tools/contexts/linkRefContextCreator";

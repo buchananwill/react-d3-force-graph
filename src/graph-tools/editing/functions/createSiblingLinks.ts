@@ -1,4 +1,4 @@
-import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { DataLink, DataNode, HasNumberId } from "@/graph-tools/types/util";
 
 export function createSiblingLinks<T extends HasNumberId>(
   referenceNode: DataNode<T>,

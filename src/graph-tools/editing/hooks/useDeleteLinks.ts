@@ -1,9 +1,9 @@
 import { useGraphEditHooks } from "../../hooks/useGraphEditHooks";
 import { useMemo } from "react";
-import { HasNumberId } from "@/graph-tools/types/types";
+import { HasNumberId } from "@/graph-tools/types/util";
 import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import { useEffectSyncToMemo } from "@/graph-tools/flow-node-editing/hooks/useAddLinks";
+import { useEffectSyncToMemo } from "@/graph-tools/editing/hooks/useAddLinks";
 
 const deleteLinksKey = "delete-links";
 

@@ -1,4 +1,4 @@
-import { DataNode, HasNumberId } from "@/graph-tools/types/types";
+import { DataNode, HasNumberId } from "@/graph-tools/types/util";
 
 export function deleteNodes<T extends HasNumberId>(
   nodeIdDeletionList: string[],

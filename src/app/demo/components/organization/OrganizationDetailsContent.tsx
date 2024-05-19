@@ -2,25 +2,33 @@ import {
   useGraphDispatchAndListener,
   useGraphListener,
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { MemoizedFunction } from "@/graph-tools/types/types";
+import { MemoizedFunction } from "@/graph-tools/types/util";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { OrganizationDto } from "@/app/demo/types/OrganizationDto";
 import { ModalBody, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
-import { ComponentUndefined } from "@/react-flow/components/generic/NodeDetailsModal";
 import { ObjectPlaceholder } from "selective-context";
 import FocusToEdit from "@/react-flow/components/generic/FocusToEdit";
 import { Select, SelectItem } from "@nextui-org/select";
 import { OrgTypes } from "@/app/demo/components/organization/OrganizationNode";
 import { undefinedEditNodeData } from "@/graph-tools/literals/undefinedFunctionErrors";
+import React from "react";
+import { ComponentUndefined } from "@/graph-tools/components/controllers/NodeDetailsModalController";
 
 const listenerKey = "details-content";
 
+export interface NodeModalContentProps {
+  onClose: () => void;
+}
+
+export type NodeModalContentComponent = MemoizedFunction<
+  NodeModalContentProps,
+  React.JSX.Element
+>;
+
 export default function OrganizationDetailsContent({
   onClose,
-}: {
-  onClose: () => void;
-}) {
+}: NodeModalContentProps) {
   const {
     currentState: { memoizedFunction: commitEdit },
   } = useGraphListener<MemoizedFunction<OrganizationDto, void>>(

@@ -7,7 +7,7 @@ import {
 } from "../../contexts/genericLinkContextCreator";
 
 import { useFilteredLinkMemo } from "../../functions/useFilteredLinkMemo";
-import { DataLink, HasNumberId } from "@/graph-tools/types/types";
+import { DataLink, HasNumberId } from "@/graph-tools/types/util";
 
 // Example of a generic Provider component that can be used to wrap parts of your app
 export const LinkContextProvider = <T extends HasNumberId>({

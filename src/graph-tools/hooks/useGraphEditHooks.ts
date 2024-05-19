@@ -4,7 +4,7 @@ import {
   useGraphListener,
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { useDirectSimRefEditsDispatch } from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
-import { HasNumberId, MemoizedSupplier } from "@/graph-tools/types/types";
+import { HasNumberId, MemoizedSupplier } from "@/graph-tools/types/util";
 import { EmptyArray } from "@/graph-tools/literals/constants";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 

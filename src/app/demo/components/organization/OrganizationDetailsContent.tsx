@@ -1,22 +1,23 @@
-import {
-  useGraphDispatchAndListener,
-  useGraphListener,
-} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import {
-  MemoizedFunction,
-  NodeModalContentProps,
-} from "@/graph-tools/types/util";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { OrganizationDto } from "@/app/demo/types/OrganizationDto";
 import { ModalBody, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { ObjectPlaceholder } from "selective-context";
-import FocusToEdit from "@/react-flow/components/generic/FocusToEdit";
+
 import { Select, SelectItem } from "@nextui-org/select";
 import { OrgTypes } from "@/app/demo/components/organization/OrganizationNode";
-import { undefinedEditNodeData } from "@/graph-tools/literals/undefinedFunctionErrors";
+
 import React from "react";
-import { ComponentUndefined } from "@/graph-tools/components/controllers/NodeDetailsModalController";
+
+import {
+  ComponentUndefined,
+  GraphSelectiveContextKeys,
+  MemoizedFunction,
+  NodeModalContentProps,
+  undefinedEditNodeData,
+  useGraphDispatchAndListener,
+  useGraphListener,
+} from "@/graph-tools";
+import { FocusToEdit } from "@/react-flow";
 
 const listenerKey = "details-content";
 

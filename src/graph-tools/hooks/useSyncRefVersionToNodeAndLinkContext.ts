@@ -1,8 +1,8 @@
-import { useNodeContext } from "../contexts/genericNodeContextCreator";
-import { useLinkContext } from "../contexts/genericLinkContextCreator";
 import { useEffect, useRef } from "react";
 import { HasNumberId } from "@/graph-tools/types/util";
 import { useGraphDispatch } from "@/graph-tools/hooks/useGraphSelectiveContext";
+import { useNodeContext } from "@/graph-tools/hooks/useNodeContext";
+import { useLinkContext } from "@/graph-tools/hooks/useLinkContext";
 
 export function useSyncRefVersionToNodeAndLinkContext<T extends HasNumberId>() {
   const { nodes } = useNodeContext<T>();

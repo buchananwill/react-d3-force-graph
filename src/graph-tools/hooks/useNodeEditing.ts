@@ -19,7 +19,7 @@ import {
   GraphDtoPutRequestBody,
   HasNumberId,
 } from "@/graph-tools/types/util";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
 import { useShowNodeEditing } from "@/graph-tools/hooks/useShowNodeEditing";
 import { UnsavedNodeChangesProps } from "@/graph-tools/types/unsavedNodeChangesProps";
 

@@ -6,7 +6,7 @@ import {
 import { useDirectSimRefEditsDispatch } from "@/graph-tools/hooks/useDirectSimRefEditsDispatch";
 import { HasNumberId, MemoizedSupplier } from "@/graph-tools/types/util";
 import { EmptyArray } from "@/graph-tools/literals/constants";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
 
 export function useGraphEditHooks<T extends HasNumberId>(listenerKey: string) {
   const { dispatchNextSimVersion, nodeListRef, linkListRef } =

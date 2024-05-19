@@ -1,7 +1,11 @@
-import { ClosureDto, DataNode, DataNodeDto } from "@/graph-tools/types/util";
 import { Coordinate } from "@/react-flow/components/edges/EdgeWithDelete";
 import { FlowEdge, FlowNode } from "@/react-flow/types";
-import { getAnyIdAsString } from "@/graph-tools/functions/utils";
+import {
+  ClosureDto,
+  DataNode,
+  DataNodeDto,
+  getAnyIdAsString,
+} from "@/graph-tools";
 
 const nodeType = "organization";
 

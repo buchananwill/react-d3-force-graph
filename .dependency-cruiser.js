@@ -33,7 +33,32 @@ module.exports = {
         path: "^src/app", // Adjust this path to point to your actual directory B
       },
     },
+    {
+      name: "no-direct-import-from-graph-tools",
+      comment:
+        "Disallow direct imports from Graph Tools except via /graph-tools/index.ts",
+      severity: "error",
+      from: {
+        path: "^(src/react-flow|src/app)", // Adjust paths to your directories B and C
+      },
+      to: {
+        path: "^src/graph-tools/(?!index\\.ts$).*", // Adjust path to your directory A
+      },
+    },
+    {
+      name: "no-direct-import-from-directoryB",
+      comment:
+        "Disallow direct imports from React Flow except via /react-flow/index.ts",
+      severity: "error",
+      from: {
+        path: "^(src/app)", // Adjust paths to your directories B and C
+      },
+      to: {
+        path: "^src/react-flow/(?!index\\.ts$).*", // Adjust path to your directory B
+      },
+    },
   ],
+  allowed: [],
   options: {
     tsConfig: {
       fileName: "./tsconfig.json",

@@ -6,7 +6,7 @@ import { deleteLinks } from "@/graph-tools/editing/functions/deleteLinks";
 import { HasNumberId } from "@/graph-tools/types/util";
 import { deleteNodes } from "@/graph-tools/editing/functions/deleteNodes";
 import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
 
 const deleteNodesKey = "delete-nodes";
 

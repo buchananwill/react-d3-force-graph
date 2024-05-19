@@ -3,13 +3,13 @@ import {
   EmptyArray,
   TransientIdOffset,
 } from "@/graph-tools/literals/constants";
-import { useNodeContext } from "@/graph-tools/contexts/genericNodeContextCreator";
-import { useLinkContext } from "@/graph-tools/contexts/genericLinkContextCreator";
 import { HasNumberId, MemoizedSupplier } from "@/graph-tools/types/util";
 
 import { useGraphRefs } from "@/graph-tools/hooks/useGraphRefs";
 import { useMemo } from "react";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
+import { useNodeContext } from "@/graph-tools/hooks/useNodeContext";
+import { useLinkContext } from "@/graph-tools/hooks/useLinkContext";
 
 const listenerKey = "graph-edit-controller-key";
 const dimensionsStaticArray: number[] = [1800, 1200];

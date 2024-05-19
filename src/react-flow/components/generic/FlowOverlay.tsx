@@ -7,7 +7,7 @@ import NodeDetailsModal from "@/react-flow/components/nodes/NodeDetailsModal";
 import React, { useState } from "react";
 import { useEscapeToClose } from "@/react-flow/hooks/useEscapeToClose";
 
-export default function FlowOverlay({
+export function FlowOverlay({
   initialized,
   toggle,
   running,

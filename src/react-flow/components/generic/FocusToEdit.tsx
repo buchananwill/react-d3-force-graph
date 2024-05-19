@@ -5,7 +5,7 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 export type FocusToEditProps = InputProps;
 
-export default function FocusToEdit({
+export function FocusToEdit({
   value,
   onValueChange,
   children,

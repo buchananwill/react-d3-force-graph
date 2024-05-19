@@ -16,10 +16,10 @@ import { SliderVisibilityController } from "@/graph-tools/components/controllers
 import { ForceGraphPageAllProps } from "@/graph-tools/types/forceGraphPageProps";
 import SimulationController from "@/graph-tools/components/controllers/SimulationController";
 import { ControllerComponent } from "selective-context";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
 import NodeDetailsModalController from "@/graph-tools/components/controllers/NodeDetailsModalController";
 
-export default function ForceGraphPage<T extends HasNumberId>({
+export function ForceGraphPage<T extends HasNumberId>({
   dataNodes,
   dataLinks,
   graphName,

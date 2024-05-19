@@ -4,7 +4,7 @@ import {
   useGraphController,
   useGraphDispatch,
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
 import { useEffect } from "react";
 import { HasName, NodeModalContentComponent } from "@/graph-tools/types/util";
 

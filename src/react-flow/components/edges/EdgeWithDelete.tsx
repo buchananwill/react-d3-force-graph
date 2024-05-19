@@ -4,18 +4,21 @@ import {
   EdgeProps,
   getBezierPath,
 } from "reactflow";
-import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import { MemoizedFunction } from "@/graph-tools/types/util";
+
 import { TrashIcon } from "@heroicons/react/16/solid";
-import { undefinedDeleteLinks } from "@/graph-tools/literals/undefinedFunctionErrors";
+import {
+  GraphSelectiveContextKeys,
+  MemoizedFunction,
+  undefinedDeleteLinks,
+  useGraphListener,
+} from "@/graph-tools";
 
 export interface Coordinate {
   x: number;
   y: number;
 }
 
-export default function EdgeWithDelete({
+export function EdgeWithDelete({
   id,
   sourceX,
   sourceY,

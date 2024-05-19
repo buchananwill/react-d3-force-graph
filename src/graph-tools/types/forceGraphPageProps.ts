@@ -4,7 +4,7 @@ import { PartialDeep } from "type-fest";
 import {
   ForceAttributeKeys,
   ForceAttributesDto,
-} from "@/graph-tools/types/forceAttributesMetaData";
+} from "@/graph-tools/types/forceAttributes";
 
 export interface ForceGraphPageAllProps<T extends HasNumberId>
   extends PropsWithChildren {

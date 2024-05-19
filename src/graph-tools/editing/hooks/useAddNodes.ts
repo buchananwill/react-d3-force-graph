@@ -14,7 +14,7 @@ import {
   useGraphController,
   useGraphListener,
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
 import { undefinedCloneNode } from "@/graph-tools/literals/undefinedFunctionErrors";
 
 export type Relation = "sibling" | "child";

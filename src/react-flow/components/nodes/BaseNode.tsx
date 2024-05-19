@@ -5,26 +5,24 @@ import {
 } from "@heroicons/react/24/outline";
 import { Button } from "@nextui-org/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import React from "react";
+
 import { Handle, NodeProps, Position } from "reactflow";
-import {
-  useGraphDispatch,
-  useGraphListener,
-} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import {
-  GenericDivProps,
-  HasNumberId,
-  MemoizedFunction,
-} from "@/graph-tools/types/util";
+
 import { AddNodesParams } from "@/graph-tools/editing/hooks/useAddNodes";
 import { usePopoverFix } from "@/react-flow/hooks/usePopoverFix";
 import { TrashIcon } from "@heroicons/react/16/solid";
 import {
+  GenericDivProps,
+  GraphSelectiveContextKeys,
+  HasNumberId,
+  MemoizedFunction,
   undefinedAddNodes,
   undefinedDeleteNodes,
   undefinedLabelAccessor,
-} from "@/graph-tools/literals/undefinedFunctionErrors";
+  useGraphDispatch,
+  useGraphListener,
+} from "@/graph-tools";
+import React, { memo } from "react";
 
 function BaseNode<T extends HasNumberId>({
   data,
@@ -172,4 +170,4 @@ function BaseNode<T extends HasNumberId>({
   );
 }
 
-export default React.memo(BaseNode);
+export const BaseNodeMemo = React.memo(BaseNode);

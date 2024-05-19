@@ -8,7 +8,7 @@ import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { beginSim } from "@/graph-tools/functions/beginSim";
 import { createForces } from "@/graph-tools/functions/createForces";
 import { updateForces } from "@/graph-tools/functions/updateForces";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
 
 import { useGraphRefs } from "@/graph-tools/hooks/useGraphRefs";
 

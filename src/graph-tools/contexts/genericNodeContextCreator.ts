@@ -20,23 +20,6 @@ export const NodeDispatchContext = createContext<
   Dispatch<SetStateAction<DataNode<any>[]>> | undefined
 >(undefined);
 
-export function useNodeContext<T extends HasNumberId>() {
-  const context = useContext(
-    NodeContext as React.Context<NodeContextInterface<T> | undefined>,
-  );
-  const dispatch = useContext(
-    NodeDispatchContext as React.Context<
-      Dispatch<SetStateAction<DataNode<T>[]>> | undefined
-    >,
-  );
-
-  if (context === undefined || dispatch === undefined) {
-    throw new Error("useGenericArrayContext must be used within a Provider");
-  }
-
-  return { ...context, dispatch };
-}
-
 export const NodeRefContext = createContext<MutableRefObject<
   DataNode<any>[]
 > | null>(null);

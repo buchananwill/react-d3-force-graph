@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
 import { createLinks } from "@/graph-tools/editing/functions/createLinks";
 import { DataLink, HasNumberId } from "@/graph-tools/types/util";
 import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
 
 const addLinksController = "add-links-controller";
 

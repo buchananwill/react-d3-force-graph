@@ -2,24 +2,23 @@
 
 import React, { useMemo } from "react";
 
-import { useGraphName } from "@/graph-tools/contexts/graphContextCreator";
+import { useGlobalReadAny } from "selective-context";
 import {
   ForceAttributesDto,
   ForceAttributesInitial,
-} from "@/graph-tools/types/forceAttributesMetaData";
-
-import { ShowForceAdjustmentsKey } from "@/graph-tools/components/controllers/ShowForceAdjustmentsController";
-import { useGraphListener } from "@/graph-tools/hooks/useGraphSelectiveContext";
+  GraphSelectiveContextKeys,
+  useGraphListener,
+  useGraphName,
+} from "@/graph-tools";
 import { SelectiveContextRangeSlider } from "@/react-flow/components/generic/SelectiveContextRangeSlider";
-import { useGlobalReadAny } from "selective-context";
 
 const listenerKey = "graph-force-adjustment";
-export default function GraphForceSliders() {
+export function GraphForceSliders() {
   const uniqueGraphName = useGraphName();
   const selectiveContextReadAll = useGlobalReadAny<boolean>();
 
   const { currentState: show } = useGraphListener(
-    ShowForceAdjustmentsKey,
+    GraphSelectiveContextKeys.showForceEditing,
     listenerKey,
     false,
   );

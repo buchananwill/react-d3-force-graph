@@ -1,15 +1,9 @@
-import {createContext, useContext} from 'react';
+import { createContext } from "react";
 
 export interface GraphContextInterface {
-    uniqueGraphName: string;
+  uniqueGraphName: string;
 }
 
 export const GraphContext = createContext<GraphContextInterface>({
-    uniqueGraphName: 'default'
+  uniqueGraphName: "default",
 });
-
-export function useGraphName() {
-    const {uniqueGraphName} = useContext(GraphContext);
-    return uniqueGraphName;
-}
-

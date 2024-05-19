@@ -1,8 +1,8 @@
+import graphDto from "@/app/demo/data/graphDto.json";
 import {
   convertClosureDtoListToEdgeList,
   convertDataNodeDtoListToFlowNodeList,
-} from "@/react-flow/utils/adaptors";
-import graphDto from "@/app/demo/data/graphDto.json";
+} from "@/react-flow";
 
 export const initialNodes = convertDataNodeDtoListToFlowNodeList(
   graphDto.nodes,

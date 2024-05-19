@@ -2,7 +2,7 @@ import { useGraphEditHooks } from "@/graph-tools/hooks/useGraphEditHooks";
 import { useMemo } from "react";
 import { HasId } from "@/graph-tools/types/util";
 import { useGraphController } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
 import { useEffectSyncToMemo } from "@/graph-tools/editing/hooks/useAddLinks";
 import { getAnyIdAsString } from "@/graph-tools/functions/utils";
 

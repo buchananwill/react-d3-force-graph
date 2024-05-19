@@ -1,8 +1,8 @@
-import BaseNode from "@/react-flow/components/nodes/BaseNode";
 import { NodeProps } from "reactflow";
 import { OrganizationDto } from "@/app/demo/types/OrganizationDto";
 import React from "react";
 import clsx from "clsx";
+import { BaseNodeMemo } from "@/react-flow";
 
 function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   const { selected, dragging, data } = nodeProps;
@@ -12,7 +12,7 @@ function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   } = data;
 
   return (
-    <BaseNode
+    <BaseNodeMemo
       {...nodeProps}
       className={clsx(
         "relative flex flex-col gap-1 rounded-md border-black p-2 transition-colors-opacity",
@@ -20,7 +20,7 @@ function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
         dragging ? "opacity-50" : "",
         orgTypeBgColors[name as OrgType],
       )}
-    ></BaseNode>
+    ></BaseNodeMemo>
   );
 }
 

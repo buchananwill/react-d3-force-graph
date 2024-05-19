@@ -1,5 +1,9 @@
-import { DataNode, HasName, HasNumberId } from "@/graph-tools/types/util";
-import { incrementCloneSuffix } from "@/graph-tools/editing/functions/incrementCloneSuffix";
+import {
+  DataNode,
+  HasName,
+  HasNumberId,
+  incrementCloneSuffix,
+} from "@/graph-tools";
 
 export function cloneOrganizationNode<T extends HasNumberId & HasName>(
   templateNode: DataNode<T>,

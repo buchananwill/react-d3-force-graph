@@ -1,11 +1,11 @@
 import _ from "lodash";
 import {
+  deDuplicateNames,
   GraphDto,
   GraphDtoPutRequestBody,
   HasName,
   HasNumberId,
-} from "@/graph-tools/types/util";
-import { deDuplicateNames } from "@/graph-tools/editing/functions/incrementCloneSuffix";
+} from "@/graph-tools";
 
 export function getGraphUpdaterWithNameDeDuplication<
   T extends HasNumberId & HasName,

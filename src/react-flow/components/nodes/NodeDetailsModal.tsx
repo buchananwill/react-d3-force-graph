@@ -1,15 +1,15 @@
 import { Modal, ModalContent, ModalProps } from "@nextui-org/modal";
-import {
-  useGraphDispatchAndListener,
-  useGraphListener,
-} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import { MemoizedFunction } from "@/graph-tools/types/util";
+
 import { ReactNode } from "react";
+
 import {
   ComponentUndefined,
   fallback,
-} from "@/graph-tools/components/controllers/NodeDetailsModalController";
+  GraphSelectiveContextKeys,
+  MemoizedFunction,
+  useGraphDispatchAndListener,
+  useGraphListener,
+} from "@/graph-tools";
 
 export type NodeDetailsModalProps = Omit<
   ModalProps,
@@ -17,9 +17,7 @@ export type NodeDetailsModalProps = Omit<
 >;
 
 const listenerKey = "modal";
-export default function NodeDetailsModal(
-  nodeDetailsModalProps: NodeDetailsModalProps,
-) {
+export function NodeDetailsModal(nodeDetailsModalProps: NodeDetailsModalProps) {
   const { currentState: isOpen, dispatchWithoutControl: onOpenChange } =
     useGraphDispatchAndListener(
       GraphSelectiveContextKeys.nodeDetailsModalOpen,

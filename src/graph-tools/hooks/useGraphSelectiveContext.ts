@@ -1,29 +1,26 @@
 import {
-    useGlobalController,
-    useGlobalDispatch,
-    useGlobalDispatchAndListener,
-    useGlobalListener
+  useGlobalController,
+  useGlobalDispatch,
+  useGlobalDispatchAndListener,
+  useGlobalListener,
 } from "selective-context";
-import {useContext, useMemo} from "react";
-import {GraphContext} from "@/graph-tools/contexts/graphContextCreator";
-import {GraphSelectiveContextKey} from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { useContext, useMemo } from "react";
+import { GraphContext } from "@/graph-tools/contexts/graphContextCreator";
+import { GraphSelectiveContextKey } from "@/graph-tools/literals/graphSelectiveContextKeys";
 
 export function useGraphSelectiveContextKey(
-    contextKey: GraphSelectiveContextKey
+  contextKey: GraphSelectiveContextKey,
 ) {
-    const {uniqueGraphName} = useContext(GraphContext);
-    return useMemo(() => {
-        return `${uniqueGraphName}:${contextKey}`
-    }, [uniqueGraphName, contextKey]);
+  const { uniqueGraphName } = useContext(GraphContext);
+  return useMemo(() => {
+    return `${uniqueGraphName}:${contextKey}`;
+  }, [uniqueGraphName, contextKey]);
 }
 
-export function useGraphDispatch<T>(
-    contextKey: GraphSelectiveContextKey
-) {
+export function useGraphDispatch<T>(contextKey: GraphSelectiveContextKey) {
+  const selectiveContextKey = useGraphSelectiveContextKey(contextKey);
 
-    const selectiveContextKey = useGraphSelectiveContextKey(contextKey);
-
-    return useGlobalDispatch<T>(selectiveContextKey)
+  return useGlobalDispatch<T>(selectiveContextKey);
 }
 
 export function useGraphDispatchAndListener<T>(
@@ -68,17 +65,15 @@ export function useGraphController<T>(
 }
 
 export function useGraphListener<T>(
-    contextKey: GraphSelectiveContextKey,
-    listenerKey: string,
-    initialValue: T
+  contextKey: GraphSelectiveContextKey,
+  listenerKey: string,
+  initialValue: T,
 ) {
-    const contextKeyConcat = useGraphSelectiveContextKey(contextKey);
+  const contextKeyConcat = useGraphSelectiveContextKey(contextKey);
 
-    return useGlobalListener<T>(
-        {
-            contextKey: contextKeyConcat,
-            listenerKey,
-            initialValue
-        }
-    );
+  return useGlobalListener<T>({
+    contextKey: contextKeyConcat,
+    listenerKey,
+    initialValue,
+  });
 }

@@ -14,7 +14,7 @@ import {
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
 
 import { Simulation } from "d3";
-import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
 
 import { useGraphRefs } from "@/graph-tools/hooks/useGraphRefs";
 import { resetLinks } from "@/graph-tools/editing/functions/resetLinks";

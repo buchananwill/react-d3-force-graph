@@ -1,16 +1,23 @@
 "use client";
 import React, { PropsWithChildren } from "react";
 import ReactFlow, { Background, BackgroundVariant } from "reactflow";
-import EdgeWithDelete from "@/react-flow/components/edges/EdgeWithDelete";
 import OrganizationNode from "@/app/demo/components/organization/OrganizationNode";
-import { useLayoutFlowWithForces } from "@/react-flow/hooks/useLayoutFlowWithForces";
-import FlowOverlay from "@/react-flow/components/generic/FlowOverlay";
-import { useModalContent } from "@/graph-tools/components/controllers/DefineModalContent";
+
 import OrganizationDetailsContent from "@/app/demo/components/organization/OrganizationDetailsContent";
-import { NodeModalContentComponent } from "@/graph-tools/types/util";
+
 import { cloneFunctionWrapper } from "@/app/demo/components/organization/organizationCallbacks";
-import { useNodeEditing } from "@/graph-tools/hooks/useNodeEditing";
-import { useAllEdits } from "@/graph-tools/hooks/useAllEdits";
+import {
+  NodeModalContentComponent,
+  useAllEdits,
+  useModalContent,
+  useNodeEditing,
+} from "@/graph-tools";
+
+import {
+  EdgeWithDelete,
+  FlowOverlay,
+  useLayoutFlowWithForces,
+} from "@/react-flow";
 
 // 1. Define the node types and their components
 const nodeTypes = {

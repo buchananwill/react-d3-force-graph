@@ -1,20 +1,25 @@
-'use client';
+"use client";
 
-import React, {useEffect, useMemo} from 'react';
+import React, { useEffect, useMemo } from "react";
 
-import {useGraphName} from '../../contexts/graphContextCreator';
-import {ForceAttributesDto, ForceAttributesInitial} from '../../types/forceAttributesMetaData';
+import { ShowForceAdjustmentsKey } from "./ShowForceAdjustmentsController";
+import {
+  useGraphController,
+  useGraphListener,
+} from "@/graph-tools/hooks/useGraphSelectiveContext";
 
-import {ShowForceAdjustmentsKey} from './ShowForceAdjustmentsController';
-import {useGraphController, useGraphListener} from "@/graph-tools/hooks/useGraphSelectiveContext";
-import ControllerComponent from "@/graph-tools/components/ControllerComponent";
-import {PartialDeep} from "type-fest";
-import {GraphSelectiveContextKeys} from "@/graph-tools/hooks/graphSelectiveContextKeys";
-import {ForceGraphPageOptionProps} from "@/graph-tools/types/forceGraphPageProps";
+import { PartialDeep } from "type-fest";
+import { GraphSelectiveContextKeys } from "@/graph-tools/literals/graphSelectiveContextKeys";
+import { ForceGraphPageOptionProps } from "@/graph-tools/types/forceGraphPageProps";
+import { ForceAttributesInitial } from "@/graph-tools";
+import { ForceAttributesDto } from "@/graph-tools/types/forceAttributes";
+import { ControllerComponent } from "selective-context";
+import { useGraphName } from "@/graph-tools/hooks/useGraphName";
 
-
-const listenerKey = 'graph-force-attributes';
-export default function GraphForceAttributes({forceAttributesInitial}:PartialDeep<Pick<ForceGraphPageOptionProps, 'forceAttributesInitial'>>) {
+const listenerKey = "graph-force-attributes";
+export default function GraphForceAttributes({
+  forceAttributesInitial,
+}: PartialDeep<Pick<ForceGraphPageOptionProps, "forceAttributesInitial">>) {
   const uniqueGraphName = useGraphName();
   const { currentState, dispatch } = useGraphController(
     GraphSelectiveContextKeys.ready,
@@ -22,35 +27,38 @@ export default function GraphForceAttributes({forceAttributesInitial}:PartialDee
     listenerKey,
   );
 
-  useGraphListener(
-    ShowForceAdjustmentsKey,
-    listenerKey,
-    false
-  );
+  useGraphListener(ShowForceAdjustmentsKey, listenerKey, false);
 
   useEffect(() => {
     if (!currentState) {
-      dispatch( true);
+      dispatch(true);
     }
   }, [dispatch, currentState]);
 
-  const controllers = useMemo(() => Object.entries(ForceAttributesInitial).map((entry) => {
-    if (entry[0] === 'id') {
-      return null;
-    }
+  const controllers = useMemo(
+    () =>
+      Object.entries(ForceAttributesInitial).map((entry) => {
+        if (entry[0] === "id") {
+          return null;
+        }
 
-    const stringKey = `${uniqueGraphName}:${entry[0]}`;
-    const entryKey = entry[0] as keyof ForceAttributesDto;
-    const initial = forceAttributesInitial?.[entryKey] ?? ForceAttributesInitial[entryKey]
+        const stringKey = `${uniqueGraphName}:${entry[0]}`;
+        const entryKey = entry[0] as keyof ForceAttributesDto;
+        const initial =
+          forceAttributesInitial?.[entryKey] ??
+          ForceAttributesInitial[entryKey];
 
-    return <ControllerComponent key={stringKey} contextKey={stringKey} listenerKey={stringKey} initialValue={initial}/>
-
-  }), [uniqueGraphName, forceAttributesInitial])
-
-
-  return (
-    <>
-      {...controllers}
-    </>
+        return (
+          <ControllerComponent
+            key={stringKey}
+            contextKey={stringKey}
+            listenerKey={stringKey}
+            initialValue={initial}
+          />
+        );
+      }),
+    [uniqueGraphName, forceAttributesInitial],
   );
+
+  return <>{...controllers}</>;
 }

@@ -1,9 +1,9 @@
-import ReactFlowWrapper from "@/react-flow/components/wrappers/ReactFlowWrapper";
-import ForceGraphPage from "@/graph-tools/components/wrappers/ForceGraphPage";
 import { ExampleLayoutFlowWithForces } from "@/app/demo/components/ExampleLayoutFlowWithForces";
 import React from "react";
-import { ForceGraphPageOptions } from "@/graph-tools/types/forceGraphPageProps";
+
 import { initialEdges, initialNodes } from "@/app/demo/data/initial";
+import { ForceGraphPage, ForceGraphPageOptions } from "@/graph-tools";
+import { ReactFlowWrapper } from "@/react-flow";
 
 const defaultForceGraphPageOptions: ForceGraphPageOptions = {
   forceSlidersVisibleInitial: {

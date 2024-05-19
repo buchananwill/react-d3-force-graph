@@ -6,8 +6,7 @@ import {
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { useEffect } from "react";
-import { NodeModalContentComponent } from "@/app/demo/components/organization/OrganizationDetailsContent";
-import { HasName } from "@/graph-tools/types/util";
+import { HasName, NodeModalContentComponent } from "@/graph-tools/types/util";
 
 export function useModalContent(
   memoizedContentComponent: NodeModalContentComponent,

@@ -69,3 +69,12 @@ export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
+
+export interface NodeModalContentProps {
+  onClose: () => void;
+}
+
+export type NodeModalContentComponent = MemoizedFunction<
+  NodeModalContentProps,
+  React.JSX.Element
+>;

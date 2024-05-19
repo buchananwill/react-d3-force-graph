@@ -6,9 +6,8 @@ import OrganizationNode from "@/app/demo/components/organization/OrganizationNod
 import { useLayoutFlowWithForces } from "@/react-flow/hooks/useLayoutFlowWithForces";
 import FlowOverlay from "@/react-flow/components/generic/FlowOverlay";
 import { useModalContent } from "@/graph-tools/components/controllers/DefineModalContent";
-import OrganizationDetailsContent, {
-  NodeModalContentComponent,
-} from "@/app/demo/components/organization/OrganizationDetailsContent";
+import OrganizationDetailsContent from "@/app/demo/components/organization/OrganizationDetailsContent";
+import { NodeModalContentComponent } from "@/graph-tools/types/util";
 
 // 1. Define the node types and their components
 const nodeTypes = {

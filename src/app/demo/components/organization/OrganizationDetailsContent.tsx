@@ -2,7 +2,10 @@ import {
   useGraphDispatchAndListener,
   useGraphListener,
 } from "@/graph-tools/hooks/useGraphSelectiveContext";
-import { MemoizedFunction } from "@/graph-tools/types/util";
+import {
+  MemoizedFunction,
+  NodeModalContentProps,
+} from "@/graph-tools/types/util";
 import { GraphSelectiveContextKeys } from "@/graph-tools/hooks/graphSelectiveContextKeys";
 import { OrganizationDto } from "@/app/demo/types/OrganizationDto";
 import { ModalBody, ModalFooter, ModalHeader } from "@nextui-org/modal";
@@ -16,15 +19,6 @@ import React from "react";
 import { ComponentUndefined } from "@/graph-tools/components/controllers/NodeDetailsModalController";
 
 const listenerKey = "details-content";
-
-export interface NodeModalContentProps {
-  onClose: () => void;
-}
-
-export type NodeModalContentComponent = MemoizedFunction<
-  NodeModalContentProps,
-  React.JSX.Element
->;
 
 export default function OrganizationDetailsContent({
   onClose,

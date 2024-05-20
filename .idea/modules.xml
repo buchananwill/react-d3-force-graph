@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/graph-tools-demo.iml" filepath="$PROJECT_DIR$/.idea/graph-tools-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/react-d3-force-graph.iml" filepath="$PROJECT_DIR$/.idea/react-d3-force-graph.iml" />
     </modules>
   </component>
 </project>

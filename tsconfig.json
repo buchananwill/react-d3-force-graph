@@ -1,27 +1,24 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "target": "ESNext",
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./src/*"],
-    }
+    "target": "es2017",                                  // Specify ECMAScript target version
+    "lib": ["dom", "es2017"],
+    "module": "es6",                             // Specify module code generation
+    "declaration": true,                              // Generates corresponding '.d.ts' file.
+    "outDir": "./dist",                               // Redirect output structure to the directory
+    "strict": true,                                   // Enable all strict type-checking options
+    "esModuleInterop": true,                          // Enables emit interoperability between CommonJS and ES Modules
+    "skipLibCheck": true,                             // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true,         // Disallow inconsistently-cased references
+    "moduleResolution": "node",                       // Module resolution strategy
+    "jsx": "react",
+    "types": [ "react", "react-dom"]// Support JSX in .tsx files
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*",// Include all files in the src folder
+    //    "test/__fixtures__/**/*"
+  ],
+  "exclude": [
+    "node_modules",                                  // Exclude the node_modules directory
+    "**/*.test.ts"
+  ]
 }

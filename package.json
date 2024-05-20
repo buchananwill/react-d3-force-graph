@@ -1,18 +1,39 @@
 {
-  "name": "graph-tools-demo",
+  "name": "react-d3-force-graph",
   "version": "0.1.0",
-  "private": true,
+  "description": "A wrapper to use d3-forces in React projects.",
+  "author": "Will Buchanan <willwritescode@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "git+"
+  },
+  "keywords": [
+    "react",
+    "state",
+    "utility"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist/**/*"
+  ],
+  "sideEffects": false,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "coverage": "vitest run --coverage",
+    "build": "tsc",
+    "lint": "eslint --fix src test",
+    "validate": "npm run lint && npm run coverage && npm run build && npm run size",
+    "size": "size-limit"
   },
-  "prettier": {
-    "plugins": [
-      "prettier-plugin-tailwindcss"
-    ]
-  },
+  "size-limit": [
+    {
+      "path": "dist/index.js"
+    }
+  ],
+  "license": "MIT",
   "dependencies": {
     "@headlessui/react": "^2.0.3",
     "@heroicons/react": "^2.1.3",
@@ -37,12 +58,16 @@
     "heroicons": "^2.1.3",
     "lodash": "^4.17.21",
     "next": "14.2.3",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "reactflow": "^11.11.3",
     "selective-context": "2.0.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-react": "^7.24.1",
     "@types/lodash": "^4.17.1",
     "@types/node": "^20",
     "@types/react": "^18",

@@ -1,4 +1,3 @@
-import { nextui } from "@nextui-org/theme";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -10,6 +9,5 @@ const config: Config = {
     "./src/react-flow/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
-  plugins: [nextui()],
 };
 export default config;

@@ -1,23 +1,12 @@
 import { useGraphController, useGraphEditHooks } from "../../hooks";
-import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 import { createLinks } from "../functions/createLinks";
 import { DataLink, HasNumberId } from "../../types";
 import { GraphSelectiveContextKeys } from "../../literals";
+import { useEffectSyncToMemo } from "./useEffectSyncToMemo";
 
 const addLinksController = "add-links-controller";
-
-export function useEffectSyncToMemo<T>(
-  dispatch: Dispatch<SetStateAction<T>>,
-  memoizedValue: T,
-) {
-  useEffect(() => {
-    dispatch((memo) => {
-      if (memo !== memoizedValue) return memoizedValue;
-      else return memo;
-    });
-  }, [memoizedValue, dispatch]);
-}
 
 export function useAddLinks<T extends HasNumberId>() {
   const {
@@ -79,4 +68,3 @@ export function useAddLinks<T extends HasNumberId>() {
   );
   useEffectSyncToMemo(dispatch, memoizedAddLinks);
 }
-

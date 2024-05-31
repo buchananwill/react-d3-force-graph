@@ -2,7 +2,7 @@ import { MutableRefObject, useCallback, useMemo, useRef } from "react";
 import * as d3 from "d3";
 import { Simulation } from "d3";
 
-import { DataLink, DataNode, HasNumberId } from "../types";
+import { DataLink, DataNode, ForceOptions, HasNumberId } from "../types";
 import { useForceAttributeListeners } from "./useForceAttributeListeners";
 import { useGraphListener } from "./useGraphSelectiveContext";
 
@@ -12,6 +12,7 @@ import { useGraphRefs } from "./useGraphRefs";
 import { createForces } from "../functions/createForces";
 import { beginSim } from "../functions/beginSim";
 import { updateForces } from "../functions/updateForces";
+import { ObjectPlaceholder } from "selective-context";
 
 const listenerKey = `force-sim`;
 
@@ -35,6 +36,11 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
     listenerKey,
     0,
   );
+  const { currentState: forceOptions } = useGraphListener<ForceOptions>(
+    GraphSelectiveContextKeys.forceOptions,
+    listenerKey,
+    ObjectPlaceholder as ForceOptions,
+  );
 
   const {
     currentState: [width, height],
@@ -47,12 +53,12 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
   const simVersionRef = useRef(simVersion);
 
   const { currentState: simulationRef } = useGraphListener<MutableRefObject<
-    Simulation<any, any>
+    Simulation<DataNode<T>, DataLink<T>>
   > | null>(GraphSelectiveContextKeys.sim, listenerKey, null);
 
   const getForces = useCallback(
     (nodes: DataNode<T>[], links: DataLink<T>[]) =>
-      createForces(forceAttributes, width, height, links, nodes),
+      createForces(forceAttributes, width, height, links, nodes, forceOptions),
     [forceAttributes, width, height],
   );
 
@@ -78,7 +84,7 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
         }
         simVersionRef.current = simVersion;
       }
-      updateForces(simulationRefCurrent!, forceAttributes);
+      updateForces(simulationRefCurrent, forceAttributes);
     }
 
     return [simulationRef];

@@ -1,21 +1,17 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
-import { useGraphEditHooks } from "../../hooks";
+import {
+  useGraphController,
+  useGraphEditHooks,
+  useGraphListener,
+} from "../../hooks";
 
 import { createNodes } from "../functions/createNodes";
 import { createLinks } from "../functions/createLinks";
-import {
-  DataLink,
-  DataNode,
-  HasNumberId,
-  MemoizedFunction,
-} from "../../types";
-import {
-  useGraphController,
-  useGraphListener,
-} from "../../hooks";
-import { GraphSelectiveContextKeys } from "../../literals";
-import { undefinedCloneNode } from "../../literals";
+import { DataLink, DataNode, HasNumberId, MemoizedFunction } from "../../types";
+import { GraphSelectiveContextKeys, undefinedCloneNode } from "../../literals";
+import { dispatch } from "d3";
+import { useEffectSyncToMemo } from "./useEffectSyncToMemo";
 
 export type Relation = "sibling" | "child";
 
@@ -39,31 +35,32 @@ export function useAddNodes<T extends HasNumberId>() {
     undefinedCloneNode,
   );
 
-  const handleCreateNodes = useCallback(
-    (
-      sourceNodes: DataNode<T>[],
-      relation: Relation,
-      allNodes: DataNode<T>[],
-      allLinks: DataLink<T>[],
-    ): [DataNode<T>[], DataLink<T>[], DataNode<T>[], DataLink<T>[]] => {
-      const { allNodes: allNodesUpdate, createdNodes } = createNodes({
-        getNextNodeId, // Use a private scoped variable to make this function re-render-proof
-        sourceNodes,
-        allNodes,
-        relation,
-        cloneFunction: memoizedFunction,
-      });
+  const handleCreateNodes = useMemo(
+    () =>
+      (
+        sourceNodes: DataNode<T>[],
+        relation: Relation,
+        allNodes: DataNode<T>[],
+        allLinks: DataLink<T>[],
+      ): [DataNode<T>[], DataLink<T>[], DataNode<T>[], DataLink<T>[]] => {
+        const { allNodes: allNodesUpdate, createdNodes } = createNodes({
+          getNextNodeId, // Use a private scoped variable to make this function re-render-proof
+          sourceNodes,
+          allNodes,
+          relation,
+          cloneFunction: memoizedFunction,
+        });
 
-      const { allLinksUpdated, newLinks } = createLinks<T>({
-        references: sourceNodes,
-        newNodes: createdNodes,
-        allLinks,
-        getNextLinkId,
-        relation: relation,
-      });
+        const { allLinksUpdated, newLinks } = createLinks<T>({
+          references: sourceNodes,
+          newNodes: createdNodes,
+          allLinks,
+          getNextLinkId,
+          relation: relation,
+        });
 
-      return [allNodesUpdate, allLinksUpdated, createdNodes, newLinks];
-    },
+        return [allNodesUpdate, allLinksUpdated, createdNodes, newLinks];
+      },
     [memoizedFunction, getNextLinkId, getNextNodeId],
   );
 
@@ -106,7 +103,12 @@ export function useAddNodes<T extends HasNumberId>() {
     setTransientLinkIds,
   ]);
 
-  useGraphController(GraphSelectiveContextKeys.addNodes, addNodes);
+  const { dispatch } = useGraphController(
+    GraphSelectiveContextKeys.addNodes,
+    addNodes,
+  );
+
+  useEffectSyncToMemo(dispatch, addNodes);
 }
 
 export interface AddNodesParams {

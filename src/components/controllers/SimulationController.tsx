@@ -4,7 +4,7 @@ import { useGraphController } from "../../hooks";
 import { GraphSelectiveContextKeys } from "../../literals";
 
 export default function SimulationController() {
-  const simulationRef: MutableRefObject<Simulation<any, any> | null> =
+  const simulationRef: MutableRefObject<Simulation<never, never> | null> =
     useRef(null);
 
   useGraphController(

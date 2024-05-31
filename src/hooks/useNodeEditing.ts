@@ -1,4 +1,6 @@
+/* eslint-disable */
 "use client";
+
 import { useCallback } from "react";
 import { useNodeCloneFunctionController } from "./useNodeCloneFunctionController";
 import {
@@ -31,7 +33,9 @@ const listenerKey = "use-edit-component";
 
 export function useNodeEditing<T extends HasNumberId>(
   cloneFunction: MemoizedFunction<DataNode<T>, DataNode<T>>,
-  putUpdatedGraph?: (updatedGraph: GraphDtoPutRequestBody<T>) => Promise<any>,
+  putUpdatedGraph?: (
+    updatedGraph: GraphDtoPutRequestBody<T>,
+  ) => Promise<unknown>,
 ): UnsavedNodeChangesProps {
   const { dispatchWithoutControl, currentState } =
     useGraphDispatchAndListener<boolean>(
@@ -80,10 +84,10 @@ export function useNodeEditing<T extends HasNumberId>(
         deletedNodeIdList: deletedNodeNonTransientIds,
       };
       putUpdatedGraph(request).then((r) => {
-        if (r.status == 200) {
-          // TODO: handle the happy and sad paths.
-          // Would need a function parameter that can update the client state with the received data - effectively replacing the state, since we cannot provide any guarantees about matching up new entities with unknown IDs.
-        }
+        // if (r.status == 200) {
+        // TODO: handle the happy and sad paths.
+        // Would need a function parameter that can update the client state with the received data - effectively replacing the state, since we cannot provide any guarantees about matching up new entities with unknown IDs.
+        // }
       });
 
       dispatchWithoutControl(false);

@@ -46,6 +46,7 @@ export function ForceGraphPage<T extends HasNumberId>({
             <ShowNodeEditingController />
             <GraphForceAttributes
               forceAttributesInitial={options?.forceAttributesInitial}
+              forces={options?.forces}
             />
 
             {children}

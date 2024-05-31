@@ -1,13 +1,13 @@
 import { useGraphController } from "./useGraphSelectiveContext";
 import {
   EmptyArray,
+  GraphSelectiveContextKeys,
   TransientIdOffset,
 } from "../literals";
-import { HasNumberId, MemoizedSupplier } from "../types";
+import { MemoizedSupplier } from "../types";
 
 import { useGraphRefs } from "./useGraphRefs";
 import { useMemo } from "react";
-import { GraphSelectiveContextKeys } from "../literals";
 import { useNodeContext } from "./useNodeContext";
 import { useLinkContext } from "./useLinkContext";
 
@@ -39,7 +39,7 @@ export function useGraphEditController() {
     nextLinkId,
     listenerKey,
   );
-  useGraphController<number[]>("transient-link-ids", EmptyArray);
+  useGraphController("transient-link-ids", EmptyArray);
   useGraphController("transient-node-ids", EmptyArray);
   useGraphController("deleted-link-ids", EmptyArray);
   useGraphController("deleted-node-ids", EmptyArray);
@@ -49,5 +49,5 @@ export function useGraphEditController() {
 
   useNodeContext();
   useLinkContext();
-  useGraphRefs<HasNumberId>();
+  useGraphRefs();
 }

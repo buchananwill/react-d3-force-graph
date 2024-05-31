@@ -1,7 +1,12 @@
-import { DataLink, DataNode, HasNumberId } from "../types";
+import {
+  AlphaOptionKeys,
+  DataLink,
+  DataNode,
+  Forces,
+  HasNumberId,
+  SimOptions,
+} from "../types";
 import * as d3 from "d3";
-import { Forces } from "../types";
-import { AlphaOptionKeys, SimOptions } from "../types";
 
 const defaultOptions: SimOptions = {
   alphaDecay: 0,
@@ -12,7 +17,7 @@ export function beginSim<T extends HasNumberId>(
   nodes: DataNode<T>[],
   forces?: Forces,
   options?: SimOptions,
-) {
+): d3.Simulation<DataNode<T>, DataLink<T>> {
   const mergedOptions = { ...defaultOptions, ...options };
 
   const simulation = d3.forceSimulation<DataNode<T>, DataLink<T>>(nodes);

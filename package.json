@@ -37,11 +37,11 @@
   "dependencies": {
     "@types/d3": "^7.4.3",
     "d3": "^7.9.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "selective-context": "file:D:\\Coding\\selective-context"
   },
   "peerDependencies": {
-    "react": "^18.3.1",
-    "selective-context": "2.0.1"
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "react-dom": "^18.3.1",

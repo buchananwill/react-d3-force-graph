@@ -3,7 +3,8 @@ import { useMemo } from "react";
 import { HasNumberId } from "../../types";
 import { useGraphController } from "../../hooks";
 import { GraphSelectiveContextKeys } from "../../literals";
-import { useEffectSyncToMemo } from "./useAddLinks";
+
+import { useEffectSyncToMemo } from "./useEffectSyncToMemo";
 
 const deleteLinksKey = "delete-links";
 

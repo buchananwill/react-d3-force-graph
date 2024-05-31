@@ -17,6 +17,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      selective-context:
+        specifier: file:D:\Coding\selective-context
+        version: file:../selective-context(react@18.3.1)
     devDependencies:
       '@babel/cli':
         specifier: ^7.24.1
@@ -69,9 +72,6 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
-      selective-context:
-        specifier: 2.0.1
-        version: 2.0.1(react@18.3.1)
       type-fest:
         specifier: ^4.18.1
         version: 4.18.2
@@ -1882,8 +1882,8 @@ packages:
   scheduler@0.23.2:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
 
-  selective-context@2.0.1:
-    resolution: {integrity: sha512-V8vxIuPBV3RFiVBUf2sCXZ8Vxzo8sY+eY26ZQ92diV9FVAvHqVJOLpUC+5NNX9rMrN3UHZ6Pp5StWR0uhfAxKQ==}
+  selective-context@file:../selective-context:
+    resolution: {directory: ../selective-context, type: directory}
     peerDependencies:
       react: ^18.3.1
 
@@ -4145,7 +4145,7 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  selective-context@2.0.1(react@18.3.1):
+  selective-context@file:../selective-context(react@18.3.1):
     dependencies:
       react: 18.3.1
 

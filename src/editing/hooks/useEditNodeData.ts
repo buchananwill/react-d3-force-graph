@@ -3,8 +3,8 @@ import { useMemo } from "react";
 import { HasId } from "../../types";
 import { useGraphController } from "../../hooks";
 import { GraphSelectiveContextKeys } from "../../literals";
-import { useEffectSyncToMemo } from "./useAddLinks";
 import { getAnyIdAsString } from "../../functions/utils";
+import { useEffectSyncToMemo } from "./useEffectSyncToMemo";
 
 export function useEditNodeData<T extends HasId>() {
   const { nodeListRef, linkListRef, dispatchNextSimVersion } =

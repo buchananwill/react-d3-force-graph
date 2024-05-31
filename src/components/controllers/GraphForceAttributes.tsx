@@ -3,10 +3,7 @@
 import React, { useEffect, useMemo } from "react";
 
 import { ShowForceAdjustmentsKey } from "./ShowForceAdjustmentsController";
-import {
-  useGraphController,
-  useGraphListener,
-} from "../../hooks";
+import { useGraphController, useGraphListener } from "../../hooks";
 
 import { PartialDeep } from "type-fest";
 import { GraphSelectiveContextKeys } from "../../literals";
@@ -19,13 +16,18 @@ import { useGraphName } from "../../hooks";
 const listenerKey = "graph-force-attributes";
 export default function GraphForceAttributes({
   forceAttributesInitial,
-}: PartialDeep<Pick<ForceGraphPageOptionProps, "forceAttributesInitial">>) {
+  forces,
+}: PartialDeep<
+  Pick<ForceGraphPageOptionProps, "forceAttributesInitial" | "forces">
+>) {
   const uniqueGraphName = useGraphName();
   const { currentState, dispatch } = useGraphController(
     GraphSelectiveContextKeys.ready,
     false,
     listenerKey,
   );
+
+  useGraphController(GraphSelectiveContextKeys.forceOptions, forces);
 
   useGraphListener(ShowForceAdjustmentsKey, listenerKey, false);
 

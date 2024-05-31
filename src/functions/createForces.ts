@@ -5,7 +5,7 @@ import { getLinkForceMinCosFallOffBusiestNode } from "../forces/forceLink";
 import * as d3 from "d3";
 import { getForceCollide } from "../forces/forceCollide";
 import { getForceRadial } from "../forces/forceRadial";
-import { DataLink, DataNode, HasNumberId } from "../types";
+import { DataLink, DataNode, ForceOptions, HasNumberId } from "../types";
 import { Forces } from "../types";
 import { ForceAttributeListenersReturn } from "../types";
 
@@ -15,6 +15,7 @@ export function createForces<T extends HasNumberId>(
   height: number,
   links: DataLink<T>[],
   nodes: DataNode<T>[],
+  forceOptions: ForceOptions,
 ): Forces {
   const {
     forceYStrengthNormalized,
@@ -32,39 +33,47 @@ export function createForces<T extends HasNumberId>(
   const numberOfNodes = nodes.length;
   const spacingY = numberOfNodes > 0 ? (height / numberOfNodes) * 2 : 1;
 
-  const forceX = getHorizontalParentsToChildrenLayout(
-    nodes,
-    width,
-    forceXStrengthNormalized,
-  );
-  const forceY = getModulusGridY(
-    spacingY,
-    height,
-    () => forceYStrengthNormalized,
-  );
+  const forceX = forceOptions.forceX
+    ? getHorizontalParentsToChildrenLayout(
+        nodes,
+        width,
+        forceXStrengthNormalized,
+      )
+    : undefined;
+  const forceY = forceOptions.forceY
+    ? getModulusGridY(spacingY, height, () => forceYStrengthNormalized)
+    : undefined;
 
-  const manyBody = getForceManyBody(
-    manyBodyMaxDistanceNormalized,
-    manyBodyMinDistanceNormalized,
-    () => manyBodyStrengthNormalized,
-  );
+  const manyBody = forceOptions.manyBody
+    ? getForceManyBody(
+        manyBodyMaxDistanceNormalized,
+        manyBodyMinDistanceNormalized,
+        () => manyBodyStrengthNormalized,
+      )
+    : undefined;
 
-  const link = getLinkForceMinCosFallOffBusiestNode(
-    links,
-    () => {
-      return nodes.length;
-    },
-    linkStrengthNormalized,
-    linkDistanceNormalized,
-  );
+  const link = forceOptions.link
+    ? getLinkForceMinCosFallOffBusiestNode(
+        links,
+        () => {
+          return nodes.length;
+        },
+        linkStrengthNormalized,
+        linkDistanceNormalized,
+      )
+    : undefined;
 
   const center = d3
     .forceCenter(width / 2, height / 2)
     .strength(centerStrengthNormalized);
 
-  const collide = getForceCollide(20, collideStrengthNormalized);
+  const collide = forceOptions.collide
+    ? getForceCollide(20, collideStrengthNormalized)
+    : undefined;
 
-  const radial = getForceRadial(width, height, forceRadialStrengthNormalized);
+  const radial = forceOptions.radial
+    ? getForceRadial(width, height, forceRadialStrengthNormalized)
+    : undefined;
 
   return {
     forceX,

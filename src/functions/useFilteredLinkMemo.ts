@@ -1,10 +1,9 @@
 import { useMemo } from "react";
-import { DataLink, Predicate } from "../types";
+import { DataLink, HasNumberId, Predicate } from "../types";
 
-export function useFilteredLinkMemo(
-  closureList: DataLink<any>[],
-  closurePredicate: Predicate<DataLink<any>> = (c: DataLink<any>) =>
-    c.value == 1,
+export function useFilteredLinkMemo<T extends HasNumberId>(
+  closureList: DataLink<T>[],
+  closurePredicate: Predicate<DataLink<T>> = (c: DataLink<T>) => c.value == 1,
 ) {
   const filteredLinks = useMemo(
     () =>

@@ -11,6 +11,7 @@ import {
   undefinedAddNodes,
   undefinedDeleteLinks,
   undefinedDeleteNodes,
+  undefinedEditNodeData,
   useAllEdits,
   useD3ForceSimulationMemo,
   useDirectSimRefEditsDispatch,
@@ -30,6 +31,7 @@ export interface CallbackData<T extends HasNumberId> {
   deleteNodes?: MemoizedFunction<string[], void>;
   addLinks?: MemoizedFunction<string[], void>;
   deleteLinks?: MemoizedFunction<string[], void>;
+  editNodeData?: MemoizedFunction<T, void>;
 }
 
 export interface ForceClientProps<T extends HasNumberId> {
@@ -74,6 +76,11 @@ export default function ForceClient({
   const { currentState: addLinks } = useGraphListener<
     MemoizedFunction<string[], void>
   >(GraphSelectiveContextKeys.addLinks, listenerKey.current, undefinedAddLinks);
+  const { currentState: editNodeData } = useGraphListener(
+    GraphSelectiveContextKeys.editNodeData,
+    listenerKey.current,
+    undefinedEditNodeData,
+  );
 
   useEffect(() => {
     callback({
@@ -84,6 +91,7 @@ export default function ForceClient({
       deleteNodes,
       deleteLinks,
       addLinks,
+      editNodeData,
     });
   }, [
     listenerKey,
@@ -93,6 +101,7 @@ export default function ForceClient({
     deleteNodes,
     deleteLinks,
     addLinks,
+    editNodeData,
   ]);
 
   return <div></div>;

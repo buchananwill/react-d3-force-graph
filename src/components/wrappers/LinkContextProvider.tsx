@@ -17,10 +17,7 @@ export const LinkContextProvider = <T extends HasNumberId>({
   children: React.ReactNode;
   links: DataLink<T>[];
 }) => {
-  const { filteredLinks } = useFilteredLinkMemo(
-    links,
-    (closure) => closure.value == 1,
-  );
+  const { filteredLinks } = useFilteredLinkMemo(links);
 
   const [linkState, setLinkState] =
     React.useState<DataLink<T>[]>(filteredLinks);

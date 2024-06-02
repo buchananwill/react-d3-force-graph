@@ -1,10 +1,11 @@
 import { CallbackData } from "./__fixtures__/ForceClient";
 import { Organization } from "./__fixtures__/adaptors";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
 import { DataNode, ForceGraphPageOptions } from "../src";
-import { act, waitFor } from "@testing-library/react";
+import { act } from "@testing-library/react";
 import { setupRender } from "./SetupRender";
+import { resourceLimits } from "node:worker_threads";
 
 const options: ForceGraphPageOptions = {
   forceSlidersVisibleInitial: {
@@ -32,13 +33,9 @@ const options: ForceGraphPageOptions = {
 describe("ForceGraphPage", () => {
   const props: Partial<CallbackData<Organization>> = {};
   const spy = (data: CallbackData<Organization>) => {
-    console.log({
-      addLinks: data.addLinks,
-      type: typeof data.addLinks,
-      defined: !!data.addLinks,
-    });
     Object.assign(props, data);
   };
+  const spyOnCallback = vi.fn(spy);
 
   it("should call the spy with the retrieved graph data", () => {
     setupRender({ callback: spy });
@@ -172,7 +169,7 @@ describe("ForceGraphPage", () => {
     setupRender({ callback: spy, options });
 
     const { dispatchReturn, addNodes } = props;
-
+    expect(addNodes?.memoizedFunction).toBeDefined();
     const initialNodeArray = dispatchReturn?.nodeListRef?.current;
     const linkArray = dispatchReturn?.linkListRef?.current;
     const firstLink = linkArray && linkArray[0];
@@ -211,29 +208,34 @@ describe("ForceGraphPage", () => {
   });
 
   it("should link two nodes", async () => {
-    await setupRender({ callback: spy, options });
-    console.log(props.addLinks);
-    await waitFor(() => expect(props.addLinks).toBeDefined());
-    console.log(props.addLinks);
+    setupRender({ callback: spyOnCallback, options });
+    expect(spyOnCallback).toHaveBeenCalled();
 
     const { dispatchReturn, addLinks } = props;
-    console.log(props.addLinks);
+    expect(addLinks).toBeDefined();
+    if (addLinks === undefined) throw Error();
+    const spiedAddLinks = vi.fn(addLinks.memoizedFunction);
 
     const initialNodeArray = dispatchReturn?.nodeListRef?.current;
     const first = dispatchReturn?.nodeListRef?.current[0];
     const initialLinkArrayLength = dispatchReturn?.linkListRef?.current.length;
     const childrenOfFirstNode = dispatchReturn?.linkListRef?.current
-      ?.filter((link) => link.source === first?.id)
+      ?.filter((link) => link.value === 1)
+      ?.filter(
+        (link) => (link.source as DataNode<Organization>).id === first?.id,
+      )
       .map((link) =>
         typeof link.target === "object" ? link.target.id : `${link.target}`,
       );
     const notChildYet = initialNodeArray?.find(
-      (node) => !childrenOfFirstNode?.includes(node.id),
+      (node) => !childrenOfFirstNode?.includes(node.id) && node !== first,
     );
     let newLink = undefined;
     let laterLinkArrayLength = 0;
+    expect(first).toBeDefined();
+    expect(notChildYet).toBeDefined();
     if (addLinks && first && notChildYet) {
-      act(() => addLinks.memoizedFunction([first.id, notChildYet.id]));
+      act(() => spiedAddLinks([first.id, notChildYet.id]));
       laterLinkArrayLength = dispatchReturn?.linkListRef?.current.length ?? 0;
       newLink = dispatchReturn?.linkListRef?.current?.find(
         (link) =>
@@ -241,14 +243,16 @@ describe("ForceGraphPage", () => {
           (link.target as DataNode<Organization>).id === notChildYet.id,
       );
     }
-    expect(newLink).toBeDefined();
+    expect(spiedAddLinks).toHaveBeenCalledOnce();
     expect(laterLinkArrayLength).toEqual((initialLinkArrayLength ?? 0) + 1);
+    expect(newLink).toBeDefined();
   });
 
   it("should delete a link", async () => {
     setupRender({ callback: spy, options });
 
     const { dispatchReturn, deleteLinks } = props;
+    expect(deleteLinks).toBeDefined();
 
     const linkArray = dispatchReturn?.linkListRef?.current;
     const linkCount = linkArray?.length ?? 0;
@@ -257,7 +261,26 @@ describe("ForceGraphPage", () => {
 
     if (linkArray && deleteLinks) {
       act(() => deleteLinks.memoizedFunction(linkArray.map((link) => link.id)));
-      expect(linkArray?.length).toEqual(0);
     }
+    expect(dispatchReturn?.linkListRef?.current.length).toEqual(0);
+  });
+
+  it("should change the node data", async () => {
+    setupRender({ callback: spy, options });
+
+    const { dispatchReturn, editNodeData } = props;
+    expect(editNodeData).toBeDefined();
+    const first = dispatchReturn?.nodeListRef?.current[0];
+    expect(first).toBeDefined();
+    const renamed = crypto.randomUUID();
+
+    if (editNodeData && first) {
+      act(() => {
+        editNodeData.memoizedFunction({ ...first.data, name: renamed });
+      });
+    }
+
+    const updatedFirst = dispatchReturn?.nodeListRef?.current[0];
+    expect(updatedFirst?.data.name).toEqual(renamed);
   });
 });

@@ -31,6 +31,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Webstorm config
 /.idea/codeStyles/codeStyleConfig.xml
 /.idea/prettier.xml
 /.idea/codeStyles/Project.xml

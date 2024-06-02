@@ -34,7 +34,6 @@ export {
   useNodeContext,
   useNormalizeForceRange,
   useShowNodeEditing,
-  useSineLutContext,
   useSyncRefVersionToNodeAndLinkContext,
 } from "./hooks";
 export * from "./functions/utils";

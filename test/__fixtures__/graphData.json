@@ -1,0 +1,490 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": 1446,
+        "name": "8: All Classes",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 22,
+          "organizationId": 1446,
+          "workSeriesSchemaBundleId": "fe90e8de-70f4-48b3-a5d4-bf8d616c8d65"
+        }
+      },
+      "id": 1446,
+      "distanceFromRoot": 0
+    },
+    {
+      "data": {
+        "id": 1450,
+        "name": "8: ClassGroup 1",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 17,
+          "organizationId": 1450,
+          "workSeriesSchemaBundleId": "5070afd8-5dc5-4e2f-bdca-1272ac6e513d"
+        }
+      },
+      "id": 1450,
+      "distanceFromRoot": 1
+    },
+    {
+      "data": {
+        "id": 1452,
+        "name": "8: ClassGroup 2",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 18,
+          "organizationId": 1452,
+          "workSeriesSchemaBundleId": "5070afd8-5dc5-4e2f-bdca-1272ac6e513d"
+        }
+      },
+      "id": 1452,
+      "distanceFromRoot": 1
+    },
+    {
+      "data": {
+        "id": 1441,
+        "name": "8: ClassGroup 3",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 19,
+          "organizationId": 1441,
+          "workSeriesSchemaBundleId": "d7cf002c-4990-4629-af57-2de434f2abd0"
+        }
+      },
+      "id": 1441,
+      "distanceFromRoot": 1
+    },
+    {
+      "data": {
+        "id": 1443,
+        "name": "8: ClassGroup 4",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 20,
+          "organizationId": 1443,
+          "workSeriesSchemaBundleId": "d7cf002c-4990-4629-af57-2de434f2abd0"
+        }
+      },
+      "id": 1443,
+      "distanceFromRoot": 1
+    },
+    {
+      "data": {
+        "id": 1444,
+        "name": "8: ClassGroup 5",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 21,
+          "organizationId": 1444,
+          "workSeriesSchemaBundleId": "d7cf002c-4990-4629-af57-2de434f2abd0"
+        }
+      },
+      "id": 1444,
+      "distanceFromRoot": 1
+    },
+    {
+      "data": {
+        "id": 1442,
+        "name": "8: Class 6",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 16,
+          "organizationId": 1442,
+          "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
+        }
+      },
+      "id": 1442,
+      "distanceFromRoot": 2
+    },
+    {
+      "data": {
+        "id": 1445,
+        "name": "8: Class 1",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 11,
+          "organizationId": 1445,
+          "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
+        }
+      },
+      "id": 1445,
+      "distanceFromRoot": 2
+    },
+    {
+      "data": {
+        "id": 1447,
+        "name": "8: Class 3",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 13,
+          "organizationId": 1447,
+          "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
+        }
+      },
+      "id": 1447,
+      "distanceFromRoot": 2
+    },
+    {
+      "data": {
+        "id": 1448,
+        "name": "8: Class 2",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 12,
+          "organizationId": 1448,
+          "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
+        }
+      },
+      "id": 1448,
+      "distanceFromRoot": 2
+    },
+    {
+      "data": {
+        "id": 1449,
+        "name": "8: Class 5",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 15,
+          "organizationId": 1449,
+          "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
+        }
+      },
+      "id": 1449,
+      "distanceFromRoot": 2
+    },
+    {
+      "data": {
+        "id": 1451,
+        "name": "8: Class 4",
+        "type": {
+          "id": 8,
+          "name": "Year 8"
+        },
+        "workSeriesBundleAssignment": {
+          "id": 14,
+          "organizationId": 1451,
+          "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
+        }
+      },
+      "id": 1451,
+      "distanceFromRoot": 2
+    }
+  ],
+  "closureDtos": [
+    {
+      "id": 55,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1441,
+      "target": 1441,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 57,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1443,
+      "target": 1443,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 59,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1445,
+      "target": 1445,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 61,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1447,
+      "target": 1447,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 63,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1449,
+      "target": 1449,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 65,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1451,
+      "target": 1451,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 68,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1441,
+      "target": 1445,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 74,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1443,
+      "target": 1447,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 67,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1441,
+      "target": 1448,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 73,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1443,
+      "target": 1451,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 70,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1452,
+      "target": 1442,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 69,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1441,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 78,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1450,
+      "target": 1445,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 72,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1442,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 75,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1443,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 86,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1450,
+      "target": 1447,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 88,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1452,
+      "target": 1449,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 71,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1444,
+      "target": 1442,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 77,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1444,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 87,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1450,
+      "target": 1448,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 79,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1445,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 89,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1452,
+      "target": 1451,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 56,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1442,
+      "target": 1442,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 58,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1444,
+      "target": 1444,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 60,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1446,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 62,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1448,
+      "target": 1448,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 64,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1450,
+      "target": 1450,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 66,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1452,
+      "target": 1452,
+      "value": 0,
+      "weighting": 1
+    },
+    {
+      "id": 83,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1447,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 84,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1448,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 80,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1449,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 85,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1450,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 76,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1444,
+      "target": 1449,
+      "value": 1,
+      "weighting": 1
+    },
+    {
+      "id": 81,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1451,
+      "value": 2,
+      "weighting": 1
+    },
+    {
+      "id": 82,
+      "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+      "source": 1446,
+      "target": 1452,
+      "value": 1,
+      "weighting": 1
+    }
+  ]
+}

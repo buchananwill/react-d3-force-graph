@@ -4,7 +4,6 @@ export * from "./useGraphName";
 export * from "./useModalContent";
 export * from "./useNodeContext";
 export * from "./useLinkContext";
-export * from "./useSineLutContext";
 export * from "./useNodeEditing";
 export * from "./useGraphEditHooks";
 export * from "./useShowNodeEditing";

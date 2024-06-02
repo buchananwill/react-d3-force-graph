@@ -1,5 +1,5 @@
-import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
-import React from "react";
+import { Simulation, SimulationLinkDatum, SimulationNodeDatum } from "d3";
+import React, { MutableRefObject } from "react";
 
 export type DataNode<T extends HasNumberId> = SimulationNodeDatum & {
   id: string;
@@ -60,11 +60,6 @@ export interface GraphDtoPutRequestBody<T extends HasNumberId> {
   deletedNodeIdList: number[];
   deletedClosureIdList: number[];
 }
-export type GenericDivProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->;
-
 export interface NodeModalContentProps {
   onClose: () => void;
 }
@@ -76,4 +71,14 @@ export type NodeModalContentComponent = MemoizedFunction<
 
 export interface AddLinksParams {
   nodeIdList: string[];
+}
+
+export interface DirectSimRefEditsDispatchReturn<T extends HasNumberId> {
+  dispatchNextSimVersion: (
+    updatedNodes: DataNode<T>[],
+    updatedLinks: DataLink<T>[],
+  ) => void;
+  linkListRef: null | MutableRefObject<DataLink<T>[]>;
+  nodeListRef: null | MutableRefObject<DataNode<T>[]>;
+  simRef: null | MutableRefObject<Simulation<DataNode<T>, DataLink<T>>>;
 }

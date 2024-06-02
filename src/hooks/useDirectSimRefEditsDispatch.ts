@@ -1,4 +1,9 @@
-import { DataLink, DataNode, HasNumberId } from "../types";
+import {
+  DataLink,
+  DataNode,
+  DirectSimRefEditsDispatchReturn,
+  HasNumberId,
+} from "../types";
 
 import {
   Dispatch,
@@ -7,10 +12,7 @@ import {
   useContext,
   useMemo,
 } from "react";
-import {
-  useGraphDispatch,
-  useGraphListener,
-} from "./useGraphSelectiveContext";
+import { useGraphDispatch, useGraphListener } from "./useGraphSelectiveContext";
 
 import { Simulation } from "d3";
 import { GraphSelectiveContextKeys } from "../literals";
@@ -20,10 +22,9 @@ import { NodeDispatchContext } from "../contexts/genericNodeContextCreator";
 import { LinkDispatchContext } from "../contexts/genericLinkContextCreator";
 import { resetLinks } from "../editing/functions/resetLinks";
 
-
 export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
   listenerKey: string,
-) {
+): DirectSimRefEditsDispatchReturn<T> {
   const updateNodes = useContext<
     Dispatch<SetStateAction<DataNode<T>[]>> | undefined
   >(NodeDispatchContext);
@@ -39,10 +40,10 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
 
   const { nodeListRef, linkListRef } = useGraphRefs<T>();
   const { currentState: simRef } = useGraphListener<MutableRefObject<
-    Simulation<any, any>
+    Simulation<DataNode<T>, DataLink<T>>
   > | null>(GraphSelectiveContextKeys.sim, listenerKey, null);
   const dispatchNextSimVersion = useMemo(() => {
-    return (updatedNodes: DataNode<any>[], updatedLinks: DataLink<any>[]) => {
+    return (updatedNodes: DataNode<T>[], updatedLinks: DataLink<T>[]) => {
       if (updateNodes && updateLinks) {
         const resetLinksWithIdNotReferences = resetLinks(updatedLinks);
         console.log(resetLinksWithIdNotReferences);

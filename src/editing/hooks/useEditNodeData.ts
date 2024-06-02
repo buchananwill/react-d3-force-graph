@@ -1,12 +1,11 @@
-import { useGraphEditHooks } from "../../hooks";
+import { useGraphController, useGraphEditHooks } from "../../hooks";
 import { useMemo } from "react";
-import { HasId } from "../../types";
-import { useGraphController } from "../../hooks";
+import { HasNumberId } from "../../types";
 import { GraphSelectiveContextKeys } from "../../literals";
 import { getAnyIdAsString } from "../../functions/utils";
 import { useEffectSyncToMemo } from "./useEffectSyncToMemo";
 
-export function useEditNodeData<T extends HasId>() {
+export function useEditNodeData<T extends HasNumberId>() {
   const { nodeListRef, linkListRef, dispatchNextSimVersion } =
     useGraphEditHooks("edit-node-data-controller");
 

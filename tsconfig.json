@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2017",                                  // Specify ECMAScript target version
     "lib": ["dom", "es2017"],
+    "resolveJsonModule": true,
     "module": "es6",                             // Specify module code generation
     "declaration": true,                              // Generates corresponding '.d.ts' file.
     "outDir": "./dist",                               // Redirect output structure to the directory
@@ -11,14 +12,14 @@
     "forceConsistentCasingInFileNames": true,         // Disallow inconsistently-cased references
     "moduleResolution": "node",                       // Module resolution strategy
     "jsx": "react",
-    "types": [ "react", "react-dom"]// Support JSX in .tsx files
+    "types": [ "react", "react-dom", "vitest/globals"]// Support JSX in .tsx files
   },
   "include": [
     "src/**/*",// Include all files in the src folder
-    //    "test/__fixtures__/**/*"
+        "test/__fixtures__/**/*"
   ],
   "exclude": [
     "node_modules",                                  // Exclude the node_modules directory
-    "**/*.test.ts"
+//    "**/*.test.ts"
   ]
 }

@@ -46,7 +46,6 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
     return (updatedNodes: DataNode<T>[], updatedLinks: DataLink<T>[]) => {
       if (updateNodes && updateLinks) {
         const resetLinksWithIdNotReferences = resetLinks(updatedLinks);
-        console.log(resetLinksWithIdNotReferences);
         updateNodes(
           updatedNodes.map((n) => ({ ...n, position: { x: n.x, y: n.y } })),
         );

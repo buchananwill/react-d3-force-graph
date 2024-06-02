@@ -8,6 +8,7 @@ import { getForceRadial } from "../forces/forceRadial";
 import { DataLink, DataNode, ForceOptions, HasNumberId } from "../types";
 import { Forces } from "../types";
 import { ForceAttributeListenersReturn } from "../types";
+import { getForceCenter } from "../forces/forceCenter";
 
 export function createForces<T extends HasNumberId>(
   forceAttributeListeners: ForceAttributeListenersReturn,
@@ -63,9 +64,9 @@ export function createForces<T extends HasNumberId>(
       )
     : undefined;
 
-  const center = d3
-    .forceCenter(width / 2, height / 2)
-    .strength(centerStrengthNormalized);
+  const center = forceOptions.center
+    ? getForceCenter(width, height, centerStrengthNormalized)
+    : undefined;
 
   const collide = forceOptions.collide
     ? getForceCollide(20, collideStrengthNormalized)

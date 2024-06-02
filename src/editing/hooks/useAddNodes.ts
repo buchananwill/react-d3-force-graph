@@ -10,7 +10,6 @@ import { createNodes } from "../functions/createNodes";
 import { createLinks } from "../functions/createLinks";
 import { DataLink, DataNode, HasNumberId, MemoizedFunction } from "../../types";
 import { GraphSelectiveContextKeys, undefinedCloneNode } from "../../literals";
-import { dispatch } from "d3";
 import { useEffectSyncToMemo } from "./useEffectSyncToMemo";
 
 export type Relation = "sibling" | "child";
@@ -66,9 +65,7 @@ export function useAddNodes<T extends HasNumberId>() {
 
   const addNodes = useMemo(() => {
     const add = ({ sourceNodeIdList, relation }: AddNodesParams) => {
-      console.log(nodeListRef, linkListRef);
       if (nodeListRef === null || linkListRef === null) return;
-      console.log("Adding Nodes");
 
       const sourceNodes = nodeListRef.current.filter((n) =>
         sourceNodeIdList.includes(n.id),
@@ -89,8 +86,6 @@ export function useAddNodes<T extends HasNumberId>() {
         ...transientLinkIds,
         ...newLinks.map((l) => l.id),
       ]);
-
-      console.log("before dispatching next version:", linkListRef, nodeListRef);
       dispatchNextSimVersion(allNodes, allLinks);
     };
     return { memoizedFunction: add };

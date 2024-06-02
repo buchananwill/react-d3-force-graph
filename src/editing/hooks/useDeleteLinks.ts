@@ -17,16 +17,16 @@ export function useDeleteLinks<T extends HasNumberId>() {
   } = useGraphEditHooks<T>(deleteLinksKey);
 
   const memoizedDelete = useMemo(() => {
-    const deleteThem = (linksTodelete: string[]) => {
+    const deleteThem = (linksToDelete: string[]) => {
       if (nodeListRef === null || linkListRef === null) return;
 
       const remainingLinks = linkListRef.current.filter(
-        (l) => !linksTodelete.includes(l.id),
+        (l) => !linksToDelete.includes(l.id),
       );
 
-      setDeletedLinkIds((deletedLinkIds) => [
+      setDeletedLinkIds((deletedLinkIds: string[]) => [
         ...deletedLinkIds,
-        ...linksTodelete,
+        ...linksToDelete,
       ]);
 
       dispatchNextSimVersion(nodeListRef.current, remainingLinks);

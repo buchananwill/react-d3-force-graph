@@ -2,31 +2,21 @@
 
 import { DataLink, DataNode, HasNumberId } from "../../types";
 
-function getPredicates<T extends HasNumberId>(set: Set<string>) {
-  const allPredicate = (l: DataLink<T>) => {
-    return (
-      set.has((l.target as DataNode<T>).id) &&
-      set.has((l.source as DataNode<T>).id)
-    );
-  };
-
-  const anyPredicate = (l: DataLink<T>) => {
+function getPredicate<T extends HasNumberId>(set: Set<string>) {
+  return (l: DataLink<T>) => {
     return (
       set.has((l.target as DataNode<T>).id) ||
       set.has((l.source as DataNode<T>).id)
     );
   };
-  return { allPredicate, anyPredicate };
 }
 
 export function deleteLinks<T extends HasNumberId>(
   linksListRef: DataLink<T>[],
   selectedNodeIds: string[],
-  mode: "any" | "all",
 ) {
   const set = new Set(selectedNodeIds);
-  const { allPredicate, anyPredicate } = getPredicates(set);
-  const deletionPredicate = mode === "any" ? anyPredicate : allPredicate;
+  const deletionPredicate = getPredicate(set);
   const toDelete: string[] = [];
   const remainingLinks = linksListRef
     .map((l) => {
@@ -44,8 +34,4 @@ export function deleteLinks<T extends HasNumberId>(
 
 export function isNotNull<T>(value: T | null): value is T {
   return value !== null;
-}
-
-export function isNotUndefined<T>(value: T | undefined): value is T {
-  return value !== undefined;
 }

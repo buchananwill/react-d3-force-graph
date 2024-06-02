@@ -33,14 +33,16 @@ export function useDeleteNodes<T extends HasNumberId>() {
       const { remainingLinks, toDelete } = deleteLinks<T>(
         linkListRef.current,
         idList,
-        "any",
       );
 
-      setDeletedNodeIds((deletedNodeIds) => [
+      setDeletedNodeIds((deletedNodeIds: number[]) => [
         ...deletedNodeIds,
         ...nodesForDeletion,
       ]);
-      setDeletedLinkIds((deletedLinkIds) => [...deletedLinkIds, ...toDelete]);
+      setDeletedLinkIds((deletedLinkIds: string[]) => [
+        ...deletedLinkIds,
+        ...toDelete,
+      ]);
 
       dispatchNextSimVersion(remainingNodes, remainingLinks);
     };

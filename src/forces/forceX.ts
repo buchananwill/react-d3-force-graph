@@ -5,17 +5,6 @@ import { Simulation } from "d3";
 import { DataLink, DataNode, HasNumberId } from "../types";
 import { updateForce } from "./updateForce";
 
-export function getGridX(
-  width: number,
-  spacing = 30,
-  strength: number,
-) {
-  return D3.forceX((_d, index) => {
-    if (index == undefined || isNaN(index)) return width / 2;
-    else return index * spacing;
-  }).strength(strength);
-}
-
 export const exponentForPositionalForcesToCreateCurvedDelta = 3;
 
 export function updateForceX<T extends HasNumberId>(

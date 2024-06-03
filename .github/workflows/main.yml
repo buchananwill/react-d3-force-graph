@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: ['*']
+
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  main:
+    name: Validate
+    runs-on: ubuntu-latest
+
+    env:
+      CI: true
+
+    steps:
+      - name: Set Timezone
+        uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: "Europe/London"
+
+      - name: Setup repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: "${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}"
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install Packages
+        run: pnpm install
+        timeout-minutes: 3
+
+      - name: Validate
+        run: npm run validate
+        timeout-minutes: 5
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

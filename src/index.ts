@@ -36,3 +36,4 @@ export {
 } from "./hooks";
 export * from "./functions/utils";
 export { ForceGraphPage, ComponentUndefined } from "./components";
+export * from "./types";

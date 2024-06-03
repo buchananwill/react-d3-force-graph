@@ -1,6 +1,6 @@
 {
   "name": "react-d3-force-wrapper",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A wrapper to use d3-force in React projects.",
   "author": "Will Buchanan <willwritescode@gmail.com",
   "repository": {

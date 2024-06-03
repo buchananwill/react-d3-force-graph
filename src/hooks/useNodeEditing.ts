@@ -13,7 +13,10 @@ import {
   useGraphListener,
 } from "./useGraphSelectiveContext";
 import {
+  ClosureDto,
+  DataLink,
   DataNode,
+  DataNodeDto,
   GraphDto,
   GraphDtoPutRequestBody,
   HasNumberId,
@@ -22,11 +25,20 @@ import {
 } from "../types";
 import { useShowNodeEditing } from "./useShowNodeEditing";
 import { useGraphRefs } from "./useGraphRefs";
-import { getNumberFromStringId } from "../functions/utils";
-import { mapLinksBackToClosureDtos } from "../functions/mapLinksBackToClosureDtos";
+import { getNumberFromStringId, isNotUndefined } from "../functions/utils";
+import { mapLinkBackToClosureDto } from "../functions/mapLinkBackToClosureDto";
 
 function removeTransientId(id: number) {
   return id < TransientIdOffset;
+}
+
+export function reMapNodeIdWithoutValidating<T extends HasNumberId>(
+  node: DataNode<T>,
+) {
+  return {
+    ...node,
+    id: getNumberFromStringId(node.id),
+  };
 }
 
 const listenerKey = "use-edit-component";
@@ -36,6 +48,8 @@ export function useNodeEditing<T extends HasNumberId>(
   putUpdatedGraph?: (
     updatedGraph: GraphDtoPutRequestBody<T>,
   ) => Promise<unknown>,
+  nodeDtoValidation?: (dataNode: DataNode<T>) => DataNodeDto<T> | undefined,
+  closureDtoValidation?: (dataLink: DataLink<T>) => ClosureDto | undefined,
 ): UnsavedNodeChangesProps {
   const { dispatchWithoutControl, currentState } =
     useGraphDispatchAndListener<boolean>(
@@ -64,11 +78,12 @@ export function useNodeEditing<T extends HasNumberId>(
     const nodes = nodeListRef.current;
     const links = linkListRef.current;
     if (links && nodes) {
-      const linksWithNumberIdRefs = links.map(mapLinksBackToClosureDtos);
-      const dataNodeDtoList = nodes.map((n) => ({
-        ...n,
-        id: getNumberFromStringId(n.id),
-      }));
+      const reMapLinks = closureDtoValidation ?? mapLinkBackToClosureDto;
+      const reMapNodes = nodeDtoValidation ?? reMapNodeIdWithoutValidating;
+      const linksWithNumberIdRefs = links
+        .map(reMapLinks)
+        .filter(isNotUndefined);
+      const dataNodeDtoList = nodes.map(reMapNodes).filter(isNotUndefined);
       const updatedGraph: GraphDto<T> = {
         nodes: dataNodeDtoList,
         closureDtos: linksWithNumberIdRefs,

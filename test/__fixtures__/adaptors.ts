@@ -6,31 +6,28 @@ import {
   getAnyIdAsString,
   HasNumberId,
 } from "../../src";
+import { OrganizationDto } from "./OrganizationDtoSchema";
 
 export interface Coordinate {
   x: number;
   y: number;
 }
 
-// Define the interface for the "type" object
-export interface OrganizationType {
-  id: number;
-  name: string;
-}
-
-// Define the interface for the "workSeriesBundleAssignment" object
-export interface WorkSeriesBundleAssignment {
-  id: number;
-  organizationId: number;
-  workSeriesSchemaBundleId: string;
-}
+// // Define the interface for the "type" object
+// export interface OrganizationType {
+//   id: number;
+//   name: string;
+// }
+//
+// // Define the interface for the "workSeriesBundleAssignment" object
+// export interface WorkSeriesBundleAssignment {
+//   id: number;
+//   organizationId: number;
+//   workSeriesSchemaBundleId: string;
+// }
 
 // Define the main interface for the JSON structure
-export interface Organization extends HasNumberId {
-  name: string;
-  type: OrganizationType;
-  workSeriesBundleAssignment: WorkSeriesBundleAssignment;
-}
+export type Organization = OrganizationDto;
 
 export function convertToDataNode<T extends HasNumberId>(
   dataNode: DataNodeDto<T> & Partial<Coordinate>,

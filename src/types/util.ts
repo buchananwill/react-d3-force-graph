@@ -69,10 +69,6 @@ export type NodeModalContentComponent = MemoizedFunction<
   React.JSX.Element
 >;
 
-export interface AddLinksParams {
-  nodeIdList: string[];
-}
-
 export interface DirectSimRefEditsDispatchReturn<T extends HasNumberId> {
   dispatchNextSimVersion: (
     updatedNodes: DataNode<T>[],

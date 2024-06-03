@@ -17,3 +17,7 @@ export function getNumberFromStringId(id: string) {
     return afterColon;
   } else return number;
 }
+
+export function isNotUndefined<T>(value: T | undefined): value is T {
+  return value !== undefined;
+}

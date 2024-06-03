@@ -6,13 +6,13 @@ import ForceClientWrapper from "./__fixtures__/ForceClientWrapper";
 import React from "react";
 
 export const setupRender = ({
-  callback,
   options = {},
-}: Pick<ForceClientProps<Organization>, "callback"> & {
+  ...clientProps
+}: ForceClientProps<Organization> & {
   options?: ForceGraphPageOptions;
 }) =>
   setup(
     <ForceClientWrapper options={options}>
-      <ForceClient callback={callback} />
+      <ForceClient {...clientProps} />
     </ForceClientWrapper>,
   );

@@ -2,10 +2,20 @@ import { CallbackData } from "./__fixtures__/ForceClient";
 import { Organization } from "./__fixtures__/adaptors";
 import { describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
-import { DataNode, ForceGraphPageOptions } from "../src";
+import {
+  DataNode,
+  ForceGraphPageOptions,
+  GraphDtoPutRequestBody,
+} from "../src";
 import { act } from "@testing-library/react";
 import { setupRender } from "./SetupRender";
-import { resourceLimits } from "node:worker_threads";
+import { linksDto, nodesDto } from "./__fixtures__/ForceClientWrapper";
+import {
+  DirectConnectionDistance,
+  getClosurePredicate,
+} from "../src/functions/useFilteredLinkMemo";
+import { revalidateOrganizationNode } from "./__fixtures__/DataNodeDtoSchema";
+import { reMapAndValidateLinkToClosure } from "./__fixtures__/ClosureDtoSchema";
 
 const options: ForceGraphPageOptions = {
   forceSlidersVisibleInitial: {
@@ -282,5 +292,48 @@ describe("ForceGraphPage", () => {
 
     const updatedFirst = dispatchReturn?.nodeListRef?.current[0];
     expect(updatedFirst?.data.name).toEqual(renamed);
+  });
+
+  it("should call the update server function with the original input json data", async () => {
+    const mockUpdateCallback = vi.fn(
+      async (request: GraphDtoPutRequestBody<Organization>) =>
+        console.log(request),
+    );
+    const spyOnNodeValidation = vi.fn(revalidateOrganizationNode);
+    const spyOnClosureValidation = vi.fn(reMapAndValidateLinkToClosure);
+    const expectedRequest: GraphDtoPutRequestBody<Organization> = {
+      graphDto: {
+        nodes: nodesDto,
+        closureDtos: linksDto.filter(
+          getClosurePredicate(DirectConnectionDistance),
+        ),
+      },
+      deletedClosureIdList: [],
+      deletedNodeIdList: [],
+    };
+
+    setupRender({
+      options,
+      callback: spy,
+      putUpdatedGraph: mockUpdateCallback,
+      nodeDtoValidation: spyOnNodeValidation,
+      closureDtoValidation: spyOnClosureValidation,
+    });
+
+    const { onConfirm } = props;
+
+    expect(onConfirm).toBeDefined();
+
+    if (onConfirm) {
+      console.log("acting...");
+      await act(async () => {
+        console.log("calling on confirm...");
+        await onConfirm();
+      });
+    }
+
+    expect(spyOnNodeValidation).toHaveBeenCalled();
+    expect(spyOnClosureValidation).toHaveBeenCalled();
+    expect(mockUpdateCallback).toHaveBeenCalledWith(expectedRequest);
   });
 });

@@ -1,7 +1,9 @@
 import {
   AddNodesParams,
+  ClosureDto,
   DataLink,
   DataNode,
+  DataNodeDto,
   DirectSimRefEditsDispatchReturn,
   GraphDtoPutRequestBody,
   GraphSelectiveContextKeys,
@@ -32,6 +34,7 @@ export interface CallbackData<T extends HasNumberId> {
   addLinks?: MemoizedFunction<string[], void>;
   deleteLinks?: MemoizedFunction<string[], void>;
   editNodeData?: MemoizedFunction<T, void>;
+  onConfirm?: () => void;
 }
 
 export interface ForceClientProps<T extends HasNumberId> {
@@ -39,11 +42,15 @@ export interface ForceClientProps<T extends HasNumberId> {
   putUpdatedGraph?: (
     updatedGraph: GraphDtoPutRequestBody<T>,
   ) => Promise<unknown>;
+  nodeDtoValidation?: (dataNode: DataNode<T>) => DataNodeDto<T> | undefined;
+  closureDtoValidation?: (dataLink: DataLink<T>) => ClosureDto | undefined;
 }
 
 export default function ForceClient({
   callback,
   putUpdatedGraph,
+  nodeDtoValidation,
+  closureDtoValidation,
 }: ForceClientProps<Organization>) {
   const listenerKey = useRef(crypto.randomUUID());
   const [simRefFromMemo] = useD3ForceSimulationMemo<Organization>();
@@ -51,7 +58,12 @@ export default function ForceClient({
     listenerKey.current,
   );
 
-  useNodeEditing(cloneFunctionWrapper, putUpdatedGraph);
+  const { onConfirm } = useNodeEditing(
+    cloneFunctionWrapper,
+    putUpdatedGraph,
+    nodeDtoValidation,
+    closureDtoValidation,
+  );
   useAllEdits();
 
   const { currentState: addNodes } = useGraphListener(
@@ -92,6 +104,7 @@ export default function ForceClient({
       deleteLinks,
       addLinks,
       editNodeData,
+      onConfirm,
     });
   }, [
     listenerKey,

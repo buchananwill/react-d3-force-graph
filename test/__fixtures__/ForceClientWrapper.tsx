@@ -10,6 +10,8 @@ import React, { PropsWithChildren } from "react";
 
 export const nodes = convertDataNodeDtoListToDataNodeList(graphDto.nodes);
 export const links = convertClosureDtoListToDataLinkList(graphDto.closureDtos);
+export const nodesDto = graphDto.nodes;
+export const linksDto = graphDto.closureDtos;
 
 export default function ForceClientWrapper({
   children,

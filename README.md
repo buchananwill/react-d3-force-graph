@@ -3,7 +3,7 @@
 ![NPM Version](https://img.shields.io/npm/v/react-d3-force-wrapper)
 
 
-### React D3 Force Graph
+### React D3 Force Wrapper
 This is a wrapper library to facilitate using the d3.force graph library in a React project.
 
 More details to follow...

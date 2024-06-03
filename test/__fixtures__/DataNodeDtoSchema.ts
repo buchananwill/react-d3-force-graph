@@ -1,8 +1,9 @@
 import { z } from "zod";
 import { OrganizationDtoSchema } from "./OrganizationDtoSchema";
-import { DataNode } from "../../src";
+
 import { Organization } from "./adaptors";
 import { reMapNodeIdWithoutValidating } from "../../src/hooks";
+import { DataNode } from "../../src/types";
 
 export function createDataNodeDtoSchema<T extends z.ZodTypeAny>(dataSchema: T) {
   return z.object({

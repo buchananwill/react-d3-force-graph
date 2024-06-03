@@ -1,5 +1,4 @@
-import { Relation } from "../hooks/useAddNodes";
-import { DataLink, DataNode, HasNumberId } from "../../types";
+import { DataLink, DataNode, HasNumberId, Relation } from "../../types";
 import { createSiblingLinks } from "./createSiblingLinks";
 import { createChildLink } from "./createChildLink";
 

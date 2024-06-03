@@ -1,5 +1,4 @@
-import { Relation } from "../hooks/useAddNodes";
-import { CloneFunction, DataNode, HasNumberId } from "../../types";
+import { CloneFunction, DataNode, HasNumberId, Relation } from "../../types";
 
 export interface CreateNodeParams<T extends HasNumberId> {
   getNextNodeId: () => number;

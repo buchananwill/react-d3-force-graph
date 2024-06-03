@@ -1,12 +1,14 @@
 "use client";
 import { SelectiveContextManagerGlobal } from "selective-context";
-import { ForceGraphPage, ForceGraphPageOptions } from "../../src";
+
 import graphDto from "./graphData.json";
 import {
   convertClosureDtoListToDataLinkList,
   convertDataNodeDtoListToDataNodeList,
 } from "./adaptors";
 import React, { PropsWithChildren } from "react";
+import { ForceGraphPageOptions } from "../../src/types/forceGraphPageProps";
+import { ForceGraphPage } from "../../src";
 
 export const nodes = convertDataNodeDtoListToDataNodeList(graphDto.nodes);
 export const links = convertClosureDtoListToDataLinkList(graphDto.closureDtos);

@@ -7,10 +7,10 @@ export interface LinkContextInterface<T extends HasNumberId> {
 }
 
 // Create a generic context with a default value
-export const LinkContext = createContext<LinkContextInterface<any> | undefined>(
-  undefined,
-);
+export const LinkContext = createContext<
+  LinkContextInterface<HasNumberId> | undefined
+>(undefined);
 
 export const LinkDispatchContext = createContext<
-  Dispatch<SetStateAction<DataLink<any>[]>> | undefined
+  Dispatch<SetStateAction<DataLink<HasNumberId>[]>> | undefined
 >(undefined);

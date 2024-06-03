@@ -1,7 +1,8 @@
 import { z } from "zod";
-import { DataLink } from "../../src";
+
 import { Organization } from "./adaptors";
 import { mapLinkBackToClosureDto } from "../../src/functions/mapLinkBackToClosureDto";
+import { DataLink } from "../../src/types";
 export const ClosureDtoSchema = z.object({
   id: z.number(),
   closureType: z.string(),

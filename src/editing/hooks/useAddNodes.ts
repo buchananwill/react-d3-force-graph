@@ -8,11 +8,16 @@ import {
 
 import { createNodes } from "../functions/createNodes";
 import { createLinks } from "../functions/createLinks";
-import { DataLink, DataNode, HasNumberId, MemoizedFunction } from "../../types";
+import {
+  AddNodesParams,
+  DataLink,
+  DataNode,
+  HasNumberId,
+  MemoizedFunction,
+  Relation,
+} from "../../types";
 import { GraphSelectiveContextKeys, undefinedCloneNode } from "../../literals";
 import { useEffectSyncToMemo } from "./useEffectSyncToMemo";
-
-export type Relation = "sibling" | "child";
 
 const addNodesController = `add-nodes-controller`;
 
@@ -46,6 +51,7 @@ export function useAddNodes<T extends HasNumberId>() {
           getNextNodeId, // Use a private scoped variable to make this function re-render-proof
           sourceNodes,
           allNodes,
+
           relation,
           cloneFunction: memoizedFunction,
         });
@@ -104,9 +110,4 @@ export function useAddNodes<T extends HasNumberId>() {
   );
 
   useEffectSyncToMemo(dispatch, addNodes);
-}
-
-export interface AddNodesParams {
-  sourceNodeIdList: string[];
-  relation: Relation;
 }

@@ -2,6 +2,8 @@ import {
   DataLink,
   DataNode,
   DirectSimRefEditsDispatchReturn,
+  EditLinkDispatchContext,
+  EditNodeDispatchContext,
   HasNumberId,
 } from "../types";
 
@@ -27,10 +29,10 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
 ): DirectSimRefEditsDispatchReturn<T> {
   const updateNodes = useContext<
     Dispatch<SetStateAction<DataNode<T>[]>> | undefined
-  >(NodeDispatchContext);
+  >(NodeDispatchContext as EditNodeDispatchContext<T>);
   const updateLinks = useContext<
     Dispatch<SetStateAction<DataLink<T>[]>> | undefined
-  >(LinkDispatchContext);
+  >(LinkDispatchContext as EditLinkDispatchContext<T>);
 
   const { dispatchWithoutListen: dispatchUnsavedGraph } =
     useGraphDispatch<boolean>("unsaved-node-data");

@@ -2,12 +2,16 @@ import { getHorizontalParentsToChildrenLayout } from "../forces/forceX";
 import { getModulusGridY } from "../forces/forceY";
 import { getForceManyBody } from "../forces/forceManyBody";
 import { getLinkForceMinCosFallOffBusiestNode } from "../forces/forceLink";
-import * as d3 from "d3";
 import { getForceCollide } from "../forces/forceCollide";
 import { getForceRadial } from "../forces/forceRadial";
-import { DataLink, DataNode, ForceOptions, HasNumberId } from "../types";
-import { Forces } from "../types";
-import { ForceAttributeListenersReturn } from "../types";
+import {
+  DataLink,
+  DataNode,
+  ForceAttributeListenersReturn,
+  ForceOptions,
+  Forces,
+  HasNumberId,
+} from "../types";
 import { getForceCenter } from "../forces/forceCenter";
 
 export function createForces<T extends HasNumberId>(

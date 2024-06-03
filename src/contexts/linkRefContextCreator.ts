@@ -1,6 +1,6 @@
 import { createContext, MutableRefObject } from "react";
-import { DataLink } from "../types";
+import { DataLink, HasNumberId } from "../types";
 
 export const LinkRefContext = createContext<MutableRefObject<
-  DataLink<any>[]
+  DataLink<HasNumberId>[]
 > | null>(null);

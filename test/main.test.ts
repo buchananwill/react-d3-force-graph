@@ -2,11 +2,7 @@ import { CallbackData } from "./__fixtures__/ForceClient";
 import { Organization } from "./__fixtures__/adaptors";
 import { describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
-import {
-  DataNode,
-  ForceGraphPageOptions,
-  GraphDtoPutRequestBody,
-} from "../src";
+import {} from "../src";
 import { act } from "@testing-library/react";
 import { setupRender } from "./SetupRender";
 import { linksDto, nodesDto } from "./__fixtures__/ForceClientWrapper";
@@ -16,6 +12,8 @@ import {
 } from "../src/functions/useFilteredLinkMemo";
 import { revalidateOrganizationNode } from "./__fixtures__/DataNodeDtoSchema";
 import { reMapAndValidateLinkToClosure } from "./__fixtures__/ClosureDtoSchema";
+import { ForceGraphPageOptions } from "../src/types/forceGraphPageProps";
+import { DataNode, GraphDtoPutRequestBody } from "../src/types/util";
 
 const options: ForceGraphPageOptions = {
   forceSlidersVisibleInitial: {
@@ -295,10 +293,9 @@ describe("ForceGraphPage", () => {
   });
 
   it("should call the update server function with the original input json data", async () => {
-    const mockUpdateCallback = vi.fn(
-      async (request: GraphDtoPutRequestBody<Organization>) =>
-        console.log(request),
-    );
+    const mockUpdateCallback = vi.fn(async () => {
+      /*do nothing*/
+    });
     const spyOnNodeValidation = vi.fn(revalidateOrganizationNode);
     const spyOnClosureValidation = vi.fn(reMapAndValidateLinkToClosure);
     const expectedRequest: GraphDtoPutRequestBody<Organization> = {
@@ -325,9 +322,7 @@ describe("ForceGraphPage", () => {
     expect(onConfirm).toBeDefined();
 
     if (onConfirm) {
-      console.log("acting...");
       await act(async () => {
-        console.log("calling on confirm...");
         await onConfirm();
       });
     }

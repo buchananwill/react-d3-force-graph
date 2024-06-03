@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import {
   NodeContext,
   NodeDispatchContext,
@@ -18,7 +18,11 @@ export const NodeContextProvider = <T extends HasNumberId>({
 
   return (
     <NodeContext.Provider value={{ nodes: nodeState }}>
-      <NodeDispatchContext.Provider value={setNodeState}>
+      <NodeDispatchContext.Provider
+        value={
+          setNodeState as Dispatch<SetStateAction<DataNode<HasNumberId>[]>>
+        }
+      >
         {children}
       </NodeDispatchContext.Provider>
     </NodeContext.Provider>

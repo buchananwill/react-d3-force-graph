@@ -1,12 +1,7 @@
-import {
-  ClosureDto,
-  DataLink,
-  DataNode,
-  DataNodeDto,
-  getAnyIdAsString,
-  HasNumberId,
-} from "../../src";
 import { OrganizationDto } from "./OrganizationDtoSchema";
+import { DataLink, DataNode, DataNodeDto, HasNumberId } from "../../src/types";
+import { getAnyIdAsString } from "../../src";
+import { ClosureDto } from "./ClosureDtoSchema";
 
 export interface Coordinate {
   x: number;

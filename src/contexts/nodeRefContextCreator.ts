@@ -1,6 +1,6 @@
 import { createContext, MutableRefObject } from "react";
-import { DataNode } from "../types";
+import { DataNode, HasNumberId } from "../types";
 
 export const NodeRefContext = createContext<MutableRefObject<
-  DataNode<any>[]
+  DataNode<HasNumberId>[]
 > | null>(null);

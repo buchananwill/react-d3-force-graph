@@ -5,6 +5,7 @@ import { useGraphController } from "../../hooks";
 import { GraphSelectiveContextKeys } from "../../literals";
 
 import { useEffectSyncToMemo } from "./useEffectSyncToMemo";
+import { getNumberFromStringId } from "../../functions/utils";
 
 const deleteLinksKey = "delete-links";
 
@@ -24,9 +25,9 @@ export function useDeleteLinks<T extends HasNumberId>() {
         (l) => !linksToDelete.includes(l.id),
       );
 
-      setDeletedLinkIds((deletedLinkIds: string[]) => [
+      setDeletedLinkIds((deletedLinkIds: number[]) => [
         ...deletedLinkIds,
-        ...linksToDelete,
+        ...linksToDelete.map(getNumberFromStringId),
       ]);
 
       dispatchNextSimVersion(nodeListRef.current, remainingLinks);

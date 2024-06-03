@@ -4,11 +4,9 @@ export {
   useDeleteNodes,
   useDeleteLinks,
   useAddLinks,
-  AddNodesParams,
   useAddNodes,
   deDuplicateNames,
   incrementCloneSuffix,
-  Relation,
 } from "./editing";
 export * from "./literals";
 export {
@@ -38,4 +36,3 @@ export {
 } from "./hooks";
 export * from "./functions/utils";
 export { ForceGraphPage, ComponentUndefined } from "./components";
-export * from "./types";

@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 
 import { useCallback } from "react";
@@ -65,12 +64,12 @@ export function useNodeEditing<T extends HasNumberId>(
   const { currentState: deletedLinkIds } = useGraphListener(
     GraphSelectiveContextKeys.deletedLinkIds,
     listenerKey,
-    EmptyArray,
+    EmptyArray as number[],
   );
   const { currentState: deletedNodeIds } = useGraphListener(
     GraphSelectiveContextKeys.deletedNodeIds,
     listenerKey,
-    EmptyArray,
+    EmptyArray as number[],
   );
 
   const handleSaveGraph = useCallback(() => {
@@ -98,9 +97,10 @@ export function useNodeEditing<T extends HasNumberId>(
         deletedClosureIdList: deletedLinkNonTransientIds,
         deletedNodeIdList: deletedNodeNonTransientIds,
       };
+      // TODO: handle the happy and sad paths.
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       putUpdatedGraph(request).then((r) => {
         // if (r.status == 200) {
-        // TODO: handle the happy and sad paths.
         // Would need a function parameter that can update the client state with the received data - effectively replacing the state, since we cannot provide any guarantees about matching up new entities with unknown IDs.
         // }
       });

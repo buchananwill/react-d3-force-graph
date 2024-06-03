@@ -5,8 +5,7 @@ import {
 } from "./useGraphSelectiveContext";
 import { useDirectSimRefEditsDispatch } from "./useDirectSimRefEditsDispatch";
 import { HasNumberId, MemoizedSupplier } from "../types";
-import { EmptyArray } from "../literals";
-import { GraphSelectiveContextKeys } from "../literals";
+import { EmptyArray, GraphSelectiveContextKeys } from "../literals";
 
 export function useGraphEditHooks<T extends HasNumberId>(listenerKey: string) {
   const { dispatchNextSimVersion, nodeListRef, linkListRef } =
@@ -35,11 +34,19 @@ export function useGraphEditHooks<T extends HasNumberId>(listenerKey: string) {
   const {
     dispatchWithoutControl: setDeletedLinkIds,
     currentState: deletedLinkIds,
-  } = useGraphDispatchAndListener("deleted-link-ids", listenerKey, EmptyArray);
+  } = useGraphDispatchAndListener<number[]>(
+    "deleted-link-ids",
+    listenerKey,
+    EmptyArray as number[],
+  );
   const {
     dispatchWithoutControl: setDeletedNodeIds,
     currentState: deletedNodeIds,
-  } = useGraphDispatchAndListener("deleted-node-ids", listenerKey, EmptyArray);
+  } = useGraphDispatchAndListener<number[]>(
+    "deleted-node-ids",
+    listenerKey,
+    EmptyArray as number[],
+  );
 
   return {
     getNextNodeId: nextNodeId.get,

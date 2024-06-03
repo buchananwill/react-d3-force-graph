@@ -16,7 +16,7 @@
   },
   "include": [
     "src/**/*",// Include all files in the src folder
-        "test/__fixtures__/**/*"
+//        "test/__fixtures__/**/*"
   ],
   "exclude": [
     "node_modules",                                  // Exclude the node_modules directory

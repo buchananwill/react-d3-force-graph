@@ -1,4 +1,3 @@
- 
 import * as d3 from "d3";
 import { Simulation, SimulationNodeDatum } from "d3";
 
@@ -26,7 +25,7 @@ export function getModulusGridY<T extends HasNumberId>(
   }
 
   return d3
-    .forceY((_d: DataNode<T>, i) => {
+    .forceY((_d: DataNode<T>) => {
       const distanceFromRoot = _d.distanceFromRoot;
       if (distanceFromRoot === undefined || isNaN(distanceFromRoot))
         return height / 2;

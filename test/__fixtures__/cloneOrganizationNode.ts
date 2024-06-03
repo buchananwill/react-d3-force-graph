@@ -1,5 +1,6 @@
-import { DataNode, incrementCloneSuffix, TransientIdOffset } from "../../src";
 import { Organization } from "./adaptors";
+import { DataNode } from "../../src/types";
+import { incrementCloneSuffix, TransientIdOffset } from "../../src";
 
 export function cloneOrganizationNode(
   templateNode: DataNode<Organization>,

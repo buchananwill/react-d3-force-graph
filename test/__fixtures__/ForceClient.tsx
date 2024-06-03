@@ -1,14 +1,19 @@
+import React, { MutableRefObject, useEffect, useRef } from "react";
+import { Organization } from "./adaptors";
+import { Simulation } from "d3";
+import { cloneOrganizationNode } from "./cloneOrganizationNode";
 import {
   AddNodesParams,
-  ClosureDto,
   DataLink,
   DataNode,
   DataNodeDto,
   DirectSimRefEditsDispatchReturn,
   GraphDtoPutRequestBody,
-  GraphSelectiveContextKeys,
   HasNumberId,
   MemoizedFunction,
+} from "../../src/types";
+import {
+  GraphSelectiveContextKeys,
   undefinedAddLinks,
   undefinedAddNodes,
   undefinedDeleteLinks,
@@ -20,10 +25,7 @@ import {
   useGraphListener,
   useNodeEditing,
 } from "../../src";
-import React, { MutableRefObject, useEffect, useRef } from "react";
-import { Organization } from "./adaptors";
-import { Simulation } from "d3";
-import { cloneOrganizationNode } from "./cloneOrganizationNode";
+import { ClosureDto } from "./ClosureDtoSchema";
 
 export interface CallbackData<T extends HasNumberId> {
   listenerKey: MutableRefObject<`${string}-${string}-${string}-${string}-${string}`>;

@@ -7,6 +7,7 @@ import { HasNumberId } from "../../types";
 import { deleteNodes } from "../functions/deleteNodes";
 import { useGraphController } from "../../hooks";
 import { GraphSelectiveContextKeys } from "../../literals";
+import { getNumberFromStringId } from "../../functions/utils";
 
 const deleteNodesKey = "delete-nodes";
 
@@ -39,9 +40,9 @@ export function useDeleteNodes<T extends HasNumberId>() {
         ...deletedNodeIds,
         ...nodesForDeletion,
       ]);
-      setDeletedLinkIds((deletedLinkIds: string[]) => [
+      setDeletedLinkIds((deletedLinkIds: number[]) => [
         ...deletedLinkIds,
-        ...toDelete,
+        ...toDelete.map(getNumberFromStringId),
       ]);
 
       dispatchNextSimVersion(remainingNodes, remainingLinks);

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import {
   LinkContext,
   LinkDispatchContext,
@@ -24,7 +24,11 @@ export const LinkContextProvider = <T extends HasNumberId>({
 
   return (
     <LinkContext.Provider value={{ links: linkState }}>
-      <LinkDispatchContext.Provider value={setLinkState}>
+      <LinkDispatchContext.Provider
+        value={
+          setLinkState as Dispatch<SetStateAction<DataLink<HasNumberId>[]>>
+        }
+      >
         {children}
       </LinkDispatchContext.Provider>
     </LinkContext.Provider>

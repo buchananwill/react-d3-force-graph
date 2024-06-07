@@ -9,11 +9,9 @@ import {
   DataNodeDto,
   DirectSimRefEditsDispatchReturn,
   GraphDtoPutRequestBody,
+  GraphSelectiveContextKeys,
   HasNumberId,
   MemoizedFunction,
-} from "../../src/types";
-import {
-  GraphSelectiveContextKeys,
   undefinedAddLinks,
   undefinedAddNodes,
   undefinedDeleteLinks,
@@ -62,6 +60,8 @@ export default function ForceClient({
 
   const { onConfirm } = useNodeEditing(
     cloneFunctionWrapper,
+    TemplateOrganizationNode,
+    TemplateOrganizationLink,
     putUpdatedGraph,
     nodeDtoValidation,
     closureDtoValidation,
@@ -123,3 +123,31 @@ export default function ForceClient({
 }
 
 export const cloneFunctionWrapper = { memoizedFunction: cloneOrganizationNode };
+
+export const TemplateOrganizationNode = {
+  data: {
+    id: 1,
+    name: "Year 8 Organization",
+    type: {
+      id: 8,
+      name: "Year 8",
+    },
+    workSeriesBundleAssignment: {
+      id: 1,
+      organizationId: 1,
+      workSeriesSchemaBundleId: undefined,
+    },
+  },
+  id: "1",
+  distanceFromRoot: 0,
+};
+
+export const TemplateOrganizationLink = {
+  id: "85",
+  closureType:
+    "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
+  source: "1",
+  target: "2",
+  value: 1,
+  weighting: 1,
+};

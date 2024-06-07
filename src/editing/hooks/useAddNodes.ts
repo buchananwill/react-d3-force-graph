@@ -61,7 +61,6 @@ export function useAddNodes<T extends HasNumberId>() {
           getNextNodeId, // Use a private scoped variable to make this function re-render-proof
           sourceNodes: templates,
           allNodes,
-
           relation,
           cloneFunction: memoizedFunction,
         });

@@ -2,7 +2,11 @@ import { CallbackData } from "./__fixtures__/ForceClient";
 import { Organization } from "./__fixtures__/adaptors";
 import { describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
-import {} from "../src";
+import {
+  DataNode,
+  ForceGraphPageOptions,
+  GraphDtoPutRequestBody,
+} from "../src";
 import { act } from "@testing-library/react";
 import { setupRender } from "./SetupRender";
 import { linksDto, nodesDto } from "./__fixtures__/ForceClientWrapper";
@@ -12,8 +16,6 @@ import {
 } from "../src/functions/useFilteredLinkMemo";
 import { revalidateOrganizationNode } from "./__fixtures__/DataNodeDtoSchema";
 import { reMapAndValidateLinkToClosure } from "./__fixtures__/ClosureDtoSchema";
-import { ForceGraphPageOptions } from "../src/types/forceGraphPageProps";
-import { DataNode, GraphDtoPutRequestBody } from "../src/types/util";
 
 const options: ForceGraphPageOptions = {
   forceSlidersVisibleInitial: {

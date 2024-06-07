@@ -3,7 +3,7 @@ import { OrganizationDtoSchema } from "./OrganizationDtoSchema";
 
 import { Organization } from "./adaptors";
 import { reMapNodeIdWithoutValidating } from "../../src/hooks";
-import { DataNode } from "../../src/types";
+import { DataNode } from "../../src";
 
 export function createDataNodeDtoSchema<T extends z.ZodTypeAny>(dataSchema: T) {
   return z.object({

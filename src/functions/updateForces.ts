@@ -69,6 +69,7 @@ export function updateForces<T extends HasNumberId>(
     updateForceX(currentSim, forceXStrengthNormalized);
     forceXStrengthRef.current = forceXStrengthNormalized;
   }
+  // TODO Needs to update vertical grid spacing if the number of node depths changes.
   if (forceYStrengthRef.current !== forceYStrengthNormalized) {
     updateForceY(currentSim, forceYStrengthNormalized);
     forceYStrengthRef.current = forceYStrengthNormalized;

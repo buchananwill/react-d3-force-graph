@@ -27,7 +27,6 @@ import { useShowNodeEditing } from "./useShowNodeEditing";
 import { useGraphRefs } from "./useGraphRefs";
 import { getNumberFromStringId, isNotUndefined } from "../functions/utils";
 import { mapLinkBackToClosureDto } from "../functions/mapLinkBackToClosureDto";
-import { useGlobalController } from "selective-context";
 
 function removeTransientId(id: number) {
   return id < TransientIdOffset;

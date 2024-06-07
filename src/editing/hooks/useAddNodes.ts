@@ -39,6 +39,13 @@ export function useAddNodes<T extends HasNumberId>() {
     undefinedCloneNode,
   );
 
+  const { currentState: templateNode } = useGraphListener<
+    DataNode<T> | undefined
+  >(GraphSelectiveContextKeys.templateNode, addNodesController, undefined);
+  const { currentState: templateLink } = useGraphListener<
+    DataLink<T> | undefined
+  >(GraphSelectiveContextKeys.templateLink, addNodesController, undefined);
+
   const handleCreateNodes = useMemo(
     () =>
       (
@@ -47,9 +54,12 @@ export function useAddNodes<T extends HasNumberId>() {
         allNodes: DataNode<T>[],
         allLinks: DataLink<T>[],
       ): [DataNode<T>[], DataLink<T>[], DataNode<T>[], DataLink<T>[]] => {
+        if (templateNode === undefined)
+          throw Error("No template node defined.");
+        const templates = sourceNodes.length > 0 ? sourceNodes : [templateNode];
         const { allNodes: allNodesUpdate, createdNodes } = createNodes({
           getNextNodeId, // Use a private scoped variable to make this function re-render-proof
-          sourceNodes,
+          sourceNodes: templates,
           allNodes,
 
           relation,
@@ -57,11 +67,12 @@ export function useAddNodes<T extends HasNumberId>() {
         });
 
         const { allLinksUpdated, newLinks } = createLinks<T>({
-          references: sourceNodes,
+          references: templates,
           newNodes: createdNodes,
           allLinks,
           getNextLinkId,
           relation: relation,
+          templateLink,
         });
 
         return [allNodesUpdate, allLinksUpdated, createdNodes, newLinks];

@@ -16,6 +16,8 @@ export const GraphSelectiveContextKeys = {
   ready: "ready",
   sim: "simulationRef",
   addNodes: "add-nodes",
+  templateNode: "template-node",
+  templateLink: "template-link",
   addLinks: "add-links",
   deleteLinks: "delete-links",
   deleteNodes: "delete-nodes",

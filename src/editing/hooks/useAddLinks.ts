@@ -1,4 +1,8 @@
-import { useGraphController, useGraphEditHooks } from "../../hooks";
+import {
+  useGraphController,
+  useGraphEditHooks,
+  useGraphListener,
+} from "../../hooks";
 import { useMemo } from "react";
 
 import { createLinks } from "../functions/createLinks";
@@ -16,6 +20,10 @@ export function useAddLinks<T extends HasNumberId>() {
     setTransientLinkIds,
     dispatchNextSimVersion,
   } = useGraphEditHooks<T>(addLinksController);
+
+  const { currentState: templateLink } = useGraphListener<
+    DataLink<T> | undefined
+  >(GraphSelectiveContextKeys.templateLink, addLinksController, undefined);
 
   const memoizedAddLinks = useMemo(() => {
     const addLinks = (nodeIdList: string[]) => {
@@ -39,6 +47,7 @@ export function useAddLinks<T extends HasNumberId>() {
           allLinks: allLinks,
           getNextLinkId,
           relation: "child",
+          templateLink,
         });
         allNewLinks = [...allNewLinks, ...newLinks];
         allLinks = allLinksUpdated;

@@ -8,6 +8,7 @@ import {
   TransientIdOffset,
 } from "../literals";
 import {
+  useGraphController,
   useGraphDispatchAndListener,
   useGraphListener,
 } from "./useGraphSelectiveContext";
@@ -26,6 +27,7 @@ import { useShowNodeEditing } from "./useShowNodeEditing";
 import { useGraphRefs } from "./useGraphRefs";
 import { getNumberFromStringId, isNotUndefined } from "../functions/utils";
 import { mapLinkBackToClosureDto } from "../functions/mapLinkBackToClosureDto";
+import { useGlobalController } from "selective-context";
 
 function removeTransientId(id: number) {
   return id < TransientIdOffset;
@@ -44,6 +46,8 @@ const listenerKey = "use-edit-component";
 
 export function useNodeEditing<T extends HasNumberId>(
   cloneFunction: MemoizedFunction<DataNode<T>, DataNode<T>>,
+  templateNode: DataNode<T>,
+  templateLink: DataLink<T>,
   putUpdatedGraph?: (
     updatedGraph: GraphDtoPutRequestBody<T>,
   ) => Promise<unknown>,
@@ -57,6 +61,9 @@ export function useNodeEditing<T extends HasNumberId>(
       false,
     );
   const { nodeListRef, linkListRef } = useGraphRefs<T>();
+
+  useGraphController(GraphSelectiveContextKeys.templateNode, templateNode);
+  useGraphController(GraphSelectiveContextKeys.templateLink, templateLink);
 
   useShowNodeEditing(true);
   useNodeCloneFunctionController(cloneFunction);

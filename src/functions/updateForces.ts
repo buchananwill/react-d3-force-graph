@@ -13,70 +13,49 @@ export function updateForces<T extends HasNumberId>(
   valueChanged: (key: ForceAttributeKey) => boolean,
   updatePrev: (key: ForceAttributeKey) => void,
 ) {
-  console.log("updating something...");
-  // Check and update link force
-  if (valueChanged("linkStrength") || valueChanged("linkDistance")) {
-    console.log("updating");
-    updateLinkForce(
-      currentSim,
-      getValue("linkStrength"),
-      getValue("linkDistance"),
-    );
-    updatePrev("linkStrength");
-    updatePrev("linkDistance");
-  }
+  const conditionallyUpdate = (
+    keys: ForceAttributeKey[],
+    updater: ForceUpdater<T>,
+  ) => {
+    if (keys.some((key) => valueChanged(key))) {
+      const values = keys.map((key) => getValue(key));
+      updater(currentSim, ...values);
+      keys.forEach((key) => updatePrev(key));
+    }
+  };
 
-  // Check and update collide force
-  if (valueChanged("collideStrength")) {
-    console.log("updating");
-    updateCollideForce(currentSim, getValue("collideStrength"));
-    updatePrev("collideStrength");
-  }
-
-  // Check and update many body force
-  if (
-    valueChanged("manyBodyStrength") ||
-    valueChanged("manyBodyTheta") ||
-    valueChanged("manyBodyMinDistance") ||
-    valueChanged("manyBodyMaxDistance")
-  ) {
-    console.log("updating");
-    updateManyBodyForce(
-      currentSim,
-      getValue("manyBodyStrength"),
-      getValue("manyBodyTheta"),
-      getValue("manyBodyMinDistance"),
-      getValue("manyBodyMaxDistance"),
-    );
-    updatePrev("manyBodyStrength");
-    updatePrev("manyBodyTheta");
-    updatePrev("manyBodyMinDistance");
-    updatePrev("manyBodyMaxDistance");
-  }
-
-  // Check and update force X
-  if (valueChanged("forceXStrength")) {
-    console.log("updating");
-    updateForceX(currentSim, getValue("forceXStrength"));
-    updatePrev("forceXStrength");
-  }
-
-  // Check and update force Y
-  if (valueChanged("forceYStrength") || valueChanged("forceYSpacing")) {
-    console.log("updating");
-    updateForceY(
-      currentSim,
-      getValue("forceYStrength"),
-      getValue("forceYSpacing"),
-    );
-    updatePrev("forceYStrength");
-    updatePrev("forceYSpacing");
-  }
-
-  // Check and update radial force
-  if (valueChanged("forceRadialStrength")) {
-    console.log("updating");
-    updateForceRadial(currentSim, getValue("forceRadialStrength"));
-    updatePrev("forceRadialStrength");
-  }
+  updateKeySets.forEach(({ keys, updater }) =>
+    conditionallyUpdate(keys, updater),
+  );
 }
+
+const updateKeySets: {
+  keys: ForceAttributeKey[];
+  updater: ForceUpdater<any>;
+}[] = [
+  {
+    keys: ["linkStrength", "linkDistance"],
+    updater: updateLinkForce,
+  },
+  { keys: ["collideStrength"], updater: updateCollideForce },
+  {
+    keys: [
+      "manyBodyStrength",
+      "manyBodyTheta",
+      "manyBodyMinDistance",
+      "manyBodyMaxDistance",
+    ],
+    updater: updateManyBodyForce,
+  },
+  { keys: ["forceXStrength"], updater: updateForceX },
+  {
+    keys: ["forceYStrength", "forceYSpacing"],
+    updater: updateForceY,
+  },
+  { keys: ["forceRadialStrength"], updater: updateForceRadial },
+];
+
+export type ForceUpdater<T extends HasNumberId> = (
+  current: Simulation<DataNode<T>, DataLink<T>>,
+  ...rest: number[]
+) => void;

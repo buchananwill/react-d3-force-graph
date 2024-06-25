@@ -28,7 +28,7 @@ export function getModulusGridY<T extends HasNumberId>(
       const distanceFromRoot = _d.distanceFromRoot;
       if (distanceFromRoot === undefined || isNaN(distanceFromRoot))
         return height / 2;
-      else return (distanceFromRoot * spacing) % height;
+      else return distanceFromRoot * spacing;
     })
     .strength(staticStrength ?? strength ?? 0);
 }

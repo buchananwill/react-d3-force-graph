@@ -24,15 +24,17 @@ export function updateForces<T extends HasNumberId>(
     }
   };
 
-  updateKeySets.forEach(({ keys, updater }) =>
+  (updateKeySets as UpdateKeyParams<T>[]).forEach(({ keys, updater }) =>
     conditionallyUpdate(keys, updater),
   );
 }
 
-const updateKeySets: {
+interface UpdateKeyParams<T extends HasNumberId> {
   keys: ForceAttributeKey[];
-  updater: ForceUpdater<any>;
-}[] = [
+  updater: ForceUpdater<T>;
+}
+
+const updateKeySets = [
   {
     keys: ["linkStrength", "linkDistance"],
     updater: updateLinkForce,

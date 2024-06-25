@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import { Simulation } from "d3";
 
 import { DataLink, DataNode, ForceOptions, HasNumberId } from "../types";
-import { useForceAttributeListeners } from "./useForceAttributeListeners";
+import { useForceAttributeListenerGroup } from "./useForceAttributeListeners";
 import { useGraphListener } from "./useGraphSelectiveContext";
 
 import { GraphSelectiveContextKeys } from "../literals";
@@ -20,7 +20,9 @@ export const defaultDimensionArray = [1800, 1200];
 
 export function useD3ForceSimulationMemo<T extends HasNumberId>() {
   const { linkListRef: linksRef, nodeListRef: nodesRef } = useGraphRefs<T>();
-  const forceAttributes = useForceAttributeListeners(listenerKey);
+  const { getValue, valueChanged, updatePrev } =
+    useForceAttributeListenerGroup();
+
   const { currentState: isMounted } = useGraphListener(
     GraphSelectiveContextKeys.mounted,
     listenerKey,
@@ -58,8 +60,8 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
 
   const getForces = useCallback(
     (nodes: DataNode<T>[], links: DataLink<T>[]) =>
-      createForces(forceAttributes, width, height, links, nodes, forceOptions),
-    [forceAttributes, width, height],
+      createForces(getValue, width, height, links, nodes, forceOptions),
+    [width, height],
   );
 
   return useMemo(() => {
@@ -84,7 +86,7 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
         }
         simVersionRef.current = simVersion;
       }
-      updateForces(simulationRefCurrent, forceAttributes);
+      updateForces(simulationRefCurrent, getValue, valueChanged, updatePrev);
     }
 
     return [simulationRef];
@@ -92,7 +94,6 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
     simulationRef,
     isMounted,
     simVersion,
-    forceAttributes,
     nodesRef,
     linksRef,
     isReady,

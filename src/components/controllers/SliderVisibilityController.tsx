@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 
 import { PartialDeep } from "type-fest";
-import { ForceAttributeKeys } from "../../types";
+import { ForceAttributeKey } from "../../types";
 import { ForceGraphPageOptionProps } from "../../types";
 import { ForceAttributesInitial } from "../../literals";
 import { ControllerComponent } from "selective-context";
@@ -14,7 +14,7 @@ export function SliderVisibilityController({
       Object.entries(ForceAttributesInitial).map((entry) => {
         const key = `${entry[0]}:show`;
         const value =
-          forceSlidersVisibleInitial?.[entry[0] as ForceAttributeKeys] ?? true;
+          forceSlidersVisibleInitial?.[entry[0] as ForceAttributeKey] ?? true;
         return (
           <ControllerComponent
             key={key}

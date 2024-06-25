@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useNodeCloneFunctionController } from "./useNodeCloneFunctionController";
 import {
   EmptyArray,
@@ -25,20 +25,14 @@ import {
 } from "../types";
 import { useShowNodeEditing } from "./useShowNodeEditing";
 import { useGraphRefs } from "./useGraphRefs";
-import { getNumberFromStringId, isNotUndefined } from "../functions/utils";
+import {
+  isNotUndefined,
+  reMapNodeIdWithoutValidating,
+} from "../functions/utils";
 import { mapLinkBackToClosureDto } from "../functions/mapLinkBackToClosureDto";
 
 function removeTransientId(id: number) {
   return id < TransientIdOffset;
-}
-
-export function reMapNodeIdWithoutValidating<T extends HasNumberId>(
-  node: DataNode<T>,
-) {
-  return {
-    ...node,
-    id: getNumberFromStringId(node.id),
-  };
 }
 
 const listenerKey = "use-edit-component";
@@ -78,7 +72,7 @@ export function useNodeEditing<T extends HasNumberId>(
     EmptyArray as number[],
   );
 
-  const handleSaveGraph = useCallback(() => {
+  const handleSaveGraph = useCallback(async () => {
     if (!(nodeListRef && linkListRef && putUpdatedGraph)) return;
     const nodes = nodeListRef.current;
     const links = linkListRef.current;
@@ -104,14 +98,16 @@ export function useNodeEditing<T extends HasNumberId>(
         deletedNodeIdList: deletedNodeNonTransientIds,
       };
       // TODO: handle the happy and sad paths.
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      putUpdatedGraph(request).then((r) => {
-        // if (r.status == 200) {
-        // Would need a function parameter that can update the client state with the received data - effectively replacing the state, since we cannot provide any guarantees about matching up new entities with unknown IDs.
-        // }
-      });
 
-      dispatchWithoutControl(false);
+      await putUpdatedGraph(request);
+
+      //   .then((r) => {
+      //   // if (r.status == 200) {
+      //   // Would need a function parameter that can update the client state with the received data - effectively replacing the state, since we cannot provide any guarantees about matching up new entities with unknown IDs.
+      //   // }
+      // });
+
+      // dispatchWithoutControl(false);
     }
   }, [
     deletedLinkIds,
@@ -121,8 +117,11 @@ export function useNodeEditing<T extends HasNumberId>(
     dispatchWithoutControl,
     putUpdatedGraph,
   ]);
-  return {
-    unsavedChanges: currentState,
-    onConfirm: handleSaveGraph,
-  };
+  return useMemo(
+    () => ({
+      unsavedChanges: currentState,
+      onConfirm: handleSaveGraph,
+    }),
+    [currentState, handleSaveGraph],
+  );
 }

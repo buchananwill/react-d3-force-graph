@@ -164,6 +164,9 @@ describe("ForceGraphPage", () => {
       ?.slice(0, 2)
       .map((node) => node.id);
 
+    expect(nodeIdList).toBeDefined();
+    expect(nodeIdList?.length).toBeGreaterThan(0);
+
     if (deleteNodes && nodeIdList)
       act(() => deleteNodes.memoizedFunction(nodeIdList));
     const laterNodeArray = dispatchReturn?.nodeListRef?.current;

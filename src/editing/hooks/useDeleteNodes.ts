@@ -1,11 +1,10 @@
-import { useGraphEditHooks } from "../../hooks";
+import { useGraphController, useGraphEditHooks } from "../../hooks";
 import { useMemo } from "react";
 
 import { deleteLinks } from "../functions/deleteLinks";
 
 import { HasNumberId } from "../../types";
 import { deleteNodes } from "../functions/deleteNodes";
-import { useGraphController } from "../../hooks";
 import { GraphSelectiveContextKeys } from "../../literals";
 import { getNumberFromStringId } from "../../functions/utils";
 
@@ -36,10 +35,12 @@ export function useDeleteNodes<T extends HasNumberId>() {
         idList,
       );
 
-      setDeletedNodeIds((deletedNodeIds: number[]) => [
-        ...deletedNodeIds,
-        ...nodesForDeletion,
-      ]);
+      setDeletedNodeIds((deletedNodeIds: number[]) => {
+        return [
+          ...deletedNodeIds,
+          ...nodesForDeletion.map(getNumberFromStringId),
+        ];
+      });
       setDeletedLinkIds((deletedLinkIds: number[]) => [
         ...deletedLinkIds,
         ...toDelete.map(getNumberFromStringId),

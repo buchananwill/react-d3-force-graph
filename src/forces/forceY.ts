@@ -7,7 +7,6 @@ import { exponentForPositionalForcesToCreateCurvedDelta } from "./forceX";
 
 export function getModulusGridY<T extends HasNumberId>(
   spacing: number,
-  height = 600,
   strength?:
     | number
     | ((
@@ -15,6 +14,7 @@ export function getModulusGridY<T extends HasNumberId>(
         i: number,
         data: SimulationNodeDatum[],
       ) => number),
+  height = 600,
 ) {
   let staticStrength = null;
   if (typeof strength === "number") {
@@ -37,18 +37,22 @@ export function getModulusGridY<T extends HasNumberId>(
 export function updateForceY<T extends HasNumberId>(
   currentSim: Simulation<DataNode<T>, DataLink<T>>,
   forceYStrength: number,
+  forceYSpacing: number,
 ) {
-  function consumer(forceY: d3.ForceY<DataNode<T>>) {
-    const strength =
-      forceYStrength === 0
-        ? 0
-        : Math.pow(
-            forceYStrength,
-            exponentForPositionalForcesToCreateCurvedDelta,
-          );
-    const finalStrength = strength > 0.001 ? strength : 0;
-    forceY.strength(finalStrength);
-  }
+  const modulusGridY = getModulusGridY(forceYSpacing, forceYStrength);
+  currentSim.force("forceY", modulusGridY);
 
-  updateForce(currentSim, "forceY", consumer);
+  // function consumer(forceY: d3.ForceY<DataNode<T>>) {
+  //   const strength =
+  //     forceYStrength === 0
+  //       ? 0
+  //       : Math.pow(
+  //           forceYStrength,
+  //           exponentForPositionalForcesToCreateCurvedDelta,
+  //         );
+  //   const finalStrength = strength > 0.001 ? strength : 0;
+  //   forceY.strength(finalStrength);
+  // }
+  //
+  // updateForce(currentSim, "forceY", consumer);
 }

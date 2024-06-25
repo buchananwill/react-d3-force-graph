@@ -21,7 +21,7 @@ export function incrementCloneSuffix(name: string) {
       console.error(error);
     }
   }
-  if (cloneName === undefined) cloneName = `${name} (1)`;
+  if (cloneName === undefined) cloneName = `${name}(1)`;
   cloneName =
     cloneName.length > NameCharLimit
       ? cloneName.substring(cloneName.length - NameCharLimit)

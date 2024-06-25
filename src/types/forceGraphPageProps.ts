@@ -1,7 +1,7 @@
 import { DataLink, DataNode, HasNumberId } from "./util";
 import { PropsWithChildren } from "react";
 import { PartialDeep } from "type-fest";
-import { ForceAttributeKeys, ForceAttributesDto } from "./forceAttributes";
+import { ForceAttributeKey, ForceAttributesDto } from "./forceAttributes";
 import { ForceKey } from "./forces";
 
 export interface ForceGraphPageAllProps<T extends HasNumberId>
@@ -21,7 +21,7 @@ export interface ForceGraphPageOptionProps {
   defaultInteractiveViewer: boolean;
   forceAttributesInitial: ForceAttributesDto;
   forces: ForceOptions;
-  forceSlidersVisibleInitial: { [Key in ForceAttributeKeys]: boolean };
+  forceSlidersVisibleInitial: { [Key in ForceAttributeKey]: boolean };
 }
 
 export type ForceOptions = Partial<{

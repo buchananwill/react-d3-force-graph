@@ -1,4 +1,4 @@
-import { HasId } from "../types";
+import { DataNode, HasId, HasNumberId } from "../types";
 
 export function getAnyIdAsString(entity: HasId) {
   const { id } = entity;
@@ -20,4 +20,13 @@ export function getNumberFromStringId(id: string) {
 
 export function isNotUndefined<T>(value: T | undefined): value is T {
   return value !== undefined;
+}
+
+export function reMapNodeIdWithoutValidating<T extends HasNumberId>(
+  node: DataNode<T>,
+) {
+  return {
+    ...node,
+    id: getNumberFromStringId(node.id),
+  };
 }

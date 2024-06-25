@@ -1,11 +1,8 @@
-import {
-  useGraphDispatch,
-  useGraphDispatchAndListener,
-  useGraphListener,
-} from "./useGraphSelectiveContext";
+import { useGraphDispatch, useGraphListener } from "./useGraphSelectiveContext";
 import { useDirectSimRefEditsDispatch } from "./useDirectSimRefEditsDispatch";
 import { HasNumberId, MemoizedSupplier } from "../types";
-import { EmptyArray, GraphSelectiveContextKeys } from "../literals";
+import { GraphSelectiveContextKeys } from "../literals";
+import { useMemo } from "react";
 
 export function useGraphEditHooks<T extends HasNumberId>(listenerKey: string) {
   const { dispatchNextSimVersion, nodeListRef, linkListRef } =
@@ -25,42 +22,45 @@ export function useGraphEditHooks<T extends HasNumberId>(listenerKey: string) {
     memoizedErrorSupplier as MemoizedSupplier<number>,
   );
 
-  const { dispatchWithoutListen: setTransientNodeIds } =
-    useGraphDispatch<string[]>("transient-node-ids");
+  const { dispatchWithoutListen: setTransientNodeIds } = useGraphDispatch<
+    string[]
+  >(GraphSelectiveContextKeys.transientNodeIds);
 
-  const { dispatchWithoutListen: setTransientLinkIds } =
-    useGraphDispatch<string[]>("transient-link-ids");
+  const { dispatchWithoutListen: setTransientLinkIds } = useGraphDispatch<
+    string[]
+  >(GraphSelectiveContextKeys.transientLinkIds);
 
-  const {
-    dispatchWithoutControl: setDeletedLinkIds,
-    currentState: deletedLinkIds,
-  } = useGraphDispatchAndListener<number[]>(
-    "deleted-link-ids",
-    listenerKey,
-    EmptyArray as number[],
+  const { dispatchWithoutListen: setDeletedLinkIds } = useGraphDispatch<
+    number[]
+  >(GraphSelectiveContextKeys.deletedLinkIds);
+  const { dispatchWithoutListen: setDeletedNodeIds } = useGraphDispatch<
+    number[]
+  >(GraphSelectiveContextKeys.deletedNodeIds);
+
+  return useMemo(
+    () => ({
+      getNextNodeId: nextNodeId.get,
+      getNextLinkId: nextLinkId.get,
+      setTransientNodeIds,
+      setTransientLinkIds,
+      setDeletedNodeIds,
+      setDeletedLinkIds,
+      nodeListRef,
+      linkListRef,
+      dispatchNextSimVersion,
+    }),
+    [
+      nextLinkId.get,
+      nextLinkId.get,
+      setTransientNodeIds,
+      setTransientLinkIds,
+      setDeletedNodeIds,
+      setDeletedNodeIds,
+      nodeListRef,
+      linkListRef,
+      dispatchNextSimVersion,
+    ],
   );
-  const {
-    dispatchWithoutControl: setDeletedNodeIds,
-    currentState: deletedNodeIds,
-  } = useGraphDispatchAndListener<number[]>(
-    "deleted-node-ids",
-    listenerKey,
-    EmptyArray as number[],
-  );
-
-  return {
-    getNextNodeId: nextNodeId.get,
-    getNextLinkId: nextLinkId.get,
-    setTransientNodeIds,
-    setTransientLinkIds,
-    setDeletedNodeIds,
-    deletedNodeIds,
-    setDeletedLinkIds,
-    deletedLinkIds,
-    nodeListRef,
-    linkListRef,
-    dispatchNextSimVersion,
-  };
 }
 
 function undefinedErrorFunction() {

@@ -7,7 +7,7 @@ import { getForceRadial } from "../forces/forceRadial";
 import {
   DataLink,
   DataNode,
-  ForceAttributeListenersReturn,
+  ForceAttributeKey,
   ForceOptions,
   Forces,
   HasNumberId,
@@ -15,45 +15,33 @@ import {
 import { getForceCenter } from "../forces/forceCenter";
 
 export function createForces<T extends HasNumberId>(
-  forceAttributeListeners: ForceAttributeListenersReturn,
+  forceAttributeMap: (key: ForceAttributeKey) => number,
   width: number,
   height: number,
   links: DataLink<T>[],
   nodes: DataNode<T>[],
   forceOptions: ForceOptions,
 ): Forces {
-  const {
-    forceYStrengthNormalized,
-    forceXStrengthNormalized,
-    forceRadialStrengthNormalized,
-    manyBodyStrengthNormalized,
-    centerStrengthNormalized,
-    collideStrengthNormalized,
-    linkStrengthNormalized,
-    manyBodyMinDistanceNormalized,
-    manyBodyMaxDistanceNormalized,
-    linkDistanceNormalized,
-  } = forceAttributeListeners;
-
-  const numberOfNodes = nodes.length;
-  const spacingY = numberOfNodes > 0 ? (height / numberOfNodes) * 2 : 1;
-
   const forceX = forceOptions.forceX
     ? getHorizontalParentsToChildrenLayout(
         nodes,
         width,
-        forceXStrengthNormalized,
+        forceAttributeMap("forceXStrength"),
       )
     : undefined;
   const forceY = forceOptions.forceY
-    ? getModulusGridY(spacingY, height, () => forceYStrengthNormalized)
+    ? getModulusGridY(
+        forceAttributeMap("forceYSpacing"),
+        () => forceAttributeMap("forceYStrength"),
+        height,
+      )
     : undefined;
 
   const manyBody = forceOptions.manyBody
     ? getForceManyBody(
-        manyBodyMaxDistanceNormalized,
-        manyBodyMinDistanceNormalized,
-        () => manyBodyStrengthNormalized,
+        forceAttributeMap("manyBodyMaxDistance"),
+        forceAttributeMap("manyBodyMinDistance"),
+        () => forceAttributeMap("manyBodyStrength"),
       )
     : undefined;
 
@@ -63,21 +51,21 @@ export function createForces<T extends HasNumberId>(
         () => {
           return nodes.length;
         },
-        linkStrengthNormalized,
-        linkDistanceNormalized,
+        forceAttributeMap("linkStrength"),
+        forceAttributeMap("linkDistance"),
       )
     : undefined;
 
   const center = forceOptions.center
-    ? getForceCenter(width, height, centerStrengthNormalized)
+    ? getForceCenter(width, height, forceAttributeMap("centerStrength"))
     : undefined;
 
   const collide = forceOptions.collide
-    ? getForceCollide(20, collideStrengthNormalized)
+    ? getForceCollide(20, forceAttributeMap("collideStrength"))
     : undefined;
 
   const radial = forceOptions.radial
-    ? getForceRadial(width, height, forceRadialStrengthNormalized)
+    ? getForceRadial(width, height, forceAttributeMap("forceRadialStrength"))
     : undefined;
 
   return {

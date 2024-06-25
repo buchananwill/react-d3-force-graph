@@ -1,12 +1,84 @@
-import { useMemo, useRef } from "react";
-import { useGlobalListener } from "selective-context";
+import { useCallback, useMemo, useRef } from "react";
+import { useGlobalListener, useGlobalListenerGroup } from "selective-context";
 
-import { useNormalizeForceRange } from "./useNormalizeForceRange";
+import {
+  normalizeForceRange,
+  useNormalizeForceRange,
+} from "./useNormalizeForceRange";
 import { useGraphName } from "./useGraphName";
+import { ForceAttributesInitial } from "../literals";
+import { ForceAttributeKey } from "../types/forceAttributes";
 
 const defaultValueForForceSliders = 100;
 
 const initialValue = defaultValueForForceSliders;
+
+function getGraphNamespacedAttributeKey(
+  graphName: string,
+  key: ForceAttributeKey,
+) {
+  return `${graphName}:${key}`;
+}
+
+export function useForceAttributeListenerGroup() {
+  const listenerKey = useRef<string>(crypto.randomUUID());
+  const graphName = useGraphName();
+
+  const contextKeys: string[] = useMemo(() => {
+    return Object.keys(ForceAttributesInitial)
+      .filter((key) => key !== "id")
+      .map((key) =>
+        getGraphNamespacedAttributeKey(graphName, key as ForceAttributeKey),
+      );
+  }, [graphName]);
+
+  const { currentState: valueMap } = useGlobalListenerGroup<number>({
+    contextKeys,
+    listenerKey: listenerKey.current,
+    initialValue: initialMap,
+  });
+
+  const valueMapRef = useRef(valueMap);
+  valueMapRef.current = valueMap;
+  const prevValueMapRef = useRef(new Map(valueMap));
+
+  const getValue = useCallback(
+    (key: ForceAttributeKey) => {
+      const attributeKey = getGraphNamespacedAttributeKey(graphName, key);
+      const rawValue = valueMapRef.current.get(attributeKey) ?? 0;
+      return normalizeForceRange(rawValue, key);
+    },
+    [valueMapRef],
+  );
+
+  const getPrevValue = useCallback(
+    (key: ForceAttributeKey) => {
+      const attributeKey = getGraphNamespacedAttributeKey(graphName, key);
+      const rawValue = prevValueMapRef.current.get(attributeKey) ?? 0;
+      return normalizeForceRange(rawValue, key);
+    },
+    [valueMapRef],
+  );
+
+  const valueChanged = useCallback((key: ForceAttributeKey) => {
+    return getValue(key) !== getPrevValue(key);
+  }, []);
+
+  const updatePrev = useCallback((key: ForceAttributeKey) => {
+    const latestValue = getValue(key);
+    const attributeKey = getGraphNamespacedAttributeKey(graphName, key);
+    prevValueMapRef.current.set(attributeKey, latestValue);
+  }, []);
+
+  return {
+    getValue,
+    getPrevValue,
+    valueChanged,
+    updatePrev,
+  };
+}
+
+const initialMap = new Map<string, number>();
 
 export function useForceAttributeListeners(listenerKey: string) {
   const uniqueGraphName = useGraphName();

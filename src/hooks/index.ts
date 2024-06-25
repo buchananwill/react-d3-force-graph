@@ -15,3 +15,5 @@ export * from "./useForceAttributeListeners";
 export * from "./useDirectSimRefEditsDispatch";
 export * from "./useNodeCloneFunctionController";
 export * from "./useSyncRefVersionToNodeAndLinkContext";
+
+export { reMapNodeIdWithoutValidating } from "../functions/utils";

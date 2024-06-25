@@ -11,7 +11,6 @@ import { useMemo } from "react";
 import { useNodeContext } from "./useNodeContext";
 import { useLinkContext } from "./useLinkContext";
 
-const listenerKey = "graph-edit-controller-key";
 const dimensionsStaticArray: number[] = [1800, 1200];
 
 function useNextId(initialId?: number): MemoizedSupplier<number> {
@@ -29,16 +28,8 @@ export function useGraphEditController() {
   const nextNodeId = useNextId(TransientIdOffset);
   const nextLinkId = useNextId(TransientIdOffset);
 
-  useGraphController(
-    GraphSelectiveContextKeys.nextNodeId,
-    nextNodeId,
-    listenerKey,
-  );
-  useGraphController(
-    GraphSelectiveContextKeys.nextLinkId,
-    nextLinkId,
-    listenerKey,
-  );
+  useGraphController(GraphSelectiveContextKeys.nextNodeId, nextNodeId);
+  useGraphController(GraphSelectiveContextKeys.nextLinkId, nextLinkId);
   useGraphController("transient-link-ids", EmptyArray);
   useGraphController("transient-node-ids", EmptyArray);
   useGraphController("deleted-link-ids", EmptyArray);

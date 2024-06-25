@@ -34,7 +34,7 @@ export function normalizeForceRange(
   console.log("normalising range:", value, category);
   switch (category) {
     case "manyBodyStrength":
-      return (value / 2 - 100) * multiplier;
+      return (value / 2) * -1 * multiplier;
     case "manyBodyMaxDistance":
     case "manyBodyMinDistance":
     case "linkDistance": {

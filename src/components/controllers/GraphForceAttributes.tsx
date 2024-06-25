@@ -17,8 +17,12 @@ const listenerKey = "graph-force-attributes";
 export default function GraphForceAttributes({
   forceAttributesInitial,
   forces,
+  normalizationCoefficients,
 }: PartialDeep<
-  Pick<ForceGraphPageOptionProps, "forceAttributesInitial" | "forces">
+  Pick<
+    ForceGraphPageOptionProps,
+    "forceAttributesInitial" | "forces" | "normalizationCoefficients"
+  >
 >) {
   const uniqueGraphName = useGraphName();
   const { currentState, dispatch } = useGraphController(
@@ -26,6 +30,15 @@ export default function GraphForceAttributes({
     false,
     listenerKey,
   );
+
+  const { dispatch: dispatchNormalization } = useGraphController(
+    GraphSelectiveContextKeys.forceNormalization,
+    normalizationCoefficients,
+  );
+
+  useEffect(() => {
+    dispatchNormalization(normalizationCoefficients);
+  }, [normalizationCoefficients]);
 
   useGraphController(GraphSelectiveContextKeys.forceOptions, forces);
 

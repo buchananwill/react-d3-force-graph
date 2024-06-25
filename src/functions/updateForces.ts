@@ -13,8 +13,10 @@ export function updateForces<T extends HasNumberId>(
   valueChanged: (key: ForceAttributeKey) => boolean,
   updatePrev: (key: ForceAttributeKey) => void,
 ) {
+  console.log("updating something...");
   // Check and update link force
   if (valueChanged("linkStrength") || valueChanged("linkDistance")) {
+    console.log("updating");
     updateLinkForce(
       currentSim,
       getValue("linkStrength"),
@@ -26,6 +28,7 @@ export function updateForces<T extends HasNumberId>(
 
   // Check and update collide force
   if (valueChanged("collideStrength")) {
+    console.log("updating");
     updateCollideForce(currentSim, getValue("collideStrength"));
     updatePrev("collideStrength");
   }
@@ -37,6 +40,7 @@ export function updateForces<T extends HasNumberId>(
     valueChanged("manyBodyMinDistance") ||
     valueChanged("manyBodyMaxDistance")
   ) {
+    console.log("updating");
     updateManyBodyForce(
       currentSim,
       getValue("manyBodyStrength"),
@@ -52,12 +56,14 @@ export function updateForces<T extends HasNumberId>(
 
   // Check and update force X
   if (valueChanged("forceXStrength")) {
+    console.log("updating");
     updateForceX(currentSim, getValue("forceXStrength"));
     updatePrev("forceXStrength");
   }
 
   // Check and update force Y
   if (valueChanged("forceYStrength") || valueChanged("forceYSpacing")) {
+    console.log("updating");
     updateForceY(
       currentSim,
       getValue("forceYStrength"),
@@ -69,6 +75,7 @@ export function updateForces<T extends HasNumberId>(
 
   // Check and update radial force
   if (valueChanged("forceRadialStrength")) {
+    console.log("updating");
     updateForceRadial(currentSim, getValue("forceRadialStrength"));
     updatePrev("forceRadialStrength");
   }

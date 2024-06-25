@@ -2,7 +2,6 @@ import * as d3 from "d3";
 import { Simulation, SimulationNodeDatum } from "d3";
 
 import { DataLink, DataNode, HasNumberId } from "../types";
-import { updateForce } from "./updateForce";
 import { exponentForPositionalForcesToCreateCurvedDelta } from "./forceX";
 
 export function getModulusGridY<T extends HasNumberId>(

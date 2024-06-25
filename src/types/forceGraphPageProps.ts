@@ -14,6 +14,10 @@ export interface ForceGraphPageAllProps<T extends HasNumberId>
 
 export type ForceGraphPageOptions = PartialDeep<ForceGraphPageOptionProps>;
 
+export type ForceNormalizationCoefficients = Partial<{
+  [Key in ForceAttributeKey]: number;
+}>;
+
 export interface ForceGraphPageOptionProps {
   nodeEditing: boolean;
   forceEditing: boolean;
@@ -22,6 +26,7 @@ export interface ForceGraphPageOptionProps {
   forceAttributesInitial: ForceAttributesDto;
   forces: ForceOptions;
   forceSlidersVisibleInitial: { [Key in ForceAttributeKey]: boolean };
+  normalizationCoefficients: ForceNormalizationCoefficients;
 }
 
 export type ForceOptions = Partial<{

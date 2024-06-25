@@ -1,13 +1,19 @@
 import { useCallback, useMemo, useRef } from "react";
-import { useGlobalListener, useGlobalListenerGroup } from "selective-context";
+import {
+  ObjectPlaceholder,
+  useGlobalListener,
+  useGlobalListenerGroup,
+} from "selective-context";
 
 import {
   normalizeForceRange,
   useNormalizeForceRange,
 } from "./useNormalizeForceRange";
 import { useGraphName } from "./useGraphName";
-import { ForceAttributesInitial } from "../literals";
+import { ForceAttributesInitial, GraphSelectiveContextKeys } from "../literals";
 import { ForceAttributeKey } from "../types/forceAttributes";
+import { useGraphListener } from "./useGraphSelectiveContext";
+import { ForceNormalizationCoefficients } from "../types/forceGraphPageProps";
 
 const defaultValueForForceSliders = 100;
 
@@ -38,41 +44,67 @@ export function useForceAttributeListenerGroup() {
     initialValue: initialMap,
   });
 
-  const valueMapRef = useRef(valueMap);
-  valueMapRef.current = valueMap;
+  const { currentState: normalizationCoefficients } = useGraphListener(
+    GraphSelectiveContextKeys.forceNormalization,
+    listenerKey.current,
+    ObjectPlaceholder as ForceNormalizationCoefficients,
+  );
+
+  // const valueMapRef = useRef(valueMap);
+  // valueMapRef.current = valueMap;
   const prevValueMapRef = useRef(new Map(valueMap));
+
+  const getRawValue = useCallback(
+    (key: ForceAttributeKey) => {
+      const attributeKey = getGraphNamespacedAttributeKey(graphName, key);
+      return valueMap.get(attributeKey) ?? 0;
+    },
+    [valueMap],
+  );
 
   const getValue = useCallback(
     (key: ForceAttributeKey) => {
-      const attributeKey = getGraphNamespacedAttributeKey(graphName, key);
-      const rawValue = valueMapRef.current.get(attributeKey) ?? 0;
-      return normalizeForceRange(rawValue, key);
+      const rawValue = getRawValue(key);
+      const number = normalizeForceRange(
+        rawValue,
+        key,
+        normalizationCoefficients[key],
+      );
+      console.log(key, rawValue, number);
+      return number;
     },
-    [valueMapRef],
+    [valueMap, graphName, normalizationCoefficients],
   );
 
-  const getPrevValue = useCallback(
+  const getPrevRawValue = useCallback(
     (key: ForceAttributeKey) => {
       const attributeKey = getGraphNamespacedAttributeKey(graphName, key);
-      const rawValue = prevValueMapRef.current.get(attributeKey) ?? 0;
-      return normalizeForceRange(rawValue, key);
+      return prevValueMapRef.current.get(attributeKey) ?? 0;
+      // const rawValue =
+      // return normalizeForceRange(rawValue, key);
     },
-    [valueMapRef],
+    [graphName],
   );
 
-  const valueChanged = useCallback((key: ForceAttributeKey) => {
-    return getValue(key) !== getPrevValue(key);
-  }, []);
+  const valueChanged = useCallback(
+    (key: ForceAttributeKey) => {
+      return getRawValue(key) !== getPrevRawValue(key);
+    },
+    [getValue, getPrevRawValue],
+  );
 
-  const updatePrev = useCallback((key: ForceAttributeKey) => {
-    const latestValue = getValue(key);
-    const attributeKey = getGraphNamespacedAttributeKey(graphName, key);
-    prevValueMapRef.current.set(attributeKey, latestValue);
-  }, []);
+  const updatePrev = useCallback(
+    (key: ForceAttributeKey) => {
+      const latestRawValue = getRawValue(key);
+      const attributeKey = getGraphNamespacedAttributeKey(graphName, key);
+      prevValueMapRef.current.set(attributeKey, latestRawValue);
+    },
+    [getValue, graphName],
+  );
 
   return {
     getValue,
-    getPrevValue,
+    getPrevValue: getPrevRawValue,
     valueChanged,
     updatePrev,
   };

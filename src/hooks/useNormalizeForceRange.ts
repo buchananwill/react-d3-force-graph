@@ -29,16 +29,18 @@ export function useNormalizeForceRange(
 export function normalizeForceRange(
   value: number,
   category?: ForceNormalizationCategory | string,
+  multiplier = 1,
 ) {
+  console.log("normalising range:", value, category);
   switch (category) {
     case "manyBodyStrength":
-      return value - 100;
+      return (value - 100) * multiplier;
     case "manyBodyMaxDistance":
     case "manyBodyMinDistance":
     case "linkDistance": {
-      return value;
+      return value * multiplier;
     }
     default:
-      return value / 200;
+      return (value / 200) * multiplier;
   }
 }

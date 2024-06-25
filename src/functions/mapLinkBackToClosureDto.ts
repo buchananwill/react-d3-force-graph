@@ -1,14 +1,15 @@
-import { DataLink, DataNode, HasNumberId } from "../types";
+import { DataLink, HasNumberId } from "../types";
 
 import { getNumberFromStringId } from "./utils";
+import { getIdFromLinkReference } from "../editing/functions/resetLinks";
 
 export function mapLinkBackToClosureDto<T extends HasNumberId>(l: DataLink<T>) {
-  const objectRefSource = l.source as DataNode<T>;
-  const objectRefTarget = l.target as DataNode<T>;
+  const source = getNumberFromStringId(getIdFromLinkReference(l.source));
+  const target = getNumberFromStringId(getIdFromLinkReference(l.target));
   return {
     ...l,
-    source: getNumberFromStringId(objectRefSource.id),
-    target: getNumberFromStringId(objectRefTarget.id),
+    source,
+    target,
     id: getNumberFromStringId(l.id),
   };
 }

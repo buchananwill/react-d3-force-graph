@@ -47,6 +47,7 @@ export function ForceGraphPage<T extends HasNumberId>({
             <GraphForceAttributes
               forceAttributesInitial={options?.forceAttributesInitial}
               forces={options?.forces}
+              normalizationCoefficients={options?.normalizationCoefficients}
             />
 
             {children}

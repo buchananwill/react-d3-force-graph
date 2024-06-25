@@ -16,6 +16,7 @@ import {
 } from "../src/functions/useFilteredLinkMemo";
 import { revalidateOrganizationNode } from "./__fixtures__/DataNodeDtoSchema";
 import { reMapAndValidateLinkToClosure } from "./__fixtures__/ClosureDtoSchema";
+import { getIdFromLinkReference } from "../src/editing/functions/resetLinks";
 
 const options: ForceGraphPageOptions = {
   forceSlidersVisibleInitial: {
@@ -90,13 +91,26 @@ describe("ForceGraphPage", () => {
     if (laterNodeArray) {
       const firstNode = laterNodeArray[0];
       const lastNode = laterNodeArray[laterNodeArray.length - 1];
-      const find = dispatchReturn?.linkListRef?.current.find((link) => {
-        return (
-          (link.source as DataNode<Organization>).id === firstNode.id &&
-          (link.target as DataNode<Organization>).id === lastNode.id
-        );
-      });
-      expect(find).toBeDefined(); // I.e. we should have a link that has the first node as parent, and last node (new) as child.
+      const firstId = firstNode.id;
+      const lastId = lastNode.id;
+      let link = undefined;
+      const list = dispatchReturn?.linkListRef?.current ?? [];
+      for (const listElement of list) {
+        const found =
+          (listElement.source === firstId && listElement.target === lastId) ||
+          ((listElement.source as DataNode<Organization>)?.id ===
+            firstNode.id &&
+            (listElement.target as DataNode<Organization>)?.id === lastNode.id);
+        if (found) link = listElement;
+      }
+
+      // const find = dispatchReturn?.linkListRef?.current.find((link) => {
+      //   return (
+      //     (link.source as DataNode<Organization>).id === firstNode.id &&
+      //     (link.target as DataNode<Organization>).id === lastNode.id
+      //   );
+      // });
+      expect(link).toBeDefined(); // I.e. we should have a link that has the first node as parent, and last node (new) as child.
     }
   });
 
@@ -129,7 +143,7 @@ describe("ForceGraphPage", () => {
           }),
         );
         const find = dispatchReturn?.linkListRef?.current.find((link) => {
-          return (link.source as DataNode<Organization>).id === lastNode.id;
+          return getIdFromLinkReference(link.source) === lastNode.id;
         });
         expect(find).toBeDefined(); // I.e. we should have a link that has the first node as parent, and last node (new) as child.
       }
@@ -252,8 +266,8 @@ describe("ForceGraphPage", () => {
       laterLinkArrayLength = dispatchReturn?.linkListRef?.current.length ?? 0;
       newLink = dispatchReturn?.linkListRef?.current?.find(
         (link) =>
-          (link.source as DataNode<Organization>).id === first.id &&
-          (link.target as DataNode<Organization>).id === notChildYet.id,
+          getIdFromLinkReference(link.source) === first.id &&
+          getIdFromLinkReference(link.target) === notChildYet.id,
       );
     }
     expect(spiedAddLinks).toHaveBeenCalledOnce();

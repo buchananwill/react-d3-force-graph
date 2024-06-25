@@ -59,12 +59,14 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
   > | null>(GraphSelectiveContextKeys.sim, listenerKey, null);
 
   const getForces = useCallback(
-    (nodes: DataNode<T>[], links: DataLink<T>[]) =>
-      createForces(getValue, width, height, links, nodes, forceOptions),
-    [width, height],
+    (nodes: DataNode<T>[], links: DataLink<T>[]) => {
+      return createForces(getValue, width, height, links, nodes, forceOptions);
+    },
+    [width, height, forceOptions],
   );
 
   return useMemo(() => {
+    console.log("re-running memo");
     if (!linksRef || !nodesRef || simulationRef === null) return [];
     const simulationRefCurrent = simulationRef.current;
     const nodesMutable = nodesRef.current;
@@ -91,6 +93,9 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
 
     return [simulationRef];
   }, [
+    getValue,
+    valueChanged,
+    updatePrev,
     simulationRef,
     isMounted,
     simVersion,

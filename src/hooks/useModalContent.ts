@@ -18,13 +18,15 @@ export function useModalContent(
   useEffect(() => {
     dispatchWithoutListen(memoizedContentComponent);
   }, [dispatchWithoutListen]);
-
-  useGraphController(
-    GraphSelectiveContextKeys.nodeLabelAccessor,
-    memoizedNameLabelAccessor,
-  );
 }
 
 const memoizedNameLabelAccessor = {
   memoizedFunction: (dataTypeTuple: [HasName, string]) => dataTypeTuple[0].name,
 };
+
+export function useNodeLabelController() {
+  useGraphController(
+    GraphSelectiveContextKeys.nodeLabelAccessor,
+    memoizedNameLabelAccessor,
+  );
+}

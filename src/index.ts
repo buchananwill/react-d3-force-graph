@@ -28,6 +28,7 @@ export {
   useGraphRefs,
   useLinkContext,
   useModalContent,
+  useNodeLabelController,
   useNodeCloneFunctionController,
   useNodeContext,
   useNormalizeForceRange,

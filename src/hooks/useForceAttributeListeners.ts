@@ -65,13 +65,7 @@ export function useForceAttributeListenerGroup() {
   const getValue = useCallback(
     (key: ForceAttributeKey) => {
       const rawValue = getRawValue(key);
-      const number = normalizeForceRange(
-        rawValue,
-        key,
-        normalizationCoefficients[key],
-      );
-      console.log(key, rawValue, number);
-      return number;
+      return normalizeForceRange(rawValue, key, normalizationCoefficients[key]);
     },
     [valueMap, graphName, normalizationCoefficients],
   );

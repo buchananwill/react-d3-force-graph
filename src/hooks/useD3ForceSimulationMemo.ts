@@ -66,7 +66,6 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
   );
 
   return useMemo(() => {
-    console.log("re-running memo");
     if (!linksRef || !nodesRef || simulationRef === null) return [];
     const simulationRefCurrent = simulationRef.current;
     const nodesMutable = nodesRef.current;

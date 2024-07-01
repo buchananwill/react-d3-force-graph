@@ -31,7 +31,6 @@ export function normalizeForceRange(
   category?: ForceNormalizationCategory | string,
   multiplier = 1,
 ) {
-  console.log("normalising range:", value, category);
   switch (category) {
     case "manyBodyStrength":
       return (value / 2) * -1 * multiplier;

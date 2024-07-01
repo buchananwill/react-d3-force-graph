@@ -1,5 +1,5 @@
-import { getHorizontalParentsToChildrenLayout } from "../forces/forceX";
-import { getModulusGridY } from "../forces/forceY";
+import { getDepthGridX } from "../forces/forceX";
+import { getDepthGridY } from "../forces/forceY";
 import { getForceManyBody } from "../forces/forceManyBody";
 import { getLinkForceMinCosFallOffBusiestNode } from "../forces/forceLink";
 import { getForceCollide } from "../forces/forceCollide";
@@ -23,14 +23,14 @@ export function createForces<T extends HasNumberId>(
   forceOptions: ForceOptions,
 ): Forces {
   const forceX = forceOptions.forceX
-    ? getHorizontalParentsToChildrenLayout(
-        nodes,
-        width,
+    ? getDepthGridX(
         forceAttributeMap("forceXStrength"),
+        () => forceAttributeMap("forceXStrength"),
+        width,
       )
     : undefined;
   const forceY = forceOptions.forceY
-    ? getModulusGridY(
+    ? getDepthGridY(
         forceAttributeMap("forceYSpacing"),
         () => forceAttributeMap("forceYStrength"),
         height,

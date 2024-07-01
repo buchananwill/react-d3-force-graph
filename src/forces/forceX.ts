@@ -1,13 +1,13 @@
 import * as D3 from "d3";
 import * as d3 from "d3";
-import { Simulation } from "d3";
+import { Simulation, SimulationNodeDatum } from "d3";
 
 import { DataLink, DataNode, HasNumberId } from "../types";
 import { updateForce } from "./updateForce";
 
 export const exponentForPositionalForcesToCreateCurvedDelta = 3;
 
-export function updateForceX<T extends HasNumberId>(
+export function updateForceXOld<T extends HasNumberId>(
   currentSim: Simulation<DataNode<T>, DataLink<T>>,
   forceXStrength: number,
 ) {
@@ -39,4 +39,42 @@ export function getHorizontalParentsToChildrenLayout<T extends HasNumberId>(
       distancesInOrder.indexOf((d as DataNode<T>).distanceFromRoot) * spacing
     );
   }).strength(strength);
+}
+
+export function getDepthGridX<T extends HasNumberId>(
+  spacing: number,
+  strength?:
+    | number
+    | ((
+        d: SimulationNodeDatum,
+        i: number,
+        data: SimulationNodeDatum[],
+      ) => number),
+  width = 600,
+) {
+  let staticStrength = null;
+  if (typeof strength === "number") {
+    staticStrength =
+      strength === 0
+        ? 0
+        : Math.pow(strength, exponentForPositionalForcesToCreateCurvedDelta);
+  }
+
+  return d3
+    .forceX((_d: DataNode<T>) => {
+      const distanceFromRoot = _d.distanceFromRoot;
+      if (distanceFromRoot === undefined || isNaN(distanceFromRoot))
+        return width / 2;
+      else return distanceFromRoot * spacing;
+    })
+    .strength(staticStrength ?? strength ?? 0);
+}
+
+export function updateForceX<T extends HasNumberId>(
+  currentSim: Simulation<DataNode<T>, DataLink<T>>,
+  forceXStrength: number,
+  forceXSpacing: number,
+) {
+  const modulusGridX = getDepthGridX(forceXSpacing, forceXStrength);
+  currentSim.force("forceX", modulusGridX);
 }

@@ -4,7 +4,7 @@ import { Simulation, SimulationNodeDatum } from "d3";
 import { DataLink, DataNode, HasNumberId } from "../types";
 import { exponentForPositionalForcesToCreateCurvedDelta } from "./forceX";
 
-export function getModulusGridY<T extends HasNumberId>(
+export function getDepthGridY<T extends HasNumberId>(
   spacing: number,
   strength?:
     | number
@@ -38,7 +38,7 @@ export function updateForceY<T extends HasNumberId>(
   forceYStrength: number,
   forceYSpacing: number,
 ) {
-  const modulusGridY = getModulusGridY(forceYSpacing, forceYStrength);
+  const modulusGridY = getDepthGridY(forceYSpacing, forceYStrength);
   currentSim.force("forceY", modulusGridY);
 
   // function consumer(forceY: d3.ForceY<DataNode<T>>) {

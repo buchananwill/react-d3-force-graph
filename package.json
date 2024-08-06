@@ -2,7 +2,7 @@
   "name": "react-d3-force-wrapper",
   "version": "0.4.0",
   "description": "A wrapper to use d3-force in React projects.",
-  "author": "Will Buchanan <willwritescode@gmail.com",
+  "author": "Will Buchanan <willwritescode@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+"

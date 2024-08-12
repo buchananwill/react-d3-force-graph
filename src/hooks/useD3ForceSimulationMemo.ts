@@ -2,7 +2,13 @@ import { MutableRefObject, useCallback, useMemo, useRef } from "react";
 import * as d3 from "d3";
 import { Simulation } from "d3";
 
-import { DataLink, DataNode, ForceOptions, HasNumberId } from "../types";
+import {
+  DataLink,
+  DataNode,
+  ForceOptions,
+  Forces,
+  HasNumberId,
+} from "../types";
 import { useForceAttributeListenerGroup } from "./useForceAttributeListeners";
 import { useGraphListener } from "./useGraphSelectiveContext";
 
@@ -18,7 +24,9 @@ const listenerKey = `force-sim`;
 
 export const defaultDimensionArray = [1800, 1200];
 
-export function useD3ForceSimulationMemo<T extends HasNumberId>() {
+export function useD3ForceSimulationMemo<T extends HasNumberId>(params?: {
+  forceFunctions: Forces;
+}) {
   const { linkListRef: linksRef, nodeListRef: nodesRef } = useGraphRefs<T>();
   const { getValue, valueChanged, updatePrev } =
     useForceAttributeListenerGroup();
@@ -60,7 +68,16 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>() {
 
   const getForces = useCallback(
     (nodes: DataNode<T>[], links: DataLink<T>[]) => {
-      return createForces(getValue, width, height, links, nodes, forceOptions);
+      const forceOverrides = params ? params.forceFunctions : ObjectPlaceholder;
+      return createForces(
+        getValue,
+        width,
+        height,
+        links,
+        nodes,
+        forceOptions,
+        forceOverrides,
+      );
     },
     [width, height, forceOptions],
   );

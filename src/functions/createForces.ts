@@ -8,11 +8,15 @@ import {
   DataLink,
   DataNode,
   ForceAttributeKey,
+  ForceKey,
+  ForceKeys,
   ForceOptions,
   Forces,
   HasNumberId,
 } from "../types";
 import { getForceCenter } from "../forces/forceCenter";
+
+type D3Force<T extends HasNumberId> = d3.Force<DataNode<T>, DataLink<T>>;
 
 export function createForces<T extends HasNumberId>(
   forceAttributeMap: (key: ForceAttributeKey) => number,
@@ -21,60 +25,56 @@ export function createForces<T extends HasNumberId>(
   links: DataLink<T>[],
   nodes: DataNode<T>[],
   forceOptions: ForceOptions,
+  overrideForces: Forces,
 ): Forces {
-  const forceX = forceOptions.forceX
-    ? getDepthGridX(
+  const defaultForceGetters: { [K in ForceKey]: () => D3Force<T> } = {
+    forceX: () =>
+      getDepthGridX(
         forceAttributeMap("forceXStrength"),
         () => forceAttributeMap("forceXStrength"),
         width,
-      )
-    : undefined;
-  const forceY = forceOptions.forceY
-    ? getDepthGridY(
+      ),
+    forceY: () =>
+      getDepthGridY(
         forceAttributeMap("forceYSpacing"),
         () => forceAttributeMap("forceYStrength"),
         height,
-      )
-    : undefined;
-
-  const manyBody = forceOptions.manyBody
-    ? getForceManyBody(
+      ),
+    manyBody: () =>
+      getForceManyBody(
         forceAttributeMap("manyBodyMaxDistance"),
         forceAttributeMap("manyBodyMinDistance"),
         () => forceAttributeMap("manyBodyStrength"),
-      )
-    : undefined;
-
-  const link = forceOptions.link
-    ? getLinkForceMinCosFallOffBusiestNode(
+      ),
+    link: () =>
+      getLinkForceMinCosFallOffBusiestNode(
         links,
         () => {
           return nodes.length;
         },
         forceAttributeMap("linkStrength"),
         forceAttributeMap("linkDistance"),
-      )
-    : undefined;
+      ),
+    center: () =>
+      getForceCenter(width, height, forceAttributeMap("centerStrength")),
+    collide: () => getForceCollide(20, forceAttributeMap("collideStrength")),
+    radial: () =>
+      getForceRadial(width, height, forceAttributeMap("forceRadialStrength")),
+  };
 
-  const center = forceOptions.center
-    ? getForceCenter(width, height, forceAttributeMap("centerStrength"))
-    : undefined;
+  const getForce = (forceKey: ForceKey) => {
+    return forceOptions[forceKey]
+      ? overrideForces[forceKey] ?? defaultForceGetters[forceKey]()
+      : undefined;
+  };
 
-  const collide = forceOptions.collide
-    ? getForceCollide(20, forceAttributeMap("collideStrength"))
-    : undefined;
-
-  const radial = forceOptions.radial
-    ? getForceRadial(width, height, forceAttributeMap("forceRadialStrength"))
-    : undefined;
+  const forcesEntryList = Object.entries(ForceKeys).map(([, value]) => [
+    value,
+    getForce(value),
+  ]);
+  const forces = Object.fromEntries(forcesEntryList) as Forces;
 
   return {
-    forceX,
-    forceY,
-    center,
-    manyBody,
-    collide,
-    link,
-    radial,
+    ...forces,
   };
 }

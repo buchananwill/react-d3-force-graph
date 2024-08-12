@@ -28,6 +28,7 @@
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "build": "tsc",
+
     "lint": "eslint --fix src",
     "validate": "npm run lint && npm run coverage && npm run build",
     "publish": "npm run validate && npm publish"

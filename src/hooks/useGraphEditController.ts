@@ -1,9 +1,5 @@
 import { useGraphController } from "./useGraphSelectiveContext";
-import {
-  EmptyArray,
-  GraphSelectiveContextKeys,
-  TransientIdOffset,
-} from "../literals";
+import { EmptyArray, GraphSelectiveContextKeys } from "../literals";
 import { MemoizedSupplier } from "../types";
 
 import { useGraphRefs } from "./useGraphRefs";
@@ -13,20 +9,23 @@ import { useLinkContext } from "./useLinkContext";
 
 const dimensionsStaticArray: number[] = [1800, 1200];
 
+/**
+ * Uses negative indexing, as the IDs assigned will be transient.
+ * */
 function useNextId(initialId?: number): MemoizedSupplier<number> {
   return useMemo(() => {
-    let nextId = initialId ?? 0;
+    let nextId = initialId ?? -1;
     return {
       get: () => {
-        return nextId++;
+        return nextId--;
       },
     };
   }, [initialId]);
 }
 
 export function useGraphEditController() {
-  const nextNodeId = useNextId(TransientIdOffset);
-  const nextLinkId = useNextId(TransientIdOffset);
+  const nextNodeId = useNextId(-1);
+  const nextLinkId = useNextId(-1);
 
   useGraphController(GraphSelectiveContextKeys.nextNodeId, nextNodeId);
   useGraphController(GraphSelectiveContextKeys.nextLinkId, nextLinkId);

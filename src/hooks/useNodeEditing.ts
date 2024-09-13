@@ -2,11 +2,7 @@
 
 import { useCallback, useMemo } from "react";
 import { useNodeCloneFunctionController } from "./useNodeCloneFunctionController";
-import {
-  EmptyArray,
-  GraphSelectiveContextKeys,
-  TransientIdOffset,
-} from "../literals";
+import { EmptyArray, GraphSelectiveContextKeys } from "../literals";
 import {
   useGraphController,
   useGraphDispatchAndListener,
@@ -31,8 +27,8 @@ import {
 } from "../functions/utils";
 import { mapLinkBackToClosureDto } from "../functions/mapLinkBackToClosureDto";
 
-function removeTransientId(id: number) {
-  return id < TransientIdOffset;
+function isIsNotTransient(id: number) {
+  return id > 0;
 }
 
 const listenerKey = "use-edit-component";
@@ -88,9 +84,9 @@ export function useNodeEditing<T extends HasNumberId>(
         closureDtos: linksWithNumberIdRefs,
       };
       const deletedLinkNonTransientIds =
-        deletedLinkIds.filter(removeTransientId);
+        deletedLinkIds.filter(isIsNotTransient);
       const deletedNodeNonTransientIds =
-        deletedNodeIds.filter(removeTransientId);
+        deletedNodeIds.filter(isIsNotTransient);
 
       const request: GraphDtoPutRequestBody<T> = {
         graphDto: updatedGraph,

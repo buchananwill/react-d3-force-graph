@@ -1,6 +1,6 @@
 import * as D3 from "d3";
 import * as d3 from "d3";
-import { Simulation, SimulationNodeDatum } from "d3";
+import { ForceX, Simulation, SimulationNodeDatum } from "d3";
 
 import { DataLink, DataNode, HasNumberId } from "../types";
 import { updateForce } from "./updateForce";
@@ -75,6 +75,11 @@ export function updateForceX<T extends HasNumberId>(
   forceXStrength: number,
   forceXSpacing: number,
 ) {
-  const modulusGridX = getDepthGridX(forceXSpacing, forceXStrength);
-  currentSim.force("forceX", modulusGridX);
+  const force = currentSim.force("forceX") as ForceX<DataNode<T>> | undefined;
+  if (!force) return;
+  else {
+    // const modulusGridX = getDepthGridX(forceXSpacing, forceXStrength);
+    console.log(forceXSpacing);
+    force.strength(forceXStrength);
+  }
 }

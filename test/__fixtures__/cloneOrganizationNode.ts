@@ -1,6 +1,10 @@
 import { Organization } from "./adaptors";
-import { DataNode } from "../../src/types";
-import { incrementCloneSuffix, TransientIdOffset } from "../../src";
+import { DataNode } from "../../src";
+import { incrementCloneSuffix } from "../../src";
+
+function makeIdTransient(id: number) {
+  return id < 0 ? id : 0 - id;
+}
 
 export function cloneOrganizationNode(
   templateNode: DataNode<Organization>,
@@ -13,7 +17,7 @@ export function cloneOrganizationNode(
   const {
     data: { workSeriesBundleAssignment },
   } = clonedNode;
-  workSeriesBundleAssignment.id = TransientIdOffset + templateNode.data.id;
+  workSeriesBundleAssignment.id = makeIdTransient(templateNode.data.id);
 
   return {
     ...clonedNode,

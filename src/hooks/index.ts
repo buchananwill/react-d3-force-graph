@@ -17,3 +17,4 @@ export * from "./useNodeCloneFunctionController";
 export * from "./useSyncRefVersionToNodeAndLinkContext";
 
 export { reMapNodeIdWithoutValidating } from "../functions/utils";
+export { useForceAttributeListeners } from "./useForceAttributeListenersDEPRECATED";

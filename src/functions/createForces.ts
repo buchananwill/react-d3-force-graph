@@ -63,9 +63,9 @@ export function createForces<T extends HasNumberId>(
   };
 
   const getForce = (forceKey: ForceKey) => {
-    return forceOptions[forceKey]
-      ? overrideForces[forceKey] ?? defaultForceGetters[forceKey]()
-      : undefined;
+    if (forceOptions[forceKey]) {
+      return overrideForces[forceKey] ?? defaultForceGetters[forceKey]();
+    } else return undefined;
   };
 
   const forcesEntryList = Object.entries(ForceKeys).map(([, value]) => [

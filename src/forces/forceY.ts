@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { Simulation, SimulationNodeDatum } from "d3";
+import { ForceY, Simulation, SimulationNodeDatum } from "d3";
 
 import { DataLink, DataNode, HasNumberId } from "../types";
 import { exponentForPositionalForcesToCreateCurvedDelta } from "./forceX";
@@ -38,20 +38,11 @@ export function updateForceY<T extends HasNumberId>(
   forceYStrength: number,
   forceYSpacing: number,
 ) {
-  const modulusGridY = getDepthGridY(forceYSpacing, forceYStrength);
-  currentSim.force("forceY", modulusGridY);
-
-  // function consumer(forceY: d3.ForceY<DataNode<T>>) {
-  //   const strength =
-  //     forceYStrength === 0
-  //       ? 0
-  //       : Math.pow(
-  //           forceYStrength,
-  //           exponentForPositionalForcesToCreateCurvedDelta,
-  //         );
-  //   const finalStrength = strength > 0.001 ? strength : 0;
-  //   forceY.strength(finalStrength);
-  // }
-  //
-  // updateForce(currentSim, "forceY", consumer);
+  const force = currentSim.force("forceY") as ForceY<DataNode<T>> | undefined;
+  if (!force) return;
+  else {
+    // const modulusGridX = getDepthGridX(forceXSpacing, forceXStrength);
+    console.log(forceYSpacing);
+    force.strength(forceYStrength);
+  }
 }

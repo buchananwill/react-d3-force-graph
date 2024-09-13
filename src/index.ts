@@ -22,7 +22,7 @@ export {
   ForceNormalizationCategory,
   useAllEdits,
   useDirectSimRefEditsDispatch,
-  useForceAttributeListeners,
+  useForceAttributeListenerGroup,
   useGraphEditController,
   useGraphName,
   useGraphRefs,

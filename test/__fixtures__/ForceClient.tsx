@@ -66,7 +66,6 @@ export default function ForceClient({
     nodeDtoValidation,
     closureDtoValidation,
   );
-  useAllEdits();
 
   const { currentState: addNodes } = useGraphListener(
     GraphSelectiveContextKeys.addNodes,

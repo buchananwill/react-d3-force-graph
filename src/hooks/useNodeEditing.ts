@@ -26,6 +26,7 @@ import {
   reMapNodeIdWithoutValidating,
 } from "../functions/utils";
 import { mapLinkBackToClosureDto } from "../functions/mapLinkBackToClosureDto";
+import { useAllEdits } from "./useAllEdits";
 
 function isIsNotTransient(id: number) {
   return id > 0;
@@ -105,6 +106,9 @@ export function useNodeEditing<T extends HasNumberId>(
     dispatchWithoutControl,
     putUpdatedGraph,
   ]);
+
+  useAllEdits();
+
   return useMemo(
     () => ({
       unsavedChanges: currentState,

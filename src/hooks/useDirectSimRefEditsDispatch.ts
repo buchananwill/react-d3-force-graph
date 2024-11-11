@@ -8,7 +8,7 @@ import {
   HasNumberId,
 } from "../types";
 
-import { MutableRefObject, useCallback, useContext, useMemo } from "react";
+import { MutableRefObject, useCallback, useContext } from "react";
 import { useGraphDispatch, useGraphListener } from "./useGraphSelectiveContext";
 
 import { Simulation } from "d3";

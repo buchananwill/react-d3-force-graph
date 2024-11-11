@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import {
   useGraphController,
@@ -46,36 +46,34 @@ export function useAddNodes<T extends HasNumberId>() {
     DataLink<T> | undefined
   >(GraphSelectiveContextKeys.templateLink, addNodesController, undefined);
 
-  const handleCreateNodes = useMemo(
-    () =>
-      (
-        sourceNodes: DataNode<T>[],
-        relation: Relation,
-        allNodes: DataNode<T>[],
-        allLinks: DataLink<T>[],
-      ): [DataNode<T>[], DataLink<T>[], DataNode<T>[], DataLink<T>[]] => {
-        if (templateNode === undefined)
-          throw Error("No template node defined.");
-        const templates = sourceNodes.length > 0 ? sourceNodes : [templateNode];
-        const { allNodes: allNodesUpdate, createdNodes } = createNodes({
-          getNextNodeId, // Use a private scoped variable to make this function re-render-proof
-          sourceNodes: templates,
-          allNodes,
-          relation,
-          cloneFunction: memoizedFunction,
-        });
+  const handleCreateNodes = useCallback(
+    (
+      sourceNodes: DataNode<T>[],
+      relation: Relation,
+      allNodes: DataNode<T>[],
+      allLinks: DataLink<T>[],
+    ): [DataNode<T>[], DataLink<T>[], DataNode<T>[], DataLink<T>[]] => {
+      if (templateNode === undefined) throw Error("No template node defined.");
+      const templates = sourceNodes.length > 0 ? sourceNodes : [templateNode];
+      const { allNodes: allNodesUpdate, createdNodes } = createNodes({
+        getNextNodeId, // Use a private scoped variable to make this function re-render-proof
+        sourceNodes: templates,
+        allNodes,
+        relation,
+        cloneFunction: memoizedFunction,
+      });
 
-        const { allLinksUpdated, newLinks } = createLinks<T>({
-          references: templates,
-          newNodes: createdNodes,
-          allLinks,
-          getNextLinkId,
-          relation: relation,
-          templateLink,
-        });
+      const { allLinksUpdated, newLinks } = createLinks<T>({
+        references: templates,
+        newNodes: createdNodes,
+        allLinks,
+        getNextLinkId,
+        relation: relation,
+        templateLink,
+      });
 
-        return [allNodesUpdate, allLinksUpdated, createdNodes, newLinks];
-      },
+      return [allNodesUpdate, allLinksUpdated, createdNodes, newLinks];
+    },
     [memoizedFunction, getNextLinkId, getNextNodeId],
   );
 

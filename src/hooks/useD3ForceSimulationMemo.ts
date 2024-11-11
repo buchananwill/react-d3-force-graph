@@ -12,7 +12,7 @@ import {
 import { useForceAttributeListenerGroup } from "./useForceAttributeListeners";
 import { useGraphListener } from "./useGraphSelectiveContext";
 
-import { GraphSelectiveContextKeys } from "../literals";
+import { defaultDimensionArray, GraphSelectiveContextKeys } from "../literals";
 
 import { useGraphRefs } from "./useGraphRefs";
 import { createForces } from "../functions/createForces";
@@ -21,8 +21,6 @@ import { updateForces } from "../functions/updateForces";
 import { ObjectPlaceholder } from "selective-context";
 
 const listenerKey = `force-sim`;
-
-export const defaultDimensionArray = [1800, 1200];
 
 export function useD3ForceSimulationMemo<T extends HasNumberId>(params?: {
   forceFunctions: Forces;

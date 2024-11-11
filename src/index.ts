@@ -18,7 +18,6 @@ export {
   useNodeEditing,
   useD3ForceSimulationMemo,
   useGraphSelectiveContextKey,
-  defaultDimensionArray,
   ForceNormalizationCategory,
   useAllEdits,
   useDirectSimRefEditsDispatch,

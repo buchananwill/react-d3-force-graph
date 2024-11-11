@@ -49,9 +49,9 @@ const updateKeySets = [
     ],
     updater: updateManyBodyForce,
   },
-  { keys: ["forceXStrength", "forceXSpacing"], updater: updateForceX },
+  { keys: ["forceXStrength"], updater: updateForceX },
   {
-    keys: ["forceYStrength", "forceYSpacing"],
+    keys: ["forceYStrength"],
     updater: updateForceY,
   },
   { keys: ["forceRadialStrength"], updater: updateForceRadial },

@@ -25,7 +25,6 @@ export function createNodes<T extends HasNumberId>(
     const { data, ...otherFields } = cloneFunction(node);
     const nextId = getNextNodeId();
     data.id = nextId;
-    // const newDistance = relation === "sibling" ? distanceFromRoot : distanceFromRoot + 1;
     const createdNode = {
       ...otherFields,
       id: `${nextId}`,

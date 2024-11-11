@@ -3,13 +3,11 @@ import React, { MutableRefObject } from "react";
 
 export type DataNode<T extends HasNumberId> = SimulationNodeDatum & {
   id: string;
-  distanceFromRoot: number;
   data: T;
 };
 
 export interface DataNodeDto<T extends HasNumberId> {
   id: number;
-  distanceFromRoot: number;
   data: T;
 }
 

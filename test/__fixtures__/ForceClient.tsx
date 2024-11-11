@@ -139,7 +139,6 @@ export const TemplateOrganizationNode = {
     },
   },
   id: "1",
-  distanceFromRoot: 0,
 };
 
 export const TemplateOrganizationLink = {

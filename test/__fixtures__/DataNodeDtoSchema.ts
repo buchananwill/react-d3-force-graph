@@ -8,7 +8,6 @@ import { DataNode } from "../../src";
 export function createDataNodeDtoSchema<T extends z.ZodTypeAny>(dataSchema: T) {
   return z.object({
     id: z.number(),
-    distanceFromRoot: z.number(),
     data: dataSchema, // Use the passed schema here
   });
 }

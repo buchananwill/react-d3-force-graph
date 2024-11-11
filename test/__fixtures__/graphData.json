@@ -14,8 +14,7 @@
           "workSeriesSchemaBundleId": "fe90e8de-70f4-48b3-a5d4-bf8d616c8d65"
         }
       },
-      "id": 1446,
-      "distanceFromRoot": 0
+      "id": 1446
     },
     {
       "data": {
@@ -31,8 +30,7 @@
           "workSeriesSchemaBundleId": "5070afd8-5dc5-4e2f-bdca-1272ac6e513d"
         }
       },
-      "id": 1450,
-      "distanceFromRoot": 1
+      "id": 1450
     },
     {
       "data": {
@@ -48,8 +46,7 @@
           "workSeriesSchemaBundleId": "5070afd8-5dc5-4e2f-bdca-1272ac6e513d"
         }
       },
-      "id": 1452,
-      "distanceFromRoot": 1
+      "id": 1452
     },
     {
       "data": {
@@ -65,8 +62,7 @@
           "workSeriesSchemaBundleId": "d7cf002c-4990-4629-af57-2de434f2abd0"
         }
       },
-      "id": 1441,
-      "distanceFromRoot": 1
+      "id": 1441
     },
     {
       "data": {
@@ -82,8 +78,7 @@
           "workSeriesSchemaBundleId": "d7cf002c-4990-4629-af57-2de434f2abd0"
         }
       },
-      "id": 1443,
-      "distanceFromRoot": 1
+      "id": 1443
     },
     {
       "data": {
@@ -99,8 +94,7 @@
           "workSeriesSchemaBundleId": "d7cf002c-4990-4629-af57-2de434f2abd0"
         }
       },
-      "id": 1444,
-      "distanceFromRoot": 1
+      "id": 1444
     },
     {
       "data": {
@@ -116,8 +110,7 @@
           "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
         }
       },
-      "id": 1442,
-      "distanceFromRoot": 2
+      "id": 1442
     },
     {
       "data": {
@@ -133,8 +126,7 @@
           "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
         }
       },
-      "id": 1445,
-      "distanceFromRoot": 2
+      "id": 1445
     },
     {
       "data": {
@@ -150,8 +142,7 @@
           "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
         }
       },
-      "id": 1447,
-      "distanceFromRoot": 2
+      "id": 1447
     },
     {
       "data": {
@@ -167,8 +158,7 @@
           "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
         }
       },
-      "id": 1448,
-      "distanceFromRoot": 2
+      "id": 1448
     },
     {
       "data": {
@@ -184,8 +174,7 @@
           "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
         }
       },
-      "id": 1449,
-      "distanceFromRoot": 2
+      "id": 1449
     },
     {
       "data": {
@@ -201,8 +190,7 @@
           "workSeriesSchemaBundleId": "ec63954c-78d2-49ab-a1fd-f697fdb32701"
         }
       },
-      "id": 1451,
-      "distanceFromRoot": 2
+      "id": 1451
     }
   ],
   "closureDtos": [

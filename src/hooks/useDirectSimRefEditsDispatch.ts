@@ -45,7 +45,6 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
         updateNodes(
           updatedNodes.map((n) => ({
             ...n,
-            // position: { x: n.x, y: n.y }  // This ought to be irrelevant but looks related to xyflow...
           })),
         );
         updateLinks(resetLinksWithIdNotReferences);

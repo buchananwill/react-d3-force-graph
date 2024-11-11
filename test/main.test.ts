@@ -35,7 +35,7 @@ const options: ForceGraphPageOptions = {
     manyBody: true,
     collide: true,
     center: true,
-    radial: true,
+    custom: true,
     forceY: true,
     forceX: true,
   },

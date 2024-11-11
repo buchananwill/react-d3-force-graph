@@ -7,7 +7,7 @@ export const ForceKeys = {
   manyBody: "manyBody",
   collide: "collide",
   center: "center",
-  radial: "radial",
+  custom: "custom",
   forceX: "forceX",
   forceY: "forceY",
 } as const;

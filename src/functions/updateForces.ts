@@ -4,7 +4,7 @@ import { updateLinkForce } from "../forces/forceLink";
 import { updateManyBodyForce } from "../forces/forceManyBody";
 import { updateForceX } from "../forces/forceX";
 import { updateForceY } from "../forces/forceY";
-import { updateForceRadial } from "../forces/forceRadial";
+import { updateForceCustom } from "../forces/forceCustom";
 import { updateCollideForce } from "../forces/forceCollide";
 
 export function updateForces<T extends HasNumberId>(
@@ -54,7 +54,7 @@ const updateKeySets = [
     keys: ["forceYStrength"],
     updater: updateForceY,
   },
-  { keys: ["forceRadialStrength"], updater: updateForceRadial },
+  { keys: ["forceCustomStrength"], updater: updateForceCustom },
 ];
 
 export type ForceUpdater<T extends HasNumberId> = (

@@ -3,7 +3,6 @@ import { getDepthGridY } from "../forces/forceY";
 import { getForceManyBody } from "../forces/forceManyBody";
 import { getLinkForceMinCosFallOffBusiestNode } from "../forces/forceLink";
 import { getForceCollide } from "../forces/forceCollide";
-import { getForceRadial } from "../forces/forceRadial";
 import {
   DataLink,
   DataNode,
@@ -27,7 +26,7 @@ export function createForces<T extends HasNumberId>(
   forceOptions: ForceOptions,
   overrideForces: Forces,
 ): Forces {
-  const defaultForceGetters: { [K in ForceKey]: () => D3Force<T> } = {
+  const defaultForceGetters: { [K in ForceKey]?: () => D3Force<T> } = {
     forceX: () =>
       getDepthGridX(() => forceAttributeMap("forceXStrength"), width),
     forceY: () =>
@@ -50,13 +49,17 @@ export function createForces<T extends HasNumberId>(
     center: () =>
       getForceCenter(width, height, forceAttributeMap("centerStrength")),
     collide: () => getForceCollide(20, forceAttributeMap("collideStrength")),
-    radial: () =>
-      getForceRadial(width, height, forceAttributeMap("forceRadialStrength")),
   };
 
   const getForce = (forceKey: ForceKey) => {
     if (forceOptions[forceKey]) {
-      return overrideForces[forceKey] ?? defaultForceGetters[forceKey]();
+      const overrideForce = overrideForces[forceKey];
+      const defaultForceGetter = defaultForceGetters[forceKey];
+      return overrideForce !== undefined
+        ? overrideForce
+        : defaultForceGetter !== undefined
+          ? defaultForceGetter()
+          : undefined;
     } else return undefined;
   };
 

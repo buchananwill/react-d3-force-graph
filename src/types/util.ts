@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import { Simulation, SimulationLinkDatum, SimulationNodeDatum } from "d3";
 import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
 
@@ -77,4 +78,15 @@ export interface DirectSimRefEditsDispatchReturn<T extends HasNumberId> {
   linkListRef: null | MutableRefObject<DataLink<T>[]>;
   nodeListRef: null | MutableRefObject<DataNode<T>[]>;
   simRef: null | MutableRefObject<Simulation<DataNode<T>, DataLink<T>>>;
+}
+
+export interface ForceWithStrength<
+  NodeDatum extends SimulationNodeDatum,
+  LinkDatum extends SimulationLinkDatum<NodeDatum>,
+> extends d3.Force<NodeDatum, LinkDatum> {
+  strength(): (d: NodeDatum, i: number, data: NodeDatum[]) => number;
+
+  strength(
+    strength: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number),
+  ): this;
 }

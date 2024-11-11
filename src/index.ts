@@ -37,3 +37,4 @@ export {
 export * from "./functions/utils";
 export { ForceGraphPage, ComponentUndefined } from "./components";
 export * from "./types";
+export { ForceWithStrength } from "./types/util";

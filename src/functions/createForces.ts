@@ -4,6 +4,7 @@ import { getForceManyBody } from "../forces/forceManyBody";
 import { getLinkForceMinCosFallOffBusiestNode } from "../forces/forceLink";
 import { getForceCollide } from "../forces/forceCollide";
 import {
+  D3Force,
   DataLink,
   DataNode,
   ForceAttributeKey,
@@ -14,8 +15,6 @@ import {
   HasNumberId,
 } from "../types";
 import { getForceCenter } from "../forces/forceCenter";
-
-type D3Force<T extends HasNumberId> = d3.Force<DataNode<T>, DataLink<T>>;
 
 export function createForces<T extends HasNumberId>(
   forceAttributeMap: (key: ForceAttributeKey) => number,

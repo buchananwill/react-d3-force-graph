@@ -11,7 +11,5 @@ export const ForceAttributesInitial = {
   manyBodyMaxDistance: 400,
   forceXStrength: 0,
   forceYStrength: 0,
-  forceRadialStrength: 0,
-  forceRadialXRelative: 100,
-  forceRadialYRelative: 100,
+  customStrength: 0,
 } as const;

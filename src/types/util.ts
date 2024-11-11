@@ -1,5 +1,10 @@
 import * as d3 from "d3";
-import { Simulation, SimulationLinkDatum, SimulationNodeDatum } from "d3";
+import {
+  Force,
+  Simulation,
+  SimulationLinkDatum,
+  SimulationNodeDatum,
+} from "d3";
 import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 export type DataNode<T extends HasNumberId> = SimulationNodeDatum & {
@@ -85,8 +90,10 @@ export interface ForceWithStrength<
   LinkDatum extends SimulationLinkDatum<NodeDatum>,
 > extends d3.Force<NodeDatum, LinkDatum> {
   strength(): (d: NodeDatum, i: number, data: NodeDatum[]) => number;
-
   strength(
     strength: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number),
   ): this;
+  initialize(nodes: NodeDatum[], random: () => number): void;
 }
+
+export type D3Force<T extends HasNumberId> = Force<DataNode<T>, DataLink<T>>;

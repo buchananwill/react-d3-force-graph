@@ -8,7 +8,7 @@ import {
   HasNumberId,
 } from "../types";
 
-import { MutableRefObject, useContext, useMemo } from "react";
+import { MutableRefObject, useCallback, useContext, useMemo } from "react";
 import { useGraphDispatch, useGraphListener } from "./useGraphSelectiveContext";
 
 import { Simulation } from "d3";
@@ -38,8 +38,8 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
   const { currentState: simRef } = useGraphListener<MutableRefObject<
     Simulation<DataNode<T>, DataLink<T>>
   > | null>(GraphSelectiveContextKeys.sim, listenerKey, null);
-  const dispatchNextSimVersion = useMemo(() => {
-    return (updatedNodes: DataNode<T>[], updatedLinks: DataLink<T>[]) => {
+  const dispatchNextSimVersion = useCallback(
+    (updatedNodes: DataNode<T>[], updatedLinks: DataLink<T>[]) => {
       if (updateNodes && updateLinks) {
         const resetLinksWithIdNotReferences = resetLinks(updatedLinks);
         updateNodes(
@@ -48,7 +48,8 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
         updateLinks(resetLinksWithIdNotReferences);
         dispatchUnsavedGraph(true);
       }
-    };
-  }, [dispatchUnsavedGraph, updateLinks, updateNodes]);
+    },
+    [dispatchUnsavedGraph, updateLinks, updateNodes],
+  );
   return { dispatchNextSimVersion, nodeListRef, linkListRef, simRef };
 }

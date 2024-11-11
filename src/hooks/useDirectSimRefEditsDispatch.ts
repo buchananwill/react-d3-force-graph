@@ -43,7 +43,10 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
       if (updateNodes && updateLinks) {
         const resetLinksWithIdNotReferences = resetLinks(updatedLinks);
         updateNodes(
-          updatedNodes.map((n) => ({ ...n, position: { x: n.x, y: n.y } })),
+          updatedNodes.map((n) => ({
+            ...n,
+            // position: { x: n.x, y: n.y }  // This ought to be irrelevant but looks related to xyflow...
+          })),
         );
         updateLinks(resetLinksWithIdNotReferences);
         dispatchUnsavedGraph(true);

@@ -18,20 +18,17 @@ export function createNodes<T extends HasNumberId>(
     sourceNodes,
     getNextNodeId,
     allNodes: oldNodes,
-    relation,
     cloneFunction,
   } = createNodeParams;
   const createdNodes: DataNode<T>[] = [];
   for (const node of sourceNodes) {
-    const { distanceFromRoot, data, ...otherFields } = cloneFunction(node);
+    const { data, ...otherFields } = cloneFunction(node);
     const nextId = getNextNodeId();
     data.id = nextId;
-    const newDistance =
-      relation === "sibling" ? distanceFromRoot : distanceFromRoot + 1;
+    // const newDistance = relation === "sibling" ? distanceFromRoot : distanceFromRoot + 1;
     const createdNode = {
       ...otherFields,
       id: `${nextId}`,
-      distanceFromRoot: newDistance,
       data: data,
     };
     createdNodes.push(createdNode);

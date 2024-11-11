@@ -36,7 +36,7 @@ export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
 
   const { dispatchWithoutListen: dispatchUnsavedGraph } =
     useGraphDispatch<boolean>("unsaved-node-data");
-  useGraphDispatch(GraphSelectiveContextKeys.running);
+  useGraphDispatch(GraphSelectiveContextKeys.running); // TODO: REMOVE - this is not doing anything
 
   useGraphListener<number>("version", listenerKey, 0);
 

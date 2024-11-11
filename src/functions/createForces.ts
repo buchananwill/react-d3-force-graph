@@ -29,17 +29,9 @@ export function createForces<T extends HasNumberId>(
 ): Forces {
   const defaultForceGetters: { [K in ForceKey]: () => D3Force<T> } = {
     forceX: () =>
-      getDepthGridX(
-        forceAttributeMap("forceXStrength"),
-        () => forceAttributeMap("forceXStrength"),
-        width,
-      ),
+      getDepthGridX(() => forceAttributeMap("forceXStrength"), width),
     forceY: () =>
-      getDepthGridY(
-        forceAttributeMap("forceYSpacing"),
-        () => forceAttributeMap("forceYStrength"),
-        height,
-      ),
+      getDepthGridY(() => forceAttributeMap("forceYStrength"), height),
     manyBody: () =>
       getForceManyBody(
         forceAttributeMap("manyBodyMaxDistance"),

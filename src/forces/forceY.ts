@@ -5,7 +5,6 @@ import { DataLink, DataNode, HasNumberId } from "../types";
 import { exponentForPositionalForcesToCreateCurvedDelta } from "./forceX";
 
 export function getDepthGridY<T extends HasNumberId>(
-  spacing: number,
   strength?:
     | number
     | ((
@@ -24,11 +23,11 @@ export function getDepthGridY<T extends HasNumberId>(
   }
 
   return d3
-    .forceY((_d: DataNode<T>) => {
-      const distanceFromRoot = _d.distanceFromRoot;
-      if (distanceFromRoot === undefined || isNaN(distanceFromRoot))
-        return height / 2;
-      else return distanceFromRoot * spacing;
+    .forceY((_d: DataNode<T>, i, data) => {
+      const centerOffset = height / 2;
+      return (
+        centerOffset - centerOffset * Math.cos((i / data.length) * Math.PI * 2)
+      );
     })
     .strength(staticStrength ?? strength ?? 0);
 }
@@ -36,13 +35,10 @@ export function getDepthGridY<T extends HasNumberId>(
 export function updateForceY<T extends HasNumberId>(
   currentSim: Simulation<DataNode<T>, DataLink<T>>,
   forceYStrength: number,
-  forceYSpacing: number,
 ) {
   const force = currentSim.force("forceY") as ForceY<DataNode<T>> | undefined;
   if (!force) return;
   else {
-    // const modulusGridX = getDepthGridX(forceXSpacing, forceXStrength);
-    console.log(forceYSpacing);
     force.strength(forceYStrength);
   }
 }

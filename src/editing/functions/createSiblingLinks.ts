@@ -8,7 +8,9 @@ export function createSiblingLinks<T extends HasNumberId>(
 ) {
   const newLinks: DataLink<T>[] = [];
   const linksAsChild = allLinks.filter(
-    (l) => (l.target as DataNode<T>).id === referenceNode.id,
+    (l) =>
+      (l.target as DataNode<T>).id === referenceNode.id ||
+      (l.target as string) === referenceNode.id,
   );
   linksAsChild
     .map((l, index) => {

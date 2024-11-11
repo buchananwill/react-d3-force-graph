@@ -8,13 +8,7 @@ import {
   HasNumberId,
 } from "../types";
 
-import {
-  Dispatch,
-  MutableRefObject,
-  SetStateAction,
-  useContext,
-  useMemo,
-} from "react";
+import { MutableRefObject, useContext, useMemo } from "react";
 import { useGraphDispatch, useGraphListener } from "./useGraphSelectiveContext";
 
 import { Simulation } from "d3";

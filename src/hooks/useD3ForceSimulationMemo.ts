@@ -95,6 +95,8 @@ export function useD3ForceSimulationMemo<T extends HasNumberId>(params?: {
     } else {
       if (simVersionRef.current !== simVersion) {
         simulationRefCurrent?.nodes(nodesMutable);
+        // 11-11-24 I remember that the reason for this is that the link force must be re-initialized when the topology changes.
+        // TODO Find a declarative way to express this dependency and/or re-initialized all/relevant forces when the topology changes.
         const force = simulationRefCurrent?.force("link");
         if (force) {
           const forceLink = force as d3.ForceLink<DataNode<T>, DataLink<T>>;

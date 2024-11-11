@@ -1,5 +1,5 @@
 import { Simulation, SimulationLinkDatum, SimulationNodeDatum } from "d3";
-import React, { MutableRefObject } from "react";
+import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 export type DataNode<T extends HasNumberId> = SimulationNodeDatum & {
   id: string;
@@ -52,6 +52,8 @@ export interface MemoizedSupplier<T> {
 export type Predicate<T> = (arg: T) => boolean;
 
 export type CloneFunction<T extends HasId> = (object: T) => T;
+
+export type DispatchState<T> = Dispatch<SetStateAction<T>>;
 
 export interface GraphDtoPutRequestBody<T extends HasNumberId> {
   graphDto: GraphDto<T>;

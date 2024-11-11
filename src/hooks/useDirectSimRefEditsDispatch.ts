@@ -2,6 +2,7 @@ import {
   DataLink,
   DataNode,
   DirectSimRefEditsDispatchReturn,
+  DispatchState,
   EditLinkDispatchContext,
   EditNodeDispatchContext,
   HasNumberId,
@@ -27,12 +28,12 @@ import { resetLinks } from "../editing/functions/resetLinks";
 export function useDirectSimRefEditsDispatch<T extends HasNumberId>(
   listenerKey: string,
 ): DirectSimRefEditsDispatchReturn<T> {
-  const updateNodes = useContext<
-    Dispatch<SetStateAction<DataNode<T>[]>> | undefined
-  >(NodeDispatchContext as EditNodeDispatchContext<T>);
-  const updateLinks = useContext<
-    Dispatch<SetStateAction<DataLink<T>[]>> | undefined
-  >(LinkDispatchContext as EditLinkDispatchContext<T>);
+  const updateNodes = useContext<DispatchState<DataNode<T>[]> | undefined>(
+    NodeDispatchContext as EditNodeDispatchContext<T>,
+  );
+  const updateLinks = useContext<DispatchState<DataLink<T>[]> | undefined>(
+    LinkDispatchContext as EditLinkDispatchContext<T>,
+  );
 
   const { dispatchWithoutListen: dispatchUnsavedGraph } =
     useGraphDispatch<boolean>("unsaved-node-data");

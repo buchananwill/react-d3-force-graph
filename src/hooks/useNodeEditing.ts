@@ -96,14 +96,6 @@ export function useNodeEditing<T extends HasNumberId>(
       // TODO: handle the happy and sad paths.
 
       await putUpdatedGraph(request);
-
-      //   .then((r) => {
-      //   // if (r.status == 200) {
-      //   // Would need a function parameter that can update the client state with the received data - effectively replacing the state, since we cannot provide any guarantees about matching up new entities with unknown IDs.
-      //   // }
-      // });
-
-      // dispatchWithoutControl(false);
     }
   }, [
     deletedLinkIds,

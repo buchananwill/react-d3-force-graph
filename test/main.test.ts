@@ -21,8 +21,6 @@ import { getIdFromLinkReference } from "../src/editing/functions/resetLinks";
 const options: ForceGraphPageOptions = {
   forceSlidersVisibleInitial: {
     manyBodyTheta: false,
-    forceRadialXRelative: false,
-    forceRadialYRelative: false,
     centerStrength: false,
   },
   forceAttributesInitial: {

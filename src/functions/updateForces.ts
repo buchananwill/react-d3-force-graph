@@ -54,7 +54,7 @@ const updateKeySets = [
     keys: ["forceYStrength"],
     updater: updateForceY,
   },
-  { keys: ["forceCustomStrength"], updater: updateForceCustom },
+  { keys: ["customStrength"], updater: updateForceCustom },
 ];
 
 export type ForceUpdater<T extends HasNumberId> = (

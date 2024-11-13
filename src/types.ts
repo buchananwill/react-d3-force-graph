@@ -5,4 +5,3 @@ export * from "./types/simOptions";
 export * from "./types/forceGraphPageProps";
 export * from "./types/forceAttributes";
 export * from "./types/unsavedNodeChangesProps";
-export * from "./types/forceAttributeListenersReturn";

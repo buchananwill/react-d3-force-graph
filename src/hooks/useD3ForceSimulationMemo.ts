@@ -1,5 +1,4 @@
 import { MutableRefObject, useCallback, useMemo, useRef } from "react";
-import * as d3 from "d3";
 import { Simulation } from "d3";
 
 import {
